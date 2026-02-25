@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goodlugg Door-to-Door Delivery Korea</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #5b2d8e;
+    --purple-dark: #3b0764;
+    --purple-light: #f3e8ff;
+    --green: #9dce2e;
+    --green-dark: #7aaa1a;
+    --orange: #f59e0b;
+    --text: #1e293b;
+    --text-soft: #64748b;
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #e2e8f0;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 60px;
+    color: var(--text);
+  }
+
+  .phone {
+    width: 390px;
+    background: var(--bg);
+    box-shadow: 0 0 60px rgba(0,0,0,0.15);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-back {
+    color: var(--purple); font-size: 13px; font-weight: 700;
+    text-decoration: none; display: flex; align-items: center; gap: 4px;
+  }
+  .logo { font-size: 20px; font-weight: 800; color: var(--purple); }
+  .logo span { color: var(--green); }
+  .nav-menu { font-size: 20px; color: var(--purple); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
+    padding: 32px 20px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -30px; right: -20px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(157,206,46,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(157,206,46,0.2);
+    color: var(--green);
+    font-size: 10px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 5px 12px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 24px; font-weight: 800; color: var(--white);
+    line-height: 1.25; margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-size: 13px; color: rgba(255,255,255,0.75);
+    line-height: 1.65; margin-bottom: 16px;
+  }
+  .hero-tagline {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px; font-weight: 600; color: var(--white);
+    line-height: 1.5;
+  }
+  .hero-tagline span { color: var(--green); }
+
+  /* NOTICE BANNER */
+  .notice {
+    background: #fffbeb;
+    border-left: 4px solid var(--orange);
+    margin: 16px 16px 0;
+    border-radius: 0 10px 10px 0;
+    padding: 12px 14px;
+    font-size: 12px; color: #92400e;
+    line-height: 1.6;
+  }
+  .notice strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+  /* ESTIMATOR CARD */
+  .estimator {
+    margin: 16px;
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(91,45,142,0.08);
+  }
+  .estimator-header {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    padding: 18px 20px;
+  }
+  .estimator-header h2 {
+    font-size: 18px; font-weight: 800; color: var(--white);
+    margin-bottom: 4px;
+  }
+  .estimator-header p {
+    font-size: 12px; color: rgba(255,255,255,0.7);
+  }
+
+  .estimator-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+
+  /* Input fields */
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 12px; font-weight: 700; color: var(--text-soft);
+    text-transform: uppercase; letter-spacing: 0.8px;
+  }
+  .field input, .field select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px; font-weight: 500;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+  .field input:focus, .field select:focus {
+    outline: none;
+    border-color: var(--purple);
+    background: var(--white);
+  }
+  .field input::placeholder { color: #cbd5e1; }
+
+  /* Route arrow */
+  .route-arrow {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--purple); font-size: 20px; margin: -6px 0;
+  }
+
+  /* Luggage counter section */
+  .luggage-section { display: flex; flex-direction: column; gap: 12px; }
+  .luggage-section-title {
+    font-size: 12px; font-weight: 700; color: var(--text-soft);
+    text-transform: uppercase; letter-spacing: 0.8px;
+  }
+
+  .bag-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .bag-info { display: flex; flex-direction: column; gap: 2px; }
+  .bag-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .bag-desc { font-size: 11px; color: var(--text-soft); }
+
+  .counter {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .counter-btn {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--white);
+    color: var(--purple); font-size: 18px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; line-height: 1;
+    font-family: inherit;
+  }
+  .counter-btn:hover { border-color: var(--purple); background: var(--purple-light); }
+  .counter-val {
+    font-size: 18px; font-weight: 800; color: var(--text);
+    min-width: 20px; text-align: center;
+  }
+
+  /* Calculate button */
+  .calc-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: var(--white);
+    font-size: 15px; font-weight: 800;
+    border: none; border-radius: 12px;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .calc-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(91,45,142,0.3); }
+  .calc-btn:active { transform: translateY(0); }
+
+  /* RESULT */
+  .result {
+    display: none;
+    margin: 0 16px 16px;
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(91,45,142,0.08);
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .result.visible { display: block; }
+
+  .result-header {
+    background: linear-gradient(135deg, #166534, #15803d);
+    padding: 16px 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .result-header-icon { font-size: 24px; }
+  .result-header h3 { font-size: 16px; font-weight: 800; color: var(--white); }
+  .result-header p { font-size: 12px; color: rgba(255,255,255,0.75); }
+
+  .result-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+  .result-route {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--text-soft);
+    background: var(--bg); border-radius: 8px; padding: 10px 12px;
+  }
+  .result-route strong { color: var(--text); }
+
+  .price-breakdown { display: flex; flex-direction: column; gap: 8px; }
+  .price-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+  .price-row-label { color: var(--text-soft); }
+  .price-row-val { font-weight: 700; color: var(--text); }
+  .price-divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+  .price-total {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--purple-light);
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .price-total-label { font-size: 14px; font-weight: 700; color: var(--purple); }
+  .price-total-val { font-size: 22px; font-weight: 800; color: var(--purple); }
+
+  .savings-badge {
+    background: #dcfce7; border-radius: 8px; padding: 10px 14px;
+    font-size: 12px; font-weight: 600; color: #166534;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .book-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--green);
+    color: var(--text);
+    font-size: 15px; font-weight: 800;
+    border: none; border-radius: 12px;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .book-btn:hover { background: var(--green-dark); color: var(--white); transform: translateY(-1px); }
+
+  /* PRICING INFO */
+  .pricing-info {
+    margin: 0 16px 16px;
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .pricing-info-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px; font-weight: 800; color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pricing-info-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 0; }
+
+  .pricing-tier {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pricing-tier:last-child { border-bottom: none; }
+  .tier-bags { font-size: 13px; font-weight: 700; color: var(--text); }
+  .tier-bags span { font-size: 11px; font-weight: 500; color: var(--text-soft); }
+  .tier-price { font-size: 15px; font-weight: 800; color: var(--purple); }
+  .tier-per { font-size: 11px; color: var(--text-soft); font-weight: 500; }
+  .tier-badge {
+    background: #dcfce7; color: #166534;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 20px;
+  }
+
+  .pricing-note {
+    margin: 12px 0 0;
+    padding: 10px 12px;
+    background: var(--purple-light);
+    border-radius: 8px;
+    font-size: 12px; color: var(--purple); font-weight: 600;
+    line-height: 1.5;
+  }
+
+  /* SERVICE CONDITIONS */
+  .conditions {
+    margin: 0 16px 24px;
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .conditions-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px; font-weight: 800; color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .conditions-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
+  .condition-item {
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .condition-icon {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+  .icon-ok { background: #dcfce7; }
+  .icon-warn { background: #fef3c7; }
+  .condition-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .condition-text strong { color: var(--text); font-weight: 700; display: block; margin-bottom: 2px; }
+  .condition-text span { color: var(--text-soft); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- NAV -->
+  <div class="nav">
+    <a href="goodlugg_korea_delivery.html" class="nav-back">← Korea Delivery</a>
+    <div class="logo">Good<span>lugg</span></div>
+    <div class="nav-menu">☰</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">✦ New Service</div>
+    <h1>Korea Door-to-Door<br>Delivery</h1>
+    <p class="hero-sub">Same-day luggage delivery anywhere in Korea — customized for your itinerary.</p>
+    <div class="hero-tagline">
+      Drop it off where you are. We deliver it where you need — all on the same day.
+    </div>
+  </div>
+
+  <!-- NOTICE -->
+  <div class="notice">
+    <strong>⚠️ Service Eligibility</strong>
+    Service is only available at locations with a <strong>hotel front desk</strong> or where <strong>on-site staff is always present</strong> to handle luggage handover. Airbnbs or unstaffed accommodations are not eligible.
+  </div>
+
+  <!-- COST ESTIMATOR -->
+  <div class="estimator">
+    <div class="estimator-header">
+      <h2>💰 Cost Estimator</h2>
+      <p>Enter your route and bag count to get an instant price</p>
+    </div>
+    <div class="estimator-body">
+
+      <div class="field">
+        <label>📍 From</label>
+        <input type="text" id="from" placeholder="e.g. Hotel in Myeongdong, Seoul" />
+      </div>
+
+      <div class="route-arrow">↓</div>
+
+      <div class="field">
+        <label>📍 To</label>
+        <input type="text" id="to" placeholder="e.g. Hotel in Haeundae, Busan" />
+      </div>
+
+      <div class="luggage-section">
+        <div class="luggage-section-title">🧳 Number of Luggage by Size</div>
+
+        <div class="bag-row">
+          <div class="bag-info">
+            <div class="bag-name">Carry-on</div>
+            <div class="bag-desc">Small bag, cabin size</div>
+          </div>
+          <div class="counter">
+            <button class="counter-btn" onclick="change('carry', -1)">−</button>
+            <div class="counter-val" id="carry-val">0</div>
+            <button class="counter-btn" onclick="change('carry', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="bag-row">
+          <div class="bag-info">
+            <div class="bag-name">Checked-in</div>
+            <div class="bag-desc">Standard suitcase</div>
+          </div>
+          <div class="counter">
+            <button class="counter-btn" onclick="change('checked', -1)">−</button>
+            <div class="counter-val" id="checked-val">0</div>
+            <button class="counter-btn" onclick="change('checked', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="bag-row">
+          <div class="bag-info">
+            <div class="bag-name">Oversize</div>
+            <div class="bag-desc">Large / golf bag / stroller</div>
+          </div>
+          <div class="counter">
+            <button class="counter-btn" onclick="change('over', -1)">−</button>
+            <div class="counter-val" id="over-val">0</div>
+            <button class="counter-btn" onclick="change('over', 1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="calc-btn" onclick="calculate()">
+        🧮 Calculate Price
+      </button>
+    </div>
+  </div>
+
+  <!-- RESULT (hidden until calculated) -->
+  <div class="result" id="result">
+    <div class="result-header">
+      <div class="result-header-icon">✅</div>
+      <div>
+        <h3>Your Delivery Quote</h3>
+        <p>Same-day delivery — book by midnight the day before</p>
+      </div>
+    </div>
+    <div class="result-body">
+      <div class="result-route" id="result-route">
+        <strong id="result-from">—</strong>
+        <span>→</span>
+        <strong id="result-to">—</strong>
+      </div>
+      <div class="price-breakdown" id="price-breakdown"></div>
+      <div class="price-total">
+        <div class="price-total-label">Total</div>
+        <div class="price-total-val" id="total-price">—</div>
+      </div>
+      <div class="savings-badge" id="savings-badge" style="display:none">
+        🎉 <span id="savings-text"></span>
+      </div>
+      <button class="book-btn">Book This Delivery →</button>
+    </div>
+  </div>
+
+  <!-- PRICING TABLE -->
+  <div class="pricing-info">
+    <div class="pricing-info-header">📊 Pricing — The More You Send, The Less You Pay</div>
+    <div class="pricing-info-body">
+      <div class="pricing-tier">
+        <div>
+          <div class="tier-bags">1 Bag <span>(any size)</span></div>
+        </div>
+        <div style="text-align:right">
+          <div class="tier-price">KRW 99,000</div>
+          <div class="tier-per">per delivery</div>
+        </div>
+      </div>
+      <div class="pricing-tier">
+        <div>
+          <div class="tier-bags">2 Bags <span>(any size)</span></div>
+          <div style="margin-top:3px"><span class="tier-badge">Save KRW 69,000</span></div>
+        </div>
+        <div style="text-align:right">
+          <div class="tier-price">KRW 129,000</div>
+          <div class="tier-per">KRW 64,500/bag</div>
+        </div>
+      </div>
+      <div class="pricing-tier">
+        <div>
+          <div class="tier-bags">3 Bags <span>(any size)</span></div>
+          <div style="margin-top:3px"><span class="tier-badge">Best Value</span></div>
+        </div>
+        <div style="text-align:right">
+          <div class="tier-price">KRW 145,000</div>
+          <div class="tier-per">KRW 48,333/bag</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 0 18px 16px">
+      <div class="pricing-note">
+        💡 The more luggage you send, the cheaper the rate per bag. Sending 3 bags costs 51% less per bag than sending 1.
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE CONDITIONS -->
+  <div class="conditions">
+    <div class="conditions-header">✅ Service Conditions</div>
+    <div class="conditions-body">
+      <div class="condition-item">
+        <div class="condition-icon icon-ok">🏨</div>
+        <div class="condition-text">
+          <strong>Hotel or accommodation with a front desk</strong>
+          <span>Service is available at any hotel or guesthouse with a staffed reception desk that can accept and store luggage.</span>
+        </div>
+      </div>
+      <div class="condition-item">
+        <div class="condition-icon icon-ok">👤</div>
+        <div class="condition-text">
+          <strong>On-site staff always present</strong>
+          <span>If your accommodation always has someone available on-site to handle luggage, you are eligible for this service.</span>
+        </div>
+      </div>
+      <div class="condition-item">
+        <div class="condition-icon icon-warn">⚠️</div>
+        <div class="condition-text">
+          <strong>Airbnb or unstaffed accommodation</strong>
+          <span>Service is NOT available at Airbnbs or properties where no staff is present during pickup/drop-off. Please use Goodlugg Station instead.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end phone -->
+
+<!-- FLOATING BOOK NOW BUTTON -->
+<style>
+  .float-book {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 390px;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    z-index: 999;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
+  }
+  .float-book-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: var(--white);
+    font-size: 16px; font-weight: 800;
+    border: none; border-radius: 12px;
+    cursor: pointer; font-family: inherit;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(91,45,142,0.35);
+  }
+  .float-book-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(91,45,142,0.45);
+  }
+  .float-book-btn:active { transform: translateY(0); }
+  /* Add bottom padding to page so content isn't hidden behind button */
+  .phone { padding-bottom: 80px; }
+</style>
+
+<div class="float-book">
+  <button class="float-book-btn">📦 Book Now →</button>
+</div>
+
+<script>
+  const bags = { carry: 0, checked: 0, over: 0 };
+
+  function change(type, delta) {
+    bags[type] = Math.max(0, bags[type] + delta);
+    document.getElementById(type + '-val').textContent = bags[type];
+  }
+
+  // Pricing: based on TOTAL bag count
+  // ⚠️ Please confirm these prices — assumed:
+  // 1 bag = 99,000 | 2 bags = 129,000 | 3+ bags = 145,000 + 15,000 per extra bag
+  function getPrice(total) {
+    if (total === 0) return 0;
+    if (total === 1) return 99000;
+    if (total === 2) return 129000;
+    if (total === 3) return 145000;
+    // 4+ bags: add KRW 15,000 per additional bag beyond 3
+    return 145000 + (total - 3) * 15000;
+  }
+
+  function fmt(n) {
+    return 'KRW ' + n.toLocaleString('ko-KR');
+  }
+
+  function calculate() {
+    const from = document.getElementById('from').value.trim();
+    const to = document.getElementById('to').value.trim();
+    const total = bags.carry + bags.checked + bags.over;
+
+    if (!from || !to) {
+      alert('Please enter both From and To locations.');
+      return;
+    }
+    if (total === 0) {
+      alert('Please add at least 1 bag.');
+      return;
+    }
+
+    const price = getPrice(total);
+    const singlePrice = total * 99000;
+    const saved = singlePrice - price;
+
+    // Populate result
+    document.getElementById('result-from').textContent = from;
+    document.getElementById('result-to').textContent = to;
+
+    // Build breakdown
+    let breakdown = '';
+    if (bags.carry > 0) {
+      breakdown += `<div class="price-row"><span class="price-row-label">Carry-on × ${bags.carry}</span><span class="price-row-val">included</span></div>`;
+    }
+    if (bags.checked > 0) {
+      breakdown += `<div class="price-row"><span class="price-row-label">Checked-in × ${bags.checked}</span><span class="price-row-val">included</span></div>`;
+    }
+    if (bags.over > 0) {
+      breakdown += `<div class="price-row"><span class="price-row-label">Oversize × ${bags.over}</span><span class="price-row-val">included</span></div>`;
+    }
+    breakdown += `<div class="price-row"><span class="price-row-label">Total bags</span><span class="price-row-val">${total} bags</span></div>`;
+    breakdown += `<div class="price-divider"></div>`;
+
+    document.getElementById('price-breakdown').innerHTML = breakdown;
+    document.getElementById('total-price').textContent = fmt(price);
+
+    // Savings badge
+    const badge = document.getElementById('savings-badge');
+    if (total >= 2 && saved > 0) {
+      document.getElementById('savings-text').textContent =
+        `You save ${fmt(saved)} vs. booking separately!`;
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+
+    // Show result
+    const resultEl = document.getElementById('result');
+    resultEl.classList.add('visible');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+
+</body>
+</html>
