@@ -13,7 +13,7 @@
     --white:#fff;--bg:#f8fafc;--border:#e2e8f0;
   }
   body{font-family:'Plus Jakarta Sans','Noto Sans KR',sans-serif;background:#e2e8f0;display:flex;justify-content:center;padding-top:20px;padding-bottom:40px}
-  .frame{width:390px;min-height:100vh;background:var(--bg);box-shadow:0 0 60px rgba(0,0,0,0.15);overflow-x:hidden;position:relative}
+  .frame{width:390px;min-height:100vh;background:var(--bg);box-shadow:0 0 60px rgba(0,0,0,0.15);overflow-x:hidden;position:relative;padding-bottom:70px}
 
   /* ── TOP LANG BAR ── */
   .nav-lang{color:var(--text);font-size:13px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:4px}
@@ -71,7 +71,7 @@
   .d2d-cta-btn:hover{background:#8ab828}
 
   /* ── STICKY BOOK BTN ── */
-  .sticky-book{position:sticky;bottom:0;z-index:100;padding:12px 16px;background:var(--white);border-top:1px solid var(--border)}
+  .sticky-book{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:390px;z-index:100;padding:12px 16px;background:var(--white);border-top:1px solid var(--border);box-sizing:border-box}
   .book-btn{width:100%;padding:14px;background:var(--purple-dark);color:var(--white);font-size:16px;font-weight:800;border:none;border-radius:10px;cursor:pointer;font-family:inherit;transition:opacity 0.2s}
   .book-btn:hover{opacity:0.9}
 
@@ -146,7 +146,7 @@
 <div class="frame">
 
   <!-- LANG BAR -->
-  <div class="lang-bar"><a href="goodlugg_korea_delivery_kr.html">🌐 한국어 ∨</a></div>
+  <div class="lang-bar"><a href="goodlugg_korea_delivery_kr.html">🌐 English ∨</a></div>
 <!-- NAV -->
   <div class="nav">
     <div style="width:32px"></div>
@@ -220,7 +220,7 @@
 
   <!-- STICKY BOOK -->
   <div class="sticky-book">
-    <button class="book-btn" onclick="window.location.href='korea_door_to_door.html'">Book Now</button>
+    <button class="book-btn" onclick="window.location.href='https://www.goodlugg.com/luggage-delivery/korea?language=en'">Book Now</button>
   </div>
 
   <!-- HOW IT WORKS -->
@@ -266,7 +266,7 @@
       <div class="ai-badge">BETA</div>
     </div>
     <div class="ai-input-row">
-      <input class="ai-input" type="text" placeholder="Ask anything about Korea delivery...">
+      <input class="ai-input" type="text" placeholder="Ask anything about Korea delivery..." onkeydown="if(event.key==='Enter')window.open('https://chatbot-kd.goodlugg.com','_blank')" onfocus="setTimeout(()=>window.open('https://chatbot-kd.goodlugg.com','_blank'),300)">
       <button class="ai-btn" onclick="window.open('https://chatbot-kd.goodlugg.com','_blank')">Try our AI</button>
     </div>
   </div>
