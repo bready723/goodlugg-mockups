@@ -32,7 +32,10 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 20px; background: var(--white); border-bottom: 1px solid var(--border);
   }
+  .lang-bar{display:flex;align-items:center;padding:10px 16px;background:var(--white);border-bottom:1px solid var(--border);font-size:13px;font-weight:600;}
+  .lang-bar a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:5px}
   .nav-back { color: var(--purple); font-size: 13px; font-weight: 700; text-decoration: none; }
+  .nav-lang { color: var(--text); font-size: 13px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 4px; }
   .logo { font-size: 20px; font-weight: 800; color: var(--purple); }
   .logo span { color: var(--green); }
   .nav-menu { font-size: 20px; color: var(--purple); cursor: pointer; }
@@ -508,8 +511,9 @@
 <body>
 <div class="phone">
 
-  <div class="nav">
-    <a href="korea_door_to_door_kr.html" class="nav-back">← Korea Delivery</a>
+  <div class="lang-bar"><a href="korea_door_to_door_kr.html">🌐 English ∨</a></div>
+<div class="nav">
+    <a href="goodlugg_korea_delivery.html" class="nav-back">← Korea Delivery</a>
     <div class="logo">Good<span>lugg</span></div>
     <div class="nav-menu">☰</div>
   </div>
@@ -532,7 +536,7 @@
         Goodlugg's Door-to-Door service picks up your luggage from your <strong>current hotel or airport</strong> and delivers it directly to your <strong>next hotel</strong> — so you can explore Korea completely hands-free.
       </p>
       <p style="font-size:14px;line-height:1.7;color:var(--text);margin:10px 0 0">
-        No heavy lifting. No taxi struggles. No waiting at the lobby. Just drop off before 9 AM and your bags will be waiting at your next hotel by 9 PM.
+        No heavy lifting. No taxi struggles. No waiting at the lobby. Drop off before 9 AM and your bags will be at your next hotel by 9 PM same day, or by 3 PM on your chosen delivery date.
       </p>
     </div>
 
@@ -1589,13 +1593,27 @@ function bkBag(k, d) {
 }
 
 // ── Time ──
+function getPickTimeInfo() {
+  const fromAirport = bkData.departure?.type === "airport";
+  const isMultiDay = daysBetween(bkData.dropDate, bkData.pickDate) > 0;
+  if (isMultiDay) {
+    return {
+      pickTime: "After 15:00",
+      pickNote: "🏨 Luggage delivered to hotel by 3:00 PM — available for pickup after 3 PM"
+    };
+  }
+  return {
+    pickTime: fromAirport ? "Before 22:00" : "Before 21:00",
+    pickNote: fromAirport ? "🏨 Luggage delivered to hotel by 10:00 PM" : "🏨 Luggage delivered to hotel by 9:00 PM"
+  };
+}
+
 function renderTimeStep() {
   const fromAirport = bkData.departure?.type === "airport";
 
   const dropTime = fromAirport ? "Before 13:00" : "Before 09:00";
-  const pickTime = fromAirport ? "Before 22:00" : "Before 21:00";
   const dropNote = fromAirport ? "✈️ Drop off luggage at airport counter by 1:00 PM" : "🏨 Goodlugg staff picks up luggage by 9:00 AM";
-  const pickNote = fromAirport ? "🏨 Luggage delivered to hotel by 10:00 PM" : "🏨 Luggage delivered to hotel by 9:00 PM";
+  const { pickTime, pickNote } = getPickTimeInfo();
 
   bkData.dropTime = dropTime;
   bkData.pickTime = pickTime;
@@ -1622,9 +1640,9 @@ function renderTimeStep() {
       </div>
       <div class="bk-dt-row">
         <span class="bk-dt-label">Time</span>
-        <span style="font-size:13px;font-weight:700;color:var(--purple)">${pickTime}</span>
+        <span id="pickTimeDisplay" style="font-size:13px;font-weight:700;color:var(--purple)">${pickTime}</span>
       </div>
-      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 12px;font-size:12px;color:#166534;font-weight:600;margin-bottom:8px">${pickNote}</div>
+      <div id="pickNoteDisplay" style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 12px;font-size:12px;color:#166534;font-weight:600;margin-bottom:8px">${pickNote}</div>
       <div id="storagePreview"></div>
     </div>
     <div class="bk-total-bar">
@@ -1795,6 +1813,16 @@ function updateStoragePreview() {
     el.innerHTML = "";
   }
   if (totalEl) totalEl.textContent = fmt(calcBkTotal());
+
+  // Update pick time display based on same-day vs multi-day
+  const ptDisplay = document.getElementById("pickTimeDisplay");
+  const pnDisplay = document.getElementById("pickNoteDisplay");
+  if (ptDisplay && pnDisplay) {
+    const { pickTime, pickNote } = getPickTimeInfo();
+    bkData.pickTime = pickTime;
+    ptDisplay.textContent = pickTime;
+    pnDisplay.textContent = pickNote;
+  }
 }
 
 function makePayment(){if(allChecked())bkNext();}

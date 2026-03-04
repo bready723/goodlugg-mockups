@@ -16,6 +16,7 @@
   .frame{width:390px;min-height:100vh;background:var(--bg);box-shadow:0 0 60px rgba(0,0,0,0.15);overflow-x:hidden;position:relative}
 
   /* ── TOP LANG BAR ── */
+  .nav-lang{color:var(--text);font-size:13px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:4px}
   .lang-bar{display:flex;align-items:center;gap:6px;padding:10px 16px;background:var(--white);border-bottom:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text)}
   .lang-bar a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:5px}
 
@@ -145,15 +146,12 @@
 <div class="frame">
 
   <!-- LANG BAR -->
-  <div class="lang-bar">
-    <a href="goodlugg_korea_delivery_kr.html">🌐 English <span style="font-size:10px">∨</span></a>
-  </div>
-
-  <!-- NAV -->
+  <div class="lang-bar"><a href="goodlugg_korea_delivery_kr.html">🌐 English ∨</a></div>
+<!-- NAV -->
   <div class="nav">
     <div style="width:32px"></div>
     <div class="logo">Good<span>lugg</span></div>
-    <div class="hamburger">☰</div>
+    <div class="nav-menu">☰</div>
   </div>
 
   <!-- HERO -->
@@ -269,7 +267,7 @@
     </div>
     <div class="ai-input-row">
       <input class="ai-input" type="text" placeholder="Ask anything about Korea delivery...">
-      <button class="ai-btn">Try our AI</button>
+      <button class="ai-btn" onclick="window.open('https://chatbot-kd.goodlugg.com','_blank')">Try our AI</button>
     </div>
   </div>
 
