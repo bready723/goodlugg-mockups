@@ -1075,6 +1075,9 @@ const locations = [
   { name: "Gwangju Tourist Hotel", addr: "Dong-gu, Gwangju", city: "Gwangju" },
   { name: "Airbnb – Gwangju Forest Area Pension", addr: "Buk-gu, Gwangju", city: "Gwangju" },
   // Incheon
+  { name: "Incheon Airport T1", addr: "Goodlugg Desk, near Gate 13, Arrival Hall 1F, Terminal 1", city: "Incheon" },
+  { name: "Incheon Airport T2", addr: "Goodlugg Desk, near Gates 5-6, Arrival Hall 1F, Terminal 2", city: "Incheon" },
+  { name: "Gimpo Airport International Terminal", addr: "Baggage Total Service desk near Gate 1, Arrival Hall 1F", city: "Seoul" },
   { name: "Grand Hyatt Incheon", addr: "208 Yeongjong-daero, Jung-gu", city: "Incheon" },
   { name: "Incheon Airport Transit Hotel T1", addr: "Terminal 1, Incheon Airport", city: "Incheon" },
   { name: "Incheon Airport Transit Hotel T2", addr: "Terminal 2, Incheon Airport", city: "Incheon" },
@@ -1158,6 +1161,7 @@ const locations = [
 { name: "Lotte Hotel Seoul", addr: "30 Eulji-ro, Jung-gu, Seoul", city: "Seoul" },
 { name: "Hotel28 Myeongdong", addr: "13 Myeongdong 8-gil, Jung-gu, Seoul", city: "Seoul" },
 { name: "Nine Tree Premier Hotel Myeongdong II", addr: "7 Mareunnae-ro, Jung-gu, Seoul", city: "Seoul" },
+{ name: "Nine Tree by Parnas Insadong", addr: "Insadong-gil, Jongno-gu, Seoul", city: "Seoul" },
 { name: "Tmark Grand Hotel Myeongdong", addr: "52 Toegye-ro 20-gil, Jung-gu, Seoul", city: "Seoul" },
 { name: "Aloft Seoul Myeongdong", addr: "32 Samil-daero 30-gil, Jung-gu, Seoul", city: "Seoul" },
 { name: "ibis Styles Ambassador Seoul Myeongdong", addr: "59 Myeongdong 8-gil, Jung-gu, Seoul", city: "Seoul" },
@@ -1377,6 +1381,7 @@ const locations = [
 { name: "Airbnb – Boseong Green Tea Field Stay", addr: "Boseong-gun, Jeollanam-do", city: "Boseong" },
 // Hadong
 { name: "Airbnb – Hadong Ssanggyesa Tea Garden", addr: "Hadong-gun, Gyeongsangnam-do", city: "Hadong" },
+{ name: "Kensington Resort Jirisan Hadong", addr: "Hadong-gun, Gyeongsangnam-do", city: "Hadong" },
 // Yeongwol
 { name: "Airbnb – Yeongwol Dong River Pension", addr: "Yeongwol-gun, Gangwon-do", city: "Yeongwol" },
 // Jecheon
@@ -1630,10 +1635,12 @@ function openBookingFromCalc() {
 
   // Pre-fill from calculator if locations were selected
   if (fromName && fromCity) {
-    bkData.departure = { name: fromName, addr: "", city: fromCity, type: "hotel" };
+    const isAirport = /airport/i.test(fromName);
+    bkData.departure = { name: fromName, addr: "", city: fromCity, type: isAirport ? "airport" : "hotel" };
   }
   if (toName && toCity) {
-    bkData.arrival = { name: toName, addr: "", city: toCity, type: "hotel" };
+    const isAirport = /airport/i.test(toName);
+    bkData.arrival = { name: toName, addr: "", city: toCity, type: isAirport ? "airport" : "hotel" };
   }
 
   // Pre-fill bag counts from calculator
