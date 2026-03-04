@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Goodlugg Door-to-Door Delivery Korea</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>굿럭 도어투도어 배송</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --purple: #5b2d8e;
@@ -20,7 +20,7 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif;
     background: #e2e8f0; display: flex; justify-content: center;
     padding: 20px 0 100px; color: var(--text);
   }
@@ -109,15 +109,15 @@
   .route-indicator.visible { display: flex; }
   .route-arrow { display: flex; align-items: center; justify-content: center; color: var(--purple); font-size: 18px; margin: -4px 0; }
   .luggage-title { font-size: 11px; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
-  .bag-row {
+  .개-row {
     background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px;
     padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;
     transition: all 0.2s;
   }
-  .bag-row.has-bags { border-color: var(--purple); background: var(--purple-light); }
-  .bag-name { font-size: 14px; font-weight: 700; color: var(--text); }
-  .bag-desc { font-size: 11px; color: var(--text-soft); margin-top: 1px; }
-  .bag-price-hint { font-size: 11px; color: var(--purple); font-weight: 600; margin-top: 3px; }
+  .개-row.has-개s { border-color: var(--purple); background: var(--purple-light); }
+  .개-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .개-desc { font-size: 11px; color: var(--text-soft); margin-top: 1px; }
+  .개-price-hint { font-size: 11px; color: var(--purple); font-weight: 600; margin-top: 3px; }
   .counter { display: flex; align-items: center; gap: 12px; }
   .counter-btn {
     width: 32px; height: 32px; border-radius: 50%;
@@ -210,7 +210,7 @@
   }
   .pt-row:last-child { border-bottom: none; }
   .pt-header { font-weight: 700; color: var(--text-soft); font-size: 10px; text-transform: uppercase; }
-  .pt-bags { font-weight: 700; color: var(--text); display: flex; flex-direction: column; gap: 3px; }
+  .pt-개s { font-weight: 700; color: var(--text); display: flex; flex-direction: column; gap: 3px; }
   .pt-price { font-weight: 700; color: var(--purple); text-align: right; font-size: 11px; }
   .pt-badge { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 8px; display: inline-block; }
   .badge-min { background: #fef3c7; color: #92400e; }
@@ -337,7 +337,7 @@
     word-break: break-word; overflow-wrap: break-word;
   }
 
-  /* Airport options */
+  /* 공항 options */
   .bk-airport-list { display: flex; flex-direction: column; gap: 8px; padding: 0 0 20px; }
   .bk-airport-item {
     background: var(--white); border: 1px solid var(--border); border-radius: 10px;
@@ -347,15 +347,15 @@
   .bk-airport-item .ap-name { font-size: 14px; font-weight: 700; color: var(--text); }
   .bk-airport-item .ap-addr { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
 
-  /* Luggage step */
-  .bk-bag-row {
+  /* 수하물 step */
+  .bk-개-row {
     margin: 0 0 10px; background: var(--white); border: 1.5px solid var(--border);
     border-radius: 10px; padding: 12px 14px;
     display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;
   }
-  .bk-bag-row.active { border-color: var(--purple); background: var(--purple-light); }
-  .bk-bag-name { font-size: 14px; font-weight: 700; color: var(--text); }
-  .bk-bag-desc { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+  .bk-개-row.active { border-color: var(--purple); background: var(--purple-light); }
+  .bk-개-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .bk-개-desc { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
   .bk-counter { display: flex; align-items: center; gap: 10px; }
   .bk-counter-btn {
     width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--border);
@@ -366,7 +366,7 @@
   .bk-counter-btn:hover { border-color: var(--purple); background: var(--purple-light); }
   .bk-counter-val { font-size: 17px; font-weight: 800; min-width: 18px; text-align: center; }
 
-  /* Total bar */
+  /* 도착지tal bar */
   .bk-total-bar {
     position: sticky; bottom: 0; background: var(--white);
     border-top: 1px solid var(--border); padding: 12px 16px;
@@ -388,7 +388,7 @@
   }
   .bk-next-btn.purple:hover { opacity: 0.9; }
 
-  /* Date/time pickers */
+  /* 날짜/time pickers */
   .bk-datetime { padding: 0 0 16px; display: flex; flex-direction: column; gap: 10px; }
   .bk-dt-row {
     background: var(--white); border: 1px solid var(--border); border-radius: 10px;
@@ -436,7 +436,7 @@
     width: 100%; margin-top: 4px;
   }
 
-  /* Payment method */
+  /* 결제 method */
   .bk-payment-methods { padding: 0; display: flex; gap: 10px; margin-bottom: 14px; }
   .bk-pay-btn {
     flex: 1; padding: 14px 10px; background: var(--white); border: 1.5px solid var(--border);
@@ -453,7 +453,7 @@
   .bk-pay-detail-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
   .bk-pay-detail-desc { font-size: 12px; color: var(--text-soft); }
 
-  /* Coupon / discount */
+  /* 쿠폰 / discount */
   .bk-discount-section { padding: 0 0 14px; display: flex; flex-direction: column; gap: 14px; }
   .bk-discount-row { display: flex; gap: 8px; }
   .bk-discount-row .bk-input { flex: 1; }
@@ -463,7 +463,7 @@
     cursor: pointer; font-family: inherit; white-space: nowrap;
   }
 
-  /* Terms */
+  /* 약관 */
   .bk-terms { padding: 0 0 14px; display: flex; flex-direction: column; gap: 10px; }
   .bk-term-item {
     display: flex; align-items: flex-start; gap: 10px;
@@ -484,7 +484,7 @@
     border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #92400e; font-weight: 600;
   }
 
-  /* Summary */
+  /* 예약 확인 */
   .bk-summary-section { margin: 0 0 14px; background: var(--white); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
   .bk-summary-title { padding: 12px 16px; font-size: 11px; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--border); }
   .bk-summary-row { display: flex; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
@@ -509,16 +509,16 @@
 <div class="phone">
 
   <div class="nav">
-    <a href="korea_door_to_door_kr.html" class="nav-back">← Korea Delivery</a>
+    <a href="korea_door_to_door.html" class="nav-back">← 국내짐배송</a>
     <div class="logo">Good<span>lugg</span></div>
     <div class="nav-menu">☰</div>
   </div>
 
   <div class="hero">
-    <div class="hero-badge">✦ New Service</div>
-    <h1>Korea Door-to-Door<br>Delivery</h1>
+    <div class="hero-badge">✦ 새로운 서비스</div>
+    <h1>한국 도어투도어<br>배송 서비스</h1>
     <div class="hero-tagline">
-      Drop it off where you are. We deliver it where you need — same day or scheduled.
+      지금 계신 곳에서 맡기세요. 원하시는 곳으로 당일 또는 예약 배송해 드립니다.
     </div>
   </div>
 
@@ -527,57 +527,57 @@
 
     <!-- What is this -->
     <div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06)">
-      <div style="font-size:13px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px">What is Door-to-Door?</div>
+      <div style="font-size:13px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px">도어투도어 서비스란?</div>
       <p style="font-size:14px;line-height:1.7;color:var(--text);margin:0">
-        Goodlugg's Door-to-Door service picks up your luggage from your <strong>current hotel or airport</strong> and delivers it directly to your <strong>next hotel</strong> — so you can explore Korea completely hands-free.
+        굿럭 도어투도어 서비스는 <strong>현재 호텔 또는 공항</strong>에서 수하물을 픽업하여 <strong>다음 호텔</strong>로 직접 배송합니다. 짐 없이 한국 여행을 즐기세요.
       </p>
       <p style="font-size:14px;line-height:1.7;color:var(--text);margin:10px 0 0">
-        No heavy lifting. No taxi struggles. No waiting at the lobby. Just drop off before 9 AM and your bags will be waiting at your next hotel by 9 PM.
+        무거운 짐 없이, 택시 걱정 없이, 로비에서 기다릴 필요도 없습니다. 오전 9시 전에 맡기시면 오후 9시까지 다음 호텔에 도착해 있습니다.
       </p>
     </div>
 
     <!-- Benefits -->
     <div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06)">
-      <div style="font-size:13px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">Why Travelers Love It</div>
+      <div style="font-size:13px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">여행자들이 좋아하는 이유</div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <div style="display:flex;gap:12px;align-items:flex-start">
           <div style="font-size:22px;flex-shrink:0">🗺️</div>
-          <div><div style="font-size:14px;font-weight:700;color:var(--text)">Explore freely all day</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">No need to store bags or rush back to your hotel. Go straight to your next destination.</div></div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text)">하루 종일 자유롭게 탐험</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">짐을 보관하거나 서둘러 호텔로 돌아갈 필요가 없습니다. 바로 다음 목적지로 이동하세요.</div></div>
         </div>
         <div style="display:flex;gap:12px;align-items:flex-start">
           <div style="font-size:22px;flex-shrink:0">🚄</div>
-          <div><div style="font-size:14px;font-weight:700;color:var(--text)">Perfect for multi-city trips</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">Seoul → Busan → Jeju? Send your bags ahead and travel light.</div></div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text)">여러 도시 여행에 최적</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">서울 → 부산 → 제주? 짐을 먼저 보내고 가볍게 이동하세요.</div></div>
         </div>
         <div style="display:flex;gap:12px;align-items:flex-start">
           <div style="font-size:22px;flex-shrink:0">✈️</div>
-          <div><div style="font-size:14px;font-weight:700;color:var(--text)">Airport-to-hotel made easy</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">Leave bags at the airport counter by 1 PM — they'll be at your hotel by 10 PM.</div></div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text)">공항에서 호텔까지 간편하게</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">오후 1시까지 공항 카운터에 맡기시면 오후 10시까지 호텔에 도착합니다.</div></div>
         </div>
         <div style="display:flex;gap:12px;align-items:flex-start">
           <div style="font-size:22px;flex-shrink:0">📅</div>
-          <div><div style="font-size:14px;font-weight:700;color:var(--text)">Flexible scheduling</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">Need to drop off today but deliver in 5 days? We store your bags safely at just ₩5,000/bag/day.</div></div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text)">유연한 일정 조정</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">오늘 맡기고 5일 후에 배송받고 싶으신가요? 가방당 하루 ₩5,000으로 안전하게 보관해 드립니다.</div></div>
         </div>
       </div>
     </div>
 
     <!-- How it works -->
     <div style="background:linear-gradient(135deg,var(--purple),var(--purple-dark));border-radius:16px;padding:18px">
-      <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">How It Works</div>
+      <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">이용 방법</div>
       <div style="display:flex;flex-direction:column;gap:12px">
         <div style="display:flex;gap:12px;align-items:center">
           <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#1a3a1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
-          <div style="font-size:13px;color:#fff;font-weight:600">Book online — choose your drop-off and delivery hotels</div>
+          <div style="font-size:13px;color:#fff;font-weight:600">온라인 예약 — 출발 호텔과 도착 호텔을 선택하세요</div>
         </div>
         <div style="display:flex;gap:12px;align-items:center">
           <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#1a3a1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
-          <div style="font-size:13px;color:#fff;font-weight:600">Leave bags at hotel front desk or airport counter by the cut-off time</div>
+          <div style="font-size:13px;color:#fff;font-weight:600">마감 시간 전에 호텔 프런트 또는 공항 카운터에 수하물을 맡기세요</div>
         </div>
         <div style="display:flex;gap:12px;align-items:center">
           <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#1a3a1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
-          <div style="font-size:13px;color:#fff;font-weight:600">Goodlugg picks up and transports your bags</div>
+          <div style="font-size:13px;color:#fff;font-weight:600">굿럭 담당자가 수하물을 픽업하여 운송합니다</div>
         </div>
         <div style="display:flex;gap:12px;align-items:center">
           <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#1a3a1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
-          <div style="font-size:13px;color:#fff;font-weight:600">Your luggage waits for you at the destination hotel — ready when you arrive</div>
+          <div style="font-size:13px;color:#fff;font-weight:600">도착 호텔에서 수하물이 기다립니다 — 체크인하시면 바로 확인 가능합니다</div>
         </div>
       </div>
     </div>
@@ -586,13 +586,13 @@
 
   <div class="estimator">
     <div class="estimator-header">
-      <h2>💰 Cost Estimator</h2>
-      <p>Select your locations and bag count for an instant quote</p>
+      <h2>💰 요금 계산기</h2>
+      <p>출발지, 도착지, 수하물 수를 선택하면 즉시 요금을 확인할 수 있습니다</p>
     </div>
     <div class="estimator-body">
 
       <div class="field">
-        <label>📍 From</label>
+        <label>📍 출발지</label>
         <div class="map-input-wrap">
           <span class="map-pin">📍</span>
           <input class="map-input" id="from-input" type="text"
@@ -608,7 +608,7 @@
       <div class="route-arrow">↓</div>
 
       <div class="field">
-        <label>🏁 To</label>
+        <label>🏁 도착지</label>
         <div class="map-input-wrap">
           <span class="map-pin">🏁</span>
           <input class="map-input" id="to-input" type="text"
@@ -627,14 +627,14 @@
       </div>
 
       <div>
-        <div class="luggage-title">🧳 Number of Bags by Size</div>
+        <div class="luggage-title">🧳 크기별 짐개수</div>
         <div style="display:flex;flex-direction:column;gap:10px">
 
-          <div class="bag-row" id="row-carry">
+          <div class="개-row" id="row-carry">
             <div>
-              <div class="bag-name">Carry-on</div>
-              <div class="bag-desc">Cabin size / small bag</div>
-              <div class="bag-price-hint" id="hint-carry">Select locations to see price</div>
+              <div class="개-name">기내용 (Carry-on)</div>
+              <div class="개-desc">22인치 이하 / 소형 캐리어</div>
+              <div class="개-price-hint" id="hint-carry">출발지·도착지를 선택하면 가격이 표시됩니다</div>
             </div>
             <div class="counter">
               <button class="counter-btn" onclick="change('carry',-1)">−</button>
@@ -643,11 +643,11 @@
             </div>
           </div>
 
-          <div class="bag-row" id="row-checked">
+          <div class="개-row" id="row-checked">
             <div>
-              <div class="bag-name">Checked-in</div>
-              <div class="bag-desc">Standard suitcase</div>
-              <div class="bag-price-hint" id="hint-checked">Select locations to see price</div>
+              <div class="개-name">위탁 수하물 (Checked)</div>
+              <div class="개-desc">22인치 초과 / 일반 캐리어</div>
+              <div class="개-price-hint" id="hint-checked">출발지·도착지를 선택하면 가격이 표시됩니다</div>
             </div>
             <div class="counter">
               <button class="counter-btn" onclick="change('checked',-1)">−</button>
@@ -656,11 +656,11 @@
             </div>
           </div>
 
-          <div class="bag-row" id="row-over">
+          <div class="개-row" id="row-over">
             <div>
-              <div class="bag-name">Oversize</div>
-              <div class="bag-desc">Large bag / golf bag / stroller</div>
-              <div class="bag-price-hint" id="hint-over">Select locations to see price</div>
+              <div class="개-name">대형 (Oversize)</div>
+              <div class="개-desc">30인치 초과 / 골프백 / 유모차</div>
+              <div class="개-price-hint" id="hint-over">출발지·도착지를 선택하면 가격이 표시됩니다</div>
             </div>
             <div class="counter">
               <button class="counter-btn" onclick="change('over',-1)">−</button>
@@ -671,7 +671,7 @@
         </div>
       </div>
 
-      <button class="calc-btn" onclick="calculate()">🧮 Calculate Price</button>
+      <button class="calc-btn" onclick="calculate()">🧮 요금 계산하기</button>
     </div>
   </div>
 
@@ -681,7 +681,7 @@
       <div style="font-size:22px">✅</div>
       <div>
         <h3>Your Delivery Quote</h3>
-        <p>Same-day delivery — book by midnight the day before</p>
+        <p>당일 배송 — book by midnight the 일 before</p>
       </div>
     </div>
     <div class="result-body">
@@ -702,52 +702,52 @@
         </thead>
         <tbody id="breakdown-body"></tbody>
       </table>
-      <div class="min-note" id="min-note">⚠️ Minimum 2-bag charge applied — 1 bag is billed as 2.</div>
+      <div class="min-note" id="min-note">⚠️ Minimum 2-개 charge applied — 1 개 is billed as 2.</div>
       <div class="price-total">
-        <div class="price-total-label">Total</div>
+        <div class="price-total-label">도착지tal</div>
         <div class="price-total-val" id="r-total">—</div>
       </div>
-      <button class="book-btn" onclick="openBookingFromCalc()">Book This Delivery →</button>
+      <button class="book-btn" onclick="openBookingFromCalc()">배송 예약하기 →</button>
     </div>
   </div>
 
   <!-- PRICING REFERENCE -->
   <div class="pricing-card">
-    <div class="pricing-card-header">📊 Rate Guide</div>
+    <div class="pricing-card-header">📊 가격</div>
     <div class="pricing-tabs">
-      <div class="pricing-tab active" onclick="switchTab('intercity')">🚄 Intercity</div>
-      <div class="pricing-tab" onclick="switchTab('intracity')">🏙️ Same City</div>
+      <div class="pricing-tab active" onclick="switchTab('intercity')">🚄 도시간배송</div>
+      <div class="pricing-tab" onclick="switchTab('intracity')">🏙️ 도시내 배송</div>
     </div>
     <div class="pricing-table-wrap">
       <div class="pricing-table active" id="tab-intercity">
         <div class="pt-row pt-header">
-          <div>Bags</div><div style="text-align:right">Carry-on</div><div style="text-align:right">Checked</div><div style="text-align:right">Oversize</div>
+          <div>짐개수</div><div style="text-align:right">기내용</div><div style="text-align:right">위탁</div><div style="text-align:right">대형</div>
         </div>
         <div class="pt-row">
-          <div class="pt-bags">1–2 bags <span class="pt-badge badge-min">min 2</span></div>
+          <div class="pt-개s">1–2 bags <span class="pt-badge badge-min">min 2</span></div>
           <div class="pt-price">₩52,000</div><div class="pt-price">₩55,000</div><div class="pt-price">₩58,000</div>
         </div>
         <div class="pt-row">
-          <div class="pt-bags">3rd bag+ <span class="pt-badge badge-vol">per bag</span></div>
+          <div class="pt-개s">3+ bags <span class="pt-badge badge-vol">per bag</span></div>
           <div class="pt-price">₩20,000</div><div class="pt-price">₩20,000</div><div class="pt-price">₩20,000</div>
         </div>
-        <div class="pricing-note">💡 Price per bag. Minimum 2-bag charge. From the 3rd bag, KRW 20,000 per bag regardless of size.</div>
+        <div class="pricing-note">💡 Price per bag. 가격은 짐 1개 기준입니다. 최소 2개 요금이 부과됩니다. 3번째 짐부터는 크기에 관계없이 개당 ₩20,000입니다.</div>
       </div>
       <div class="pricing-table" id="tab-intracity">
         <div class="pt-row pt-header">
           <div>Size</div><div style="text-align:right;grid-column:2/5">Price per bag</div>
         </div>
         <div class="pt-row">
-          <div class="pt-bags">Carry-on</div>
-          <div class="pt-price" style="grid-column:2/5;text-align:right">₩24,500 / bag</div>
+          <div class="pt-개s">Carry-on</div>
+          <div class="pt-price" style="grid-column:2/5;text-align:right">24,500 / 개</div>
         </div>
         <div class="pt-row">
-          <div class="pt-bags">Checked-in</div>
-          <div class="pt-price" style="grid-column:2/5;text-align:right">₩29,700 / bag</div>
+          <div class="pt-개s">Checked-in</div>
+          <div class="pt-price" style="grid-column:2/5;text-align:right">29,700 / 개</div>
         </div>
         <div class="pt-row">
-          <div class="pt-bags">Oversize</div>
-          <div class="pt-price" style="grid-column:2/5;text-align:right">₩29,700 / bag</div>
+          <div class="pt-개s">Oversize</div>
+          <div class="pt-price" style="grid-column:2/5;text-align:right">29,700 / 개</div>
         </div>
         <div class="pricing-note">💡 No minimum charge. Pay per bag only — any quantity.</div>
       </div>
@@ -756,29 +756,29 @@
 
   <!-- CONDITIONS -->
   <div class="conditions">
-    <div class="conditions-header">✅ Service Conditions</div>
+    <div class="conditions-header">✅ 유의사항</div>
     <div class="conditions-body">
       <div class="condition-item">
         <div class="condition-icon icon-ok">🏨</div>
         <div class="condition-text">
-          <strong>Hotel or accommodation with a front desk</strong>
-          <span>Any hotel or guesthouse with a staffed reception that can accept and store luggage.</span>
+          <strong>프런트가 있는 호텔 또는 숙소</strong>
+          <span>수하물을 받아 보관할 수 있는 직원이 상주하는 호텔 또는 게스트하우스.</span>
         </div>
       </div>
       <div class="condition-item">
         <div class="condition-icon icon-ok">👤</div>
         <div class="condition-text">
-          <strong>On-site staff always present</strong>
-          <span>Accommodation where someone is always available on-site to handle luggage handover.</span>
+          <strong>상주 직원이 항상 있는 숙소</strong>
+          <span>짐 인수인계를 처리할 수 있는 직원이 상시 근무하는 숙소.</span>
         </div>
       </div>
       <div class="condition-item">
         <div class="condition-icon icon-ok">🏠</div>
         <div class="condition-text">
-          <strong>Airbnb or unstaffed accommodation</strong>
-          <span>Available with a scheduled meetup. Please be outside your accommodation <b>10 minutes before</b> the pickup time. Our driver will wait up to <b>10 minutes</b> after the scheduled time.</span>
+          <strong>에어비앤비 또는 무인 숙소</strong>
+          <span>사전 약속을 통해 이용 가능합니다. 픽업 시간 <b>10분 전</b>에 숙소 밖에서 대기해 주세요. 기사님은 예약 시간 이후 최대 <b>10분</b> 대기합니다.</span>
           <div style="margin-top:8px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:8px 10px;font-size:11px;color:#166534;font-weight:600;line-height:1.5;">
-            📱 You will receive a confirmation reminder <b>30 minutes before</b> your pickup via SMS or KakaoTalk.
+            📱 픽업 <b>30분 전</b>에 SMS 또는 카카오톡으로 확인 알림을 보내드립니다.
           </div>
         </div>
       </div>
@@ -795,7 +795,7 @@
   <!-- Header -->
   <div class="bk-header">
     <button class="bk-back" id="bkBack" onclick="bkBack()">←</button>
-    <div class="bk-title" id="bkTitle">Book Delivery</div>
+    <div class="bk-title" id="bkTitle">배송 예약</div>
     <button class="bk-close" onclick="closeBooking()">✕</button>
   </div>
 
@@ -1037,7 +1037,7 @@ const locations = [
   // Daegu
   { name: "Novotel Ambassador Daegu", addr: "611 Gukchaebosang-ro, Jung-gu", city: "Daegu" },
   { name: "Daegu Grand Hotel", addr: "200 Taepyeong-ro, Jung-gu", city: "Daegu" },
-  { name: "Hotel Intercity Daegu", addr: "107 Daegucheon-ro, Nam-gu", city: "Daegu" },
+  { name: "Hotel 도시간배송 Daegu", addr: "107 Daegucheon-ro, Nam-gu", city: "Daegu" },
   { name: "Hotel Lotte Daegu", addr: "649 Gukchaebosang-ro, Jung-gu", city: "Daegu" },
   { name: "Airbnb – Dongseongno Area Studio", addr: "Jung-gu, Daegu", city: "Daegu" },
   { name: "Airbnb – Seomun Market Stay", addr: "Jung-gu, Daegu", city: "Daegu" },
@@ -1153,10 +1153,10 @@ const locations = [
 const bags = { carry: 0, checked: 0, over: 0 };
 let fromCity = null, toCity = null, fromName = "", toName = "";
 
-// Intercity: per bag price, minimum 2-bag charge, 3rd bag+ = 20,000 flat
+// 도시간배송: per bag price, minimum 2-개 charge, 3+ bags = 20,000 flat
 const INTERCITY = { carry: 52000, checked: 55000, over: 58000 };
-const VOL_RATE  = 20000; // per bag from 3rd bag onwards
-const STORAGE_RATE = 5000; // per bag per day for multi-day storage
+const VOL_RATE  = 20000; // per bag from 3rd 개 onwards
+const STORAGE_RATE = 5000; // per bag per 일 for multi-일 storage
 // Intracity: per bag price, no minimum
 const INTRACITY = { carry: 24500, checked: 29700, over: 29700 };
 
@@ -1218,15 +1218,15 @@ function updateIndicator() {
   document.getElementById("route-icon").textContent = type === "intracity" ? "🏙️" : "🚄";
   document.getElementById("route-label").textContent = type === "intracity"
     ? `Same-city delivery (${fromCity})`
-    : `Intercity delivery: ${fromCity} → ${toCity}`;
+    : `도시간배송 delivery: ${fromCity} → ${toCity}`;
 }
 
 function updateHints() {
   const type = getType(); if (!type) return;
   if (type === "intercity") {
-    document.getElementById("hint-carry").textContent   = "₩52,000 per bag  •  3rd bag+: ₩20,000";
-    document.getElementById("hint-checked").textContent = "₩55,000 per bag  •  3rd bag+: ₩20,000";
-    document.getElementById("hint-over").textContent    = "₩58,000 per bag  •  3rd bag+: ₩20,000";
+    document.getElementById("hint-carry").textContent   = "₩52,000 per bag  •  3+ bags: 20,000";
+    document.getElementById("hint-checked").textContent = "₩55,000 per bag  •  3+ bags: 20,000";
+    document.getElementById("hint-over").textContent    = "₩58,000 per bag  •  3+ bags: 20,000";
   } else {
     document.getElementById("hint-carry").textContent   = "₩24,500 per bag — no minimum";
     document.getElementById("hint-checked").textContent = "₩29,700 per bag — no minimum";
@@ -1235,13 +1235,13 @@ function updateHints() {
 }
 
 function change(type, delta) {
-  bags[type] = Math.max(0, bags[type] + delta);
-  document.getElementById(type + "-val").textContent = bags[type];
-  document.getElementById("row-" + type).classList.toggle("has-bags", bags[type] > 0);
+  개s[type] = Math.max(0, 개s[type] + delta);
+  document.getElementById(type + "-val").textContent = 개s[type];
+  document.getElementById("row-" + type).classList.toggle("has-개s", 개s[type] > 0);
 }
 
-function calcIntercity(sizes, total) {
-  // Per bag: 52K/55K/58K, minimum 2-bag charge, 3rd bag+ = 20K flat
+function calc도시간배송(sizes, total) {
+  // Per 개: 52K/55K/58K, minimum 2-개 charge, 3+ bags = 20K flat
   const isMin = total === 1;
   const effectiveTotal = Math.max(total, 2);
   let stdRemain = 2;
@@ -1255,11 +1255,11 @@ function calcIntercity(sizes, total) {
     stdRemain = Math.max(0, stdRemain - std);
     const sub = (std * INTERCITY[s.key]) + (vol * VOL_RATE);
     grandTotal += sub;
-    const volNote = vol > 0 ? `<div class="td-vol">↳ ${vol} bag(s) × KRW 20,000</div>` : "";
+    const volNote = vol > 0 ? `<div class="td-vol">↳ ${vol} 개(s) × KRW 20,000</div>` : "";
     rows += `<tr>
       <td class="td-label">${s.label}</td>
       <td class="td-qty">${isMin && sizes.length === 1 ? "1 (→2)" : s.count}</td>
-      <td class="td-unit">${fmt(INTERCITY[s.key])} / bag</td>
+      <td class="td-unit">${fmt(INTERCITY[s.key])} / 개</td>
       <td class="td-total">${fmt(sub)}${volNote}</td>
     </tr>`;
   });
@@ -1277,7 +1277,7 @@ function calcIntracity(sizes) {
     rows += `<tr>
       <td class="td-label">${s.label}</td>
       <td class="td-qty">${s.count}</td>
-      <td class="td-unit">${fmt(INTRACITY[s.key])} / bag</td>
+      <td class="td-unit">${fmt(INTRACITY[s.key])} / 개</td>
       <td class="td-total">${fmt(sub)}</td>
     </tr>`;
   });
@@ -1287,7 +1287,7 @@ function calcIntracity(sizes) {
 function calculate() {
   if (!fromCity || !toCity) { alert("Please select both locations from the dropdown."); return; }
   const total = bags.carry + bags.checked + bags.over;
-  if (total === 0) { alert("Please add at least 1 bag."); return; }
+  if (total === 0) { alert("Please add at least 1 개."); return; }
 
   const type = getType();
   const sizes = [
@@ -1297,13 +1297,13 @@ function calculate() {
   ].filter(s => s.count > 0);
 
   const { rows, grandTotal, isMin } = type === "intercity"
-    ? calcIntercity(sizes, total)
+    ? calc도시간배송(sizes, total)
     : calcIntracity(sizes);
 
   document.getElementById("r-from").textContent = fromName;
   document.getElementById("r-to").textContent   = toName;
   const pill = document.getElementById("r-pill");
-  pill.textContent  = type === "intracity" ? "🏙️ Same City" : "🚄 Intercity";
+  pill.textContent  = type === "intracity" ? "🏙️ 도시내 배송" : "🚄 도시간배송";
   pill.className    = "route-type-pill " + (type === "intracity" ? "pill-intracity" : "pill-intercity");
   document.getElementById("breakdown-body").innerHTML = rows;
   document.getElementById("min-note").classList.toggle("visible", isMin);
@@ -1324,20 +1324,20 @@ function switchTab(tab) {
 // ═══════════════════════════════════════════════════
 // BOOKING FLOW
 // ═══════════════════════════════════════════════════
-const STEPS = ["Departure","Arrival","Luggage","Delivery Time","Customer Info","Reservation","Payment","Terms","Summary"];
+const STEPS = ["출발지","도착지","수하물","배송 시간","고객 정보","예약 정보","결제","약관","예약 확인"];
 const AIRPORTS = [
-  { id: "incheon", name: "Incheon Airport", hasSub: true },
-  { id: "gimpo",   name: "Gimpo Airport",  hasSub: false,
-    sub: [{ name: "Gimpo Airport International Terminal", addr: "On 1F (Arrival Hall), go to the Baggage Total Service desk near Gate 1", city: "Seoul" }]
+  { id: "incheon", name: "Incheon 공항", hasSub: true },
+  { id: "gimpo",   name: "Gimpo 공항",  hasSub: false,
+    sub: [{ name: "Gimpo 공항 International Terminal", addr: "On 1F (도착지 Hall), go to the Baggage 도착지tal Service desk near Gate 1", city: "Seoul" }]
   },
 ];
 const AIRPORT_SUBS = {
   incheon: [
-    { name: "Incheon Airport Terminal 1", addr: "In front of the Goodlugg Desk, near Gate 13 on the west side of the Arrival Hall, 1st Floor, Terminal 1, Incheon International Airport", city: "Incheon" },
-    { name: "Incheon Airport Terminal 2", addr: "Go to the Goodlugg Desk located near Gates 5 and 6 at the center of the Arrival Hall (1F)", city: "Incheon" },
+    { name: "Incheon 공항 Terminal 1", addr: "In front of the Goodlugg Desk, near Gate 13 on the west side of the 도착지 Hall, 1st Floor, Terminal 1, Incheon International 공항", city: "Incheon" },
+    { name: "Incheon 공항 Terminal 2", addr: "Go to the Goodlugg Desk located near Gates 5 and 6 at the center of the 도착지 Hall (1F)", city: "Incheon" },
   ],
   gimpo: [
-    { name: "Gimpo Airport International Terminal", addr: "On 1F (Arrival Hall), go to the Baggage Total Service desk near Gate 1", city: "Seoul" },
+    { name: "Gimpo 공항 International Terminal", addr: "On 1F (도착지 Hall), go to the Baggage 도착지tal Service desk near Gate 1", city: "Seoul" },
   ],
 };
 
@@ -1349,7 +1349,7 @@ function bkDefault() {
   const ds = d.toISOString().split("T")[0];
   return {
     departure:null, arrival:null,
-    bags:{carry:0,checked:0,over:0},
+    개s:{carry:0,checked:0,over:0},
     dropDate:ds, dropTime:"",
     pickDate:ds, pickTime:"",
     custFirst:"",custLast:"",custCountry:"+82",custPhone:"",custEmail:"",
@@ -1370,7 +1370,7 @@ function openBookingFromCalc() {
     bkData.arrival = { name: toName, addr: "", city: toCity, type: "hotel" };
   }
 
-  // Pre-fill bag counts from calculator
+  // Pre-fill 개 counts from calculator
   bkData.bags.carry   = bags.carry;
   bkData.bags.checked = bags.checked;
   bkData.bags.over    = bags.over;
@@ -1415,8 +1415,8 @@ function renderStep() {
 }
 
 // ── Location steps ──
-function renderDepartureStep() { renderLocStep("departure","Step 1 of 8","👋 <strong>Hello!</strong><br>We'll help you book your luggage delivery.<br>First, where would you like to <strong>drop off</strong> your luggage?"); }
-function renderArrivalStep()   { renderLocStep("arrival","Step 2 of 8","📍 Great! So where would you like it <strong>delivered</strong>?"); }
+function renderDepartureStep() { renderLocStep("departure","1/8 단계","👋 <strong>안녕하세요!</strong><br>수하물 배송 예약을 도와드리겠습니다.<br>먼저, 수하물을 <strong>맡기실 장소</strong>를 선택해 주세요."); }
+function renderArrivalStep()   { renderLocStep("arrival","2/8 단계","📍 좋아요! 수하물을 <strong>배송받으실 장소</strong>를 선택해 주세요."); }
 
 function renderLocStep(field, label, msg) {
   document.getElementById("bkSteps").innerHTML = `
@@ -1424,11 +1424,11 @@ function renderLocStep(field, label, msg) {
     <div class="bk-bubble">${msg}</div>
     <div class="bk-categories">
       <button class="bk-cat-btn" onclick="showAirports('${field}')">
-        <div class="bk-cat-left"><span class="bk-cat-icon">✈️</span><span class="bk-cat-name">Airport</span></div>
+        <div class="bk-cat-left"><span class="bk-cat-icon">✈️</span><span class="bk-cat-name">공항</span></div>
         <span class="bk-cat-arrow">→</span>
       </button>
       <button class="bk-cat-btn" onclick="showHotelSearch('${field}')">
-        <div class="bk-cat-left"><span class="bk-cat-icon">🏨</span><span class="bk-cat-name">Hotel / Accommodation</span></div>
+        <div class="bk-cat-left"><span class="bk-cat-icon">🏨</span><span class="bk-cat-name">호텔 / 숙소</span></div>
         <span class="bk-cat-arrow">→</span>
       </button>
     </div>`;
@@ -1437,8 +1437,8 @@ function renderLocStep(field, label, msg) {
 function showAirports(field) {
   const c = document.getElementById("bkSteps");
   c.innerHTML = `
-    <div class="bk-step-label">Select Airport</div>
-    <div class="bk-bubble">Please select your airport.</div>
+    <div class="bk-step-label">Select 공항</div>
+    <div class="bk-bubble">이용하실 공항을 선택해 주세요.</div>
     <div class="bk-airport-list" id="bkAirportList"></div>`;
   const list = document.getElementById("bkAirportList");
   AIRPORTS.forEach(a => {
@@ -1461,7 +1461,7 @@ function showAirportSubs(field, airportName, airportId) {
   const c = document.getElementById("bkSteps");
   c.innerHTML = `
     <div class="bk-step-label">${airportName}</div>
-    <div class="bk-bubble">Please select the desired option.</div>
+    <div class="bk-bubble">원하시는 옵션을 선택해 주세요.</div>
     <div class="bk-airport-list" id="bkSubList"></div>`;
   const list = document.getElementById("bkSubList");
   subs.forEach(s => {
@@ -1475,10 +1475,10 @@ function showAirportSubs(field, airportName, airportId) {
 
 function showHotelSearch(field) {
   document.getElementById("bkSteps").innerHTML = `
-    <div class="bk-step-label">Search Hotel</div>
-    <div class="bk-bubble">Please search by hotel name.</div>
+    <div class="bk-step-label">호텔 검색</div>
+    <div class="bk-bubble">호텔 이름으로 검색해 주세요.</div>
     <div class="bk-search-wrap">
-      <input class="bk-search" id="bkHotelQ" placeholder="Enter hotel name..." oninput="filterHotels('${field}')" />
+      <input class="bk-search" id="bkHotelQ" placeholder="호텔 이름 입력..." oninput="filterHotels('${field}')" />
     </div>
     <div class="bk-search-results" id="bkHotelList"></div>`;
   filterHotels(field);
@@ -1501,27 +1501,27 @@ function filterHotels(field) {
 
 function confirmLocation(field, loc) {
   bkData[field] = loc;
-  const airbnbNote = loc.type==="hotel" ? `<div class="bk-airbnb-note">📱 Airbnb / unstaffed accommodations eligible. Please be outside <strong>10 min before</strong> pickup. Driver waits up to 10 min. SMS reminder sent 30 min prior.</div>` : "";
+  const airbnbNote = loc.type==="hotel" ? `<div class="bk-airbnb-note">📱 Airbnb / 무인 숙소도 이용 가능합니다. 픽업 <strong>10분 전</strong>에 외부에서 대기해 주세요. 기사님은 최대 10분 대기합니다. 픽업 30분 전 SMS 알림이 발송됩니다.</div>` : "";
   document.getElementById("bkSteps").innerHTML = `
-    <div class="bk-step-label">${field==="departure"?"Departure":"Arrival"} Selected</div>
+    <div class="bk-step-label">${field==="departure"?"출발지":"도착지"} Selected</div>
     <div class="bk-selected-card">
       <div class="bk-selected-name">${loc.type==="airport"?"✈️":"🏨"} ${loc.name}</div>
       <div class="bk-selected-addr">📍 ${loc.addr}</div>
       ${airbnbNote}
     </div>
     <div style="padding:0 0 100px; width:100%;">
-      <button class="bk-next-btn" onclick="bkNext()">Confirm & Continue →</button>
+      <button class="bk-next-btn" onclick="bkNext()">확인 및 계속 →</button>
     </div>`;
 }
 
-// ── Luggage ──
-function bkIsIntercity() { return bkData.departure?.city !== bkData.arrival?.city; }
+// ── 수하물 ──
+function bkIs도시간배송() { return bkData.departure?.city !== bkData.arrival?.city; }
 
 function calcBkTotal() {
   const {carry,checked,over} = bkData.bags;
   const total = carry+checked+over; if(!total) return 0;
   let deliveryFee = 0;
-  if (bkIsIntercity()) {
+  if (bkIs도시간배송()) {
     const eff = Math.max(total,2);
     let remain=2, grand=0;
     [[carry,INTERCITY.carry],[checked,INTERCITY.checked],[over,INTERCITY.over]].forEach(([cnt,rate])=>{
@@ -1535,7 +1535,7 @@ function calcBkTotal() {
   } else {
     deliveryFee = carry*INTRACITY.carry + checked*INTRACITY.checked + over*INTRACITY.over;
   }
-  // Storage fee for multi-day
+  // 보관료 for multi-일
   const days = daysBetween(bkData.dropDate, bkData.pickDate);
   const storageFee = days > 0 ? days * total * STORAGE_RATE : 0;
   return deliveryFee + storageFee;
@@ -1548,21 +1548,21 @@ function calcStorageFee() {
 }
 
 function renderLuggageStep() {
-  const isIC = bkIsIntercity();
+  const isIC = bkIs도시간배송();
   const prefilled = bkData.departure?.name && bkData.arrival?.name;
   document.getElementById("bkSteps").innerHTML = `
-    <div class="bk-step-label">Step 3 of 8</div>
+    <div class="bk-step-label">3/8 단계</div>
     ${prefilled ? `<div style="margin:0 0 12px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:10px 14px;font-size:12px;color:#166534;font-weight:600">
-      ✅ Route pre-filled from your estimate:<br>
+      ✅ 요금 계산기에서 자동 입력된 경로:<br>
       <strong>${bkData.departure.name}</strong> → <strong>${bkData.arrival.name}</strong>
     </div>` : ""}
-    <div class="bk-bubble">📦 <strong>What kind of luggage would you like to send?</strong>
-      ${isIC?`<div class="bk-warn">Minimum charge equivalent to 2 luggage items.<br>(1 item = same price as 2.)</div>`:""}
+    <div class="bk-bubble">📦 <strong>어떤 수하물을 보내시겠어요?</strong>
+      ${isIC?`<div class="bk-warn">최소 요금 equivalent to 2 luggage items.<br>(1 item = same price as 2.)</div>`:""}
     </div>
     ${["carry","checked","over"].map((k,i)=>{
-      const labels = [["🧳 22 inches or less","Carry-on luggage"],["🧳 Over 22 inches / Golf bag","Checked luggage / Golf bag"],["🧳 Over 30 inches","Extra Large Checked Luggage"]];
-      return `<div class="bk-bag-row ${bkData.bags[k]>0?'active':''}" id="bkRow_${k}">
-        <div><div class="bk-bag-name">${labels[i][0]}</div><div class="bk-bag-desc">${labels[i][1]}</div></div>
+      const labels = [["🧳 22인치 이하","기내 수하물"],["🧳 22인치 초과 / 골프백","위탁 수하물 / 골프백"],["🧳 30인치 초과","Extra Large Checked 수하물"]];
+      return `<div class="bk-개-row ${bkData.bags[k]>0?'active':''}" id="bkRow_${k}">
+        <div><div class="bk-개-name">${labels[i][0]}</div><div class="bk-개-desc">${labels[i][1]}</div></div>
         <div class="bk-counter">
           <button class="bk-counter-btn" onclick="bkBag('${k}',-1)">−</button>
           <span class="bk-counter-val" id="bkVal_${k}">${bkData.bags[k]}</span>
@@ -1572,10 +1572,10 @@ function renderLuggageStep() {
     }).join("")}
     <div class="bk-total-bar">
       <div class="bk-total-row">
-        <span class="bk-total-label">Total payment amount</span>
+        <span class="bk-total-label">총 결제 금액</span>
         <span class="bk-total-amount" id="bkBagTotal">${fmt(calcBkTotal())}</span>
       </div>
-      <button class="bk-next-btn" id="bkBagBtn" onclick="bkNext()" ${(bkData.bags.carry+bkData.bags.checked+bkData.bags.over)===0?"disabled":""}>Enter delivery time →</button>
+      <button class="bk-next-btn" id="bkBagBtn" onclick="bkNext()" ${(bkData.bags.carry+bkData.bags.checked+bkData.bags.over)===0?"disabled":""}>배송 시간 입력 →</button>
     </div>`;
 }
 
@@ -1588,40 +1588,40 @@ function bkBag(k, d) {
   document.getElementById("bkBagBtn").disabled = total===0;
 }
 
-// ── Time ──
+// ── 시간 ──
 function renderTimeStep() {
   const fromAirport = bkData.departure?.type === "airport";
 
   const dropTime = fromAirport ? "Before 13:00" : "Before 09:00";
   const pickTime = fromAirport ? "Before 22:00" : "Before 21:00";
-  const dropNote = fromAirport ? "✈️ Drop off luggage at airport counter by 1:00 PM" : "🏨 Goodlugg staff picks up luggage by 9:00 AM";
-  const pickNote = fromAirport ? "🏨 Luggage delivered to hotel by 10:00 PM" : "🏨 Luggage delivered to hotel by 9:00 PM";
+  const dropNote = fromAirport ? "✈️ 오후 1시까지 공항 카운터에 수하물을 맡겨주세요" : "🏨 굿럭 직원이 오전 9시까지 수하물을 수거합니다";
+  const pickNote = fromAirport ? "🏨 오후 10시까지 호텔로 배송됩니다" : "🏨 오후 9시까지 호텔로 배송됩니다";
 
   bkData.dropTime = dropTime;
   bkData.pickTime = pickTime;
 
   document.getElementById("bkSteps").innerHTML = `
-    <div class="bk-step-label">Step 4 of 8</div>
-    <div class="bk-bubble">🚚 <strong>When would you like to deliver your luggage?</strong><br><small>If drop-off and pick-up dates differ, storage fees will be added.</small></div>
+    <div class="bk-step-label">4/8 단계</div>
+    <div class="bk-bubble">🚚 <strong>수하물을 언제 배송받으시겠어요?</strong><br><small>맡기는 날짜와 배송 날짜가 다를 경우 보관료가 추가됩니다.</small></div>
     <div class="bk-datetime">
-      <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px">Drop Off Luggage</div>
+      <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px">Drop Off 수하물</div>
       <div class="bk-dt-row">
-        <span class="bk-dt-label">Date</span>
+        <span class="bk-dt-label">날짜</span>
         <input type="date" class="bk-dt-select" value="${bkData.dropDate}" onchange="bkData.dropDate=this.value;updateStoragePreview()" />
       </div>
       <div class="bk-dt-row">
-        <span class="bk-dt-label">Time</span>
+        <span class="bk-dt-label">시간</span>
         <span style="font-size:13px;font-weight:700;color:var(--purple)">${dropTime}</span>
       </div>
       <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 12px;font-size:12px;color:#166534;font-weight:600;margin-bottom:8px">${dropNote}</div>
 
-      <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px">Arrival at Destination</div>
+      <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px">도착지 at Destination</div>
       <div class="bk-dt-row">
-        <span class="bk-dt-label">Date</span>
+        <span class="bk-dt-label">날짜</span>
         <input type="date" class="bk-dt-select" value="${bkData.pickDate}" onchange="bkData.pickDate=this.value;updateStoragePreview()" id="bkPickDateInput"/>
       </div>
       <div class="bk-dt-row">
-        <span class="bk-dt-label">Time</span>
+        <span class="bk-dt-label">시간</span>
         <span style="font-size:13px;font-weight:700;color:var(--purple)">${pickTime}</span>
       </div>
       <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 12px;font-size:12px;color:#166534;font-weight:600;margin-bottom:8px">${pickNote}</div>
@@ -1629,43 +1629,43 @@ function renderTimeStep() {
     </div>
     <div class="bk-total-bar">
       <div class="bk-total-row">
-        <span class="bk-total-label">Estimated Total</span>
+        <span class="bk-total-label">Estimated 도착지tal</span>
         <span class="bk-total-amount" id="bkTimeTotal">${fmt(calcBkTotal())}</span>
       </div>
-      <button class="bk-next-btn" onclick="bkNext()">Confirm schedule →</button>
+      <button class="bk-next-btn" onclick="bkNext()">일정 확인 →</button>
     </div>`;
 }
 
-// ── Customer Info ──
+// ── 고객 정보 ──
 function renderCustomerStep() {
   document.getElementById("bkSteps").innerHTML = `
-    <div class="bk-step-label">Step 5 of 8</div>
-    <div class="bk-bubble">👤 <strong>Who will be sending the luggage?</strong></div>
+    <div class="bk-step-label">5/8 단계</div>
+    <div class="bk-bubble">👤 <strong>수하물을 보내시는 분의 정보를 입력해 주세요.</strong></div>
     <div class="bk-form">
       <div class="bk-field-group">
-        <div class="bk-field-label">Name</div>
-        <div class="bk-field-sub">Please enter in English as shown on passport</div>
+        <div class="bk-field-label">이름</div>
+        <div class="bk-field-sub">여권에 표기된 영문 이름을 입력해 주세요</div>
         <div class="bk-input-row">
-          <input class="bk-input" id="cf" placeholder="First name" value="${bkData.custFirst}" />
-          <input class="bk-input" id="cl" placeholder="Last name" value="${bkData.custLast}" />
+          <input class="bk-input" id="cf" placeholder="이름" value="${bkData.custFirst}" />
+          <input class="bk-input" id="cl" placeholder="성" value="${bkData.custLast}" />
         </div>
-        <div class="bk-error-msg" id="custErr" style="display:none">Please enter first name</div>
+        <div class="bk-error-msg" id="custErr" style="display:none">이름을 입력해 주세요</div>
       </div>
       <div class="bk-field-group">
-        <div class="bk-field-label">Phone number</div>
+        <div class="bk-field-label">전화번호</div>
         <div class="bk-input-row">
           <input class="bk-input" style="max-width:100px" id="cc" placeholder="+82" value="${bkData.custCountry}" />
-          <input class="bk-input" id="cp" placeholder="Phone number" value="${bkData.custPhone}" />
+          <input class="bk-input" id="cp" placeholder="전화번호" value="${bkData.custPhone}" />
         </div>
       </div>
       <div class="bk-field-group">
-        <div class="bk-field-label">Email address</div>
-        <input class="bk-input" id="ce" placeholder="Enter email address" value="${bkData.custEmail}" />
+        <div class="bk-field-label">이메일 주소</div>
+        <input class="bk-input" id="ce" placeholder="이메일 주소 입력" value="${bkData.custEmail}" />
       </div>
     </div>
     <div class="bk-total-bar">
-      <div class="bk-total-row"><span class="bk-total-label">Total</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
-      <button class="bk-next-btn" onclick="saveCust()">Enter customer information →</button>
+      <div class="bk-total-row"><span class="bk-total-label">도착지tal</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
+      <button class="bk-next-btn" onclick="saveCust()">고객 정보 입력 →</button>
     </div>`;
 }
 
@@ -1677,96 +1677,96 @@ function saveCust() {
   bkData.custEmail=document.getElementById("ce").value; bkNext();
 }
 
-// ── Reservation ──
+// ── 예약 정보 ──
 function renderReservationStep() {
   document.getElementById("bkSteps").innerHTML = `
-    <div class="bk-step-label">Step 6 of 8</div>
-    <div class="bk-bubble">🏨 <strong>Please enter the information required to verify your hotel reservation.</strong></div>
+    <div class="bk-step-label">6/8 단계</div>
+    <div class="bk-bubble">🏨 <strong>호텔 예약 확인을 위한 정보를 입력해 주세요.</strong></div>
     <div class="bk-form">
       <div class="bk-field-group">
-        <div class="bk-field-label">Name</div>
-        <div class="bk-field-sub">Reservation name at destination hotel</div>
+        <div class="bk-field-label">이름</div>
+        <div class="bk-field-sub">예약 정보 name at destination hotel</div>
         <div class="bk-input-row">
-          <input class="bk-input" id="rf" placeholder="First name" value="${bkData.resFirst}" />
-          <input class="bk-input" id="rl" placeholder="Last name" value="${bkData.resLast}" />
+          <input class="bk-input" id="rf" placeholder="이름" value="${bkData.resFirst}" />
+          <input class="bk-input" id="rl" placeholder="성" value="${bkData.resLast}" />
         </div>
-        <button class="bk-same-btn" onclick="sameAsCust()">Use same as customer information</button>
+        <button class="bk-same-btn" onclick="sameAsCust()">고객 정보와 동일하게 사용</button>
       </div>
       <div class="bk-field-group">
-        <div class="bk-field-label">Hotel reservation number</div>
-        <input class="bk-input" id="rn" placeholder="Enter reservation number" value="${bkData.resNum}" />
+        <div class="bk-field-label">호텔 예약 번호</div>
+        <input class="bk-input" id="rn" placeholder="예약 번호 입력" value="${bkData.resNum}" />
       </div>
     </div>
     <div class="bk-total-bar">
-      <div class="bk-total-row"><span class="bk-total-label">Total</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
-      <button class="bk-next-btn" onclick="saveRes()">Enter payment information →</button>
+      <div class="bk-total-row"><span class="bk-total-label">도착지tal</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
+      <button class="bk-next-btn" onclick="saveRes()">결제 정보 입력 →</button>
     </div>`;
 }
 function sameAsCust(){document.getElementById("rf").value=bkData.custFirst;document.getElementById("rl").value=bkData.custLast;}
 function saveRes(){bkData.resFirst=document.getElementById("rf").value;bkData.resLast=document.getElementById("rl").value;bkData.resNum=document.getElementById("rn").value;bkNext();}
 
-// ── Payment ──
+// ── 결제 ──
 function renderPaymentStep() {
   document.getElementById("bkSteps").innerHTML = `
-    <div class="bk-step-label">Step 7 of 8</div>
-    <div class="bk-bubble">💳 <strong>How would you like to pay?</strong><br><small>Please select a safe and convenient payment method.</small></div>
+    <div class="bk-step-label">7/8 단계</div>
+    <div class="bk-bubble">💳 <strong>결제 방법을 선택해 주세요.</strong><br><small>안전하고 편리한 결제 방법을 선택해 주세요.</small></div>
     <div class="bk-payment-methods">
       <button class="bk-pay-btn ${bkData.payMethod==='international'?'selected':''}" onclick="selPay('international')">
-        <div class="pay-icon">🌐</div><div class="pay-label">International card</div>
+        <div class="pay-icon">🌐</div><div class="pay-label">해외 카드</div>
       </button>
       <button class="bk-pay-btn ${bkData.payMethod==='korean'?'selected':''}" onclick="selPay('korean')">
-        <div class="pay-icon">🇰🇷</div><div class="pay-label">Korean bank/card</div>
+        <div class="pay-icon">🇰🇷</div><div class="pay-label">국내 카드/계좌</div>
       </button>
     </div>
     <div class="bk-pay-detail" id="payDetail">
       ${bkData.payMethod==='international'
-        ?'<div class="bk-pay-detail-name">🌐 International card</div><div class="bk-pay-detail-desc">Payment with credit card issued abroad</div>'
-        :'<div class="bk-pay-detail-name">🇰🇷 Korean bank / card</div><div class="bk-pay-detail-desc">Payment with Korean domestic bank or credit card</div>'}
+        ?'<div class="bk-pay-detail-name">🌐 해외 카드</div><div class="bk-pay-detail-desc">결제 with credit card issued abroad</div>'
+        :'<div class="bk-pay-detail-name">🇰🇷 Korean bank / card</div><div class="bk-pay-detail-desc">결제 with Korean domestic bank or credit card</div>'}
     </div>
     <div class="bk-step-label" style="margin-top:4px">Discount Benefits</div>
-    <div class="bk-bubble">⭐ <strong>Check out the discount benefits!</strong><br><small>No discounts or points apply to Korea luggage storage fees.</small></div>
+    <div class="bk-bubble">⭐ <strong>할인 혜택을 확인하세요!</strong><br><small>한국 수하물 보관 요금에는 할인 및 포인트가 적용되지 않습니다.</small></div>
     <div class="bk-discount-section">
-      <div class="bk-field-group"><div class="bk-field-label">Coupon</div>
-        <div class="bk-discount-row"><input class="bk-input" id="couponIn" placeholder="Enter coupon code" value="${bkData.coupon}" /><button class="bk-apply-btn" onclick="bkData.coupon=document.getElementById('couponIn').value">Apply</button></div>
+      <div class="bk-field-group"><div class="bk-field-label">쿠폰</div>
+        <div class="bk-discount-row"><input class="bk-input" id="couponIn" placeholder="쿠폰 코드 입력" value="${bkData.coupon}" /><button class="bk-apply-btn" onclick="bkData.coupon=document.getElementById('couponIn').value">적용</button></div>
       </div>
-      <div class="bk-field-group"><div class="bk-field-label">Discount / Partner Code</div>
-        <div class="bk-discount-row"><input class="bk-input" id="partnerIn" placeholder="Enter discount/partner code" value="${bkData.partnerCode}" /><button class="bk-apply-btn" onclick="bkData.partnerCode=document.getElementById('partnerIn').value">Apply</button></div>
+      <div class="bk-field-group"><div class="bk-field-label">할인 / 파트너 코드</div>
+        <div class="bk-discount-row"><input class="bk-input" id="partnerIn" placeholder="할인/파트너 코드 입력" value="${bkData.partnerCode}" /><button class="bk-apply-btn" onclick="bkData.partnerCode=document.getElementById('partnerIn').value">적용</button></div>
       </div>
     </div>
     <div class="bk-total-bar">
-      <div class="bk-total-row"><span class="bk-total-label">Total payment amount</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
-      <button class="bk-next-btn purple" onclick="bkNext()">Make payment →</button>
+      <div class="bk-total-row"><span class="bk-total-label">총 결제 금액</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
+      <button class="bk-next-btn purple" onclick="bkNext()">결제하기 →</button>
     </div>`;
 }
 function selPay(m){
   bkData.payMethod=m;
   document.querySelectorAll(".bk-pay-btn").forEach((b,i)=>b.classList.toggle("selected",(m==="international"&&i===0)||(m==="korean"&&i===1)));
   document.getElementById("payDetail").innerHTML=m==="international"
-    ?'<div class="bk-pay-detail-name">🌐 International card</div><div class="bk-pay-detail-desc">Payment with credit card issued abroad</div>'
-    :'<div class="bk-pay-detail-name">🇰🇷 Korean bank / card</div><div class="bk-pay-detail-desc">Payment with Korean domestic bank or credit card</div>';
+    ?'<div class="bk-pay-detail-name">🌐 해외 카드</div><div class="bk-pay-detail-desc">결제 with credit card issued abroad</div>'
+    :'<div class="bk-pay-detail-name">🇰🇷 Korean bank / card</div><div class="bk-pay-detail-desc">결제 with Korean domestic bank or credit card</div>';
 }
 
-// ── Terms ──
+// ── 약관 ──
 function renderTermsStep() {
   document.getElementById("bkSteps").innerHTML = `
-    <div class="bk-step-label">Step 8 of 8</div>
-    <div class="bk-bubble">📋 <strong>Please agree to the terms for service use.</strong></div>
+    <div class="bk-step-label">8/8 단계</div>
+    <div class="bk-bubble">📋 <strong>서비스 이용 약관에 동의해 주세요.</strong></div>
     <div class="bk-terms">
       <div class="bk-term-item all" onclick="toggleAll()">
         <div class="bk-checkbox ${allChecked()?'checked':''}" id="chkAll">${allChecked()?'✓':''}</div>
-        <div class="bk-term-text" style="font-weight:800">Agree to all</div>
+        <div class="bk-term-text" style="font-weight:800">전체 동의</div>
       </div>
-      ${[["service","Service terms agreement"],["privacy","Personal information collection and use agreement"],["thirdparty","Third-party personal information provision agreement"]].map(([k,label])=>`
+      ${[["service","서비스 이용약관 동의"],["privacy","개인정보 수집 및 이용 동의"],["thirdparty","개인정보 제3자 제공 동의"]].map(([k,label])=>`
       <div class="bk-term-item" onclick="toggleTerm('${k}')">
         <div class="bk-checkbox ${bkData.terms[k]?'checked':''}" id="chk_${k}">${bkData.terms[k]?'✓':''}</div>
-        <div class="bk-term-text"><span class="bk-term-req">[Required]</span> ${label}</div>
-        <a class="bk-term-view" href="#" onclick="return false">View</a>
+        <div class="bk-term-text"><span class="bk-term-req">[필수]</span> ${label}</div>
+        <a class="bk-term-view" href="#" onclick="return false">보기</a>
       </div>`).join("")}
     </div>
-    <div class="bk-terms-note">✓ Agree to no-show treatment if luggage photo is not uploaded on the day of use</div>
+    <div class="bk-terms-note">✓ 이용 당일 수하물 사진 미업로드 시 노쇼 처리에 동의합니다</div>
     <div class="bk-total-bar">
-      <div class="bk-total-row"><span class="bk-total-label">Total payment amount</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
-      <button class="bk-next-btn purple" id="bkMakePayBtn" onclick="makePayment()" ${allChecked()?'':'disabled'}>Make payment</button>
+      <div class="bk-total-row"><span class="bk-total-label">총 결제 금액</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
+      <button class="bk-next-btn purple" id="bkMakePayBtn" onclick="makePayment()" ${allChecked()?'':'disabled'}>결제하기</button>
     </div>`;
 }
 
@@ -1786,10 +1786,10 @@ function updateStoragePreview() {
   const el = document.getElementById("storagePreview");
   const totalEl = document.getElementById("bkTimeTotal");
   if (!el) return;
-  if (days > 0 && total > 0) {
+  if (일s > 0 && total > 0) {
     const fee = days * total * STORAGE_RATE;
     el.innerHTML = `<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 12px;font-size:12px;color:#9a3412;font-weight:600;margin-top:4px">
-      📦 Storage fee: ${days} day${days>1?'s':''} × ${total} bag${total>1?'s':''} × ${fmt(STORAGE_RATE)} = <strong>${fmt(fee)}</strong>
+      📦 보관료: ${일s} 일${일s>1?'s':''} × ${total} 개${total>1?'s':''} × ${fmt(STORAGE_RATE)} = <strong>${fmt(fee)}</strong>
     </div>`;
   } else {
     el.innerHTML = "";
@@ -1799,55 +1799,55 @@ function updateStoragePreview() {
 
 function makePayment(){if(allChecked())bkNext();}
 
-// ── Summary / Confirmation ──
+// ── 예약 확인 / Confirmation ──
 function renderSummaryStep() {
   const orderNum = "GL" + Date.now().toString().slice(-8);
   const depLabel = bkData.departure ? `${bkData.departure.type==="airport"?"✈️":"🏨"} ${bkData.departure.name}` : "—";
   const arrLabel = bkData.arrival ? `${bkData.arrival.type==="airport"?"✈️":"🏨"} ${bkData.arrival.name}` : "—";
-  const bagSummary = [["Carry-on (22\" or less)", bkData.bags.carry],["Checked / Golf bag", bkData.bags.checked],["Extra Large (30\"+)", bkData.bags.over]]
-    .filter(([,c])=>c>0).map(([l,c])=>`<div class="bk-summary-row"><span class="bk-summary-key">${l}</span><span class="bk-summary-val">${c} bag${c>1?"s":""}</span></div>`).join("");
-  document.getElementById("bkTitle").textContent = "Booking Complete";
+  const bagSummary = [["Carry-on (22\" or less)", bkData.bags.carry],["위탁 수하물 / 골프백", bkData.bags.checked],["Extra Large (30\"+)", bkData.bags.over]]
+    .filter(([,c])=>c>0).map(([l,c])=>`<div class="bk-summary-row"><span class="bk-summary-key">${l}</span><span class="bk-summary-val">${c} 개${c>1?"s":""}</span></div>`).join("");
+  document.getElementById("bkTitle").textContent = "예약 완료";
   document.getElementById("bkSteps").innerHTML = `
     <div class="bk-confirm-screen">
       <div class="bk-confirm-icon">✅</div>
-      <div class="bk-confirm-title">Booking Confirmed!</div>
-      <div class="bk-confirm-sub">Your luggage delivery has been booked.<br>We'll send a confirmation to <strong>${bkData.custEmail||"your email"}</strong>.</div>
+      <div class="bk-confirm-title">예약이 확정되었습니다!</div>
+      <div class="bk-confirm-sub">수하물 배송 예약이 완료되었습니다.<br>예약 확인서를 <strong>${bkData.custEmail||"이메일로 발송해 드립니다"}</strong>.</div>
       <div class="bk-confirm-num">
-        <div class="bk-confirm-num-label">Order Number</div>
+        <div class="bk-confirm-num-label">주문 번호</div>
         <div class="bk-confirm-num-val">${orderNum}</div>
       </div>
     </div>
     <div class="bk-summary-section">
-      <div class="bk-summary-title">Delivery Information</div>
-      <div class="bk-summary-row"><span class="bk-summary-key">From</span><span class="bk-summary-val">${depLabel}</span></div>
-      <div class="bk-summary-row"><span class="bk-summary-key">To</span><span class="bk-summary-val">${arrLabel}</span></div>
-      <div class="bk-summary-row"><span class="bk-summary-key">Drop off</span><span class="bk-summary-val">${bkData.dropDate} · ${bkData.dropTime}</span></div>
-      <div class="bk-summary-row"><span class="bk-summary-key">Pick up</span><span class="bk-summary-val">${bkData.pickDate} · ${bkData.pickTime}</span></div>
+      <div class="bk-summary-title">배송 정보</div>
+      <div class="bk-summary-row"><span class="bk-summary-key">출발지</span><span class="bk-summary-val">${depLabel}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">도착지</span><span class="bk-summary-val">${arrLabel}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">수하물 맡기기</span><span class="bk-summary-val">${bkData.dropDate} · ${bkData.dropTime}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">수하물 찾기</span><span class="bk-summary-val">${bkData.pickDate} · ${bkData.pickTime}</span></div>
     </div>
     <div class="bk-summary-section">
-      <div class="bk-summary-title">Luggage Information</div>
+      <div class="bk-summary-title">수하물 Information</div>
       ${bagSummary}
     </div>
     <div class="bk-summary-section">
-      <div class="bk-summary-title">Customer Information</div>
-      <div class="bk-summary-row"><span class="bk-summary-key">Name</span><span class="bk-summary-val">${bkData.custFirst} ${bkData.custLast}</span></div>
-      <div class="bk-summary-row"><span class="bk-summary-key">Phone</span><span class="bk-summary-val">${bkData.custCountry} ${bkData.custPhone}</span></div>
-      <div class="bk-summary-row"><span class="bk-summary-key">Email</span><span class="bk-summary-val">${bkData.custEmail}</span></div>
+      <div class="bk-summary-title">고객 정보rmation</div>
+      <div class="bk-summary-row"><span class="bk-summary-key">이름</span><span class="bk-summary-val">${bkData.custFirst} ${bkData.custLast}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">전화번호</span><span class="bk-summary-val">${bkData.custCountry} ${bkData.custPhone}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">이메일</span><span class="bk-summary-val">${bkData.custEmail}</span></div>
     </div>
     <div class="bk-summary-section">
-      <div class="bk-summary-title">Hotel Reservation</div>
-      <div class="bk-summary-row"><span class="bk-summary-key">Name</span><span class="bk-summary-val">${bkData.resFirst} ${bkData.resLast}</span></div>
-      <div class="bk-summary-row"><span class="bk-summary-key">Reservation #</span><span class="bk-summary-val">${bkData.resNum||"—"}</span></div>
+      <div class="bk-summary-title">Hotel 예약 정보</div>
+      <div class="bk-summary-row"><span class="bk-summary-key">이름</span><span class="bk-summary-val">${bkData.resFirst} ${bkData.resLast}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">예약 정보 #</span><span class="bk-summary-val">${bkData.resNum||"—"}</span></div>
     </div>
     <div class="bk-summary-section">
-      <div class="bk-summary-title">Payment</div>
-      <div class="bk-summary-row"><span class="bk-summary-key">Method</span><span class="bk-summary-val">${bkData.payMethod==="international"?"🌐 International card":"🇰🇷 Korean bank/card"}</span></div>
-      ${calcStorageFee()>0?`<div class="bk-summary-row"><span class="bk-summary-key">Delivery fee</span><span class="bk-summary-val">${fmt(calcBkTotal()-calcStorageFee())}</span></div>
-      <div class="bk-summary-row"><span class="bk-summary-key">Storage fee (${daysBetween(bkData.dropDate,bkData.pickDate)} days)</span><span class="bk-summary-val">${fmt(calcStorageFee())}</span></div>`:""}
-      <div class="bk-summary-row"><span class="bk-summary-key">Total paid</span><span class="bk-summary-val" style="color:var(--purple);font-size:16px;font-weight:800">${fmt(calcBkTotal())}</span></div>
+      <div class="bk-summary-title">결제</div>
+      <div class="bk-summary-row"><span class="bk-summary-key">결제 방법</span><span class="bk-summary-val">${bkData.payMethod==="international"?"🌐 해외 카드":"🇰🇷 국내 카드/계좌"}</span></div>
+      ${calcStorageFee()>0?`<div class="bk-summary-row"><span class="bk-summary-key">배송 요금</span><span class="bk-summary-val">${fmt(calcBkTotal()-calcStorageFee())}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">보관료 (${daysBetween(bkData.dropDate,bkData.pickDate)} 일s)</span><span class="bk-summary-val">${fmt(calcStorageFee())}</span></div>`:""}
+      <div class="bk-summary-row"><span class="bk-summary-key">도착지tal paid</span><span class="bk-summary-val" style="color:var(--purple);font-size:16px;font-weight:800">${fmt(calcBkTotal())}</span></div>
     </div>
     <div style="padding:16px 16px 100px">
-      <button class="bk-next-btn" onclick="closeBooking()">Back to main page</button>
+      <button class="bk-next-btn" onclick="closeBooking()">메인 페이지로 돌아가기</button>
     </div>`;
 }
 </script>
