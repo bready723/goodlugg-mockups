@@ -543,7 +543,7 @@
 
     <!-- Benefits -->
     <div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06)">
-      <div style="font-size:13px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">여행자들이 좋아하는 이유</div>
+      <div style="font-size:13px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">굿럭 도어투도어가 좋은 이유</div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <div style="display:flex;gap:12px;align-items:flex-start">
           <div style="font-size:22px;flex-shrink:0">🗺️</div>
@@ -1431,10 +1431,14 @@ const STORAGE_RATE = 5000; // per bag per 일 for multi-일 storage
 // Intracity: per bag price, no minimum
 const INTRACITY = { carry: 24500, checked: 29700, over: 29700 };
 
+function parseUTC(s) { const [y,m,d]=(s||"").split("-").map(Number); return Date.UTC(y,m-1,d); }
 function daysBetween(d1, d2) {
   if (!d1 || !d2) return 0;
-  const diff = new Date(d2) - new Date(d1);
-  return Math.max(0, Math.floor(diff / 86400000));
+  return Math.max(0, Math.round((parseUTC(d2) - parseUTC(d1)) / 86400000));
+}
+function addDays(dateStr, n) {
+  const t = parseUTC(dateStr) + n * 86400000;
+  return new Date(t).toISOString().slice(0, 10);
 }
 
 function getType() {
@@ -1616,8 +1620,9 @@ let bkStep = 0;
 let bkData = {};
 
 function bkDefault() {
-  const d = new Date(); d.setDate(d.getDate()+1);
-  const ds = d.toISOString().split("T")[0];
+  const n = new Date();
+  const today = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,"0")}-${String(n.getDate()).padStart(2,"0")}`;
+  const ds = addDays(today, 1);
   return {
     departure:null, arrival:null,
     bags:{carry:0,checked:0,over:0},
@@ -1808,9 +1813,13 @@ function calcBkTotal() {
   } else {
     deliveryFee = carry*INTRACITY.carry + checked*INTRACITY.checked + over*INTRACITY.over;
   }
-  // 보관료 for multi-일
+  // 보관료 (타 도시→공항 익일 수령은 무료)
   const days = daysBetween(bkData.dropDate, bkData.pickDate);
-  const storageFee = days > 0 ? days * total * STORAGE_RATE : 0;
+  const toAirport = bkData.arrival?.type === "airport";
+  const fromSeoul = (bkData.departure?.city || "").toLowerCase() === "seoul";
+  const isNextDayAirport = toAirport && !fromSeoul;
+  const chargeableDays = isNextDayAirport ? Math.max(0, days - 1) : days;
+  const storageFee = chargeableDays > 0 ? chargeableDays * total * STORAGE_RATE : 0;
   return deliveryFee + storageFee;
 }
 
@@ -1864,7 +1873,24 @@ function bkBag(k, d) {
 // ── 시간 ──
 function getPickTimeInfo() {
   const fromAirport = bkData.departure?.type === "airport";
+  const toAirport = bkData.arrival?.type === "airport";
   const isMultiDay = daysBetween(bkData.dropDate, bkData.pickDate) > 0;
+  const arrName = (bkData.arrival?.name || "").toLowerCase();
+  const isGimpo = arrName.includes("gimpo");
+  const isIncheon = arrName.includes("incheon");
+  const fromSeoul = (bkData.departure?.city || "").toLowerCase() === "seoul";
+
+  if (toAirport) {
+    if (fromSeoul) {
+      const t = isGimpo ? "오후 3시 이후" : "오후 4시 이후";
+      const n = isGimpo ? "✈️ 당일 김포공항에서 오후 3시부터 수령 가능" : "✈️ 당일 인천공항에서 오후 4시부터 수령 가능";
+      return { pickTime: t, pickNote: n, nextDay: false };
+    } else {
+      const t = isGimpo ? "오전 7시 이후" : "오전 8시 이후";
+      const n = isGimpo ? "✈️ 익일 김포공항에서 오전 7시부터 수령 가능" : "✈️ 익일 인천공항에서 오전 8시부터 수령 가능";
+      return { pickTime: t, pickNote: n, nextDay: true };
+    }
+  }
   if (isMultiDay) {
     return {
       pickTime: "오후 3시 이후",
@@ -1881,9 +1907,16 @@ function renderTimeStep() {
   const fromAirport = bkData.departure?.type === "airport";
 
   const dropTime = fromAirport ? "Before 13:00" : "Before 09:00";
-  const pickTime = fromAirport ? "Before 22:00" : "Before 21:00";
   const dropNote = fromAirport ? "✈️ 오후 1시까지 공항 카운터에 수하물을 맡겨주세요" : "🏨 굿럭 직원이 오전 9시까지 수하물을 수거합니다";
-  const pickNote = fromAirport ? "🏨 오후 10시까지 호텔로 배송됩니다" : "🏨 오후 9시까지 호텔로 배송됩니다";
+  const pickInfo = getPickTimeInfo();
+  let pickMinDate = bkData.dropDate;
+  if (pickInfo.nextDay) {
+    pickMinDate = addDays(bkData.dropDate, 1);
+    if (bkData.pickDate < pickMinDate) {
+      bkData.pickDate = pickMinDate;
+    }
+  }
+  const { pickTime, pickNote } = pickInfo;
 
   bkData.dropTime = dropTime;
   bkData.pickTime = pickTime;
@@ -1895,7 +1928,7 @@ function renderTimeStep() {
       <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px">짐 맡기기</div>
       <div class="bk-dt-row">
         <span class="bk-dt-label">날짜</span>
-        <input type="date" class="bk-dt-select" value="${bkData.dropDate}" onchange="bkData.dropDate=this.value;updateStoragePreview()" />
+        <input type="date" class="bk-dt-select" value="${bkData.dropDate}" onchange="bkData.dropDate=this.value;renderTimeStep()" />
       </div>
       <div class="bk-dt-row">
         <span class="bk-dt-label">시간</span>
@@ -1903,10 +1936,10 @@ function renderTimeStep() {
       </div>
       <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 12px;font-size:12px;color:#166534;font-weight:600;margin-bottom:8px">${dropNote}</div>
 
-      <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px">도착지 at Destination</div>
+      <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px">도착지 수령</div>
       <div class="bk-dt-row">
         <span class="bk-dt-label">날짜</span>
-        <input type="date" class="bk-dt-select" value="${bkData.pickDate}" onchange="bkData.pickDate=this.value;updateStoragePreview()" id="bkPickDateInput"/>
+        <input type="date" class="bk-dt-select" value="${bkData.pickDate}" min="${pickMinDate}" onchange="bkData.pickDate=this.value;renderTimeStep()" id="bkPickDateInput"/>
       </div>
       <div class="bk-dt-row">
         <span class="bk-dt-label">시간</span>
@@ -1922,6 +1955,8 @@ function renderTimeStep() {
       </div>
       <button class="bk-next-btn" onclick="bkNext()">일정 확인 →</button>
     </div>`;
+  // 렌더 후 보관료 표시
+  setTimeout(() => updateStoragePreview(), 0);
 }
 
 // ── 고객 정보 ──
@@ -2078,15 +2113,36 @@ function toggleTerm(k){
   renderTermsStep();
 }
 function updateStoragePreview() {
+  // 타 도시→공항 배송 시 익일 최소일자 강제 적용
+  const toAirport = bkData.arrival?.type === "airport";
+  const fromSeoul = (bkData.departure?.city || "").toLowerCase() === "seoul";
+  const inp = document.getElementById("bkPickDateInput");
+  if (toAirport && !fromSeoul) {
+    const minDate = addDays(bkData.dropDate, 1);
+    if (inp) inp.min = minDate;
+    if (bkData.pickDate < minDate) {
+      bkData.pickDate = minDate;
+      if (inp) inp.value = bkData.pickDate;
+    }
+  } else {
+    if (inp) inp.min = bkData.dropDate;
+  }
+  if (bkData.pickDate < bkData.dropDate) {
+    bkData.pickDate = bkData.dropDate;
+    if (inp) inp.value = bkData.pickDate;
+  }
   const days = daysBetween(bkData.dropDate, bkData.pickDate);
+  // 타 도시→공항 익일 수령은 보관료 무료
+  const isNextDayAirport = toAirport && !fromSeoul;
+  const chargeableDays = isNextDayAirport ? Math.max(0, days - 1) : days;
   const total = bkData.bags.carry + bkData.bags.checked + bkData.bags.over;
   const el = document.getElementById("storagePreview");
   const totalEl = document.getElementById("bkTimeTotal");
   if (!el) return;
-  if (days > 0 && total > 0) {
-    const fee = days * total * STORAGE_RATE;
+  if (chargeableDays > 0 && total > 0) {
+    const fee = chargeableDays * total * STORAGE_RATE;
     el.innerHTML = `<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 12px;font-size:12px;color:#9a3412;font-weight:600;margin-top:4px">
-      📦 보관료: ${days}일 × ${total}개 × ${fmt(STORAGE_RATE)} = <strong>${fmt(fee)}</strong>
+      📦 보관료: ${chargeableDays}일 × ${total}개 × ${fmt(STORAGE_RATE)} = <strong>${fmt(fee)}</strong>
     </div>`;
   } else {
     el.innerHTML = "";
