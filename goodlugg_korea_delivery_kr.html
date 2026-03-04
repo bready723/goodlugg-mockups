@@ -14,9 +14,9 @@
   }
   body{font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;background:#e2e8f0;display:flex;justify-content:center;padding-top:20px;padding-bottom:40px}
   .frame{width:390px;min-height:100vh;background:var(--bg);box-shadow:0 0 60px rgba(0,0,0,0.15);overflow-x:hidden;position:relative;padding-bottom:70px}
-  .nav-lang{color:var(--text);font-size:13px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:4px}
-  .lang-bar{display:flex;align-items:center;gap:6px;padding:10px 16px;background:var(--white);border-bottom:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text)}
-  .lang-bar a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:5px}
+  .lang-wrap{position:relative;padding:8px 16px;background:var(--white);border-bottom:1px solid var(--border)}
+  .lang-select{appearance:none;-webkit-appearance:none;background:var(--white);border:1.5px solid var(--border);border-radius:8px;padding:7px 32px 7px 12px;font-size:13px;font-weight:600;font-family:inherit;color:var(--text);cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23334155' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+  .lang-select:focus{outline:none;border-color:var(--purple)}
   .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--white)}
   .logo{font-size:22px;font-weight:800;color:var(--purple);letter-spacing:-0.5px}
   .logo span{color:var(--green)}
@@ -108,7 +108,7 @@
 </head>
 <body>
 <div class="frame">
-<div class="lang-bar"><a href="goodlugg_korea_delivery.html">🌐 한국어 ∨</a></div>
+<div class="lang-wrap"><select class="lang-select" onchange="if(this.value)window.location.href=this.value"><option value="" selected>🇰🇷 KR</option><option value="goodlugg_korea_delivery.html">🇺🇸 EN</option></select></div>
 <div class="nav">
     <div style="width:32px"></div>
     <div class="logo">Good<span>lugg</span></div>
@@ -175,10 +175,6 @@
       </div>
       <button class="d2d-cta-btn" onclick="window.location.href='korea_door_to_door_kr.html'">요금 확인하기 →</button>
     </div>
-  </div>
-
-  <div class="sticky-book">
-    <button class="book-btn" onclick="window.location.href='https://www.goodlugg.com/luggage-delivery/korea?language=ko'">예약하기</button>
   </div>
 
   <div class="section">
@@ -318,5 +314,11 @@
   </div>
 
 </div>
+
+<!-- STICKY BOOK (outside frame for fixed positioning) -->
+<div class="sticky-book">
+  <button class="book-btn" onclick="window.location.href='https://www.goodlugg.com/luggage-delivery/korea?language=ko'">예약하기</button>
+</div>
+
 </body>
 </html>

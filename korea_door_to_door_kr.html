@@ -32,8 +32,9 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 20px; background: var(--white); border-bottom: 1px solid var(--border);
   }
-  .lang-bar{display:flex;align-items:center;padding:10px 16px;background:var(--white);border-bottom:1px solid var(--border);font-size:13px;font-weight:600;}
-  .lang-bar a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:5px}
+  .lang-wrap{position:relative;padding:8px 16px;background:var(--white);border-bottom:1px solid var(--border)}
+  .lang-select{appearance:none;-webkit-appearance:none;background:var(--white);border:1.5px solid var(--border);border-radius:8px;padding:7px 32px 7px 12px;font-size:13px;font-weight:600;font-family:inherit;color:var(--text);cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23334155' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+  .lang-select:focus{outline:none;border-color:var(--purple)}
   .nav-back { color: var(--purple); font-size: 13px; font-weight: 700; text-decoration: none; }
   .nav-lang { color: var(--text); font-size: 13px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 4px; }
   .logo { font-size: 20px; font-weight: 800; color: var(--purple); }
@@ -511,7 +512,7 @@
 <body>
 <div class="phone">
 
-  <div class="lang-bar"><a href="korea_door_to_door.html">🌐 한국어 ∨</a></div>
+  <div class="lang-wrap"><select class="lang-select" onchange="if(this.value)window.location.href=this.value"><option value="" selected>🇰🇷 KR</option><option value="korea_door_to_door.html">🇺🇸 EN</option></select></div>
 <div class="nav">
     <a href="goodlugg_korea_delivery_kr.html" class="nav-back">← 국내짐배송</a>
     <div class="logo">Good<span>lugg</span></div>
