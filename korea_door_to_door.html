@@ -12,508 +12,748 @@
     --purple-light: #f3e8ff;
     --green: #9dce2e;
     --green-dark: #7aaa1a;
-    --orange: #f59e0b;
     --text: #1e293b;
     --text-soft: #64748b;
     --border: #e2e8f0;
     --bg: #f8fafc;
     --white: #ffffff;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background: #e2e8f0;
-    display: flex;
-    justify-content: center;
-    padding: 20px 0 60px;
-    color: var(--text);
+    background: #e2e8f0; display: flex; justify-content: center;
+    padding: 20px 0 100px; color: var(--text);
   }
-
   .phone {
-    width: 390px;
-    background: var(--bg);
-    box-shadow: 0 0 60px rgba(0,0,0,0.15);
-    min-height: 100vh;
-    overflow-x: hidden;
+    width: 390px; background: var(--bg);
+    box-shadow: 0 0 60px rgba(0,0,0,0.15); min-height: 100vh; overflow-x: hidden;
   }
-
-  /* NAV */
   .nav {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 20px;
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
+    padding: 14px 20px; background: var(--white); border-bottom: 1px solid var(--border);
   }
-  .nav-back {
-    color: var(--purple); font-size: 13px; font-weight: 700;
-    text-decoration: none; display: flex; align-items: center; gap: 4px;
-  }
+  .nav-back { color: var(--purple); font-size: 13px; font-weight: 700; text-decoration: none; }
   .logo { font-size: 20px; font-weight: 800; color: var(--purple); }
   .logo span { color: var(--green); }
-  .nav-menu { font-size: 20px; color: var(--purple); }
-
-  /* HERO */
+  .nav-menu { font-size: 20px; color: var(--purple); cursor: pointer; }
   .hero {
     background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
-    padding: 32px 20px 28px;
-    position: relative;
-    overflow: hidden;
+    padding: 28px 20px 24px; position: relative; overflow: hidden;
   }
   .hero::after {
-    content: '';
-    position: absolute; bottom: -30px; right: -20px;
+    content: ''; position: absolute; bottom: -30px; right: -20px;
     width: 160px; height: 160px;
     background: radial-gradient(circle, rgba(157,206,46,0.2) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero-badge {
-    display: inline-block;
-    background: rgba(157,206,46,0.2);
-    color: var(--green);
-    font-size: 10px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 1.5px;
-    padding: 5px 12px; border-radius: 20px;
-    margin-bottom: 14px;
+    display: inline-block; background: rgba(157,206,46,0.2); color: var(--green);
+    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 5px 12px; border-radius: 20px; margin-bottom: 12px;
   }
-  .hero h1 {
-    font-size: 24px; font-weight: 800; color: var(--white);
-    line-height: 1.25; margin-bottom: 10px;
-  }
-  .hero-sub {
-    font-size: 13px; color: rgba(255,255,255,0.75);
-    line-height: 1.65; margin-bottom: 16px;
-  }
+  .hero h1 { font-size: 22px; font-weight: 800; color: var(--white); line-height: 1.25; margin-bottom: 10px; }
   .hero-tagline {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 13px; font-weight: 600; color: var(--white);
-    line-height: 1.5;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px; padding: 10px 14px;
+    font-size: 13px; font-weight: 600; color: var(--white); line-height: 1.5;
   }
-  .hero-tagline span { color: var(--green); }
-
-  /* NOTICE BANNER */
-  .notice {
-    background: #fffbeb;
-    border-left: 4px solid var(--orange);
-    margin: 16px 16px 0;
-    border-radius: 0 10px 10px 0;
-    padding: 12px 14px;
-    font-size: 12px; color: #92400e;
-    line-height: 1.6;
-  }
-  .notice strong { display: block; margin-bottom: 4px; font-size: 13px; }
-
-  /* ESTIMATOR CARD */
   .estimator {
-    margin: 16px;
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    box-shadow: 0 4px 24px rgba(91,45,142,0.08);
+    margin: 16px; background: var(--white); border-radius: 16px;
+    border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(91,45,142,0.08); overflow: hidden;
   }
   .estimator-header {
-    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
-    padding: 18px 20px;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple)); padding: 16px 20px;
   }
-  .estimator-header h2 {
-    font-size: 18px; font-weight: 800; color: var(--white);
-    margin-bottom: 4px;
-  }
-  .estimator-header p {
-    font-size: 12px; color: rgba(255,255,255,0.7);
-  }
-
-  .estimator-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
-
-  /* Input fields */
+  .estimator-header h2 { font-size: 17px; font-weight: 800; color: var(--white); margin-bottom: 3px; }
+  .estimator-header p { font-size: 12px; color: rgba(255,255,255,0.7); }
+  .estimator-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
   .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label {
-    font-size: 12px; font-weight: 700; color: var(--text-soft);
-    text-transform: uppercase; letter-spacing: 0.8px;
+  .field label { font-size: 11px; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.8px; }
+  .map-input-wrap { position: relative; }
+  .map-input {
+    width: 100%; padding: 12px 14px 12px 40px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 14px; font-weight: 500; font-family: inherit;
+    color: var(--text); background: var(--bg); transition: border-color 0.2s;
   }
-  .field input, .field select {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-size: 14px; font-weight: 500;
-    font-family: inherit;
-    color: var(--text);
-    background: var(--bg);
-    transition: border-color 0.2s;
-    appearance: none;
+  .map-input:focus { outline: none; border-color: var(--purple); background: var(--white); }
+  .map-input::placeholder { color: #cbd5e1; }
+  .map-pin { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 16px; pointer-events: none; }
+  .autocomplete-list {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 100;
+    background: var(--white); border: 1.5px solid var(--purple);
+    border-top: none; border-radius: 0 0 10px 10px;
+    box-shadow: 0 8px 24px rgba(91,45,142,0.15); max-height: 200px; overflow-y: auto;
   }
-  .field input:focus, .field select:focus {
-    outline: none;
-    border-color: var(--purple);
-    background: var(--white);
-  }
-  .field input::placeholder { color: #cbd5e1; }
-
-  /* Route arrow */
-  .route-arrow {
-    display: flex; align-items: center; justify-content: center;
-    color: var(--purple); font-size: 20px; margin: -6px 0;
-  }
-
-  /* Luggage counter section */
-  .luggage-section { display: flex; flex-direction: column; gap: 12px; }
-  .luggage-section-title {
-    font-size: 12px; font-weight: 700; color: var(--text-soft);
-    text-transform: uppercase; letter-spacing: 0.8px;
-  }
-
-  .bag-row {
+  .autocomplete-list.open { display: block; }
+  .autocomplete-item {
+    padding: 10px 14px; font-size: 13px; cursor: pointer;
+    border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 14px;
+    gap: 10px; transition: background 0.15s;
   }
-  .bag-info { display: flex; flex-direction: column; gap: 2px; }
+  .autocomplete-item:last-child { border-bottom: none; }
+  .autocomplete-item:hover { background: var(--purple-light); }
+  .city-tag {
+    font-size: 10px; font-weight: 700; padding: 2px 7px;
+    border-radius: 10px; background: var(--purple-light); color: var(--purple); white-space: nowrap;
+  }
+  .place-name { font-weight: 600; color: var(--text); font-size: 13px; }
+  .place-addr { font-size: 11px; color: var(--text-soft); }
+  .route-indicator {
+    display: none; align-items: center; gap: 8px;
+    padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700;
+  }
+  .route-indicator.intercity { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
+  .route-indicator.intracity { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+  .route-indicator.visible { display: flex; }
+  .route-arrow { display: flex; align-items: center; justify-content: center; color: var(--purple); font-size: 18px; margin: -4px 0; }
+  .luggage-title { font-size: 11px; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+  .bag-row {
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.2s;
+  }
+  .bag-row.has-bags { border-color: var(--purple); background: var(--purple-light); }
   .bag-name { font-size: 14px; font-weight: 700; color: var(--text); }
-  .bag-desc { font-size: 11px; color: var(--text-soft); }
-
-  .counter {
-    display: flex; align-items: center; gap: 12px;
-  }
+  .bag-desc { font-size: 11px; color: var(--text-soft); margin-top: 1px; }
+  .bag-price-hint { font-size: 11px; color: var(--purple); font-weight: 600; margin-top: 3px; }
+  .counter { display: flex; align-items: center; gap: 12px; }
   .counter-btn {
     width: 32px; height: 32px; border-radius: 50%;
-    border: 2px solid var(--border);
-    background: var(--white);
+    border: 2px solid var(--border); background: var(--white);
     color: var(--purple); font-size: 18px; font-weight: 700;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s; line-height: 1;
-    font-family: inherit;
+    transition: all 0.15s; font-family: inherit; line-height: 1;
   }
   .counter-btn:hover { border-color: var(--purple); background: var(--purple-light); }
-  .counter-val {
-    font-size: 18px; font-weight: 800; color: var(--text);
-    min-width: 20px; text-align: center;
-  }
-
-  /* Calculate button */
+  .counter-val { font-size: 18px; font-weight: 800; color: var(--text); min-width: 20px; text-align: center; }
   .calc-btn {
-    width: 100%;
-    padding: 14px;
+    width: 100%; padding: 14px;
     background: linear-gradient(135deg, var(--purple), var(--purple-dark));
-    color: var(--white);
-    font-size: 15px; font-weight: 800;
-    border: none; border-radius: 12px;
-    cursor: pointer; font-family: inherit;
-    transition: all 0.2s;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
+    color: var(--white); font-size: 15px; font-weight: 800;
+    border: none; border-radius: 12px; cursor: pointer; font-family: inherit;
+    transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
   }
   .calc-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(91,45,142,0.3); }
-  .calc-btn:active { transform: translateY(0); }
-
-  /* RESULT */
   .result {
-    display: none;
-    margin: 0 16px 16px;
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    box-shadow: 0 4px 24px rgba(91,45,142,0.08);
-    animation: slideUp 0.3s ease;
+    display: none; margin: 0 16px 16px; background: var(--white); border-radius: 16px;
+    border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(91,45,142,0.08);
+    overflow: hidden; animation: slideUp 0.3s ease;
   }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   .result.visible { display: block; }
-
   .result-header {
     background: linear-gradient(135deg, #166534, #15803d);
-    padding: 16px 20px;
-    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px; display: flex; align-items: center; gap: 10px;
   }
-  .result-header-icon { font-size: 24px; }
-  .result-header h3 { font-size: 16px; font-weight: 800; color: var(--white); }
-  .result-header p { font-size: 12px; color: rgba(255,255,255,0.75); }
-
-  .result-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-
+  .result-header h3 { font-size: 15px; font-weight: 800; color: var(--white); }
+  .result-header p { font-size: 11px; color: rgba(255,255,255,0.75); }
+  .result-body { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
   .result-route {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 13px; font-weight: 600; color: var(--text-soft);
     background: var(--bg); border-radius: 8px; padding: 10px 12px;
+    font-size: 13px; font-weight: 600; color: var(--text-soft);
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
   }
   .result-route strong { color: var(--text); }
-
-  .price-breakdown { display: flex; flex-direction: column; gap: 8px; }
-  .price-row {
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 13px;
+  .route-type-pill { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+  .pill-intercity { background: #ede9fe; color: #5b21b6; }
+  .pill-intracity { background: #dcfce7; color: #166534; }
+  .breakdown-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .breakdown-table th {
+    text-align: left; padding: 6px 8px; font-size: 11px; font-weight: 700;
+    color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border);
   }
-  .price-row-label { color: var(--text-soft); }
-  .price-row-val { font-weight: 700; color: var(--text); }
-  .price-divider { height: 1px; background: var(--border); margin: 4px 0; }
-
+  .breakdown-table td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .breakdown-table tr:last-child td { border-bottom: none; }
+  .td-label { font-weight: 600; color: var(--text); }
+  .td-qty { color: var(--text-soft); text-align: center; }
+  .td-unit { color: var(--text-soft); text-align: right; font-size: 12px; }
+  .td-total { font-weight: 700; color: var(--purple); text-align: right; }
+  .td-vol { font-size: 11px; color: #166534; font-weight: 600; margin-top: 3px; }
+  .min-note {
+    display: none; background: #fffbeb; border: 1px solid #fde68a;
+    border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #92400e; font-weight: 600;
+  }
+  .min-note.visible { display: block; }
   .price-total {
     display: flex; justify-content: space-between; align-items: center;
-    background: var(--purple-light);
-    border-radius: 10px; padding: 14px 16px;
+    background: var(--purple-light); border-radius: 10px; padding: 14px 16px;
   }
   .price-total-label { font-size: 14px; font-weight: 700; color: var(--purple); }
-  .price-total-val { font-size: 22px; font-weight: 800; color: var(--purple); }
-
-  .savings-badge {
-    background: #dcfce7; border-radius: 8px; padding: 10px 14px;
-    font-size: 12px; font-weight: 600; color: #166534;
-    display: flex; align-items: center; gap: 6px;
-  }
-
+  .price-total-val { font-size: 24px; font-weight: 800; color: var(--purple); }
   .book-btn {
-    width: 100%;
-    padding: 14px;
-    background: var(--green);
-    color: var(--text);
-    font-size: 15px; font-weight: 800;
-    border: none; border-radius: 12px;
-    cursor: pointer; font-family: inherit;
-    transition: all 0.2s;
+    width: 100%; padding: 14px; background: var(--green); color: var(--text);
+    font-size: 15px; font-weight: 800; border: none; border-radius: 12px;
+    cursor: pointer; font-family: inherit; transition: all 0.2s;
   }
   .book-btn:hover { background: var(--green-dark); color: var(--white); transform: translateY(-1px); }
-
-  /* PRICING INFO */
-  .pricing-info {
-    margin: 0 16px 16px;
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    overflow: hidden;
+  .pricing-card {
+    margin: 0 16px 16px; background: var(--white); border-radius: 16px;
+    border: 1px solid var(--border); overflow: hidden;
   }
-  .pricing-info-header {
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px; font-weight: 800; color: var(--text);
-    display: flex; align-items: center; gap: 8px;
+  .pricing-card-header { padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 800; color: var(--text); }
+  .pricing-tabs { display: flex; border-bottom: 1px solid var(--border); }
+  .pricing-tab {
+    flex: 1; padding: 10px; text-align: center; font-size: 12px; font-weight: 700;
+    cursor: pointer; border-bottom: 3px solid transparent; color: var(--text-soft); transition: all 0.2s;
   }
-  .pricing-info-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 0; }
-
-  .pricing-tier {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
+  .pricing-tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+  .pricing-table-wrap { padding: 14px 18px; }
+  .pricing-table { display: none; }
+  .pricing-table.active { display: block; }
+  .pt-row {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 4px; padding: 9px 0; border-bottom: 1px solid var(--border);
+    font-size: 12px; align-items: center;
   }
-  .pricing-tier:last-child { border-bottom: none; }
-  .tier-bags { font-size: 13px; font-weight: 700; color: var(--text); }
-  .tier-bags span { font-size: 11px; font-weight: 500; color: var(--text-soft); }
-  .tier-price { font-size: 15px; font-weight: 800; color: var(--purple); }
-  .tier-per { font-size: 11px; color: var(--text-soft); font-weight: 500; }
-  .tier-badge {
-    background: #dcfce7; color: #166534;
-    font-size: 10px; font-weight: 700;
-    padding: 3px 8px; border-radius: 20px;
-  }
-
+  .pt-row:last-child { border-bottom: none; }
+  .pt-header { font-weight: 700; color: var(--text-soft); font-size: 10px; text-transform: uppercase; }
+  .pt-bags { font-weight: 700; color: var(--text); display: flex; flex-direction: column; gap: 3px; }
+  .pt-price { font-weight: 700; color: var(--purple); text-align: right; font-size: 11px; }
+  .pt-badge { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 8px; display: inline-block; }
+  .badge-min { background: #fef3c7; color: #92400e; }
+  .badge-vol { background: #dcfce7; color: #166534; }
   .pricing-note {
-    margin: 12px 0 0;
-    padding: 10px 12px;
-    background: var(--purple-light);
-    border-radius: 8px;
-    font-size: 12px; color: var(--purple); font-weight: 600;
-    line-height: 1.5;
+    margin-top: 10px; padding: 10px 12px; background: var(--purple-light);
+    border-radius: 8px; font-size: 12px; color: var(--purple); font-weight: 600; line-height: 1.5;
   }
-
-  /* SERVICE CONDITIONS */
   .conditions {
-    margin: 0 16px 24px;
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    overflow: hidden;
+    margin: 0 16px 24px; background: var(--white); border-radius: 16px;
+    border: 1px solid var(--border); overflow: hidden;
   }
-  .conditions-header {
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px; font-weight: 800; color: var(--text);
-    display: flex; align-items: center; gap: 8px;
-  }
+  .conditions-header { padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 800; color: var(--text); }
   .conditions-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
-  .condition-item {
-    display: flex; gap: 10px; align-items: flex-start;
-  }
-  .condition-icon {
-    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px;
-  }
+  .condition-item { display: flex; gap: 10px; align-items: flex-start; }
+  .condition-icon { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; }
   .icon-ok { background: #dcfce7; }
   .icon-warn { background: #fef3c7; }
   .condition-text { font-size: 13px; color: var(--text); line-height: 1.5; }
-  .condition-text strong { color: var(--text); font-weight: 700; display: block; margin-bottom: 2px; }
+  .condition-text strong { display: block; margin-bottom: 2px; }
   .condition-text span { color: var(--text-soft); font-size: 12px; }
+  .float-book {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 390px; background: var(--white); border-top: 1px solid var(--border);
+    padding: 12px 16px; z-index: 999; box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
+  }
+  .float-book-btn {
+    width: 100%; padding: 15px;
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: var(--white); font-size: 16px; font-weight: 800;
+    border: none; border-radius: 12px; cursor: pointer; font-family: inherit;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.2s; box-shadow: 0 4px 16px rgba(91,45,142,0.35);
+  }
+  .float-book-btn:hover { transform: translateY(-1px); }
+
+  /* ── BOOKING OVERLAY ── */
+  .booking-overlay {
+    display: none; position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 2000; background: var(--bg);
+    overflow-x: hidden; overflow-y: auto;
+  }
+  .booking-overlay.open { display: block; }
+  .booking-overlay *, .booking-overlay *::before, .booking-overlay *::after {
+    box-sizing: border-box;
+  }
+  .bk-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; background: var(--white);
+    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10;
+  }
+  .bk-back { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--purple); }
+  .bk-title { font-size: 15px; font-weight: 800; color: var(--text); }
+  .bk-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-soft); }
+
+  /* Progress bar */
+  .bk-progress { display: flex; padding: 12px 20px; gap: 4px; background: var(--white); border-bottom: 1px solid var(--border); }
+  .bk-prog-step {
+    flex: 1; height: 4px; border-radius: 2px; background: var(--border); transition: background 0.3s;
+  }
+  .bk-prog-step.done { background: var(--green); }
+  .bk-prog-step.active { background: var(--purple); }
+
+  /* Step label */
+  .bk-step-label {
+    padding: 16px 20px 4px; font-size: 11px; font-weight: 700;
+    color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.8px;
+  }
+
+  /* Chat bubble */
+  .bk-bubble {
+    margin: 0 0 16px; background: var(--white); border-radius: 14px;
+    padding: 16px; font-size: 14px; line-height: 1.6; color: var(--text);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .bk-bubble .bk-warn { color: #dc2626; font-size: 12px; margin-top: 6px; font-weight: 600; }
+
+  /* Category buttons */
+  .bk-categories { display: flex; flex-direction: column; gap: 10px; padding: 0 0 20px; width: 100%; }
+  .bk-cat-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; cursor: pointer; transition: all 0.2s; font-family: inherit;
+    width: 100%;
+  }
+  .bk-cat-btn:hover { border-color: var(--purple); box-shadow: 0 2px 12px rgba(91,45,142,0.1); }
+  .bk-cat-left { display: flex; align-items: center; gap: 12px; }
+  .bk-cat-icon { font-size: 22px; }
+  .bk-cat-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .bk-cat-arrow { color: var(--text-soft); font-size: 16px; }
+
+  /* Search input */
+  .bk-search-wrap { padding: 0 0 16px; }
+  .bk-search {
+    width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+    border-radius: 10px; font-size: 14px; font-family: inherit;
+    color: var(--text); background: var(--white);
+  }
+  .bk-search:focus { outline: none; border-color: var(--purple); }
+  .bk-search-results { display: flex; flex-direction: column; gap: 8px; padding: 0 0 80px; }
+  .bk-result-item {
+    background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 14px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .bk-result-item:hover { border-color: var(--purple); background: var(--purple-light); }
+  .bk-result-icon { font-size: 20px; flex-shrink: 0; }
+  .bk-result-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .bk-result-addr { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+
+  /* Selected location card */
+  .bk-selected-card {
+    margin: 0 0 16px; background: var(--white); border: 1.5px solid var(--purple);
+    border-radius: 12px; padding: 14px;
+    width: 100%; overflow: hidden;
+  }
+  .bk-selected-name { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; word-break: break-word; }
+  .bk-selected-addr { font-size: 12px; color: var(--text-soft); margin-bottom: 10px; word-break: break-word; }
+  .bk-airbnb-note {
+    background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px;
+    padding: 8px 10px; font-size: 11px; color: #166534; font-weight: 600; margin-bottom: 10px;
+    word-break: break-word; overflow-wrap: break-word;
+  }
+
+  /* Airport options */
+  .bk-airport-list { display: flex; flex-direction: column; gap: 8px; padding: 0 0 20px; }
+  .bk-airport-item {
+    background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px; cursor: pointer; transition: all 0.2s;
+  }
+  .bk-airport-item:hover, .bk-airport-item.selected { border-color: var(--purple); background: var(--purple-light); }
+  .bk-airport-item .ap-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .bk-airport-item .ap-addr { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+
+  /* Luggage step */
+  .bk-bag-row {
+    margin: 0 0 10px; background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 12px 14px;
+    display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;
+  }
+  .bk-bag-row.active { border-color: var(--purple); background: var(--purple-light); }
+  .bk-bag-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .bk-bag-desc { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+  .bk-counter { display: flex; align-items: center; gap: 10px; }
+  .bk-counter-btn {
+    width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--border);
+    background: var(--white); color: var(--purple); font-size: 18px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-family: inherit; transition: all 0.15s;
+  }
+  .bk-counter-btn:hover { border-color: var(--purple); background: var(--purple-light); }
+  .bk-counter-val { font-size: 17px; font-weight: 800; min-width: 18px; text-align: center; }
+
+  /* Total bar */
+  .bk-total-bar {
+    position: sticky; bottom: 0; background: var(--white);
+    border-top: 1px solid var(--border); padding: 12px 16px;
+    display: flex; flex-direction: column; gap: 10px;
+    left: 0; right: 0;
+  }
+  .bk-total-row { display: flex; justify-content: space-between; align-items: center; }
+  .bk-total-label { font-size: 14px; font-weight: 700; color: var(--text); }
+  .bk-total-amount { font-size: 18px; font-weight: 800; color: var(--purple); }
+  .bk-next-btn {
+    width: 100%; padding: 14px; background: var(--green); color: var(--text);
+    font-size: 15px; font-weight: 800; border: none; border-radius: 12px;
+    cursor: pointer; font-family: inherit; transition: all 0.2s; display: block;
+  }
+  .bk-next-btn:hover { background: var(--green-dark); color: var(--white); }
+  .bk-next-btn:disabled { background: var(--border); color: var(--text-soft); cursor: not-allowed; }
+  .bk-next-btn.purple {
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark)); color: var(--white);
+  }
+  .bk-next-btn.purple:hover { opacity: 0.9; }
+
+  /* Date/time pickers */
+  .bk-datetime { padding: 0 0 16px; display: flex; flex-direction: column; gap: 10px; }
+  .bk-dt-row {
+    background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .bk-dt-label { font-size: 14px; font-weight: 700; color: var(--text); }
+  .bk-dt-select {
+    border: none; font-size: 13px; font-weight: 600; color: var(--purple);
+    background: none; cursor: pointer; font-family: inherit;
+  }
+  .bk-dt-select:focus { outline: none; }
+
+  /* Delivery time confirmed cards */
+  .bk-time-cards { padding: 0 0 16px; display: flex; flex-direction: column; gap: 10px; }
+  .bk-time-card {
+    background: var(--white); border: 1.5px solid var(--purple); border-radius: 10px; padding: 14px;
+  }
+  .bk-time-card-label { font-size: 10px; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .bk-time-card-val { font-size: 15px; font-weight: 700; color: var(--text); }
+  .bk-time-card-sub { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+  .bk-change-btn {
+    float: right; background: var(--purple); color: var(--white);
+    border: none; border-radius: 6px; padding: 4px 12px;
+    font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+  }
+
+  /* Customer info form */
+  .bk-form { padding: 0 0 16px; display: flex; flex-direction: column; gap: 14px; }
+  .bk-field-group { display: flex; flex-direction: column; gap: 6px; }
+  .bk-field-label { font-size: 12px; font-weight: 700; color: var(--text); }
+  .bk-field-sub { font-size: 11px; color: var(--text-soft); }
+  .bk-input-row { display: flex; gap: 8px; }
+  .bk-input {
+    flex: 1; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 14px; font-family: inherit; color: var(--text); background: var(--bg);
+  }
+  .bk-input:focus { outline: none; border-color: var(--purple); background: var(--white); }
+  .bk-input.error { border-color: #dc2626; }
+  .bk-error-msg { font-size: 11px; color: #dc2626; font-weight: 600; }
+
+  /* Same as customer button */
+  .bk-same-btn {
+    background: var(--purple); color: var(--white); border: none; border-radius: 8px;
+    padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
+    width: 100%; margin-top: 4px;
+  }
+
+  /* Payment method */
+  .bk-payment-methods { padding: 0; display: flex; gap: 10px; margin-bottom: 14px; }
+  .bk-pay-btn {
+    flex: 1; padding: 14px 10px; background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 10px; cursor: pointer; font-family: inherit; text-align: center; transition: all 0.2s;
+  }
+  .bk-pay-btn.selected { border-color: var(--purple); background: var(--purple-light); }
+  .bk-pay-btn .pay-icon { font-size: 18px; margin-bottom: 4px; }
+  .bk-pay-btn .pay-label { font-size: 12px; font-weight: 700; color: var(--text); }
+
+  .bk-pay-detail {
+    margin: 0 0 14px; background: var(--white); border: 1.5px solid var(--purple);
+    border-radius: 10px; padding: 14px;
+  }
+  .bk-pay-detail-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .bk-pay-detail-desc { font-size: 12px; color: var(--text-soft); }
+
+  /* Coupon / discount */
+  .bk-discount-section { padding: 0 0 14px; display: flex; flex-direction: column; gap: 14px; }
+  .bk-discount-row { display: flex; gap: 8px; }
+  .bk-discount-row .bk-input { flex: 1; }
+  .bk-apply-btn {
+    padding: 0; background: var(--purple); color: var(--white);
+    border: none; border-radius: 10px; font-size: 13px; font-weight: 700;
+    cursor: pointer; font-family: inherit; white-space: nowrap;
+  }
+
+  /* Terms */
+  .bk-terms { padding: 0 0 14px; display: flex; flex-direction: column; gap: 10px; }
+  .bk-term-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 12px;
+  }
+  .bk-term-item.all { border-color: var(--purple-light); background: var(--purple-light); }
+  .bk-checkbox {
+    width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border);
+    cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    margin-top: 1px; transition: all 0.15s;
+  }
+  .bk-checkbox.checked { background: var(--purple); border-color: var(--purple); color: var(--white); font-size: 11px; }
+  .bk-term-text { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; }
+  .bk-term-req { color: #dc2626; font-weight: 700; margin-right: 4px; }
+  .bk-term-view { color: var(--purple); font-size: 12px; font-weight: 700; text-decoration: none; flex-shrink: 0; }
+  .bk-terms-note {
+    margin: 0 0 14px; background: #fffbeb; border: 1px solid #fde68a;
+    border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #92400e; font-weight: 600;
+  }
+
+  /* Summary */
+  .bk-summary-section { margin: 0 0 14px; background: var(--white); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+  .bk-summary-title { padding: 12px 16px; font-size: 11px; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--border); }
+  .bk-summary-row { display: flex; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .bk-summary-row:last-child { border-bottom: none; }
+  .bk-summary-key { color: var(--text-soft); font-weight: 600; }
+  .bk-summary-val { font-weight: 700; color: var(--text); text-align: right; max-width: 55%; }
+
+  /* Confirmation screen */
+  .bk-confirm-screen { padding: 40px 20px; text-align: center; }
+  .bk-confirm-icon { font-size: 60px; margin-bottom: 16px; }
+  .bk-confirm-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .bk-confirm-sub { font-size: 14px; color: var(--text-soft); line-height: 1.6; margin-bottom: 24px; }
+  .bk-confirm-num {
+    background: var(--purple-light); border: 1px solid var(--purple); border-radius: 10px;
+    padding: 14px; margin-bottom: 24px;
+  }
+  .bk-confirm-num-label { font-size: 11px; color: var(--purple); font-weight: 700; text-transform: uppercase; }
+  .bk-confirm-num-val { font-size: 20px; font-weight: 800; color: var(--purple); margin-top: 4px; }
 </style>
 </head>
 <body>
 <div class="phone">
 
-  <!-- NAV -->
   <div class="nav">
     <a href="goodlugg_korea_delivery.html" class="nav-back">← Korea Delivery</a>
     <div class="logo">Good<span>lugg</span></div>
     <div class="nav-menu">☰</div>
   </div>
 
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-badge">✦ New Service</div>
     <h1>Korea Door-to-Door<br>Delivery</h1>
-    <p class="hero-sub">Same-day luggage delivery anywhere in Korea — customized for your itinerary.</p>
     <div class="hero-tagline">
-      Drop it off where you are. We deliver it where you need — all on the same day.
+      Drop it off where you are. We deliver it where you need — same day or scheduled.
     </div>
   </div>
 
-  <!-- NOTICE -->
-  <div class="notice">
-    <strong>⚠️ Service Eligibility</strong>
-    Service is only available at locations with a <strong>hotel front desk</strong> or where <strong>on-site staff is always present</strong> to handle luggage handover. Airbnbs or unstaffed accommodations are not eligible.
+  <!-- ── SERVICE INTRO ── -->
+  <div style="padding:20px 16px 0;display:flex;flex-direction:column;gap:14px">
+
+    <!-- What is this -->
+    <div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06)">
+      <div style="font-size:13px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px">What is Door-to-Door?</div>
+      <p style="font-size:14px;line-height:1.7;color:var(--text);margin:0">
+        Goodlugg's Door-to-Door service picks up your luggage from your <strong>current hotel or airport</strong> and delivers it directly to your <strong>next hotel</strong> — so you can explore Korea completely hands-free.
+      </p>
+      <p style="font-size:14px;line-height:1.7;color:var(--text);margin:10px 0 0">
+        No heavy lifting. No taxi struggles. No waiting at the lobby. Just drop off before 9 AM and your bags will be waiting at your next hotel by 9 PM.
+      </p>
+    </div>
+
+    <!-- Benefits -->
+    <div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06)">
+      <div style="font-size:13px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">Why Travelers Love It</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="font-size:22px;flex-shrink:0">🗺️</div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text)">Explore freely all day</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">No need to store bags or rush back to your hotel. Go straight to your next destination.</div></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="font-size:22px;flex-shrink:0">🚄</div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text)">Perfect for multi-city trips</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">Seoul → Busan → Jeju? Send your bags ahead and travel light on the KTX.</div></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="font-size:22px;flex-shrink:0">✈️</div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text)">Airport-to-hotel made easy</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">Leave bags at the airport counter by 1 PM — they'll be at your hotel by 10 PM.</div></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="font-size:22px;flex-shrink:0">📅</div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text)">Flexible scheduling</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px">Need to drop off today but deliver in 5 days? We store your bags safely at just ₩5,000/bag/day.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div style="background:linear-gradient(135deg,var(--purple),var(--purple-dark));border-radius:16px;padding:18px">
+      <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">How It Works</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#1a3a1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+          <div style="font-size:13px;color:#fff;font-weight:600">Book online — choose your drop-off and delivery hotels</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#1a3a1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+          <div style="font-size:13px;color:#fff;font-weight:600">Leave bags at hotel front desk or airport counter by the cut-off time</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#1a3a1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+          <div style="font-size:13px;color:#fff;font-weight:600">Goodlugg picks up and transports your bags</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:#1a3a1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
+          <div style="font-size:13px;color:#fff;font-weight:600">Your luggage waits for you at the destination hotel — ready when you arrive</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- COST ESTIMATOR -->
   <div class="estimator">
     <div class="estimator-header">
       <h2>💰 Cost Estimator</h2>
-      <p>Enter your route and bag count to get an instant price</p>
+      <p>Select your locations and bag count for an instant quote</p>
     </div>
     <div class="estimator-body">
 
       <div class="field">
         <label>📍 From</label>
-        <input type="text" id="from" placeholder="e.g. Hotel in Myeongdong, Seoul" />
+        <div class="map-input-wrap">
+          <span class="map-pin">📍</span>
+          <input class="map-input" id="from-input" type="text"
+            placeholder="Search hotel or address..."
+            autocomplete="off"
+            oninput="handleInput('from')"
+            onfocus="handleInput('from')"
+            onblur="delayHide('from')" />
+          <div class="autocomplete-list" id="from-list"></div>
+        </div>
       </div>
 
       <div class="route-arrow">↓</div>
 
       <div class="field">
-        <label>📍 To</label>
-        <input type="text" id="to" placeholder="e.g. Hotel in Haeundae, Busan" />
-      </div>
-
-      <div class="luggage-section">
-        <div class="luggage-section-title">🧳 Number of Luggage by Size</div>
-
-        <div class="bag-row">
-          <div class="bag-info">
-            <div class="bag-name">Carry-on</div>
-            <div class="bag-desc">Small bag, cabin size</div>
-          </div>
-          <div class="counter">
-            <button class="counter-btn" onclick="change('carry', -1)">−</button>
-            <div class="counter-val" id="carry-val">0</div>
-            <button class="counter-btn" onclick="change('carry', 1)">+</button>
-          </div>
-        </div>
-
-        <div class="bag-row">
-          <div class="bag-info">
-            <div class="bag-name">Checked-in</div>
-            <div class="bag-desc">Standard suitcase</div>
-          </div>
-          <div class="counter">
-            <button class="counter-btn" onclick="change('checked', -1)">−</button>
-            <div class="counter-val" id="checked-val">0</div>
-            <button class="counter-btn" onclick="change('checked', 1)">+</button>
-          </div>
-        </div>
-
-        <div class="bag-row">
-          <div class="bag-info">
-            <div class="bag-name">Oversize</div>
-            <div class="bag-desc">Large / golf bag / stroller</div>
-          </div>
-          <div class="counter">
-            <button class="counter-btn" onclick="change('over', -1)">−</button>
-            <div class="counter-val" id="over-val">0</div>
-            <button class="counter-btn" onclick="change('over', 1)">+</button>
-          </div>
+        <label>🏁 To</label>
+        <div class="map-input-wrap">
+          <span class="map-pin">🏁</span>
+          <input class="map-input" id="to-input" type="text"
+            placeholder="Search hotel or address..."
+            autocomplete="off"
+            oninput="handleInput('to')"
+            onfocus="handleInput('to')"
+            onblur="delayHide('to')" />
+          <div class="autocomplete-list" id="to-list"></div>
         </div>
       </div>
 
-      <button class="calc-btn" onclick="calculate()">
-        🧮 Calculate Price
-      </button>
+      <div class="route-indicator" id="route-indicator">
+        <span id="route-icon"></span>
+        <span id="route-label"></span>
+      </div>
+
+      <div>
+        <div class="luggage-title">🧳 Number of Bags by Size</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+
+          <div class="bag-row" id="row-carry">
+            <div>
+              <div class="bag-name">Carry-on</div>
+              <div class="bag-desc">Cabin size / small bag</div>
+              <div class="bag-price-hint" id="hint-carry">Select locations to see price</div>
+            </div>
+            <div class="counter">
+              <button class="counter-btn" onclick="change('carry',-1)">−</button>
+              <div class="counter-val" id="carry-val">0</div>
+              <button class="counter-btn" onclick="change('carry',1)">+</button>
+            </div>
+          </div>
+
+          <div class="bag-row" id="row-checked">
+            <div>
+              <div class="bag-name">Checked-in</div>
+              <div class="bag-desc">Standard suitcase</div>
+              <div class="bag-price-hint" id="hint-checked">Select locations to see price</div>
+            </div>
+            <div class="counter">
+              <button class="counter-btn" onclick="change('checked',-1)">−</button>
+              <div class="counter-val" id="checked-val">0</div>
+              <button class="counter-btn" onclick="change('checked',1)">+</button>
+            </div>
+          </div>
+
+          <div class="bag-row" id="row-over">
+            <div>
+              <div class="bag-name">Oversize</div>
+              <div class="bag-desc">Large bag / golf bag / stroller</div>
+              <div class="bag-price-hint" id="hint-over">Select locations to see price</div>
+            </div>
+            <div class="counter">
+              <button class="counter-btn" onclick="change('over',-1)">−</button>
+              <div class="counter-val" id="over-val">0</div>
+              <button class="counter-btn" onclick="change('over',1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="calc-btn" onclick="calculate()">🧮 Calculate Price</button>
     </div>
   </div>
 
-  <!-- RESULT (hidden until calculated) -->
+  <!-- RESULT -->
   <div class="result" id="result">
     <div class="result-header">
-      <div class="result-header-icon">✅</div>
+      <div style="font-size:22px">✅</div>
       <div>
         <h3>Your Delivery Quote</h3>
         <p>Same-day delivery — book by midnight the day before</p>
       </div>
     </div>
     <div class="result-body">
-      <div class="result-route" id="result-route">
-        <strong id="result-from">—</strong>
+      <div class="result-route">
+        <strong id="r-from">—</strong>
         <span>→</span>
-        <strong id="result-to">—</strong>
+        <strong id="r-to">—</strong>
+        <span class="route-type-pill" id="r-pill"></span>
       </div>
-      <div class="price-breakdown" id="price-breakdown"></div>
+      <table class="breakdown-table">
+        <thead>
+          <tr>
+            <th>Size</th>
+            <th style="text-align:center">Bags</th>
+            <th style="text-align:right">Rate</th>
+            <th style="text-align:right">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="breakdown-body"></tbody>
+      </table>
+      <div class="min-note" id="min-note">⚠️ Minimum 2-bag charge applied — 1 bag is billed as 2.</div>
       <div class="price-total">
         <div class="price-total-label">Total</div>
-        <div class="price-total-val" id="total-price">—</div>
+        <div class="price-total-val" id="r-total">—</div>
       </div>
-      <div class="savings-badge" id="savings-badge" style="display:none">
-        🎉 <span id="savings-text"></span>
-      </div>
-      <button class="book-btn">Book This Delivery →</button>
+      <button class="book-btn" onclick="openBookingFromCalc()">Book This Delivery →</button>
     </div>
   </div>
 
-  <!-- PRICING TABLE -->
-  <div class="pricing-info">
-    <div class="pricing-info-header">📊 Pricing — The More You Send, The Less You Pay</div>
-    <div class="pricing-info-body">
-      <div class="pricing-tier">
-        <div>
-          <div class="tier-bags">1 Bag <span>(any size)</span></div>
-        </div>
-        <div style="text-align:right">
-          <div class="tier-price">KRW 99,000</div>
-          <div class="tier-per">per delivery</div>
-        </div>
-      </div>
-      <div class="pricing-tier">
-        <div>
-          <div class="tier-bags">2 Bags <span>(any size)</span></div>
-          <div style="margin-top:3px"><span class="tier-badge">Save KRW 69,000</span></div>
-        </div>
-        <div style="text-align:right">
-          <div class="tier-price">KRW 129,000</div>
-          <div class="tier-per">KRW 64,500/bag</div>
-        </div>
-      </div>
-      <div class="pricing-tier">
-        <div>
-          <div class="tier-bags">3 Bags <span>(any size)</span></div>
-          <div style="margin-top:3px"><span class="tier-badge">Best Value</span></div>
-        </div>
-        <div style="text-align:right">
-          <div class="tier-price">KRW 145,000</div>
-          <div class="tier-per">KRW 48,333/bag</div>
-        </div>
-      </div>
+  <!-- PRICING REFERENCE -->
+  <div class="pricing-card">
+    <div class="pricing-card-header">📊 Rate Guide</div>
+    <div class="pricing-tabs">
+      <div class="pricing-tab active" onclick="switchTab('intercity')">🚄 Intercity</div>
+      <div class="pricing-tab" onclick="switchTab('intracity')">🏙️ Same City</div>
     </div>
-    <div style="padding: 0 18px 16px">
-      <div class="pricing-note">
-        💡 The more luggage you send, the cheaper the rate per bag. Sending 3 bags costs 51% less per bag than sending 1.
+    <div class="pricing-table-wrap">
+      <div class="pricing-table active" id="tab-intercity">
+        <div class="pt-row pt-header">
+          <div>Bags</div><div style="text-align:right">Carry-on</div><div style="text-align:right">Checked</div><div style="text-align:right">Oversize</div>
+        </div>
+        <div class="pt-row">
+          <div class="pt-bags">1–2 bags <span class="pt-badge badge-min">min 2</span></div>
+          <div class="pt-price">52,000</div><div class="pt-price">55,000</div><div class="pt-price">58,000</div>
+        </div>
+        <div class="pt-row">
+          <div class="pt-bags">3rd bag+ <span class="pt-badge badge-vol">per bag</span></div>
+          <div class="pt-price">20,000</div><div class="pt-price">20,000</div><div class="pt-price">20,000</div>
+        </div>
+        <div class="pricing-note">💡 Price per bag. Minimum 2-bag charge. From the 3rd bag, KRW 20,000 per bag regardless of size.</div>
+      </div>
+      <div class="pricing-table" id="tab-intracity">
+        <div class="pt-row pt-header">
+          <div>Size</div><div style="text-align:right;grid-column:2/5">Price per bag</div>
+        </div>
+        <div class="pt-row">
+          <div class="pt-bags">Carry-on</div>
+          <div class="pt-price" style="grid-column:2/5;text-align:right">24,500 / bag</div>
+        </div>
+        <div class="pt-row">
+          <div class="pt-bags">Checked-in</div>
+          <div class="pt-price" style="grid-column:2/5;text-align:right">29,700 / bag</div>
+        </div>
+        <div class="pt-row">
+          <div class="pt-bags">Oversize</div>
+          <div class="pt-price" style="grid-column:2/5;text-align:right">29,700 / bag</div>
+        </div>
+        <div class="pricing-note">💡 No minimum charge. Pay per bag only — any quantity.</div>
       </div>
     </div>
   </div>
 
-  <!-- SERVICE CONDITIONS -->
+  <!-- CONDITIONS -->
   <div class="conditions">
     <div class="conditions-header">✅ Service Conditions</div>
     <div class="conditions-body">
@@ -521,146 +761,819 @@
         <div class="condition-icon icon-ok">🏨</div>
         <div class="condition-text">
           <strong>Hotel or accommodation with a front desk</strong>
-          <span>Service is available at any hotel or guesthouse with a staffed reception desk that can accept and store luggage.</span>
+          <span>Any hotel or guesthouse with a staffed reception that can accept and store luggage.</span>
         </div>
       </div>
       <div class="condition-item">
         <div class="condition-icon icon-ok">👤</div>
         <div class="condition-text">
           <strong>On-site staff always present</strong>
-          <span>If your accommodation always has someone available on-site to handle luggage, you are eligible for this service.</span>
+          <span>Accommodation where someone is always available on-site to handle luggage handover.</span>
         </div>
       </div>
       <div class="condition-item">
-        <div class="condition-icon icon-warn">⚠️</div>
+        <div class="condition-icon icon-ok">🏠</div>
         <div class="condition-text">
           <strong>Airbnb or unstaffed accommodation</strong>
-          <span>Service is NOT available at Airbnbs or properties where no staff is present during pickup/drop-off. Please use Goodlugg Station instead.</span>
+          <span>Available with a scheduled meetup. Please be outside your accommodation <b>10 minutes before</b> the pickup time. Our driver will wait up to <b>10 minutes</b> after the scheduled time.</span>
+          <div style="margin-top:8px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:8px 10px;font-size:11px;color:#166534;font-weight:600;line-height:1.5;">
+            📱 You will receive a confirmation reminder <b>30 minutes before</b> your pickup via SMS or KakaoTalk.
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-</div><!-- end phone -->
+</div>
 
-<!-- FLOATING BOOK NOW BUTTON -->
-<style>
-  .float-book {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 390px;
-    background: var(--white);
-    border-top: 1px solid var(--border);
-    padding: 12px 16px;
-    z-index: 999;
-    box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
-  }
-  .float-book-btn {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
-    color: var(--white);
-    font-size: 16px; font-weight: 800;
-    border: none; border-radius: 12px;
-    cursor: pointer; font-family: inherit;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: all 0.2s;
-    box-shadow: 0 4px 16px rgba(91,45,142,0.35);
-  }
-  .float-book-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 24px rgba(91,45,142,0.45);
-  }
-  .float-book-btn:active { transform: translateY(0); }
-  /* Add bottom padding to page so content isn't hidden behind button */
-  .phone { padding-bottom: 80px; }
-</style>
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- BOOKING OVERLAY -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="booking-overlay" id="bookingOverlay">
+
+  <!-- Header -->
+  <div class="bk-header">
+    <button class="bk-back" id="bkBack" onclick="bkBack()">←</button>
+    <div class="bk-title" id="bkTitle">Book Delivery</div>
+    <button class="bk-close" onclick="closeBooking()">✕</button>
+  </div>
+
+  <!-- Progress -->
+  <div class="bk-progress" id="bkProgress"></div>
+
+  <!-- Steps container -->
+  <div id="bkSteps" style="width:100%;overflow:hidden;padding:0 16px;box-sizing:border-box"></div>
+
+</div>
 
 <div class="float-book">
-  <button class="float-book-btn">📦 Book Now →</button>
+  <button class="float-book-btn" onclick="openBookingFromCalc()">📦 Book Now →</button>
 </div>
 
 <script>
-  const bags = { carry: 0, checked: 0, over: 0 };
+const locations = [
+  // Seoul
+  { name: "Lotte Hotel Seoul", addr: "30 Eulji-ro, Jung-gu", city: "Seoul" },
+  { name: "Shilla Hotel Seoul", addr: "249 Dongho-ro, Jung-gu", city: "Seoul" },
+  { name: "Grand Hyatt Seoul", addr: "322 Sowol-ro, Yongsan-gu", city: "Seoul" },
+  { name: "Signiel Seoul", addr: "512 Teheran-ro, Gangnam-gu", city: "Seoul" },
+  { name: "Novotel Seoul Gangnam", addr: "133 Naheun-ro, Gangnam-gu", city: "Seoul" },
+  { name: "Myeongdong Tourist Hotel", addr: "25 Myeongdong-gil, Jung-gu", city: "Seoul" },
+  { name: "Hongdae Guesthouse", addr: "15 Yanghwa-ro, Mapo-gu", city: "Seoul" },
+  { name: "Park Hyatt Seoul", addr: "606 Teheran-ro, Gangnam-gu", city: "Seoul" },
+  { name: "Four Seasons Hotel Seoul", addr: "97 Saemunan-ro, Jongno-gu", city: "Seoul" },
+  { name: "JW Marriott Seoul", addr: "176 Sinbanpo-ro, Seocho-gu", city: "Seoul" },
+  { name: "Andaz Seoul Gangnam", addr: "322 Dosan-daero, Gangnam-gu", city: "Seoul" },
+  // Busan
+  { name: "Lotte Hotel Busan", addr: "772 Gaya-daero, Busanjin-gu", city: "Busan" },
+  { name: "Signiel Busan", addr: "6 LCT the Sharp, Haeundae-gu", city: "Busan" },
+  { name: "Paradise Hotel Busan", addr: "296 Haeundaehaebyeon-ro, Haeundae", city: "Busan" },
+  { name: "Novotel Ambassador Busan", addr: "151 Haeundaehaebyeon-ro", city: "Busan" },
+  { name: "Westin Chosun Busan", addr: "67 Dongbaengnaero, Haeundae-gu", city: "Busan" },
+  // Gyeongju
+  { name: "Hilton Gyeongju", addr: "484-7 Bomun-ro, Gyeongju", city: "Gyeongju" },
+  { name: "Gyeongju Commodore Hotel", addr: "116-27 Buheung-ro, Gyeongju", city: "Gyeongju" },
+  { name: "Gyeongju Hyundai Hotel", addr: "83 Bomun-ro, Gyeongju", city: "Gyeongju" },
+  // Jeju
+  { name: "Hotel Jeju Shinhwa World", addr: "318 Sinhwayeoksa-ro, Seogwipo", city: "Jeju" },
+  { name: "Lotte City Hotel Jeju", addr: "71 Doryeong-ro, Jeju-si", city: "Jeju" },
+  { name: "Grand Hyatt Jeju", addr: "37-128 Iljudong-ro, Seogwipo", city: "Jeju" },
+  { name: "Jeju Shilla Hotel", addr: "72 Jungmungwangwang-ro, Seogwipo", city: "Jeju" },
+  { name: "Maison Glad Jeju", addr: "20 Doryeong-ro, Jeju-si", city: "Jeju" },
+  { name: "The Pinx Jeju", addr: "218 Noksan-ro, Seogwipo", city: "Jeju" },
+  // Incheon
+  { name: "Grand Hyatt Incheon", addr: "208 Yeongjong-daero, Jung-gu", city: "Incheon" },
+  { name: "Incheon Airport Transit Hotel T1", addr: "Terminal 1, Incheon Airport", city: "Incheon" },
+  { name: "Incheon Airport Transit Hotel T2", addr: "Terminal 2, Incheon Airport", city: "Incheon" },
+  { name: "Nest Hotel Incheon", addr: "Incheon Int'l Airport, Jung-gu", city: "Incheon" },
+  // Jeonju
+  { name: "Lotte City Hotel Jeonju", addr: "2 Gwimaero, Deokjin-gu", city: "Jeonju" },
+  { name: "Jeonju Hanok Village Guesthouse", addr: "99 Eojin-gil, Wansanju-gu", city: "Jeonju" },
+  { name: "Hotel River Park Jeonju", addr: "38 Gwimaero, Deokjin-gu", city: "Jeonju" },
+  // Gangneung
+  { name: "Sun Cruise Resort Gangneung", addr: "rajinhaean-ro, Jumunjin-eup", city: "Gangneung" },
+  { name: "Hotel Gyeongpo Beach Gangneung", addr: "245 Haean-ro, Gangneung", city: "Gangneung" },
+  { name: "Seamarq Hotel Gangneung", addr: "2 Haslle-ro, Gangneung", city: "Gangneung" },
+  // Sokcho
+  { name: "Lotte Resort Sokcho", addr: "100 Cheongchohoban-ro, Sokcho", city: "Sokcho" },
+  { name: "Sokcho Raon Hotel", addr: "62 Yeongrang-ro, Sokcho", city: "Sokcho" },
+  { name: "Hotel Abai Sokcho", addr: "171 Dongmyeong-ro, Sokcho", city: "Sokcho" },
+  // Yeosu
+  { name: "Utop Marina Hotel Yeosu", addr: "51 Odongdo-ro, Yeosu", city: "Yeosu" },
+  { name: "Venezia Hotel Yeosu", addr: "2-1 Dolsan-ro, Dolsan-eup", city: "Yeosu" },
+  { name: "Yeosu Mvl Hotel", addr: "37 Hamelro, Yeosu", city: "Yeosu" },
+  // Suwon
+  { name: "Novotel Ambassador Suwon", addr: "705 Gwonseon-ro, Gwonseon-gu", city: "Suwon" },
+  { name: "Ibis Styles Suwon", addr: "188 Maegyo-ro, Paldal-gu", city: "Suwon" },
+  // Gwangju
+  { name: "Ramada Hotel Gwangju", addr: "17 Muje-ro, Buk-gu", city: "Gwangju" },
+  { name: "Shinyang Park Hotel Gwangju", addr: "22 Chungjang-ro, Dong-gu", city: "Gwangju" },
+  // Daegu
+  { name: "Novotel Ambassador Daegu", addr: "611 Gukchaebosang-ro, Jung-gu", city: "Daegu" },
+  { name: "Daegu Grand Hotel", addr: "200 Taepyeong-ro, Jung-gu", city: "Daegu" },
+  { name: "Hotel Intercity Daegu", addr: "107 Daegucheon-ro, Nam-gu", city: "Daegu" },
+];
 
-  function change(type, delta) {
-    bags[type] = Math.max(0, bags[type] + delta);
-    document.getElementById(type + '-val').textContent = bags[type];
+const bags = { carry: 0, checked: 0, over: 0 };
+let fromCity = null, toCity = null, fromName = "", toName = "";
+
+// Intercity: per bag price, minimum 2-bag charge, 3rd bag+ = 20,000 flat
+const INTERCITY = { carry: 52000, checked: 55000, over: 58000 };
+const VOL_RATE  = 20000; // per bag from 3rd bag onwards
+const STORAGE_RATE = 5000; // per bag per day for multi-day storage
+// Intracity: per bag price, no minimum
+const INTRACITY = { carry: 24500, checked: 29700, over: 29700 };
+
+function daysBetween(d1, d2) {
+  if (!d1 || !d2) return 0;
+  const diff = new Date(d2) - new Date(d1);
+  return Math.max(0, Math.floor(diff / 86400000));
+}
+
+function getType() {
+  if (!fromCity || !toCity) return null;
+  return fromCity === toCity ? "intracity" : "intercity";
+}
+function fmt(n) { return "KRW " + n.toLocaleString("ko-KR"); }
+
+function handleInput(field) {
+  const val = document.getElementById(field + "-input").value.toLowerCase().trim();
+  const list = document.getElementById(field + "-list");
+  const filtered = val.length === 0
+    ? locations.slice(0, 6)
+    : locations.filter(l =>
+        l.name.toLowerCase().includes(val) ||
+        l.city.toLowerCase().includes(val) ||
+        l.addr.toLowerCase().includes(val)
+      ).slice(0, 7);
+
+  list.innerHTML = filtered.map(l => `
+    <div class="autocomplete-item"
+      onmousedown="selectLoc('${field}','${l.name.replace(/'/g,"\\'")}','${l.city}')">
+      <div>
+        <div class="place-name">${l.name}</div>
+        <div class="place-addr">${l.addr}</div>
+      </div>
+      <span class="city-tag">${l.city}</span>
+    </div>`).join("");
+  list.classList.add("open");
+}
+
+function selectLoc(field, name, city) {
+  document.getElementById(field + "-input").value = name;
+  document.getElementById(field + "-list").classList.remove("open");
+  if (field === "from") { fromCity = city; fromName = name; }
+  else { toCity = city; toName = name; }
+  updateIndicator();
+  updateHints();
+}
+
+function delayHide(field) {
+  setTimeout(() => document.getElementById(field + "-list").classList.remove("open"), 200);
+}
+
+function updateIndicator() {
+  const ind = document.getElementById("route-indicator");
+  const type = getType();
+  if (!type) { ind.classList.remove("visible","intercity","intracity"); return; }
+  ind.classList.add("visible");
+  ind.classList.remove("intercity","intracity");
+  ind.classList.add(type);
+  document.getElementById("route-icon").textContent = type === "intracity" ? "🏙️" : "🚄";
+  document.getElementById("route-label").textContent = type === "intracity"
+    ? `Same-city delivery (${fromCity})`
+    : `Intercity delivery: ${fromCity} → ${toCity}`;
+}
+
+function updateHints() {
+  const type = getType(); if (!type) return;
+  if (type === "intercity") {
+    document.getElementById("hint-carry").textContent   = "KRW 52,000 per bag  •  3rd bag+: 20,000";
+    document.getElementById("hint-checked").textContent = "KRW 55,000 per bag  •  3rd bag+: 20,000";
+    document.getElementById("hint-over").textContent    = "KRW 58,000 per bag  •  3rd bag+: 20,000";
+  } else {
+    document.getElementById("hint-carry").textContent   = "KRW 24,500 per bag — no minimum";
+    document.getElementById("hint-checked").textContent = "KRW 29,700 per bag — no minimum";
+    document.getElementById("hint-over").textContent    = "KRW 29,700 per bag — no minimum";
+  }
+}
+
+function change(type, delta) {
+  bags[type] = Math.max(0, bags[type] + delta);
+  document.getElementById(type + "-val").textContent = bags[type];
+  document.getElementById("row-" + type).classList.toggle("has-bags", bags[type] > 0);
+}
+
+function calcIntercity(sizes, total) {
+  // Per bag: 52K/55K/58K, minimum 2-bag charge, 3rd bag+ = 20K flat
+  const isMin = total === 1;
+  const effectiveTotal = Math.max(total, 2);
+  let stdRemain = 2;
+  let grandTotal = 0;
+  let rows = "";
+
+  sizes.forEach(s => {
+    const count = (isMin && sizes.length === 1) ? 2 : s.count;
+    const std = Math.min(count, stdRemain);
+    const vol = count - std;
+    stdRemain = Math.max(0, stdRemain - std);
+    const sub = (std * INTERCITY[s.key]) + (vol * VOL_RATE);
+    grandTotal += sub;
+    const volNote = vol > 0 ? `<div class="td-vol">↳ ${vol} bag(s) × KRW 20,000</div>` : "";
+    rows += `<tr>
+      <td class="td-label">${s.label}</td>
+      <td class="td-qty">${isMin && sizes.length === 1 ? "1 (→2)" : s.count}</td>
+      <td class="td-unit">${fmt(INTERCITY[s.key])} / bag</td>
+      <td class="td-total">${fmt(sub)}${volNote}</td>
+    </tr>`;
+  });
+
+  return { rows, grandTotal, isMin };
+}
+
+function calcIntracity(sizes) {
+  // Intracity: per bag price, no minimum
+  let grandTotal = 0;
+  let rows = "";
+  sizes.forEach(s => {
+    const sub = s.count * INTRACITY[s.key];
+    grandTotal += sub;
+    rows += `<tr>
+      <td class="td-label">${s.label}</td>
+      <td class="td-qty">${s.count}</td>
+      <td class="td-unit">${fmt(INTRACITY[s.key])} / bag</td>
+      <td class="td-total">${fmt(sub)}</td>
+    </tr>`;
+  });
+  return { rows, grandTotal, isMin: false };
+}
+
+function calculate() {
+  if (!fromCity || !toCity) { alert("Please select both locations from the dropdown."); return; }
+  const total = bags.carry + bags.checked + bags.over;
+  if (total === 0) { alert("Please add at least 1 bag."); return; }
+
+  const type = getType();
+  const sizes = [
+    { key:"carry",   label:"Carry-on",   count: bags.carry },
+    { key:"checked", label:"Checked-in", count: bags.checked },
+    { key:"over",    label:"Oversize",   count: bags.over },
+  ].filter(s => s.count > 0);
+
+  const { rows, grandTotal, isMin } = type === "intercity"
+    ? calcIntercity(sizes, total)
+    : calcIntracity(sizes);
+
+  document.getElementById("r-from").textContent = fromName;
+  document.getElementById("r-to").textContent   = toName;
+  const pill = document.getElementById("r-pill");
+  pill.textContent  = type === "intracity" ? "🏙️ Same City" : "🚄 Intercity";
+  pill.className    = "route-type-pill " + (type === "intracity" ? "pill-intracity" : "pill-intercity");
+  document.getElementById("breakdown-body").innerHTML = rows;
+  document.getElementById("min-note").classList.toggle("visible", isMin);
+  document.getElementById("r-total").textContent = fmt(grandTotal);
+
+  const el = document.getElementById("result");
+  el.classList.add("visible");
+  setTimeout(() => el.scrollIntoView({ behavior:"smooth", block:"start" }), 100);
+}
+
+function switchTab(tab) {
+  document.querySelectorAll(".pricing-tab").forEach((t, i) =>
+    t.classList.toggle("active", (tab === "intercity" && i === 0) || (tab === "intracity" && i === 1)));
+  document.getElementById("tab-intercity").classList.toggle("active", tab === "intercity");
+  document.getElementById("tab-intracity").classList.toggle("active", tab === "intracity");
+}
+
+// ═══════════════════════════════════════════════════
+// BOOKING FLOW
+// ═══════════════════════════════════════════════════
+const STEPS = ["Departure","Arrival","Luggage","Delivery Time","Customer Info","Reservation","Payment","Terms","Summary"];
+const AIRPORTS = [
+  { id: "incheon", name: "Incheon Airport", hasSub: true },
+  { id: "gimpo",   name: "Gimpo Airport",  hasSub: false,
+    sub: [{ name: "Gimpo Airport International Terminal", addr: "On 1F (Arrival Hall), go to the Baggage Total Service desk near Gate 1", city: "Seoul" }]
+  },
+];
+const AIRPORT_SUBS = {
+  incheon: [
+    { name: "Incheon Airport Terminal 1", addr: "In front of the Goodlugg Desk, near Gate 13 on the west side of the Arrival Hall, 1st Floor, Terminal 1, Incheon International Airport", city: "Incheon" },
+    { name: "Incheon Airport Terminal 2", addr: "Go to the Goodlugg Desk located near Gates 5 and 6 at the center of the Arrival Hall (1F)", city: "Incheon" },
+  ],
+  gimpo: [
+    { name: "Gimpo Airport International Terminal", addr: "On 1F (Arrival Hall), go to the Baggage Total Service desk near Gate 1", city: "Seoul" },
+  ],
+};
+
+let bkStep = 0;
+let bkData = {};
+
+function bkDefault() {
+  const d = new Date(); d.setDate(d.getDate()+1);
+  const ds = d.toISOString().split("T")[0];
+  return {
+    departure:null, arrival:null,
+    bags:{carry:0,checked:0,over:0},
+    dropDate:ds, dropTime:"",
+    pickDate:ds, pickTime:"",
+    custFirst:"",custLast:"",custCountry:"+82",custPhone:"",custEmail:"",
+    resFirst:"",resLast:"",resNum:"",
+    payMethod:"international", coupon:"", partnerCode:"",
+    terms:{service:false,privacy:false,thirdparty:false}
+  };
+}
+
+function openBookingFromCalc() {
+  bkStep = 0; bkData = bkDefault();
+
+  // Pre-fill from calculator if locations were selected
+  if (fromName && fromCity) {
+    bkData.departure = { name: fromName, addr: "", city: fromCity, type: "hotel" };
+  }
+  if (toName && toCity) {
+    bkData.arrival = { name: toName, addr: "", city: toCity, type: "hotel" };
   }
 
-  // Pricing: based on TOTAL bag count
-  // ⚠️ Please confirm these prices — assumed:
-  // 1 bag = 99,000 | 2 bags = 129,000 | 3+ bags = 145,000 + 15,000 per extra bag
-  function getPrice(total) {
-    if (total === 0) return 0;
-    if (total === 1) return 99000;
-    if (total === 2) return 129000;
-    if (total === 3) return 145000;
-    // 4+ bags: add KRW 15,000 per additional bag beyond 3
-    return 145000 + (total - 3) * 15000;
+  // Pre-fill bag counts from calculator
+  bkData.bags.carry   = bags.carry;
+  bkData.bags.checked = bags.checked;
+  bkData.bags.over    = bags.over;
+
+  // Skip to appropriate step
+  if (bkData.departure && bkData.arrival) {
+    bkStep = 2; // skip to luggage
+  } else if (bkData.departure) {
+    bkStep = 1; // skip to arrival
   }
 
-  function fmt(n) {
-    return 'KRW ' + n.toLocaleString('ko-KR');
+  document.getElementById("bookingOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  renderStep();
+}
+
+function openBooking() {
+  bkStep = 0; bkData = bkDefault();
+  document.getElementById("bookingOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  renderStep();
+}
+function closeBooking() {
+  document.getElementById("bookingOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function bkBack() {
+  if (bkStep === 0) { closeBooking(); return; }
+  bkStep--; renderStep();
+}
+function bkNext() { if (bkStep < STEPS.length-1) { bkStep++; renderStep(); } }
+
+function renderStep() {
+  const ov = document.getElementById("bookingOverlay"); ov.scrollTop = 0;
+  document.getElementById("bkTitle").textContent = STEPS[bkStep];
+  document.getElementById("bkBack").style.visibility = bkStep===0?"hidden":"visible";
+  const prog = document.getElementById("bkProgress");
+  prog.innerHTML = STEPS.map((_,i)=>`<div class="bk-prog-step ${i<bkStep?'done':i===bkStep?'active':''}"></div>`).join("");
+  const c = document.getElementById("bkSteps"); c.innerHTML = "";
+  [renderDepartureStep, renderArrivalStep, renderLuggageStep, renderTimeStep,
+   renderCustomerStep, renderReservationStep, renderPaymentStep, renderTermsStep, renderSummaryStep][bkStep]();
+}
+
+// ── Location steps ──
+function renderDepartureStep() { renderLocStep("departure","Step 1 of 8","👋 <strong>Hello!</strong><br>We'll help you book your luggage delivery.<br>First, where would you like to <strong>drop off</strong> your luggage?"); }
+function renderArrivalStep()   { renderLocStep("arrival","Step 2 of 8","📍 Great! So where would you like it <strong>delivered</strong>?"); }
+
+function renderLocStep(field, label, msg) {
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-step-label">${label}</div>
+    <div class="bk-bubble">${msg}</div>
+    <div class="bk-categories">
+      <button class="bk-cat-btn" onclick="showAirports('${field}')">
+        <div class="bk-cat-left"><span class="bk-cat-icon">✈️</span><span class="bk-cat-name">Airport</span></div>
+        <span class="bk-cat-arrow">→</span>
+      </button>
+      <button class="bk-cat-btn" onclick="showHotelSearch('${field}')">
+        <div class="bk-cat-left"><span class="bk-cat-icon">🏨</span><span class="bk-cat-name">Hotel / Accommodation</span></div>
+        <span class="bk-cat-arrow">→</span>
+      </button>
+    </div>`;
+}
+
+function showAirports(field) {
+  const c = document.getElementById("bkSteps");
+  c.innerHTML = `
+    <div class="bk-step-label">Select Airport</div>
+    <div class="bk-bubble">Please select your airport.</div>
+    <div class="bk-airport-list" id="bkAirportList"></div>`;
+  const list = document.getElementById("bkAirportList");
+  AIRPORTS.forEach(a => {
+    const el = document.createElement("div");
+    el.className = "bk-airport-item";
+    el.innerHTML = `<div class="ap-name">✈️ ${a.name}</div>`;
+    el.onclick = () => {
+      if (AIRPORT_SUBS[a.id].length > 1) {
+        showAirportSubs(field, a.name, a.id);
+      } else {
+        confirmLocation(field, {...AIRPORT_SUBS[a.id][0], type:"airport"});
+      }
+    };
+    list.appendChild(el);
+  });
+}
+
+function showAirportSubs(field, airportName, airportId) {
+  const subs = AIRPORT_SUBS[airportId];
+  const c = document.getElementById("bkSteps");
+  c.innerHTML = `
+    <div class="bk-step-label">${airportName}</div>
+    <div class="bk-bubble">Please select the desired option.</div>
+    <div class="bk-airport-list" id="bkSubList"></div>`;
+  const list = document.getElementById("bkSubList");
+  subs.forEach(s => {
+    const el = document.createElement("div");
+    el.className = "bk-airport-item";
+    el.innerHTML = `<div class="ap-name">✈️ ${s.name}</div><div class="ap-addr">${s.addr}</div>`;
+    el.onclick = () => confirmLocation(field, {...s, type:"airport"});
+    list.appendChild(el);
+  });
+}
+
+function showHotelSearch(field) {
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-step-label">Search Hotel</div>
+    <div class="bk-bubble">Please search by hotel name.</div>
+    <div class="bk-search-wrap">
+      <input class="bk-search" id="bkHotelQ" placeholder="Enter hotel name..." oninput="filterHotels('${field}')" />
+    </div>
+    <div class="bk-search-results" id="bkHotelList"></div>`;
+  filterHotels(field);
+  setTimeout(()=>document.getElementById("bkHotelQ")?.focus(),100);
+}
+
+function filterHotels(field) {
+  const q = (document.getElementById("bkHotelQ")?.value||"").toLowerCase();
+  const list = document.getElementById("bkHotelList"); if(!list) return;
+  const filtered = q ? locations.filter(l=>l.name.toLowerCase().includes(q)||l.city.toLowerCase().includes(q)).slice(0,10) : locations.slice(0,8);
+  list.innerHTML = "";
+  filtered.forEach(l => {
+    const el = document.createElement("div");
+    el.className = "bk-result-item";
+    el.innerHTML = `<span class="bk-result-icon">🏨</span><div><div class="bk-result-name">${l.name}</div><div class="bk-result-addr">${l.addr} · ${l.city}</div></div>`;
+    el.onclick = () => confirmLocation(field, {...l, type:"hotel"});
+    list.appendChild(el);
+  });
+}
+
+function confirmLocation(field, loc) {
+  bkData[field] = loc;
+  const airbnbNote = loc.type==="hotel" ? `<div class="bk-airbnb-note">📱 Airbnb / unstaffed accommodations eligible. Please be outside <strong>10 min before</strong> pickup. Driver waits up to 10 min. SMS reminder sent 30 min prior.</div>` : "";
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-step-label">${field==="departure"?"Departure":"Arrival"} Selected</div>
+    <div class="bk-selected-card">
+      <div class="bk-selected-name">${loc.type==="airport"?"✈️":"🏨"} ${loc.name}</div>
+      <div class="bk-selected-addr">📍 ${loc.addr}</div>
+      ${airbnbNote}
+    </div>
+    <div style="padding:0 0 100px; width:100%;">
+      <button class="bk-next-btn" onclick="bkNext()">Confirm & Continue →</button>
+    </div>`;
+}
+
+// ── Luggage ──
+function bkIsIntercity() { return bkData.departure?.city !== bkData.arrival?.city; }
+
+function calcBkTotal() {
+  const {carry,checked,over} = bkData.bags;
+  const total = carry+checked+over; if(!total) return 0;
+  let deliveryFee = 0;
+  if (bkIsIntercity()) {
+    const eff = Math.max(total,2);
+    let remain=2, grand=0;
+    [[carry,INTERCITY.carry],[checked,INTERCITY.checked],[over,INTERCITY.over]].forEach(([cnt,rate])=>{
+      if(!cnt) return;
+      const useStd = Math.min(cnt,remain); const useVol = cnt-useStd;
+      remain = Math.max(0,remain-useStd);
+      grand += useStd*rate + useVol*VOL_RATE;
+    });
+    if(total===1) { const onlyKey = carry?'carry':checked?'checked':'over'; grand = INTERCITY[onlyKey]; }
+    deliveryFee = grand;
+  } else {
+    deliveryFee = carry*INTRACITY.carry + checked*INTRACITY.checked + over*INTRACITY.over;
   }
+  // Storage fee for multi-day
+  const days = daysBetween(bkData.dropDate, bkData.pickDate);
+  const storageFee = days > 0 ? days * total * STORAGE_RATE : 0;
+  return deliveryFee + storageFee;
+}
 
-  function calculate() {
-    const from = document.getElementById('from').value.trim();
-    const to = document.getElementById('to').value.trim();
-    const total = bags.carry + bags.checked + bags.over;
+function calcStorageFee() {
+  const total = bkData.bags.carry + bkData.bags.checked + bkData.bags.over;
+  const days = daysBetween(bkData.dropDate, bkData.pickDate);
+  return days > 0 ? days * total * STORAGE_RATE : 0;
+}
 
-    if (!from || !to) {
-      alert('Please enter both From and To locations.');
-      return;
-    }
-    if (total === 0) {
-      alert('Please add at least 1 bag.');
-      return;
-    }
+function renderLuggageStep() {
+  const isIC = bkIsIntercity();
+  const prefilled = bkData.departure?.name && bkData.arrival?.name;
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-step-label">Step 3 of 8</div>
+    ${prefilled ? `<div style="margin:0 0 12px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:10px 14px;font-size:12px;color:#166534;font-weight:600">
+      ✅ Route pre-filled from your estimate:<br>
+      <strong>${bkData.departure.name}</strong> → <strong>${bkData.arrival.name}</strong>
+    </div>` : ""}
+    <div class="bk-bubble">📦 <strong>What kind of luggage would you like to send?</strong>
+      ${isIC?`<div class="bk-warn">Minimum charge equivalent to 2 luggage items.<br>(1 item = same price as 2.)</div>`:""}
+    </div>
+    ${["carry","checked","over"].map((k,i)=>{
+      const labels = [["🧳 22 inches or less","Carry-on luggage"],["🧳 Over 22 inches / Golf bag","Checked luggage / Golf bag"],["🧳 Over 30 inches","Extra Large Checked Luggage"]];
+      return `<div class="bk-bag-row ${bkData.bags[k]>0?'active':''}" id="bkRow_${k}">
+        <div><div class="bk-bag-name">${labels[i][0]}</div><div class="bk-bag-desc">${labels[i][1]}</div></div>
+        <div class="bk-counter">
+          <button class="bk-counter-btn" onclick="bkBag('${k}',-1)">−</button>
+          <span class="bk-counter-val" id="bkVal_${k}">${bkData.bags[k]}</span>
+          <button class="bk-counter-btn" onclick="bkBag('${k}',1)">+</button>
+        </div>
+      </div>`;
+    }).join("")}
+    <div class="bk-total-bar">
+      <div class="bk-total-row">
+        <span class="bk-total-label">Total payment amount</span>
+        <span class="bk-total-amount" id="bkBagTotal">${fmt(calcBkTotal())}</span>
+      </div>
+      <button class="bk-next-btn" id="bkBagBtn" onclick="bkNext()" ${(bkData.bags.carry+bkData.bags.checked+bkData.bags.over)===0?"disabled":""}>Enter delivery time →</button>
+    </div>`;
+}
 
-    const price = getPrice(total);
-    const singlePrice = total * 99000;
-    const saved = singlePrice - price;
+function bkBag(k, d) {
+  bkData.bags[k] = Math.max(0,bkData.bags[k]+d);
+  document.getElementById("bkVal_"+k).textContent = bkData.bags[k];
+  document.getElementById("bkRow_"+k).classList.toggle("active", bkData.bags[k]>0);
+  document.getElementById("bkBagTotal").textContent = fmt(calcBkTotal());
+  const total = bkData.bags.carry+bkData.bags.checked+bkData.bags.over;
+  document.getElementById("bkBagBtn").disabled = total===0;
+}
 
-    // Populate result
-    document.getElementById('result-from').textContent = from;
-    document.getElementById('result-to').textContent = to;
+// ── Time ──
+function renderTimeStep() {
+  const fromAirport = bkData.departure?.type === "airport";
 
-    // Build breakdown
-    let breakdown = '';
-    if (bags.carry > 0) {
-      breakdown += `<div class="price-row"><span class="price-row-label">Carry-on × ${bags.carry}</span><span class="price-row-val">included</span></div>`;
-    }
-    if (bags.checked > 0) {
-      breakdown += `<div class="price-row"><span class="price-row-label">Checked-in × ${bags.checked}</span><span class="price-row-val">included</span></div>`;
-    }
-    if (bags.over > 0) {
-      breakdown += `<div class="price-row"><span class="price-row-label">Oversize × ${bags.over}</span><span class="price-row-val">included</span></div>`;
-    }
-    breakdown += `<div class="price-row"><span class="price-row-label">Total bags</span><span class="price-row-val">${total} bags</span></div>`;
-    breakdown += `<div class="price-divider"></div>`;
+  const dropTime = fromAirport ? "Before 13:00" : "Before 09:00";
+  const pickTime = fromAirport ? "Before 22:00" : "Before 21:00";
+  const dropNote = fromAirport ? "✈️ Drop off luggage at airport counter by 1:00 PM" : "🏨 Goodlugg staff picks up luggage by 9:00 AM";
+  const pickNote = fromAirport ? "🏨 Luggage delivered to hotel by 10:00 PM" : "🏨 Luggage delivered to hotel by 9:00 PM";
 
-    document.getElementById('price-breakdown').innerHTML = breakdown;
-    document.getElementById('total-price').textContent = fmt(price);
+  bkData.dropTime = dropTime;
+  bkData.pickTime = pickTime;
 
-    // Savings badge
-    const badge = document.getElementById('savings-badge');
-    if (total >= 2 && saved > 0) {
-      document.getElementById('savings-text').textContent =
-        `You save ${fmt(saved)} vs. booking separately!`;
-      badge.style.display = 'flex';
-    } else {
-      badge.style.display = 'none';
-    }
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-step-label">Step 4 of 8</div>
+    <div class="bk-bubble">🚚 <strong>When would you like to deliver your luggage?</strong><br><small>If drop-off and pick-up dates differ, storage fees will be added.</small></div>
+    <div class="bk-datetime">
+      <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px">Drop Off Luggage</div>
+      <div class="bk-dt-row">
+        <span class="bk-dt-label">Date</span>
+        <input type="date" class="bk-dt-select" value="${bkData.dropDate}" onchange="bkData.dropDate=this.value;updateStoragePreview()" />
+      </div>
+      <div class="bk-dt-row">
+        <span class="bk-dt-label">Time</span>
+        <span style="font-size:13px;font-weight:700;color:var(--purple)">${dropTime}</span>
+      </div>
+      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 12px;font-size:12px;color:#166534;font-weight:600;margin-bottom:8px">${dropNote}</div>
 
-    // Show result
-    const resultEl = document.getElementById('result');
-    resultEl.classList.add('visible');
-    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      <div style="font-size:12px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px">Arrival at Destination</div>
+      <div class="bk-dt-row">
+        <span class="bk-dt-label">Date</span>
+        <input type="date" class="bk-dt-select" value="${bkData.pickDate}" onchange="bkData.pickDate=this.value;updateStoragePreview()" id="bkPickDateInput"/>
+      </div>
+      <div class="bk-dt-row">
+        <span class="bk-dt-label">Time</span>
+        <span style="font-size:13px;font-weight:700;color:var(--purple)">${pickTime}</span>
+      </div>
+      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 12px;font-size:12px;color:#166534;font-weight:600;margin-bottom:8px">${pickNote}</div>
+      <div id="storagePreview"></div>
+    </div>
+    <div class="bk-total-bar">
+      <div class="bk-total-row">
+        <span class="bk-total-label">Estimated Total</span>
+        <span class="bk-total-amount" id="bkTimeTotal">${fmt(calcBkTotal())}</span>
+      </div>
+      <button class="bk-next-btn" onclick="bkNext()">Confirm schedule →</button>
+    </div>`;
+}
+
+// ── Customer Info ──
+function renderCustomerStep() {
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-step-label">Step 5 of 8</div>
+    <div class="bk-bubble">👤 <strong>Who will be sending the luggage?</strong></div>
+    <div class="bk-form">
+      <div class="bk-field-group">
+        <div class="bk-field-label">Name</div>
+        <div class="bk-field-sub">Please enter in English as shown on passport</div>
+        <div class="bk-input-row">
+          <input class="bk-input" id="cf" placeholder="First name" value="${bkData.custFirst}" />
+          <input class="bk-input" id="cl" placeholder="Last name" value="${bkData.custLast}" />
+        </div>
+        <div class="bk-error-msg" id="custErr" style="display:none">Please enter first name</div>
+      </div>
+      <div class="bk-field-group">
+        <div class="bk-field-label">Phone number</div>
+        <div class="bk-input-row">
+          <input class="bk-input" style="max-width:100px" id="cc" placeholder="+82" value="${bkData.custCountry}" />
+          <input class="bk-input" id="cp" placeholder="Phone number" value="${bkData.custPhone}" />
+        </div>
+      </div>
+      <div class="bk-field-group">
+        <div class="bk-field-label">Email address</div>
+        <input class="bk-input" id="ce" placeholder="Enter email address" value="${bkData.custEmail}" />
+      </div>
+    </div>
+    <div class="bk-total-bar">
+      <div class="bk-total-row"><span class="bk-total-label">Total</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
+      <button class="bk-next-btn" onclick="saveCust()">Enter customer information →</button>
+    </div>`;
+}
+
+function saveCust() {
+  const f=document.getElementById("cf").value.trim();
+  if(!f){document.getElementById("cf").classList.add("error");document.getElementById("custErr").style.display="block";return;}
+  bkData.custFirst=f; bkData.custLast=document.getElementById("cl").value;
+  bkData.custCountry=document.getElementById("cc").value; bkData.custPhone=document.getElementById("cp").value;
+  bkData.custEmail=document.getElementById("ce").value; bkNext();
+}
+
+// ── Reservation ──
+function renderReservationStep() {
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-step-label">Step 6 of 8</div>
+    <div class="bk-bubble">🏨 <strong>Please enter the information required to verify your hotel reservation.</strong></div>
+    <div class="bk-form">
+      <div class="bk-field-group">
+        <div class="bk-field-label">Name</div>
+        <div class="bk-field-sub">Reservation name at destination hotel</div>
+        <div class="bk-input-row">
+          <input class="bk-input" id="rf" placeholder="First name" value="${bkData.resFirst}" />
+          <input class="bk-input" id="rl" placeholder="Last name" value="${bkData.resLast}" />
+        </div>
+        <button class="bk-same-btn" onclick="sameAsCust()">Use same as customer information</button>
+      </div>
+      <div class="bk-field-group">
+        <div class="bk-field-label">Hotel reservation number</div>
+        <input class="bk-input" id="rn" placeholder="Enter reservation number" value="${bkData.resNum}" />
+      </div>
+    </div>
+    <div class="bk-total-bar">
+      <div class="bk-total-row"><span class="bk-total-label">Total</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
+      <button class="bk-next-btn" onclick="saveRes()">Enter payment information →</button>
+    </div>`;
+}
+function sameAsCust(){document.getElementById("rf").value=bkData.custFirst;document.getElementById("rl").value=bkData.custLast;}
+function saveRes(){bkData.resFirst=document.getElementById("rf").value;bkData.resLast=document.getElementById("rl").value;bkData.resNum=document.getElementById("rn").value;bkNext();}
+
+// ── Payment ──
+function renderPaymentStep() {
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-step-label">Step 7 of 8</div>
+    <div class="bk-bubble">💳 <strong>How would you like to pay?</strong><br><small>Please select a safe and convenient payment method.</small></div>
+    <div class="bk-payment-methods">
+      <button class="bk-pay-btn ${bkData.payMethod==='international'?'selected':''}" onclick="selPay('international')">
+        <div class="pay-icon">🌐</div><div class="pay-label">International card</div>
+      </button>
+      <button class="bk-pay-btn ${bkData.payMethod==='korean'?'selected':''}" onclick="selPay('korean')">
+        <div class="pay-icon">🇰🇷</div><div class="pay-label">Korean bank/card</div>
+      </button>
+    </div>
+    <div class="bk-pay-detail" id="payDetail">
+      ${bkData.payMethod==='international'
+        ?'<div class="bk-pay-detail-name">🌐 International card</div><div class="bk-pay-detail-desc">Payment with credit card issued abroad</div>'
+        :'<div class="bk-pay-detail-name">🇰🇷 Korean bank / card</div><div class="bk-pay-detail-desc">Payment with Korean domestic bank or credit card</div>'}
+    </div>
+    <div class="bk-step-label" style="margin-top:4px">Discount Benefits</div>
+    <div class="bk-bubble">⭐ <strong>Check out the discount benefits!</strong><br><small>No discounts or points apply to Korea luggage storage fees.</small></div>
+    <div class="bk-discount-section">
+      <div class="bk-field-group"><div class="bk-field-label">Coupon</div>
+        <div class="bk-discount-row"><input class="bk-input" id="couponIn" placeholder="Enter coupon code" value="${bkData.coupon}" /><button class="bk-apply-btn" onclick="bkData.coupon=document.getElementById('couponIn').value">Apply</button></div>
+      </div>
+      <div class="bk-field-group"><div class="bk-field-label">Discount / Partner Code</div>
+        <div class="bk-discount-row"><input class="bk-input" id="partnerIn" placeholder="Enter discount/partner code" value="${bkData.partnerCode}" /><button class="bk-apply-btn" onclick="bkData.partnerCode=document.getElementById('partnerIn').value">Apply</button></div>
+      </div>
+    </div>
+    <div class="bk-total-bar">
+      <div class="bk-total-row"><span class="bk-total-label">Total payment amount</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
+      <button class="bk-next-btn purple" onclick="bkNext()">Make payment →</button>
+    </div>`;
+}
+function selPay(m){
+  bkData.payMethod=m;
+  document.querySelectorAll(".bk-pay-btn").forEach((b,i)=>b.classList.toggle("selected",(m==="international"&&i===0)||(m==="korean"&&i===1)));
+  document.getElementById("payDetail").innerHTML=m==="international"
+    ?'<div class="bk-pay-detail-name">🌐 International card</div><div class="bk-pay-detail-desc">Payment with credit card issued abroad</div>'
+    :'<div class="bk-pay-detail-name">🇰🇷 Korean bank / card</div><div class="bk-pay-detail-desc">Payment with Korean domestic bank or credit card</div>';
+}
+
+// ── Terms ──
+function renderTermsStep() {
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-step-label">Step 8 of 8</div>
+    <div class="bk-bubble">📋 <strong>Please agree to the terms for service use.</strong></div>
+    <div class="bk-terms">
+      <div class="bk-term-item all" onclick="toggleAll()">
+        <div class="bk-checkbox ${allChecked()?'checked':''}" id="chkAll">${allChecked()?'✓':''}</div>
+        <div class="bk-term-text" style="font-weight:800">Agree to all</div>
+      </div>
+      ${[["service","Service terms agreement"],["privacy","Personal information collection and use agreement"],["thirdparty","Third-party personal information provision agreement"]].map(([k,label])=>`
+      <div class="bk-term-item" onclick="toggleTerm('${k}')">
+        <div class="bk-checkbox ${bkData.terms[k]?'checked':''}" id="chk_${k}">${bkData.terms[k]?'✓':''}</div>
+        <div class="bk-term-text"><span class="bk-term-req">[Required]</span> ${label}</div>
+        <a class="bk-term-view" href="#" onclick="return false">View</a>
+      </div>`).join("")}
+    </div>
+    <div class="bk-terms-note">✓ Agree to no-show treatment if luggage photo is not uploaded on the day of use</div>
+    <div class="bk-total-bar">
+      <div class="bk-total-row"><span class="bk-total-label">Total payment amount</span><span class="bk-total-amount">${fmt(calcBkTotal())}</span></div>
+      <button class="bk-next-btn purple" id="bkMakePayBtn" onclick="makePayment()" ${allChecked()?'':'disabled'}>Make payment</button>
+    </div>`;
+}
+
+function allChecked(){return bkData.terms.service&&bkData.terms.privacy&&bkData.terms.thirdparty;}
+function toggleAll(){
+  const v=!allChecked();
+  bkData.terms.service=bkData.terms.privacy=bkData.terms.thirdparty=v;
+  renderTermsStep();
+}
+function toggleTerm(k){
+  bkData.terms[k]=!bkData.terms[k];
+  renderTermsStep();
+}
+function updateStoragePreview() {
+  const days = daysBetween(bkData.dropDate, bkData.pickDate);
+  const total = bkData.bags.carry + bkData.bags.checked + bkData.bags.over;
+  const el = document.getElementById("storagePreview");
+  const totalEl = document.getElementById("bkTimeTotal");
+  if (!el) return;
+  if (days > 0 && total > 0) {
+    const fee = days * total * STORAGE_RATE;
+    el.innerHTML = `<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 12px;font-size:12px;color:#9a3412;font-weight:600;margin-top:4px">
+      📦 Storage fee: ${days} day${days>1?'s':''} × ${total} bag${total>1?'s':''} × ${fmt(STORAGE_RATE)} = <strong>${fmt(fee)}</strong>
+    </div>`;
+  } else {
+    el.innerHTML = "";
   }
+  if (totalEl) totalEl.textContent = fmt(calcBkTotal());
+}
+
+function makePayment(){if(allChecked())bkNext();}
+
+// ── Summary / Confirmation ──
+function renderSummaryStep() {
+  const orderNum = "GL" + Date.now().toString().slice(-8);
+  const depLabel = bkData.departure ? `${bkData.departure.type==="airport"?"✈️":"🏨"} ${bkData.departure.name}` : "—";
+  const arrLabel = bkData.arrival ? `${bkData.arrival.type==="airport"?"✈️":"🏨"} ${bkData.arrival.name}` : "—";
+  const bagSummary = [["Carry-on (22\" or less)", bkData.bags.carry],["Checked / Golf bag", bkData.bags.checked],["Extra Large (30\"+)", bkData.bags.over]]
+    .filter(([,c])=>c>0).map(([l,c])=>`<div class="bk-summary-row"><span class="bk-summary-key">${l}</span><span class="bk-summary-val">${c} bag${c>1?"s":""}</span></div>`).join("");
+  document.getElementById("bkTitle").textContent = "Booking Complete";
+  document.getElementById("bkSteps").innerHTML = `
+    <div class="bk-confirm-screen">
+      <div class="bk-confirm-icon">✅</div>
+      <div class="bk-confirm-title">Booking Confirmed!</div>
+      <div class="bk-confirm-sub">Your luggage delivery has been booked.<br>We'll send a confirmation to <strong>${bkData.custEmail||"your email"}</strong>.</div>
+      <div class="bk-confirm-num">
+        <div class="bk-confirm-num-label">Order Number</div>
+        <div class="bk-confirm-num-val">${orderNum}</div>
+      </div>
+    </div>
+    <div class="bk-summary-section">
+      <div class="bk-summary-title">Delivery Information</div>
+      <div class="bk-summary-row"><span class="bk-summary-key">From</span><span class="bk-summary-val">${depLabel}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">To</span><span class="bk-summary-val">${arrLabel}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">Drop off</span><span class="bk-summary-val">${bkData.dropDate} · ${bkData.dropTime}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">Pick up</span><span class="bk-summary-val">${bkData.pickDate} · ${bkData.pickTime}</span></div>
+    </div>
+    <div class="bk-summary-section">
+      <div class="bk-summary-title">Luggage Information</div>
+      ${bagSummary}
+    </div>
+    <div class="bk-summary-section">
+      <div class="bk-summary-title">Customer Information</div>
+      <div class="bk-summary-row"><span class="bk-summary-key">Name</span><span class="bk-summary-val">${bkData.custFirst} ${bkData.custLast}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">Phone</span><span class="bk-summary-val">${bkData.custCountry} ${bkData.custPhone}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">Email</span><span class="bk-summary-val">${bkData.custEmail}</span></div>
+    </div>
+    <div class="bk-summary-section">
+      <div class="bk-summary-title">Hotel Reservation</div>
+      <div class="bk-summary-row"><span class="bk-summary-key">Name</span><span class="bk-summary-val">${bkData.resFirst} ${bkData.resLast}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">Reservation #</span><span class="bk-summary-val">${bkData.resNum||"—"}</span></div>
+    </div>
+    <div class="bk-summary-section">
+      <div class="bk-summary-title">Payment</div>
+      <div class="bk-summary-row"><span class="bk-summary-key">Method</span><span class="bk-summary-val">${bkData.payMethod==="international"?"🌐 International card":"🇰🇷 Korean bank/card"}</span></div>
+      ${calcStorageFee()>0?`<div class="bk-summary-row"><span class="bk-summary-key">Delivery fee</span><span class="bk-summary-val">${fmt(calcBkTotal()-calcStorageFee())}</span></div>
+      <div class="bk-summary-row"><span class="bk-summary-key">Storage fee (${daysBetween(bkData.dropDate,bkData.pickDate)} days)</span><span class="bk-summary-val">${fmt(calcStorageFee())}</span></div>`:""}
+      <div class="bk-summary-row"><span class="bk-summary-key">Total paid</span><span class="bk-summary-val" style="color:var(--purple);font-size:16px;font-weight:800">${fmt(calcBkTotal())}</span></div>
+    </div>
+    <div style="padding:16px 16px 100px">
+      <button class="bk-next-btn" onclick="closeBooking()">Back to main page</button>
+    </div>`;
+}
 </script>
-
 </body>
 </html>
