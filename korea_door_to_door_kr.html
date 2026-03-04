@@ -117,7 +117,7 @@
     padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;
     transition: all 0.2s;
   }
-  .개-row.has-개s { border-color: var(--purple); background: var(--purple-light); }
+  .개-row.has-bags { border-color: var(--purple); background: var(--purple-light); }
   .개-name { font-size: 14px; font-weight: 700; color: var(--text); }
   .개-desc { font-size: 11px; color: var(--text-soft); margin-top: 1px; }
   .개-price-hint { font-size: 11px; color: var(--purple); font-weight: 600; margin-top: 3px; }
@@ -511,7 +511,7 @@
 <body>
 <div class="phone">
 
-  <div class="lang-bar"><a href="korea_door_to_door.html">🌐 한국어 ∨</a></div>
+  <div class="lang-bar"><a href="korea_door_to_door.html">🌐 English ∨</a></div>
 <div class="nav">
     <a href="goodlugg_korea_delivery_kr.html" class="nav-back">← 국내짐배송</a>
     <div class="logo">Good<span>lugg</span></div>
@@ -1239,12 +1239,12 @@ function updateHints() {
 }
 
 function change(type, delta) {
-  개s[type] = Math.max(0, 개s[type] + delta);
-  document.getElementById(type + "-val").textContent = 개s[type];
-  document.getElementById("row-" + type).classList.toggle("has-개s", 개s[type] > 0);
+  bags[type] = Math.max(0, bags[type] + delta);
+  document.getElementById(type + "-val").textContent = bags[type];
+  document.getElementById("row-" + type).classList.toggle("has-bags", bags[type] > 0);
 }
 
-function calc도시간배송(sizes, total) {
+function calcIntercity(sizes, total) {
   // Per 개: 52K/55K/58K, minimum 2-개 charge, 3+ bags = 20K flat
   const isMin = total === 1;
   const effectiveTotal = Math.max(total, 2);
@@ -1301,7 +1301,7 @@ function calculate() {
   ].filter(s => s.count > 0);
 
   const { rows, grandTotal, isMin } = type === "intercity"
-    ? calc도시간배송(sizes, total)
+    ? calcIntercity(sizes, total)
     : calcIntracity(sizes);
 
   document.getElementById("r-from").textContent = fromName;
@@ -1353,7 +1353,7 @@ function bkDefault() {
   const ds = d.toISOString().split("T")[0];
   return {
     departure:null, arrival:null,
-    개s:{carry:0,checked:0,over:0},
+    bags:{carry:0,checked:0,over:0},
     dropDate:ds, dropTime:"",
     pickDate:ds, pickTime:"",
     custFirst:"",custLast:"",custCountry:"+82",custPhone:"",custEmail:"",
