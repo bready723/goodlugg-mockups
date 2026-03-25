@@ -1808,7 +1808,7 @@ function calcBkTotal() {
       remain = Math.max(0,remain-useStd);
       grand += useStd*rate + useVol*VOL_RATE;
     });
-    if(total===1) { const onlyKey = carry?'carry':checked?'checked':'over'; grand = INTERCITY[onlyKey]; }
+    if(total===1) { const onlyKey = carry?'carry':checked?'checked':'over'; grand = INTERCITY[onlyKey] * 2; }
     deliveryFee = grand;
   } else {
     deliveryFee = carry*INTRACITY.carry + checked*INTRACITY.checked + over*INTRACITY.over;
