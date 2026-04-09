@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KD Tracking — Progress View Mockup</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <style>
+    :root {
+      --done: #16a34a;
+      --active: #f59e0b;
+      --pending: #e5e7eb;
+      --done-text: #fff;
+      --active-text: #fff;
+      --pending-text: #9ca3af;
+      --connector-done: #16a34a;
+      --connector-pending: #d1d5db;
+      --storage-done: #16a34a;
+    }
+    body { background:#f4f6f9; font-family:'Segoe UI',-apple-system,sans-serif; font-size:.875rem; margin:0; }
+    .page-wrap { max-width:1500px; margin:0 auto; padding:1.5rem; }
+    .page-title { font-size:1.15rem; font-weight:700; color:#1e2a3b; margin-bottom:.25rem; }
+    .page-subtitle { font-size:.8rem; color:#6b7280; margin-bottom:1.25rem; }
+
+    /* Summary bar */
+    .summary-bar { display:flex; align-items:center; gap:.5rem; padding:.6rem 1rem; background:#fff; border:1px solid #e5e7eb; border-radius:10px; margin-bottom:1rem; flex-wrap:wrap; }
+    .summary-label { font-size:.72rem; font-weight:700; color:#6b7280; padding-right:.75rem; border-right:1px solid #e5e7eb; white-space:nowrap; }
+    .summary-item { display:flex; flex-direction:column; align-items:center; padding:.2rem .65rem; border-radius:6px; cursor:pointer; min-width:50px; }
+    .summary-item:hover { background:#f3f4f6; }
+    .summary-item .count { font-size:1.15rem; font-weight:800; line-height:1.1; }
+    .summary-item .label { font-size:.62rem; color:#6b7280; white-space:nowrap; }
+    .summary-item.c-none .count { color:#9ca3af; }
+    .summary-item.c-photo .count { color:#7c3aed; }
+    .summary-item.c-ready .count { color:#2563eb; }
+    .summary-item.c-picked .count { color:#059669; }
+    .summary-item.c-storage .count { color:#d97706; }
+    .summary-item.c-arrived .count { color:#0d9488; }
+    .summary-divider { width:1px; height:32px; background:#e5e7eb; flex-shrink:0; }
+
+    /* Presets */
+    .preset-bar { display:flex; gap:.4rem; margin-bottom:1rem; flex-wrap:wrap; align-items:center; }
+    .preset-label { font-size:.72rem; color:#6b7280; font-weight:600; margin-right:.25rem; }
+    .preset-pill { padding:.25rem .7rem; border-radius:20px; font-size:.78rem; font-weight:600; cursor:pointer; border:1.5px solid #d1d5db; background:#fff; color:#6b7280; transition:all .15s; }
+    .preset-pill:hover { border-color:#2563eb; color:#2563eb; }
+    .preset-pill.active { border-color:#2563eb; background:#2563eb; color:#fff; }
+
+    /* Search Condition Box */
+    .search-condition { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:1.2rem 1.5rem; margin-bottom:1rem; }
+    .search-condition-title { font-size:.95rem; font-weight:700; color:#1e2a3b; margin-bottom:.85rem; }
+    .search-row { display:flex; align-items:center; gap:.5rem; margin-bottom:.5rem; }
+    .search-row:last-child { margin-bottom:0; }
+    .search-row label.field-label { display:inline-block; width:80px; font-size:.82rem; color:#6b7280; border:1px solid #e5e7eb; border-radius:5px; padding:.38rem .5rem; background:#f9fafb; text-align:center; flex-shrink:0; }
+    .search-row select, .search-row input[type="date"], .search-row input[type="text"] { padding:.38rem .6rem; border:1px solid #d1d5db; border-radius:5px; font-size:.82rem; background:#fff; height:34px; box-sizing:border-box; }
+    .search-row label.field-label { height:34px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; }
+    .search-row select:focus, .search-row input:focus { outline:none; border-color:#2563eb; box-shadow:0 0 0 2px rgba(37,99,235,.12); }
+    .search-row .date-btns { display:flex; gap:.3rem; margin-left:.5rem; }
+    .search-row .date-btn { padding:.38rem .65rem; border:1px solid #d1d5db; border-radius:5px; font-size:.82rem; background:#fff; color:#374151; cursor:pointer; }
+    .search-row .date-btn:hover { background:#f3f4f6; }
+    .search-actions { display:flex; justify-content:flex-end; gap:.5rem; margin-top:.75rem; }
+    .search-actions .btn-search { padding:.35rem .85rem; background:#2563eb; color:#fff; border:none; border-radius:5px; font-size:.82rem; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:.3rem; }
+    .search-actions .btn-search:hover { background:#1d4ed8; }
+    .search-actions .btn-outline { padding:.35rem .7rem; background:#fff; border:1px solid #d1d5db; border-radius:5px; font-size:.82rem; color:#374151; cursor:pointer; display:flex; align-items:center; gap:.3rem; }
+    .search-actions .btn-outline:hover { background:#f3f4f6; }
+    .filter-sep { color:#9ca3af; }
+
+    /* Table card */
+    .table-card { background:#fff; border:1px solid #e5e7eb; border-radius:10px; overflow:hidden; }
+    .table-toolbar { padding:.75rem 1rem; border-bottom:1px solid #e5e7eb; display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
+    .table-toolbar .result-count { font-size:.82rem; color:#6b7280; }
+    .table-toolbar .result-count strong { color:#1e2a3b; }
+    .table-toolbar .search-box { margin-left:auto; position:relative; }
+    .table-toolbar .search-box input { padding:.35rem .7rem .35rem 1.8rem; border:1px solid #d1d5db; border-radius:7px; font-size:.82rem; width:220px; }
+    .table-toolbar .search-box .bi { position:absolute; left:.55rem; top:50%; transform:translateY(-50%); color:#9ca3af; }
+
+    /* Main table */
+    .tracking-table { width:100%; border-collapse:collapse; }
+    .tracking-table thead th {
+      background:#f8f9fb; font-size:.7rem; font-weight:700; color:#6b7280;
+      text-transform:uppercase; letter-spacing:.05em; padding:.65rem .75rem;
+      border-bottom:2px solid #e5e7eb; white-space:nowrap; text-align:left;
+    }
+    .tracking-table tbody td {
+      padding:.7rem .75rem; font-size:.82rem; color:#374151; vertical-align:top;
+      border-bottom:1px solid #f0f2f5;
+    }
+    .tracking-table tbody tr:hover { background:#fafbfc; }
+    .tracking-table tbody tr.route-header td {
+      background:#f8f9fb; border-top:2px solid #2563eb; padding:.4rem .75rem;
+      font-size:.75rem; font-weight:700; color:#1e2a3b;
+    }
+    .route-count { font-weight:400; color:#9ca3af; margin-left:.4rem; }
+
+    /* Cell styles */
+    .cell-num { color:#9ca3af; font-size:.75rem; width:30px; text-align:center; }
+    .cell-id { font-family:'Courier New',monospace; font-size:.8rem; font-weight:700; color:#2563eb; white-space:nowrap; }
+    .cell-status { white-space:nowrap; }
+    .cell-from, .cell-to { min-width:140px; max-width:200px; }
+    .cell-loc-name { font-weight:600; font-size:.82rem; color:#1e2a3b; }
+    .cell-loc-detail { font-size:.72rem; color:#9ca3af; margin-top:.1rem; }
+    .cell-customer { white-space:nowrap; }
+    .cell-customer .name { font-weight:600; color:#1e2a3b; }
+    .cell-customer .phone { font-size:.72rem; color:#9ca3af; }
+    .cell-bags { text-align:center; font-weight:600; }
+    .cell-dates { font-size:.75rem; color:#6b7280; white-space:nowrap; }
+    .cell-dates .date-label { color:#9ca3af; font-size:.68rem; }
+
+    /* Tracking status tag */
+    .ts-tag { display:inline-flex; align-items:center; gap:.25rem; padding:.2rem .55rem; border-radius:5px; font-size:.72rem; font-weight:700; white-space:nowrap; }
+    .ts-tag.ts-none    { background:#f3f4f6; color:#9ca3af; }
+    .ts-tag.ts-photo   { background:#f3e8ff; color:#7c3aed; }
+    .ts-tag.ts-ready   { background:#dbeafe; color:#2563eb; }
+    .ts-tag.ts-picked  { background:#d1fae5; color:#059669; }
+    .ts-tag.ts-storage { background:#ffedd5; color:#d97706; }
+    .ts-tag.ts-arrived { background:#ccfbf1; color:#0d9488; }
+
+    /* Pipeline */
+    .pipeline { display:flex; align-items:flex-start; gap:0; }
+    .seg-wrap { display:flex; flex-direction:column; gap:.25rem; }
+    .seg-wrap .seg-note { margin-left:0; }
+    .step-block {
+      display:flex; align-items:center; gap:.35rem;
+      padding:.25rem .55rem; border-radius:5px; font-size:.7rem; font-weight:600;
+      white-space:nowrap; min-height:30px;
+    }
+    .step-block .step-icon { font-size:.75rem; flex-shrink:0; }
+    .step-block .step-text { display:flex; flex-direction:column; line-height:1.2; }
+    .step-block .step-label { font-weight:700; }
+    .step-block .step-sub { font-size:.62rem; font-weight:400; opacity:.85; }
+    .step-block.delivery.done    { background:var(--done); color:#fff; }
+    .step-block.delivery.active  { background:var(--active); color:#fff; box-shadow:0 0 0 2px rgba(245,158,11,.3); }
+    .step-block.delivery.pending { background:var(--pending); color:var(--pending-text); }
+    .step-block.storage.done     { background:var(--storage-done); color:#fff; }
+    .step-block.storage.active   { background:var(--active); color:#fff; box-shadow:0 0 0 2px rgba(245,158,11,.3); }
+    .step-block.storage.pending  { background:var(--pending); color:var(--pending-text); }
+    .seg-conn { width:20px; display:flex; align-items:center; justify-content:center; min-height:30px; align-self:flex-start; margin-top:2px; }
+    .seg-conn .line { width:100%; height:2px; }
+    .seg-conn.done .line { background:var(--connector-done); }
+    .seg-conn.pending .line { background:var(--connector-pending); }
+
+    /* Driver badge */
+    .drv { font-size:.58rem; padding:.06rem .25rem; border-radius:3px; font-weight:700; margin-left:.15rem; vertical-align:middle; }
+    .drv.kakao { background:#faef3b; color:#1a1a1a; }
+    .drv.calt  { background:#dbeafe; color:#1e40af; }
+    .drv.kd    { background:#f3e8ff; color:#7c3aed; }
+
+    /* Notes */
+    .seg-note { font-size:.68rem; color:#92400e; background:#fffbeb; border-left:2px solid #fcd34d; padding:.15rem .45rem; border-radius:0 4px 4px 0; display:inline-block; }
+    .seg-note.damage { color:#dc2626; background:#fef2f2; border-left-color:#fca5a5; }
+    .noshow-tag { display:inline-flex; align-items:center; gap:.2rem; font-size:.65rem; font-weight:700; color:#dc2626; background:#fef2f2; border:1px solid #fca5a5; border-radius:4px; padding:.05rem .35rem; }
+
+    /* Legend */
+    .legend { display:flex; align-items:center; gap:1rem; padding:.6rem 1rem; border-top:1px solid #e5e7eb; flex-wrap:wrap; }
+    .legend-title { font-size:.7rem; font-weight:700; color:#9ca3af; text-transform:uppercase; letter-spacing:.05em; }
+    .legend-item { display:flex; align-items:center; gap:.3rem; font-size:.72rem; color:#6b7280; }
+    .legend-swatch { width:14px; height:14px; border-radius:4px; }
+
+    /* Sortable headers */
+    .tracking-table thead th.sortable { cursor:pointer; user-select:none; transition:background .15s; }
+    .tracking-table thead th.sortable:hover { background:#eef2ff; color:#2563eb; }
+    .sort-icon { font-size:.7rem; opacity:.3; margin-left:.2rem; }
+    th.sortable.sort-asc .sort-icon,
+    th.sortable.sort-desc .sort-icon { opacity:1; color:#2563eb; }
+
+    /* Action dots */
+    .action-btn { border:none; background:none; color:#9ca3af; cursor:pointer; font-size:1rem; padding:.2rem; border-radius:4px; }
+    .action-btn:hover { background:#f3f4f6; color:#374151; }
+
+    /* Noshow row highlight */
+    tr.row-alert { box-shadow:inset 3px 0 0 #dc2626; }
+    tr.row-kakao { box-shadow:inset 3px 0 0 #f59e0b; }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+  <div class="page-title">[국내짐배송] 트래킹</div>
+  <div class="page-subtitle">예약 관리 / KD 트래킹 — 세그먼트 진행 상황을 한눈에 확인</div>
+
+  <!-- Search Condition -->
+  <div class="search-condition">
+    <div class="search-condition-title">Search Condition</div>
+    <div style="display:flex; gap:2.5rem;">
+      <!-- Left column -->
+      <div style="flex:1;">
+        <div class="search-row">
+          <select id="dateType" style="width:150px;"><option>Booking Date</option><option>Drop-off Date</option><option>Pickup Date</option><option>Storage Drop-off</option><option>Delivery Date</option></select>
+          <input type="date" id="startDate" value="2026-04-08"/>
+          <span class="filter-sep">~</span>
+          <input type="date" id="endDate" value="2026-04-09"/>
+        </div>
+        <div class="search-row">
+          <select id="searchType" style="width:150px;"><option value="bookingNo">Booking No</option><option value="customerId">Customer ID</option><option value="customer">Customer Name</option><option value="phone">Customer Phone</option><option value="location">Location Name</option></select>
+          <input type="text" id="searchText" placeholder="" style="width:200px;" onkeydown="if(event.key==='Enter')applySearch()"/>
+        </div>
+        <div class="search-row">
+          <select id="statusFilter" style="width:180px;">
+            <option value="all">Tracking Status: All</option>
+            <option value="none">미처리</option>
+            <option value="photo">사진 대기</option>
+            <option value="ready">픽업 준비</option>
+            <option value="picked">픽업완료</option>
+            <option value="storage">보관중</option>
+            <option value="dispatch">오늘 출고</option>
+            <option value="arrived">배송완료</option>
+          </select>
+        </div>
+      </div>
+      <!-- Right column -->
+      <div style="flex:1;">
+        <div class="search-row">
+          <label class="field-label">From</label>
+          <select id="fromFilter" onchange="toggleSubAirport('from', this.value)"><option value="">All</option><option value="airport">Airport</option><option value="hub">Hub</option><option value="hotel">Hotel</option><option value="airbnb">Airbnb</option><option value="others">Others</option></select>
+          <select id="fromAirportSub" style="display:none;"><option value="">All Airports</option><option value="ICN">ICN (인천국제공항)</option><option value="GMP">GMP (김포공항)</option></select>
+        </div>
+        <div class="search-row">
+          <label class="field-label">To</label>
+          <select id="toFilter" onchange="toggleSubAirport('to', this.value)"><option value="">All</option><option value="airport">Airport</option><option value="hub">Hub</option><option value="hotel">Hotel</option><option value="airbnb">Airbnb</option><option value="others">Others</option></select>
+          <select id="toAirportSub" style="display:none;"><option value="">All Airports</option><option value="ICN">ICN (인천국제공항)</option><option value="GMP">GMP (김포공항)</option></select>
+        </div>
+        <div class="search-row">
+          <label class="field-label">Route</label>
+          <select id="fromCityFilter"><option value="">출발 도시</option><option value="서울">서울</option><option value="부산">부산</option><option value="인천">인천</option><option value="제주">제주</option></select>
+          <span class="filter-sep">→</span>
+          <select id="toCityFilter"><option value="">도착 도시</option><option value="서울">서울</option><option value="부산">부산</option><option value="인천">인천</option><option value="제주">제주</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="search-actions">
+      <button class="btn-search" onclick="applySearch()"><i class="bi bi-search"></i> 조회</button>
+      <button class="btn-outline" onclick="resetSearch()">초기화</button>
+      <button class="btn-outline" onclick="alert('Download Excel')"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+      <button class="btn-outline" onclick="alert('Download CSV')"><i class="bi bi-filetype-csv"></i> CSV</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <div class="table-toolbar">
+      <span class="result-count">총 <strong>14</strong>건</span>
+      <select style="padding:.3rem .5rem; border:1px solid #d1d5db; border-radius:6px; font-size:.8rem;"><option>20건씩</option><option>50건씩</option></select>
+      <div class="search-box"><i class="bi bi-search"></i><input type="text" placeholder="예약번호, 고객명, 주소…"/></div>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="tracking-table">
+        <thead>
+          <tr>
+            <th style="width:30px;">#</th>
+            <th class="sortable" data-sort="bookingNo" onclick="sortTable(this)">예약번호 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="progress" onclick="sortTable(this)">세그먼트 진행 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="from" onclick="sortTable(this)">출발 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="to" onclick="sortTable(this)">도착 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="customer" onclick="sortTable(this)">고객 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="bags" style="text-align:center;" onclick="sortTable(this)">짐 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="dropoff" onclick="sortTable(this)">맡김 / 찾음 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th style="width:36px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- ── Route: 서울 → 부산  ── -->
+          <tr class="route-header"><td colspan="9">서울 → 부산 <span class="route-count">3건</span></td></tr>
+
+          <!-- 1: Pattern B — PHOTO_PENDING, 3 segments -->
+          <tr class="data-row" data-status="photo" data-booking-no="KD2503240002" data-from="노보텔 앰배서더" data-to="김해국제공항" data-customer="이수연" data-phone="010-9876-5432" data-bags="3" data-booking-date="2026-04-08" data-dropoff="2026-03-31" data-pickup="2026-03-31" data-storage-dropoff="" data-delivery="2026-04-03" data-from-type="hotel" data-to-type="ICN" data-from-city="서울" data-to-city="부산" data-progress="0">
+            <td class="cell-num">1</td>
+            <td class="cell-id">KD2503240002</td>
+            <td>
+              <div class="pipeline">
+                <div class="seg-wrap">
+                  <div class="step-block delivery active">
+                    <i class="bi bi-truck step-icon"></i>
+                    <div class="step-text"><span class="step-label">대기</span><span class="step-sub">서울→인천</span></div>
+                  </div>
+                  <div class="seg-note">호텔 로비 대기, 체크아웃 11시</div>
+                </div>
+                <div class="seg-conn pending"><div class="line"></div></div>
+                <div class="step-block storage pending">
+                  <i class="bi bi-box-seam step-icon"></i>
+                  <div class="step-text"><span class="step-label">보관 대기</span><span class="step-sub">인천</span></div>
+                </div>
+                <div class="seg-conn pending"><div class="line"></div></div>
+                <div class="step-block delivery pending">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">대기</span><span class="step-sub">인천→부산</span></div>
+                </div>
+              </div>
+            </td>
+            <td class="cell-from">
+              <div class="cell-loc-name">노보텔 앰배서더</div>
+              <div class="cell-loc-detail">서울 강남구 테헤란로</div>
+            </td>
+            <td class="cell-to">
+              <div class="cell-loc-name">김해국제공항</div>
+              <div class="cell-loc-detail">부산</div>
+            </td>
+            <td class="cell-customer"><div class="name">이수연</div><div class="phone">010-9876-5432</div></td>
+            <td class="cell-bags">3</td>
+            <td class="cell-dates">
+              <div><span class="date-label">맡김</span> 03-31 14:00</div>
+              <div><span class="date-label">찾음</span> 04-03 10:00</div>
+            </td>
+            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+          </tr>
+
+          <!-- 2: Pattern B — PICKED_UP (2nd delivery in progress) -->
+          <tr class="data-row" data-status="picked" data-booking-no="KD2503210007" data-from="그랜드하얏트" data-to="부산역" data-customer="신예린" data-phone="010-3333-4444" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-03-28" data-pickup="2026-03-28" data-storage-dropoff="" data-delivery="2026-03-30" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-progress="3">
+            <td class="cell-num">2</td>
+            <td class="cell-id">KD2503210007</td>
+            <td>
+              <div class="pipeline">
+                <div class="step-block delivery done">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">도착완료</span><span class="step-sub">서울→인천 <span class="drv kd">KD1</span></span></div>
+                </div>
+                <div class="seg-conn done"><div class="line"></div></div>
+                <div class="step-block storage done">
+                  <i class="bi bi-box-seam step-icon"></i>
+                  <div class="step-text"><span class="step-label">출고완료</span><span class="step-sub">인천</span></div>
+                </div>
+                <div class="seg-conn done"><div class="line"></div></div>
+                <div class="step-block delivery active">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">픽업완료</span><span class="step-sub">인천→부산 <span class="drv calt">CALT</span></span></div>
+                </div>
+              </div>
+            </td>
+            <td class="cell-from">
+              <div class="cell-loc-name">그랜드하얏트</div>
+              <div class="cell-loc-detail">서울 용산구 이태원로</div>
+            </td>
+            <td class="cell-to">
+              <div class="cell-loc-name">부산역</div>
+              <div class="cell-loc-detail">부산 초량동</div>
+            </td>
+            <td class="cell-customer"><div class="name">신예린</div><div class="phone">010-3333-4444</div></td>
+            <td class="cell-bags">2</td>
+            <td class="cell-dates">
+              <div><span class="date-label">맡김</span> 03-28 10:00</div>
+              <div><span class="date-label">찾음</span> 03-30 14:00</div>
+            </td>
+            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+          </tr>
+
+          <!-- 3: Pattern B — IN_STORAGE -->
+          <tr class="data-row" data-status="storage" data-booking-no="KD2503240001" data-from="홍대 레지던스" data-to="파라다이스호텔" data-customer="김민준" data-phone="010-1234-5678" data-bags="3" data-booking-date="2026-04-08" data-dropoff="2026-03-31" data-pickup="2026-03-31" data-storage-dropoff="" data-delivery="2026-04-02" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-progress="2">
+            <td class="cell-num">3</td>
+            <td class="cell-id">KD2503240001</td>
+            <td>
+              <div class="pipeline">
+                <div class="step-block delivery done">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">도착완료</span><span class="step-sub">서울→인천 <span class="drv kakao">카카오T</span></span></div>
+                </div>
+                <div class="seg-conn done"><div class="line"></div></div>
+                <div class="step-block storage active">
+                  <i class="bi bi-box-seam step-icon"></i>
+                  <div class="step-text"><span class="step-label">보관중</span><span class="step-sub">인천 · 출고 04-02</span></div>
+                </div>
+                <div class="seg-conn pending"><div class="line"></div></div>
+                <div class="step-block delivery pending">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">대기</span><span class="step-sub">인천→부산</span></div>
+                </div>
+              </div>
+            </td>
+            <td class="cell-from">
+              <div class="cell-loc-name">홍대 레지던스</div>
+              <div class="cell-loc-detail">서울 마포구 와우산로</div>
+            </td>
+            <td class="cell-to">
+              <div class="cell-loc-name">파라다이스호텔</div>
+              <div class="cell-loc-detail">부산 해운대</div>
+            </td>
+            <td class="cell-customer"><div class="name">김민준</div><div class="phone">010-1234-5678</div></td>
+            <td class="cell-bags">3</td>
+            <td class="cell-dates">
+              <div><span class="date-label">맡김</span> 03-31 09:00</div>
+              <div><span class="date-label">찾음</span> 04-02 14:00</div>
+            </td>
+            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+          </tr>
+
+          <!-- ── Route: 부산 → 부산 ── -->
+          <tr class="route-header"><td colspan="9">부산 → 부산 <span class="route-count">1건</span></td></tr>
+
+          <!-- 4: Pattern A — ARRIVED (done) -->
+          <tr class="data-row" data-status="arrived" data-booking-no="KD2503290013" data-from="파라다이스호텔" data-to="김해국제공항" data-customer="강민서" data-phone="010-4545-5656" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-03-29" data-pickup="2026-03-29" data-storage-dropoff="" data-delivery="2026-03-29" data-from-type="hotel" data-to-type="ICN" data-from-city="부산" data-to-city="부산" data-progress="4">
+            <td class="cell-num">4</td>
+            <td class="cell-id">KD2503290013</td>
+            <td>
+              <div class="pipeline">
+                <div class="step-block delivery done">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">도착완료</span><span class="step-sub">부산→김해 <span class="drv kd">KD1</span></span></div>
+                </div>
+              </div>
+            </td>
+            <td class="cell-from">
+              <div class="cell-loc-name">파라다이스호텔</div>
+              <div class="cell-loc-detail">부산 해운대</div>
+            </td>
+            <td class="cell-to">
+              <div class="cell-loc-name">김해국제공항</div>
+              <div class="cell-loc-detail">부산</div>
+            </td>
+            <td class="cell-customer"><div class="name">강민서</div><div class="phone">010-4545-5656</div></td>
+            <td class="cell-bags">2</td>
+            <td class="cell-dates">
+              <div><span class="date-label">맡김</span> 03-29 11:00</div>
+              <div><span class="date-label">찾음</span> 03-29 15:30</div>
+            </td>
+            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+          </tr>
+
+          <!-- ── Route: COEX → 인천 ── -->
+          <tr class="route-header"><td colspan="9">COEX 짐센터 → 인천국제공항 <span class="route-count">1건</span></td></tr>
+
+          <!-- 9: COEX hub drop-off → ICN T1 pickup -->
+          <tr class="data-row" data-status="storage" data-booking-no="KD2503310099" data-from="COEX 짐센터" data-to="인천국제공항 T1" data-customer="David Park" data-phone="+1 310-555-8899" data-bags="2" data-booking-date="2026-04-08" data-dropoff="" data-pickup="2026-04-08" data-storage-dropoff="2026-03-31" data-delivery="2026-04-08" data-from-type="hub" data-to-type="ICN" data-from-city="서울" data-to-city="인천" data-progress="2">
+            <td class="cell-num">9</td>
+            <td class="cell-id">KD2503310099</td>
+            <td>
+              <div class="pipeline">
+                <div class="seg-wrap">
+                  <div class="step-block storage active">
+                    <i class="bi bi-box-seam step-icon"></i>
+                    <div class="step-text"><span class="step-label">보관중</span><span class="step-sub">COEX · 출고 04-08</span></div>
+                  </div>
+                  <div class="seg-note">고객 03-31 14시 방문 예정</div>
+                </div>
+                <div class="seg-conn pending"><div class="line"></div></div>
+                <div class="step-block delivery pending">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">대기</span><span class="step-sub">COEX→인천 T1 <span class="drv calt">CALT</span></span></div>
+                </div>
+              </div>
+            </td>
+            <td class="cell-from">
+              <div class="cell-loc-name">COEX Goodlugg 짐센터</div>
+              <div class="cell-loc-detail">서울 강남구 삼성동</div>
+            </td>
+            <td class="cell-to">
+              <div class="cell-loc-name">인천국제공항 T1</div>
+              <div class="cell-loc-detail">인천</div>
+            </td>
+            <td class="cell-customer"><div class="name">David Park</div><div class="phone">+1 310-555-8899</div></td>
+            <td class="cell-bags">2</td>
+            <td class="cell-dates">
+              <div><span class="date-label">맡김</span> 03-31 10:00</div>
+              <div><span class="date-label">찾음</span> 04-08 15:00</div>
+              <div style="margin-top:.15rem; font-size:.68rem; color:#2563eb;">✈ KE001 (ETD 18:30)</div>
+            </td>
+            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+          </tr>
+
+          <!-- ── Route: 서울 → ? ── -->
+          <tr class="route-header"><td colspan="9">서울 → <span style="color:#d97706;">?</span> <span class="route-count">1건</span></td></tr>
+
+          <!-- 5: Pattern A — PICKUP_READY, KakaoT matching -->
+          <tr class="data-row row-kakao" data-status="ready" data-booking-no="KD2503230003" data-from="강남대로 396" data-to="수서역" data-customer="박진호" data-phone="010-5555-4444" data-bags="1" data-booking-date="2026-04-08" data-dropoff="2026-03-31" data-pickup="2026-03-31" data-storage-dropoff="" data-delivery="2026-04-01" data-from-type="hotel" data-to-type="hub" data-from-city="서울" data-to-city="서울" data-progress="0">
+            <td class="cell-num">5</td>
+            <td class="cell-id">KD2503230003</td>
+            <td>
+              <div class="pipeline">
+                <div class="seg-wrap">
+                  <div class="step-block delivery active">
+                    <i class="bi bi-truck step-icon"></i>
+                    <div class="step-text"><span class="step-label">배차중</span><span class="step-sub">서울 강남→수서 <span class="drv kakao">카카오T</span></span></div>
+                  </div>
+                  <div class="seg-note">계단 있음 3층</div>
+                </div>
+              </div>
+            </td>
+            <td class="cell-from">
+              <div class="cell-loc-name">강남대로 396</div>
+              <div class="cell-loc-detail">서울 강남구 역삼동</div>
+            </td>
+            <td class="cell-to">
+              <div class="cell-loc-name">수서역</div>
+              <div class="cell-loc-detail">서울 수서동</div>
+            </td>
+            <td class="cell-customer"><div class="name">박진호</div><div class="phone">010-5555-4444</div></td>
+            <td class="cell-bags">1</td>
+            <td class="cell-dates">
+              <div><span class="date-label">맡김</span> 03-31 09:00</div>
+              <div><span class="date-label">찾음</span> 04-01 16:00</div>
+            </td>
+            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+          </tr>
+
+          <!-- ── Route: 서울 → 인천 ── -->
+          <tr class="route-header"><td colspan="9">서울 → 인천 <span class="route-count">2건</span></td></tr>
+
+          <!-- 6: Pattern C (2 deliveries) — NONE -->
+          <tr class="data-row" data-status="none" data-booking-no="KD2503280009" data-from="롯데호텔 을지로" data-to="인천국제공항 T1" data-customer="Sheryl Imperial" data-phone="+63 920-768-7139" data-bags="1" data-booking-date="2026-04-08" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="ICN" data-from-city="서울" data-to-city="인천" data-progress="0">
+            <td class="cell-num">6</td>
+            <td class="cell-id">KD2503280009</td>
+            <td>
+              <div class="pipeline">
+                <div class="step-block delivery pending">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">대기</span><span class="step-sub">서울→인천 <span class="drv kakao">카카오T</span></span></div>
+                </div>
+                <div class="seg-conn pending"><div class="line"></div></div>
+                <div class="step-block delivery pending">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">대기</span><span class="step-sub">인천공항 <span class="drv calt">CALT</span></span></div>
+                </div>
+              </div>
+            </td>
+            <td class="cell-from">
+              <div class="cell-loc-name">롯데호텔 을지로</div>
+              <div class="cell-loc-detail">서울 중구</div>
+            </td>
+            <td class="cell-to">
+              <div class="cell-loc-name">인천국제공항 T1</div>
+              <div class="cell-loc-detail">인천</div>
+            </td>
+            <td class="cell-customer"><div class="name">Sheryl Imperial</div><div class="phone">+63 920-768-7139</div></td>
+            <td class="cell-bags">1</td>
+            <td class="cell-dates">
+              <div><span class="date-label">맡김</span> 04-09 11:00전</div>
+              <div><span class="date-label">찾음</span> 04-09 16:00</div>
+              <div style="margin-top:.15rem; font-size:.68rem; color:#2563eb;">✈ PR403 (ETD 20:30)</div>
+            </td>
+            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+          </tr>
+
+          <!-- 7: Pattern A — PHOTO_PENDING + noshow risk -->
+          <tr class="data-row row-alert" data-status="photo" data-booking-no="KD2503310010" data-from="인사동 호텔" data-to="인천국제공항 T2" data-customer="김나래" data-phone="010-1111-2222" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-01" data-pickup="2026-04-01" data-storage-dropoff="" data-delivery="2026-04-01" data-from-type="hotel" data-to-type="ICN" data-from-city="서울" data-to-city="인천" data-progress="0">
+            <td class="cell-num">7</td>
+            <td class="cell-id">KD2503310010</td>
+            <td>
+              <div class="pipeline">
+                <div class="seg-wrap">
+                  <div class="step-block delivery active" style="box-shadow:0 0 0 2px rgba(220,38,38,.3);">
+                    <i class="bi bi-truck step-icon"></i>
+                    <div class="step-text"><span class="step-label">사진 미업로드</span><span class="step-sub">서울→인천 T2</span></div>
+                  </div>
+                  <span class="noshow-tag"><i class="bi bi-exclamation-triangle"></i> 노쇼 의심 · 연락 2회 실패</span>
+                </div>
+              </div>
+            </td>
+            <td class="cell-from">
+              <div class="cell-loc-name">인사동 호텔</div>
+              <div class="cell-loc-detail">서울 종로구</div>
+            </td>
+            <td class="cell-to">
+              <div class="cell-loc-name">인천국제공항 T2</div>
+              <div class="cell-loc-detail">인천</div>
+            </td>
+            <td class="cell-customer"><div class="name">김나래</div><div class="phone">010-1111-2222</div></td>
+            <td class="cell-bags">2</td>
+            <td class="cell-dates">
+              <div><span class="date-label">맡김</span> 04-01 09:00</div>
+              <div><span class="date-label">찾음</span> 04-01 16:00</div>
+            </td>
+            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+          </tr>
+
+          <!-- ── Route: 부산 → 서울 ── -->
+          <tr class="route-header"><td colspan="9">부산 → 서울 <span class="route-count">1건</span></td></tr>
+
+          <!-- 8: Pattern B — IN_STORAGE + damage -->
+          <tr class="data-row" data-status="storage" data-booking-no="KD2503180008" data-from="롯데호텔 서면" data-to="삼성동 오피스텔" data-customer="배지수" data-phone="010-7777-8888" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-03-25" data-pickup="2026-03-25" data-storage-dropoff="" data-delivery="2026-03-28" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-progress="2">
+            <td class="cell-num">8</td>
+            <td class="cell-id">KD2503180008</td>
+            <td>
+              <div class="pipeline">
+                <div class="seg-wrap">
+                  <div class="step-block delivery done">
+                    <i class="bi bi-truck step-icon"></i>
+                    <div class="step-text"><span class="step-label">도착완료</span><span class="step-sub">부산→인천 <span class="drv kd">KD1</span></span></div>
+                  </div>
+                  <div class="seg-note">짐 무거움 주의</div>
+                </div>
+                <div class="seg-conn done"><div class="line"></div></div>
+                <div class="seg-wrap">
+                  <div class="step-block storage active">
+                    <i class="bi bi-box-seam step-icon"></i>
+                    <div class="step-text"><span class="step-label">보관중</span><span class="step-sub">인천 · 출고 03-28</span></div>
+                  </div>
+                  <div class="seg-note damage"><i class="bi bi-exclamation-triangle"></i> 파손 신고 있음</div>
+                </div>
+                <div class="seg-conn pending"><div class="line"></div></div>
+                <div class="step-block delivery pending">
+                  <i class="bi bi-truck step-icon"></i>
+                  <div class="step-text"><span class="step-label">대기</span><span class="step-sub">인천→서울</span></div>
+                </div>
+              </div>
+            </td>
+            <td class="cell-from">
+              <div class="cell-loc-name">롯데호텔 서면</div>
+              <div class="cell-loc-detail">부산 서면</div>
+            </td>
+            <td class="cell-to">
+              <div class="cell-loc-name">삼성동 오피스텔</div>
+              <div class="cell-loc-detail">서울 강남구</div>
+            </td>
+            <td class="cell-customer"><div class="name">배지수</div><div class="phone">010-7777-8888</div></td>
+            <td class="cell-bags">2</td>
+            <td class="cell-dates">
+              <div><span class="date-label">맡김</span> 03-25 10:00</div>
+              <div><span class="date-label">찾음</span> 03-28 14:00</div>
+            </td>
+            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <span class="legend-title">범례</span>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--done);"></div> 완료</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--active);"></div> 현재 진행중</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--pending);"></div> 대기</div>
+      <div class="legend-item"><span class="drv kakao">카카오T</span></div>
+      <div class="legend-item"><span class="drv calt">CALT</span></div>
+      <div class="legend-item"><span class="drv kd">KD</span></div>
+    </div>
+  </div>
+</div>
+<script>
+function filterByDropdown(filter) {
+  const rows = document.querySelectorAll('.tracking-table tbody tr.data-row');
+  const routeHeaders = document.querySelectorAll('.tracking-table tbody tr.route-header');
+
+  if (filter === 'all') {
+    rows.forEach(r => r.style.display = '');
+    routeHeaders.forEach(r => r.style.display = '');
+    updateCount(rows.length);
+    return;
+  }
+
+  let visibleCount = 0;
+  rows.forEach(r => {
+    const status = r.getAttribute('data-status');
+    if (status === filter) {
+      r.style.display = '';
+      visibleCount++;
+    } else {
+      r.style.display = 'none';
+    }
+  });
+
+  // Hide route headers that have no visible rows after them
+  routeHeaders.forEach(header => {
+    let next = header.nextElementSibling;
+    let hasVisible = false;
+    while (next && !next.classList.contains('route-header')) {
+      if (next.classList.contains('data-row') && next.style.display !== 'none') {
+        hasVisible = true;
+        break;
+      }
+      next = next.nextElementSibling;
+    }
+    header.style.display = hasVisible ? '' : 'none';
+  });
+
+  updateCount(visibleCount);
+}
+
+function clickSummary(status) {
+  document.getElementById('statusFilter').value = status;
+  filterByDropdown(status);
+}
+
+function updateCount(count) {
+  const el = document.querySelector('.result-count strong');
+  if (el) el.textContent = count;
+}
+
+function toggleSubAirport(prefix, value) {
+  const sub = document.getElementById(prefix + 'AirportSub');
+  if (value === 'airport') {
+    sub.style.display = '';
+  } else {
+    sub.style.display = 'none';
+    sub.value = '';
+  }
+}
+
+function applySearch() {
+  const status = document.getElementById('statusFilter').value;
+  const startDate = document.getElementById('startDate').value;
+  const endDate = document.getElementById('endDate').value;
+  const fromVal = document.getElementById('fromFilter').value;
+  const toVal = document.getElementById('toFilter').value;
+  const fromCityVal = document.getElementById('fromCityFilter').value;
+  const toCityVal = document.getElementById('toCityFilter').value;
+  const searchType = document.getElementById('searchType').value;
+  const searchText = document.getElementById('searchText').value.trim().toLowerCase();
+
+  const rows = document.querySelectorAll('.tracking-table tbody tr.data-row');
+  const routeHeaders = document.querySelectorAll('.tracking-table tbody tr.route-header');
+  let visibleCount = 0;
+
+  rows.forEach(r => {
+    let show = true;
+
+    // Status filter
+    if (status !== 'all' && r.dataset.status !== status) show = false;
+
+    // Text search — bypasses date filter
+    if (searchText) {
+      let field = '';
+      if (searchType === 'bookingNo') field = (r.dataset.bookingNo || '').toLowerCase();
+      else if (searchType === 'customerId') field = (r.dataset.customerId || '').toLowerCase();
+      else if (searchType === 'customer') field = (r.dataset.customer || '').toLowerCase();
+      else if (searchType === 'phone') field = (r.dataset.phone || '').toLowerCase();
+      else if (searchType === 'location') field = ((r.dataset.from || '') + ' ' + (r.dataset.to || '')).toLowerCase();
+      if (!field.includes(searchText)) show = false;
+    }
+    // Location type or route filter — bypasses date filter
+    else if (fromVal || toVal || fromCityVal || toCityVal) {
+      // no date filter applied, only location filters (handled below)
+    }
+    // Date range filter — only when no text search and no location filter
+    else if (show && startDate && endDate) {
+      const dateType = document.getElementById('dateType').value;
+      let dateVal = '';
+      if (dateType === 'Booking Date') dateVal = r.dataset.bookingDate || '';
+      else if (dateType === 'Drop-off Date') dateVal = r.dataset.dropoff || '';
+      else if (dateType === 'Pickup Date') dateVal = r.dataset.pickup || '';
+      else if (dateType === 'Storage Drop-off') dateVal = r.dataset.storageDropoff || '';
+      else if (dateType === 'Delivery Date') dateVal = r.dataset.delivery || '';
+
+      if (!dateVal) { show = false; }
+      else if (dateVal < startDate || dateVal > endDate) { show = false; }
+    }
+
+    // From location type filter
+    if (show && fromVal) {
+      const fromType = r.dataset.fromType || '';
+      if (fromVal === 'airport') {
+        const fromSub = document.getElementById('fromAirportSub').value;
+        if (fromSub) { if (fromType !== fromSub) show = false; }
+        else { if (fromType !== 'ICN' && fromType !== 'GMP') show = false; }
+      } else {
+        if (fromVal !== fromType) show = false;
+      }
+    }
+
+    // To location type filter
+    if (show && toVal) {
+      const toType = r.dataset.toType || '';
+      if (toVal === 'airport') {
+        const toSub = document.getElementById('toAirportSub').value;
+        if (toSub) { if (toType !== toSub) show = false; }
+        else { if (toType !== 'ICN' && toType !== 'GMP') show = false; }
+      } else {
+        if (toVal !== toType) show = false;
+      }
+    }
+
+    // Route city filter
+    if (show && fromCityVal) {
+      if ((r.dataset.fromCity || '') !== fromCityVal) show = false;
+    }
+    if (show && toCityVal) {
+      if ((r.dataset.toCity || '') !== toCityVal) show = false;
+    }
+
+    r.style.display = show ? '' : 'none';
+    if (show) visibleCount++;
+  });
+
+  // Hide empty route headers
+  routeHeaders.forEach(header => {
+    let next = header.nextElementSibling;
+    let hasVisible = false;
+    while (next && !next.classList.contains('route-header')) {
+      if (next.classList.contains('data-row') && next.style.display !== 'none') {
+        hasVisible = true;
+        break;
+      }
+      next = next.nextElementSibling;
+    }
+    header.style.display = hasVisible ? '' : 'none';
+  });
+
+  updateCount(visibleCount);
+}
+
+function resetSearch() {
+  document.getElementById('statusFilter').value = 'all';
+  document.getElementById('startDate').value = '2026-04-08';
+  document.getElementById('endDate').value = '2026-04-09';
+  document.getElementById('fromFilter').value = '';
+  document.getElementById('toFilter').value = '';
+  document.getElementById('fromAirportSub').value = '';
+  document.getElementById('fromAirportSub').style.display = 'none';
+  document.getElementById('toAirportSub').value = '';
+  document.getElementById('toAirportSub').style.display = 'none';
+  document.getElementById('fromCityFilter').value = '';
+  document.getElementById('toCityFilter').value = '';
+  document.getElementById('searchType').value = 'bookingNo';
+  document.getElementById('searchText').value = '';
+
+  const rows = document.querySelectorAll('.tracking-table tbody tr.data-row');
+  const routeHeaders = document.querySelectorAll('.tracking-table tbody tr.route-header');
+  rows.forEach(r => r.style.display = '');
+  routeHeaders.forEach(r => r.style.display = '');
+  updateCount(rows.length);
+}
+
+function setDateRange(days) {
+  const end = document.getElementById('endDate').value || '2026-04-09';
+  const endD = new Date(end);
+  const startD = new Date(endD);
+  startD.setDate(startD.getDate() - days);
+  document.getElementById('startDate').value = startD.toISOString().split('T')[0];
+}
+
+function sortTable(th) {
+  const key = th.dataset.sort;
+  const tbody = document.querySelector('.tracking-table tbody');
+  const allThs = document.querySelectorAll('.tracking-table thead th.sortable');
+
+  // Determine direction
+  let dir = 'asc';
+  if (th.classList.contains('sort-asc')) dir = 'desc';
+  else if (th.classList.contains('sort-desc')) dir = 'none';
+
+  // Clear all sort states
+  allThs.forEach(h => {
+    h.classList.remove('sort-asc', 'sort-desc');
+    h.querySelector('.sort-icon').className = 'bi bi-chevron-expand sort-icon';
+  });
+
+  if (dir === 'none') {
+    // Restore original order (by original row number)
+    restoreOriginal(tbody);
+    return;
+  }
+
+  th.classList.add(dir === 'asc' ? 'sort-asc' : 'sort-desc');
+  th.querySelector('.sort-icon').className = dir === 'asc'
+    ? 'bi bi-chevron-up sort-icon'
+    : 'bi bi-chevron-down sort-icon';
+
+  // Collect data rows (skip route headers)
+  const rows = Array.from(tbody.querySelectorAll('tr.data-row'));
+
+  // Remove route headers
+  tbody.querySelectorAll('tr.route-header').forEach(r => r.remove());
+
+  // Sort
+  const attrMap = {
+    bookingNo: 'data-booking-no',
+    progress: 'data-progress',
+    from: 'data-from',
+    to: 'data-to',
+    customer: 'data-customer',
+    bags: 'data-bags',
+    dropoff: 'data-dropoff'
+  };
+  const attr = attrMap[key];
+  const isNum = key === 'bags' || key === 'progress';
+
+  rows.sort((a, b) => {
+    let va = a.getAttribute(attr) || '';
+    let vb = b.getAttribute(attr) || '';
+    if (isNum) { va = parseInt(va) || 0; vb = parseInt(vb) || 0; }
+    else { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+    if (va < vb) return dir === 'asc' ? -1 : 1;
+    if (va > vb) return dir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  // Re-append sorted rows (flat, no route headers)
+  rows.forEach((row, i) => {
+    row.querySelector('.cell-num').textContent = i + 1;
+    tbody.appendChild(row);
+  });
+}
+
+function restoreOriginal(tbody) {
+  const rows = Array.from(tbody.querySelectorAll('tr.data-row'));
+  // Sort by original booking number (chronological)
+  const originalOrder = [
+    'KD2503240002', 'KD2503210007', 'KD2503240001',
+    'KD2503290013', 'KD2503310099', 'KD2503230003', 'KD2503280009',
+    'KD2503310010', 'KD2503180008'
+  ];
+  // Remove everything
+  while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+
+  // Route groupings
+  const routeGroups = {
+    '서울 → 부산': ['KD2503240002', 'KD2503210007', 'KD2503240001'],
+    '부산 → 부산': ['KD2503290013'],
+    'COEX 짐센터 → 인천국제공항': ['KD2503310099'],
+    '서울 → ?': ['KD2503230003'],
+    '서울 → 인천': ['KD2503280009', 'KD2503310010'],
+    '부산 → 서울': ['KD2503180008']
+  };
+  const rowMap = {};
+  rows.forEach(r => rowMap[r.getAttribute('data-booking-no')] = r);
+
+  let num = 1;
+  for (const [route, ids] of Object.entries(routeGroups)) {
+    const header = document.createElement('tr');
+    header.className = 'route-header';
+    header.innerHTML = `<td colspan="9">${route} <span class="route-count">${ids.length}건</span></td>`;
+    tbody.appendChild(header);
+    ids.forEach(id => {
+      const row = rowMap[id];
+      if (row) {
+        row.querySelector('.cell-num').textContent = num++;
+        tbody.appendChild(row);
+      }
+    });
+  }
+}
+</script>
+</body>
+</html>
