@@ -63,6 +63,11 @@
     .search-actions .btn-outline { padding:.35rem .7rem; background:#fff; border:1px solid #d1d5db; border-radius:5px; font-size:.82rem; color:#374151; cursor:pointer; display:flex; align-items:center; gap:.3rem; }
     .search-actions .btn-outline:hover { background:#f3f4f6; }
     .filter-sep { color:#9ca3af; }
+    .search-columns { display:flex; gap:2.5rem; }
+    .search-col { flex:1; }
+    .search-select-wide { width:150px; }
+    .search-select-status { width:180px; }
+    .search-text-input { width:200px; }
 
     /* Table card */
     .table-card { background:#fff; border:1px solid #e5e7eb; border-radius:10px; overflow:hidden; }
@@ -169,6 +174,75 @@
     /* Noshow row highlight */
     tr.row-alert { box-shadow:inset 3px 0 0 #dc2626; }
     tr.row-kakao { box-shadow:inset 3px 0 0 #f59e0b; }
+
+    /* ── Responsive ── */
+    @media (max-width: 992px) {
+      .page-wrap { padding:1rem; }
+      .search-condition { padding:1rem; }
+      .table-toolbar .search-box input { width:160px; }
+    }
+
+    @media (max-width: 768px) {
+      .page-wrap { padding:.75rem; }
+      .page-title { font-size:1.05rem; }
+
+      /* Summary bar: horizontal scroll */
+      .summary-bar { overflow-x:auto; flex-wrap:nowrap; padding:.5rem .75rem; gap:.35rem; -webkit-overflow-scrolling:touch; }
+      .summary-item { min-width:44px; padding:.2rem .45rem; }
+      .summary-item .count { font-size:1rem; }
+
+      /* Search: stack columns */
+      .search-columns { flex-direction:column; gap:.5rem; }
+      .search-condition { padding:.85rem; }
+      .search-condition .search-condition-title { font-size:.88rem; }
+      .search-row { flex-wrap:wrap; gap:.35rem; }
+      .search-row label.field-label { width:60px; font-size:.78rem; padding:.3rem .4rem; }
+      .search-row select, .search-row input[type="date"], .search-row input[type="text"] { flex:1; min-width:0; font-size:.8rem; }
+      .search-select-wide, .search-select-status, .search-text-input { width:auto; flex:1; min-width:0; }
+      .search-row .date-btns { margin-left:0; flex-wrap:wrap; }
+      .search-actions { flex-wrap:wrap; justify-content:stretch; }
+      .search-actions .btn-search, .search-actions .btn-outline { flex:1; justify-content:center; min-width:70px; }
+
+      /* Table toolbar */
+      .table-toolbar { flex-wrap:wrap; gap:.5rem; padding:.6rem .75rem; }
+      .table-toolbar .search-box { margin-left:0; width:100%; }
+      .table-toolbar .search-box input { width:100%; }
+
+      /* Table: ensure smooth horizontal scroll */
+      .tracking-table { min-width:900px; }
+
+      /* Pipeline: allow horizontal scroll within cell */
+      .pipeline { overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:.25rem; }
+
+      /* Legend */
+      .legend { padding:.5rem .75rem; gap:.6rem; }
+    }
+
+    @media (max-width: 480px) {
+      .page-wrap { padding:.5rem; }
+      .page-title { font-size:.95rem; }
+      .page-subtitle { font-size:.72rem; }
+
+      /* Summary: smaller */
+      .summary-bar { gap:.25rem; padding:.4rem .5rem; }
+      .summary-label { font-size:.65rem; padding-right:.5rem; }
+      .summary-item .count { font-size:.9rem; }
+      .summary-item .label { font-size:.58rem; }
+
+      /* Search: full-width stacked inputs */
+      .search-condition { padding:.65rem; }
+      .search-row select, .search-row input[type="date"], .search-row input[type="text"] { font-size:.78rem; height:32px; }
+      .search-row label.field-label { width:50px; font-size:.72rem; height:32px; }
+      .search-actions .btn-search, .search-actions .btn-outline { font-size:.78rem; padding:.3rem .6rem; }
+
+      /* Table card */
+      .table-card { border-radius:8px; }
+
+      /* Legend: smaller */
+      .legend { gap:.45rem; }
+      .legend-title { font-size:.65rem; }
+      .legend-item { font-size:.68rem; }
+    }
   </style>
 </head>
 <body>
@@ -179,21 +253,21 @@
   <!-- Search Condition -->
   <div class="search-condition">
     <div class="search-condition-title">Search Condition</div>
-    <div style="display:flex; gap:2.5rem;">
+    <div class="search-columns">
       <!-- Left column -->
-      <div style="flex:1;">
+      <div class="search-col">
         <div class="search-row">
-          <select id="dateType" style="width:150px;"><option>Booking Date</option><option>Drop-off Date</option><option>Pickup Date</option><option>Storage Drop-off</option><option>Delivery Date</option></select>
+          <select id="dateType" class="search-select-wide"><option>Booking Date</option><option>Drop-off Date</option><option>Pickup Date</option><option>Storage Drop-off</option><option>Delivery Date</option></select>
           <input type="date" id="startDate" value="2026-04-08"/>
           <span class="filter-sep">~</span>
           <input type="date" id="endDate" value="2026-04-09"/>
         </div>
         <div class="search-row">
-          <select id="searchType" style="width:150px;"><option value="bookingNo">Booking No</option><option value="customerId">Customer ID</option><option value="customer">Customer Name</option><option value="phone">Customer Phone</option><option value="location">Location Name</option></select>
-          <input type="text" id="searchText" placeholder="" style="width:200px;" onkeydown="if(event.key==='Enter')applySearch()"/>
+          <select id="searchType" class="search-select-wide"><option value="bookingNo">Booking No</option><option value="customerId">Customer ID</option><option value="customer">Customer Name</option><option value="phone">Customer Phone</option><option value="location">Location Name</option></select>
+          <input type="text" id="searchText" placeholder="" class="search-text-input" onkeydown="if(event.key==='Enter')applySearch()"/>
         </div>
         <div class="search-row">
-          <select id="statusFilter" style="width:180px;">
+          <select id="statusFilter" class="search-select-status">
             <option value="all">Tracking Status: All</option>
             <option value="none">미처리</option>
             <option value="photo">사진 대기</option>
@@ -206,7 +280,7 @@
         </div>
       </div>
       <!-- Right column -->
-      <div style="flex:1;">
+      <div class="search-col">
         <div class="search-row">
           <label class="field-label">From</label>
           <select id="fromFilter" onchange="toggleSubAirport('from', this.value)"><option value="">All</option><option value="airport">Airport</option><option value="hub">Hub</option><option value="hotel">Hotel</option><option value="airbnb">Airbnb</option><option value="others">Others</option></select>
