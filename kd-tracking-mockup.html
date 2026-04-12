@@ -95,7 +95,7 @@
     /* Cell styles */
     .cell-num { color:#9ca3af; font-size:.65rem; width:20px; text-align:center; padding:.35rem .12rem; }
     .cell-id { font-family:'Courier New',monospace; font-size:.48rem; font-weight:400; color:#2563eb; padding:.35rem .1rem; white-space:nowrap; letter-spacing:-.04em; }
-    .cell-status { max-width:50px; padding:.35rem .1rem .35rem 0; vertical-align:middle; }
+    .cell-status { width:50px; max-width:50px; padding:.35rem 0 .35rem 0; vertical-align:middle; }
     .status-badge { display:inline-block; font-size:.73rem; font-weight:600; letter-spacing:.02em; line-height:1.3; }
     .status-badge.st-none { color:#9ca3af; }
     .status-badge.st-dropped { color:#374151; }
@@ -104,13 +104,13 @@
     .cell-from, .cell-to { max-width:81px; padding:.35rem .12rem; }
     .cell-loc-name { font-weight:600; font-size:.65rem; color:#1e2a3b; line-height:1.25; }
     .cell-loc-detail { font-size:.59rem; color:#9ca3af; margin-top:.1rem; }
-    .cell-customer { max-width:81px; white-space:normal; word-break:break-word; padding:.35rem .12rem; }
+    .cell-customer { max-width:65px; white-space:normal; word-break:break-word; padding:.35rem .12rem; }
     .cell-customer .name { font-weight:600; color:#1e2a3b; font-size:.65rem; line-height:1.25; }
     .cell-customer .phone { font-size:.59rem; color:#9ca3af; margin-top:.1rem; }
     .cell-route { font-size:.65rem; font-weight:700; color:#1e2a3b; white-space:normal; padding:.35rem .08rem; max-width:55px; line-height:1.3; }
     .cell-route .route-arrow { color:#9ca3af; margin:0 .1rem; }
     .cell-bags { text-align:center; font-weight:600; width:20px; padding:.35rem .1rem; }
-    .cell-dates { font-size:.65rem; color:#6b7280; white-space:nowrap; padding:.35rem .1rem; }
+    .cell-dates { font-size:.65rem; color:#6b7280; white-space:nowrap; padding:.35rem .1rem; max-width:52px; }
     .cell-dates .date-label { color:#9ca3af; font-size:.59rem; }
     .cell-dates .date-time { display:block; color:#9ca3af; font-size:.58rem; }
 
@@ -126,43 +126,42 @@
     /* Segment cells — 3-column layout */
     /* Row height hack: makes child height:100% work inside <td> */
     .tracking-table tbody tr.data-row { height:1px; }
-    .seg-cell { width:110px; min-width:110px; max-width:110px; vertical-align:top; padding:.4rem .05rem; height:inherit; }
+    .seg-cell { width:10%; min-width:130px; vertical-align:top; padding:.4rem .05rem; height:inherit; }
     .seg-cell .step-block {
       width:100%; height:100%; box-sizing:border-box;
       white-space:normal;
-      align-items:flex-start;
       min-height:55px;
       border-radius:6px;
-      padding:.3rem .4rem .4rem .4rem;
+      padding:.3rem .4rem 1.1rem .4rem;
       position:relative;
-      gap:.15rem;
       font-size:0.49rem;
-      display:flex;
-      flex-direction:column;
+      display:block;
     }
-    .seg-cell .step-block .step-icon { margin-top:.1rem; font-size:0.68rem; }
-    .seg-cell .step-block .step-text { flex:1; min-width:0; line-height:1.2; }
-    .seg-cell .step-block .step-label { font-size:0.72rem; font-weight:700; }
+    .seg-cell .step-block .step-icon { float:left; margin:.12rem .25rem 0 0; font-size:0.68rem; }
+    .seg-cell .step-block .step-text { display:block; min-width:0; line-height:1.2; }
+    .seg-cell .step-block .step-label { display:block; font-size:0.72rem; font-weight:700; }
+    .seg-cell .step-block .step-sub { display:block; clear:left; }
     .seg-cell .step-block .step-sub {
       overflow:visible;
       text-overflow:clip;
       white-space:normal;
-      word-break:break-word;
+      word-break:keep-all;
+      overflow-wrap:normal;
       max-width:100%;
-      font-size:0.58rem;
+      font-size:0.638rem;
     }
     .seg-cell .step-block .drv-wrap {
-      display:flex;
+      position:absolute;
+      bottom:.25rem;
+      right:.3rem;
+      display:inline-flex;
       align-items:center;
       gap:.2rem;
-      margin-top:auto;
-      padding-top:.15rem;
-      align-self:flex-end;
     }
     .seg-cell .step-block .drv-wrap .dispatch { font-size:0.52rem; font-weight:700; color:#000; }
     .seg-cell .step-block .drv {
       position:absolute;
-      bottom:.22rem;
+      bottom:.25rem;
       right:.3rem;
       margin:0;
       font-size:0.52rem;
@@ -178,7 +177,7 @@
     .seg-cell .seg-wrap > .seg-note {
       flex-shrink:0;
       display:block;
-      font-size:0.52rem;
+      font-size:0.624rem;
       line-height:1.3;
       white-space:normal;
       color:#92400e;
@@ -208,7 +207,7 @@
     .step-block .step-text { display:flex; flex-direction:column; line-height:1.2; }
     .step-block .step-label { font-weight:700; }
     .step-block .step-sub { font-size:0.58rem; font-weight:400; opacity:.85; }
-    .step-block .step-date { font-size:0.55rem; font-weight:400; opacity:.75; margin-top:.1rem; }
+    .step-block .step-date { font-size:0.605rem; font-weight:400; opacity:.75; margin-top:.1rem; }
     .step-block .step-date.diff-date, .step-block .step-date .diff-date { color:#dc2626; font-weight:700; opacity:1; }
     .step-block.delivery.done    { background:var(--done); color:#fff; }
     .step-block.delivery.active  { background:var(--pending); color:var(--pending-text); }
@@ -347,11 +346,11 @@
           <tr>
             <th style="width:30px;">#</th>
             <th class="sortable" data-sort="bookingNo" style="width:58px;" onclick="sortTable(this)">예약번호 <i class="bi bi-chevron-expand sort-icon"></i></th>
-            <th class="sortable" data-sort="status" onclick="sortTable(this)">Status <i class="bi bi-chevron-expand sort-icon"></i></th>
-            <th class="sortable" data-sort="step1" style="width:110px;" onclick="sortTable(this)">1단계 <i class="bi bi-chevron-expand sort-icon"></i></th>
-            <th class="sortable" data-sort="step2" style="width:110px;" onclick="sortTable(this)">2단계 <i class="bi bi-chevron-expand sort-icon"></i></th>
-            <th class="sortable" data-sort="step3" style="width:110px;" onclick="sortTable(this)">3단계 <i class="bi bi-chevron-expand sort-icon"></i></th>
-            <th class="sortable" data-sort="step4" style="width:110px;" onclick="sortTable(this)">4단계 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="status" style="width:50px;" onclick="sortTable(this)">Status <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="step1" style="width:10%;" onclick="sortTable(this)">1단계 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="step2" style="width:10%;" onclick="sortTable(this)">2단계 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="step3" style="width:10%;" onclick="sortTable(this)">3단계 <i class="bi bi-chevron-expand sort-icon"></i></th>
+            <th class="sortable" data-sort="step4" style="width:10%;" onclick="sortTable(this)">4단계 <i class="bi bi-chevron-expand sort-icon"></i></th>
             <th class="sortable" data-sort="route" onclick="sortTable(this)">루트 <i class="bi bi-chevron-expand sort-icon"></i></th>
             <th class="sortable" data-sort="from" onclick="sortTable(this)">출발 <i class="bi bi-chevron-expand sort-icon"></i></th>
             <th class="sortable" data-sort="to" onclick="sortTable(this)">도착 <i class="bi bi-chevron-expand sort-icon"></i></th>
@@ -359,7 +358,6 @@
             <th class="sortable" data-sort="bags" style="text-align:center;" onclick="sortTable(this)">짐 <i class="bi bi-chevron-expand sort-icon"></i></th>
             <th class="sortable" data-sort="dropoff" onclick="sortTable(this)">맡김 <i class="bi bi-chevron-expand sort-icon"></i></th>
             <th class="sortable" data-sort="pickup" onclick="sortTable(this)">찾음 <i class="bi bi-chevron-expand sort-icon"></i></th>
-            <th style="width:36px;"></th>
           </tr>
         </thead>
         <tbody>
@@ -397,9 +395,8 @@
             <td class="cell-bags">4</td>
             <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="dropped" data-booking-no="5D0C55573E" data-from="Kent Hotel Gwangnlli by Kensin" data-to="Nine Tree by Parnas Seoul Insa" data-customer="ALESSANDRA DE GAETANO" data-phone="+39 3332395118" data-bags="3" data-booking-date="2026-04-26" data-dropoff="2026-04-26" data-pickup="2026-04-26" data-storage-dropoff="" data-delivery="2026-04-26" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="2" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
+          <tr class="data-row" data-status="dropped" data-booking-no="5D0C55573E" data-from="Kent Hotel Gwangnlli by Kensin" data-to="Nine Tree by Parnas Seoul Insa" data-customer="ALESSANDRA DE GAETANO" data-phone="+39 3332395118" data-bags="3" data-booking-date="2026-04-26" data-dropoff="2026-04-08" data-pickup="2026-04-26" data-storage-dropoff="" data-delivery="2026-04-26" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="2" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">2</td>
             <td class="cell-id">5D0C55573E</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
@@ -430,11 +427,10 @@
             </td>
             <td class="cell-customer"><div class="name">ALESSANDRA DE GAETANO</div><div class="phone">+39 3332395118</div></td>
             <td class="cell-bags">3</td>
-            <td class="cell-dates">2026-04-26<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-26<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="dropped" data-booking-no="AZ6935NWY2" data-from="Nine Tree by Parnas Seoul Insa" data-to="Kent Hotel Gwangnlli by Kensin" data-customer="ALESSANDRA DE GAETANO" data-phone="+39 3332395118" data-bags="3" data-booking-date="2026-04-22" data-dropoff="2026-04-22" data-pickup="2026-04-22" data-storage-dropoff="" data-delivery="2026-04-22" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="2" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="dropped" data-booking-no="AZ6935NWY2" data-from="Nine Tree by Parnas Seoul Insa" data-to="Kent Hotel Gwangnlli by Kensin" data-customer="ALESSANDRA DE GAETANO" data-phone="+39 3332395118" data-bags="3" data-booking-date="2026-04-22" data-dropoff="2026-04-08" data-pickup="2026-04-22" data-storage-dropoff="" data-delivery="2026-04-22" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="2" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">3</td>
             <td class="cell-id">AZ6935NWY2</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
@@ -463,11 +459,10 @@
             </td>
             <td class="cell-customer"><div class="name">ALESSANDRA DE GAETANO</div><div class="phone">+39 3332395118</div></td>
             <td class="cell-bags">3</td>
-            <td class="cell-dates">2026-04-22<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-22<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="8EZVH36O75" data-from="Park Hyatt Busan" data-to="Park Hyatt Seoul" data-customer="Pui Andrey Saw Peik" data-phone="+61 411077368" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
+          <tr class="data-row" data-status="arrived" data-booking-no="8EZVH36O75" data-from="Park Hyatt Busan" data-to="Park Hyatt Seoul" data-customer="Pui Andrey Saw Peik" data-phone="+61 411077368" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">4</td>
             <td class="cell-id">8EZVH36O75</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -498,9 +493,8 @@
             </td>
             <td class="cell-customer"><div class="name">Pui Andrey Saw Peik</div><div class="phone">+61 411077368</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="arrived" data-booking-no="OW42CA172A" data-from="Incheon Airport Terminal 1" data-to="Sono Calm Goyang" data-customer="CHEW CHANG YU" data-phone="+65 88603265" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="고양" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-고양">
             <td class="cell-num">5</td>
@@ -535,9 +529,8 @@
             <td class="cell-bags">2</td>
             <td class="cell-dates">2026-04-08<span class="date-time">11:00-12:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 20:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="picked" data-booking-no="E8P708KGD7" data-from="Travelodge Myeongdong Euljiro" data-to="Central Bay Hotel" data-customer="Siritip Pholharn" data-phone="+66 832979133 " data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="picked" data-booking-no="E8P708KGD7" data-from="Travelodge Myeongdong Euljiro" data-to="Central Bay Hotel" data-customer="Siritip Pholharn" data-phone="+66 832979133 " data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">6</td>
             <td class="cell-id">E8P708KGD7</td>
             <td class="cell-status"><span class="status-badge st-picked">PICKED<br>_UP</span></td>
@@ -568,9 +561,8 @@
             </td>
             <td class="cell-customer"><div class="name">Siritip Pholharn</div><div class="phone">+66 832979133 </div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="arrived" data-booking-no="P9O36HA487" data-from="Incheon Airport Terminal 2" data-to="Kintex by K-Tree" data-customer="Yan Peishan Jocelyn" data-phone="+65 81215024" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="고양" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-고양">
             <td class="cell-num">7</td>
@@ -603,7 +595,6 @@
             <td class="cell-bags">2</td>
             <td class="cell-dates">2026-04-08<span class="date-time">08:00-09:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 20:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="arrived" data-booking-no="HI21857AH7" data-from="서울신라호텔" data-to="아난티 앳 부산 빌라쥬" data-customer="신 Sin 엄 Um" data-phone="+61 0499022422" data-bags="6" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">8</td>
@@ -638,9 +629,8 @@
             <td class="cell-bags">6</td>
             <td class="cell-dates">2026-04-08<span class="date-time">10:00이전</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">22:00 이후</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="picked" data-booking-no="131KZC2MIE" data-from="SIGNIEL BUSAN" data-to="AC Hotel Seoul Gangnam" data-customer="Stephanie Anh Thy Luong" data-phone="+61 466439294" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
+          <tr class="data-row" data-status="picked" data-booking-no="131KZC2MIE" data-from="SIGNIEL BUSAN" data-to="AC Hotel Seoul Gangnam" data-customer="Stephanie Anh Thy Luong" data-phone="+61 466439294" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">9</td>
             <td class="cell-id">131KZC2MIE</td>
             <td class="cell-status"><span class="status-badge st-picked">PICKED<br>_UP</span></td>
@@ -669,9 +659,8 @@
             </td>
             <td class="cell-customer"><div class="name">Stephanie Anh Thy Luong</div><div class="phone">+61 466439294</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="picked" data-booking-no="10R429UT74" data-from="Park Hyatt Busan" data-to="LOTTE HOTEL WORLD" data-customer="Jason Woo" data-phone="+1 3605109519" data-bags="4" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">10</td>
@@ -706,9 +695,8 @@
             <td class="cell-bags">4</td>
             <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="picked" data-booking-no="18Y370S973" data-from="Lavi de Atlan" data-to="Mercure Ambassador Seoul Magok" data-customer="KONSTANTINOS VORRIAS" data-phone="+30 6974064100 " data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
+          <tr class="data-row" data-status="picked" data-booking-no="18Y370S973" data-from="Lavi de Atlan" data-to="Mercure Ambassador Seoul Magok" data-customer="KONSTANTINOS VORRIAS" data-phone="+30 6974064100 " data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">11</td>
             <td class="cell-id">18Y370S973</td>
             <td class="cell-status"><span class="status-badge st-picked">PICKED<br>_UP</span></td>
@@ -737,11 +725,10 @@
             </td>
             <td class="cell-customer"><div class="name">KONSTANTINOS VORRIAS</div><div class="phone">+30 6974064100 </div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="8U88W4D904" data-from="Asti" data-to="Hotel Gracery Seoul" data-customer="Anelie Somodio" data-phone="+61 409135675 " data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
+          <tr class="data-row" data-status="arrived" data-booking-no="8U88W4D904" data-from="Asti" data-to="Hotel Gracery Seoul" data-customer="Anelie Somodio" data-phone="+61 409135675 " data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">12</td>
             <td class="cell-id">8U88W4D904</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -770,9 +757,8 @@
             </td>
             <td class="cell-customer"><div class="name">Anelie Somodio</div><div class="phone">+61 409135675 </div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="picked" data-booking-no="N5CB7NPF3P" data-from="Nine Tree by Parnas Seoul Myeo" data-to="Grand Josun Busan" data-customer="Gretchen Sunmie Gadwood" data-phone="+1 510-672-1556" data-bags="3" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">13</td>
@@ -808,7 +794,6 @@
             <td class="cell-bags">3</td>
             <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="arrived" data-booking-no="46B81100U3" data-from="LOTTE City Hotel Mapo" data-to="Incheon Airport Terminal 1" data-customer="Katheryn Rae" data-phone="+49 1739393786" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-10" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="ICN" data-from-city="서울" data-to-city="인천공항" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-인천공항">
             <td class="cell-num">14</td>
@@ -846,7 +831,6 @@
             <td class="cell-bags">2</td>
             <td class="cell-dates">2026-04-08<span class="date-time">Before 11:00</span></td>
             <td class="cell-dates">2026-04-10<span class="date-time">13:00-14:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="arrived" data-booking-no="X92N0E04J7" data-from="AG405 Hotel" data-to="INSPIRE Entertainment Resort" data-customer="Avinesh Lal Maharaj" data-phone="+1868 7251146" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="인천" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="부산-인천">
             <td class="cell-num">15</td>
@@ -879,9 +863,8 @@
             <td class="cell-bags">2</td>
             <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="6M6QI41EA9" data-from="仁川国際空港 第2ターミナル" data-to="Hotel Venue G Myeong-Dong" data-customer="MAYUKO NARA" data-phone="+81 8056354088" data-bags="1" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-서울">
+          <tr class="data-row" data-status="arrived" data-booking-no="6M6QI41EA9" data-from="仁川国際空港 第2ターミナル" data-to="Hotel Venue G Myeong-Dong" data-customer="MAYUKO NARA" data-phone="+81 8056354088" data-bags="1" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-서울">
             <td class="cell-num">16</td>
             <td class="cell-id">6M6QI41EA9</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -910,11 +893,10 @@
             </td>
             <td class="cell-customer"><div class="name">MAYUKO NARA</div><div class="phone">+81 8056354088</div></td>
             <td class="cell-bags">1</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">13:00-14:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">13:00-14:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 20:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="picked" data-booking-no="Z8584TSKW2" data-from="G2 Hotel" data-to="Grand Josun Busan" data-customer="Pablo Ignacio Juanes Roig" data-phone="+54 92215361065" data-bags="3" data-booking-date="2026-04-07" data-dropoff="2026-04-07" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-07" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="picked" data-booking-no="Z8584TSKW2" data-from="G2 Hotel" data-to="Grand Josun Busan" data-customer="Pablo Ignacio Juanes Roig" data-phone="+54 92215361065" data-bags="3" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">17</td>
             <td class="cell-id">Z8584TSKW2</td>
             <td class="cell-status"><span class="status-badge st-picked">PICKED<br>_UP</span></td>
@@ -945,9 +927,8 @@
             </td>
             <td class="cell-customer"><div class="name">Pablo Ignacio Juanes Roig</div><div class="phone">+54 92215361065</div></td>
             <td class="cell-bags">3</td>
-            <td class="cell-dates">2026-04-07<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 15:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="arrived" data-booking-no="R49ZZ5Z604" data-from="SIGNIEL BUSAN" data-to="Holiday Inn Express Seoul Hong" data-customer="Jia Hui Khor" data-phone="+61 411177189" data-bags="3" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">18</td>
@@ -980,7 +961,6 @@
             <td class="cell-bags">3</td>
             <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="dropped" data-booking-no="9SW689091S" data-from="Hound Hotel Busan Station" data-to="Hotel The Botanik Sewoon" data-customer="Lotta Kraknas" data-phone="+358 456342795" data-bags="5" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="2" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">19</td>
@@ -1013,9 +993,8 @@
             <td class="cell-bags">5</td>
             <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="T6B8C74SF1" data-from="Incheon Airport Terminal 2" data-to="Sollago Myeongdong Hotel &amp; Res" data-customer="chihiro wakamatsu" data-phone="+81 9061904224" data-bags="1" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-서울">
+          <tr class="data-row" data-status="arrived" data-booking-no="T6B8C74SF1" data-from="Incheon Airport Terminal 2" data-to="Sollago Myeongdong Hotel &amp; Res" data-customer="chihiro wakamatsu" data-phone="+81 9061904224" data-bags="1" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-서울">
             <td class="cell-num">20</td>
             <td class="cell-id">T6B8C74SF1</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1044,11 +1023,10 @@
             </td>
             <td class="cell-customer"><div class="name">chihiro wakamatsu</div><div class="phone">+81 9061904224</div></td>
             <td class="cell-bags">1</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">14:00-15:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">14:00-15:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 20:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="A0ZBUL2E09" data-from="Incheon Airport Terminal 1" data-to="Pullman Ambassador Seoul" data-customer="Linh Ngo" data-phone="+61 450027364" data-bags="2" data-booking-date="2026-04-07" data-dropoff="2026-04-07" data-pickup="2026-04-07" data-storage-dropoff="" data-delivery="2026-04-07" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-서울">
+          <tr class="data-row" data-status="arrived" data-booking-no="A0ZBUL2E09" data-from="Incheon Airport Terminal 1" data-to="Pullman Ambassador Seoul" data-customer="Linh Ngo" data-phone="+61 450027364" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-서울">
             <td class="cell-num">21</td>
             <td class="cell-id">A0ZBUL2E09</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1077,11 +1055,10 @@
             </td>
             <td class="cell-customer"><div class="name">Linh Ngo</div><div class="phone">+61 450027364</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-07<span class="date-time">12:00-13:00</span></td>
-            <td class="cell-dates">2026-04-07<span class="date-time">After 20:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">12:00-13:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 20:00</span></td>
           </tr>
-          <tr class="data-row" data-status="dropped" data-booking-no="W7N213W7H7" data-from="UH suite" data-to="Grand InterContinental Seoul P" data-customer="Viktor Kirchev" data-phone="+359 888503367" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="2" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
+          <tr class="data-row" data-status="dropped" data-booking-no="W7N213W7H7" data-from="UH suite" data-to="Grand InterContinental Seoul P" data-customer="Viktor Kirchev" data-phone="+359 888503367" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="2" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">22</td>
             <td class="cell-id">W7N213W7H7</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
@@ -1110,11 +1087,10 @@
             </td>
             <td class="cell-customer"><div class="name">Viktor Kirchev</div><div class="phone">+359 888503367</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="dropped" data-booking-no="7TSD359CL0" data-from="LIBERO Hotel" data-to="Acube Hotel" data-customer="Anusha Balasubramanian" data-phone="+91 9920833981 " data-bags="2" data-booking-date="2026-04-07" data-dropoff="2026-04-07" data-pickup="2026-04-07" data-storage-dropoff="" data-delivery="2026-04-07" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="2" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
+          <tr class="data-row" data-status="dropped" data-booking-no="7TSD359CL0" data-from="LIBERO Hotel" data-to="Acube Hotel" data-customer="Anusha Balasubramanian" data-phone="+91 9920833981 " data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="2" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">23</td>
             <td class="cell-id">7TSD359CL0</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
@@ -1143,11 +1119,10 @@
             </td>
             <td class="cell-customer"><div class="name">Anusha Balasubramanian</div><div class="phone">+91 9920833981 </div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-07<span class="date-time">Before 10:00</span></td>
-            <td class="cell-dates">2026-04-07<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="VB0PY803LX" data-from="Orakai Insadong Suites" data-to="Park Hyatt Seoul" data-customer="Benjamin Lim" data-phone="+1 2068619244" data-bags="6" data-booking-date="2026-04-07" data-dropoff="2026-04-07" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-07" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-서울">
+          <tr class="data-row" data-status="arrived" data-booking-no="VB0PY803LX" data-from="Orakai Insadong Suites" data-to="Park Hyatt Seoul" data-customer="Benjamin Lim" data-phone="+1 2068619244" data-bags="6" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-서울">
             <td class="cell-num">24</td>
             <td class="cell-id">VB0PY803LX</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1181,11 +1156,10 @@
             </td>
             <td class="cell-customer"><div class="name">Benjamin Lim</div><div class="phone">+1 2068619244</div></td>
             <td class="cell-bags">6</td>
-            <td class="cell-dates">2026-04-07<span class="date-time">Before 11:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 11:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 15:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="none" data-booking-no="S2NNG5C7ZE" data-from="SL호텔 명동" data-to="Haeundae Blue Story Hotel" data-customer="Zeynep Yagmur Gokbayrak" data-phone="+47 46242447" data-bags="2" data-booking-date="2026-04-30" data-dropoff="2026-04-30" data-pickup="2026-04-30" data-storage-dropoff="" data-delivery="2026-04-30" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="none" data-booking-no="S2NNG5C7ZE" data-from="SL호텔 명동" data-to="Haeundae Blue Story Hotel" data-customer="Zeynep Yagmur Gokbayrak" data-phone="+47 46242447" data-bags="2" data-booking-date="2026-04-30" data-dropoff="2026-04-08" data-pickup="2026-04-30" data-storage-dropoff="" data-delivery="2026-04-30" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">25</td>
             <td class="cell-id">S2NNG5C7ZE</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
@@ -1214,11 +1188,10 @@
             </td>
             <td class="cell-customer"><div class="name">Zeynep Yagmur Gokbayrak</div><div class="phone">+47 46242447</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-30<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-30<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="dropped" data-booking-no="181E755UBC" data-from="OYO Hostel Myeongdong 5" data-to="LOTTE City Hotel Gimpo Airport" data-customer="Mar Martínez Burgos" data-phone="+34 605394321" data-bags="1" data-booking-date="2026-04-06" data-dropoff="2026-04-06" data-pickup="2026-04-06" data-storage-dropoff="" data-delivery="2026-04-06" data-from-type="hotel" data-to-type="GMP" data-from-city="서울" data-to-city="김포공항" data-step1-rank="2" data-step2-rank="0" data-step3-rank="0" data-step4-rank="0" data-route="서울-김포공항">
+          <tr class="data-row" data-status="dropped" data-booking-no="181E755UBC" data-from="OYO Hostel Myeongdong 5" data-to="LOTTE City Hotel Gimpo Airport" data-customer="Mar Martínez Burgos" data-phone="+34 605394321" data-bags="1" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="GMP" data-from-city="서울" data-to-city="김포공항" data-step1-rank="2" data-step2-rank="0" data-step3-rank="0" data-step4-rank="0" data-route="서울-김포공항">
             <td class="cell-num">26</td>
             <td class="cell-id">181E755UBC</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
@@ -1242,11 +1215,10 @@
             </td>
             <td class="cell-customer"><div class="name">Mar Martínez Burgos</div><div class="phone">+34 605394321</div></td>
             <td class="cell-bags">1</td>
-            <td class="cell-dates">2026-04-06<span class="date-time">Before 11:00</span></td>
-            <td class="cell-dates">2026-04-06<span class="date-time">After 20:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 11:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 20:00</span></td>
           </tr>
-          <tr class="data-row" data-status="none" data-booking-no="LFPO62ICKX" data-from="Mondrian Seoul Itaewon" data-to="Incheon Airport Terminal 1" data-customer="Naomi Murata" data-phone="+1 6193099512" data-bags="1" data-booking-date="2026-04-07" data-dropoff="2026-04-07" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-07" data-from-type="hotel" data-to-type="ICN" data-from-city="서울" data-to-city="인천공항" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-인천공항">
+          <tr class="data-row" data-status="none" data-booking-no="LFPO62ICKX" data-from="Mondrian Seoul Itaewon" data-to="Incheon Airport Terminal 1" data-customer="Naomi Murata" data-phone="+1 6193099512" data-bags="1" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="ICN" data-from-city="서울" data-to-city="인천공항" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-인천공항">
             <td class="cell-num">27</td>
             <td class="cell-id">LFPO62ICKX</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
@@ -1275,11 +1247,10 @@
             </td>
             <td class="cell-customer"><div class="name">Naomi Murata</div><div class="phone">+1 6193099512</div></td>
             <td class="cell-bags">1</td>
-            <td class="cell-dates">2026-04-07<span class="date-time">Before 11:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 11:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">14:00-15:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="none" data-booking-no="13U4W8D227" data-from="Grand InterContinental Seoul P" data-to="The Westin Josun Busan" data-customer="Claudia Lozano" data-phone="+1 9152196895" data-bags="3" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="none" data-booking-no="13U4W8D227" data-from="Grand InterContinental Seoul P" data-to="The Westin Josun Busan" data-customer="Claudia Lozano" data-phone="+1 9152196895" data-bags="3" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">28</td>
             <td class="cell-id">13U4W8D227</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
@@ -1308,11 +1279,10 @@
             </td>
             <td class="cell-customer"><div class="name">Claudia Lozano</div><div class="phone">+1 9152196895</div></td>
             <td class="cell-bags">3</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="none" data-booking-no="88A9X3F3Q7" data-from="COEX" data-to="2 층, 47 Suyeong-ro 646beon-gil" data-customer="Denzia Brambilla" data-phone="+44 07894426960" data-bags="3" data-booking-date="2026-04-06" data-dropoff="2026-04-06" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="" data-from-type="hub" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="none" data-booking-no="88A9X3F3Q7" data-from="COEX" data-to="2 층, 47 Suyeong-ro 646beon-gil" data-customer="Denzia Brambilla" data-phone="+44 07894426960" data-bags="3" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="" data-from-type="hub" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">29</td>
             <td class="cell-id">88A9X3F3Q7</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
@@ -1343,11 +1313,10 @@
             </td>
             <td class="cell-customer"><div class="name">Denzia Brambilla</div><div class="phone">+44 07894426960</div></td>
             <td class="cell-bags">3</td>
-            <td class="cell-dates">2026-04-06<span class="date-time">11:30-12:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">11:30-12:00</span></td>
             <td class="cell-dates">2026-04-08<span class="date-time">After 15:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="JD066W0W2K" data-from="Shilla Stay Seodaemun" data-to="Asti" data-customer="Anelie Somodio" data-phone="+61 61409135675 " data-bags="2" data-booking-date="2026-04-07" data-dropoff="2026-04-07" data-pickup="2026-04-07" data-storage-dropoff="" data-delivery="2026-04-07" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="arrived" data-booking-no="JD066W0W2K" data-from="Shilla Stay Seodaemun" data-to="Asti" data-customer="Anelie Somodio" data-phone="+61 61409135675 " data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">30</td>
             <td class="cell-id">JD066W0W2K</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1376,11 +1345,10 @@
             </td>
             <td class="cell-customer"><div class="name">Anelie Somodio</div><div class="phone">+61 61409135675 </div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-07<span class="date-time">Before 10:00</span></td>
-            <td class="cell-dates">2026-04-07<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
           </tr>
-          <tr class="data-row" data-status="picked" data-booking-no="E51L05RGN4" data-from="Four Points by Sheraton Josun," data-to="Sota Suites Hotel" data-customer="Nicolai Werner" data-phone="+49 15140510605" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-13" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="picked" data-booking-no="E51L05RGN4" data-from="Four Points by Sheraton Josun," data-to="Sota Suites Hotel" data-customer="Nicolai Werner" data-phone="+49 15140510605" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-13" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="2" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">31</td>
             <td class="cell-id">E51L05RGN4</td>
             <td class="cell-status"><span class="status-badge st-picked">PICKED<br>_UP</span></td>
@@ -1409,11 +1377,10 @@
             </td>
             <td class="cell-customer"><div class="name">Nicolai Werner</div><div class="phone">+49 15140510605</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-13<span class="date-time">After 15:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="none" data-booking-no="77JQ84T9B2" data-from="Hotel the Designers Seoul Stat" data-to="Arban Hotel" data-customer="Chengyu Liao" data-phone="+65 96819634 " data-bags="4" data-booking-date="2026-06-12" data-dropoff="2026-06-12" data-pickup="2026-06-12" data-storage-dropoff="" data-delivery="2026-06-12" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="none" data-booking-no="77JQ84T9B2" data-from="Hotel the Designers Seoul Stat" data-to="Arban Hotel" data-customer="Chengyu Liao" data-phone="+65 96819634 " data-bags="4" data-booking-date="2026-06-12" data-dropoff="2026-04-08" data-pickup="2026-06-12" data-storage-dropoff="" data-delivery="2026-06-12" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">32</td>
             <td class="cell-id">77JQ84T9B2</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
@@ -1442,11 +1409,10 @@
             </td>
             <td class="cell-customer"><div class="name">Chengyu Liao</div><div class="phone">+65 96819634 </div></td>
             <td class="cell-bags">4</td>
-            <td class="cell-dates">2026-06-12<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-06-12<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="1D97G1CN8O" data-from="Incheon Airport Terminal 1" data-to="1f, 6-8 Tongil-ro 9-gil" data-customer="Kinga Darabos" data-phone="+36 306588977" data-bags="2" data-booking-date="2026-04-05" data-dropoff="2026-04-05" data-pickup="2026-04-05" data-storage-dropoff="" data-delivery="2026-04-05" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-서울">
+          <tr class="data-row" data-status="arrived" data-booking-no="1D97G1CN8O" data-from="Incheon Airport Terminal 1" data-to="1f, 6-8 Tongil-ro 9-gil" data-customer="Kinga Darabos" data-phone="+36 306588977" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="ICN" data-to-type="hotel" data-from-city="인천공항" data-to-city="서울" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="인천공항-서울">
             <td class="cell-num">33</td>
             <td class="cell-id">1D97G1CN8O</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1475,11 +1441,10 @@
             </td>
             <td class="cell-customer"><div class="name">Kinga Darabos</div><div class="phone">+36 306588977</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-05<span class="date-time">13:00-14:00</span></td>
-            <td class="cell-dates">2026-04-05<span class="date-time">After 20:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">13:00-14:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 20:00</span></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="E2JFW8WOZ3" data-from="Four Points by Sheraton Josun," data-to="L7 HAEUNDAE" data-customer="Aditya Baskar" data-phone="+91 7702376660 " data-bags="3" data-booking-date="2026-04-06" data-dropoff="2026-04-06" data-pickup="2026-04-06" data-storage-dropoff="" data-delivery="2026-04-06" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="arrived" data-booking-no="E2JFW8WOZ3" data-from="Four Points by Sheraton Josun," data-to="L7 HAEUNDAE" data-customer="Aditya Baskar" data-phone="+91 7702376660 " data-bags="3" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">34</td>
             <td class="cell-id">E2JFW8WOZ3</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1508,11 +1473,10 @@
             </td>
             <td class="cell-customer"><div class="name">Aditya Baskar</div><div class="phone">+91 7702376660 </div></td>
             <td class="cell-bags">3</td>
-            <td class="cell-dates">2026-04-06<span class="date-time">Before 10:00</span></td>
-            <td class="cell-dates">2026-04-06<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="L7N7N08IJ6" data-from="LOTTE HOTEL SEOUL" data-to="SIGNIEL BUSAN" data-customer="Anhtuan Andy pham" data-phone="+1 4088864823 " data-bags="4" data-booking-date="2026-04-07" data-dropoff="2026-04-07" data-pickup="2026-04-07" data-storage-dropoff="" data-delivery="2026-04-07" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="arrived" data-booking-no="L7N7N08IJ6" data-from="LOTTE HOTEL SEOUL" data-to="SIGNIEL BUSAN" data-customer="Anhtuan Andy pham" data-phone="+1 4088864823 " data-bags="4" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">35</td>
             <td class="cell-id">L7N7N08IJ6</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1541,11 +1505,10 @@
             </td>
             <td class="cell-customer"><div class="name">Anhtuan Andy pham</div><div class="phone">+1 4088864823 </div></td>
             <td class="cell-bags">4</td>
-            <td class="cell-dates">2026-04-07<span class="date-time">Before 10:00</span></td>
-            <td class="cell-dates">2026-04-07<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="6A39WWD27Z" data-from="CGV" data-to="Centum Business Hotel" data-customer="Aleksandar Stevanovic" data-phone="+381 606126247" data-bags="2" data-booking-date="2026-04-06" data-dropoff="2026-04-06" data-pickup="2026-04-07" data-storage-dropoff="" data-delivery="" data-from-type="hub" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="arrived" data-booking-no="6A39WWD27Z" data-from="CGV" data-to="Centum Business Hotel" data-customer="Aleksandar Stevanovic" data-phone="+381 606126247" data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="" data-from-type="hub" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">36</td>
             <td class="cell-id">6A39WWD27Z</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1576,11 +1539,10 @@
             </td>
             <td class="cell-customer"><div class="name">Aleksandar Stevanovic</div><div class="phone">+381 606126247</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-06<span class="date-time">11:30-12:00</span></td>
-            <td class="cell-dates">2026-04-07<span class="date-time">After 15:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">11:30-12:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 15:00</span></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="O35WX8Y66D" data-from="ONU STAY – Ikseon" data-to="Lavi de Atlan" data-customer="Konstantinos Vorrias" data-phone="+30 6974064100 " data-bags="2" data-booking-date="2026-04-06" data-dropoff="2026-04-06" data-pickup="2026-04-06" data-storage-dropoff="" data-delivery="2026-04-06" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="arrived" data-booking-no="O35WX8Y66D" data-from="ONU STAY – Ikseon" data-to="Lavi de Atlan" data-customer="Konstantinos Vorrias" data-phone="+30 6974064100 " data-bags="2" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">37</td>
             <td class="cell-id">O35WX8Y66D</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1609,11 +1571,10 @@
             </td>
             <td class="cell-customer"><div class="name">Konstantinos Vorrias</div><div class="phone">+30 6974064100 </div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-06<span class="date-time">Before 10:00</span></td>
-            <td class="cell-dates">2026-04-06<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
           </tr>
-          <tr class="data-row" data-status="none" data-booking-no="25S45X8YT4" data-from="Grand Josun Busan" data-to="GLAD Hotel Yeouido Seoul" data-customer="Mallola Khalidi" data-phone="+1 2096401658" data-bags="5" data-booking-date="2026-04-16" data-dropoff="2026-04-16" data-pickup="2026-04-16" data-storage-dropoff="" data-delivery="2026-04-16" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
+          <tr class="data-row" data-status="none" data-booking-no="25S45X8YT4" data-from="Grand Josun Busan" data-to="GLAD Hotel Yeouido Seoul" data-customer="Mallola Khalidi" data-phone="+1 2096401658" data-bags="5" data-booking-date="2026-04-16" data-dropoff="2026-04-08" data-pickup="2026-04-16" data-storage-dropoff="" data-delivery="2026-04-16" data-from-type="hotel" data-to-type="hotel" data-from-city="부산" data-to-city="서울" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="부산-서울">
             <td class="cell-num">38</td>
             <td class="cell-id">25S45X8YT4</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
@@ -1642,11 +1603,10 @@
             </td>
             <td class="cell-customer"><div class="name">Mallola Khalidi</div><div class="phone">+1 2096401658</div></td>
             <td class="cell-bags">5</td>
-            <td class="cell-dates">2026-04-16<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-16<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="none" data-booking-no="O0ZFCJ995C" data-from="Four Points by Sheraton Josun," data-to="Grand Josun Busan" data-customer="Mallola Khalidi" data-phone="+1 2096401658" data-bags="5" data-booking-date="2026-04-14" data-dropoff="2026-04-14" data-pickup="2026-04-14" data-storage-dropoff="" data-delivery="2026-04-14" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="none" data-booking-no="O0ZFCJ995C" data-from="Four Points by Sheraton Josun," data-to="Grand Josun Busan" data-customer="Mallola Khalidi" data-phone="+1 2096401658" data-bags="5" data-booking-date="2026-04-14" data-dropoff="2026-04-08" data-pickup="2026-04-14" data-storage-dropoff="" data-delivery="2026-04-14" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="1" data-step2-rank="1" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">39</td>
             <td class="cell-id">O0ZFCJ995C</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
@@ -1677,11 +1637,10 @@
             </td>
             <td class="cell-customer"><div class="name">Mallola Khalidi</div><div class="phone">+1 2096401658</div></td>
             <td class="cell-bags">5</td>
-            <td class="cell-dates">2026-04-14<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-14<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="Q638327DP1" data-from="Conrad Seoul" data-to="Park Hyatt Busan" data-customer="Bria Bourgeois" data-phone="+1 4047319981" data-bags="4" data-booking-date="2026-04-06" data-dropoff="2026-04-06" data-pickup="2026-04-06" data-storage-dropoff="" data-delivery="2026-04-06" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
+          <tr class="data-row" data-status="arrived" data-booking-no="Q638327DP1" data-from="Conrad Seoul" data-to="Park Hyatt Busan" data-customer="Bria Bourgeois" data-phone="+1 4047319981" data-bags="4" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="0" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">40</td>
             <td class="cell-id">Q638327DP1</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
@@ -1710,11 +1669,10 @@
             </td>
             <td class="cell-customer"><div class="name">Bria Bourgeois</div><div class="phone">+1 4047319981</div></td>
             <td class="cell-bags">4</td>
-            <td class="cell-dates">2026-04-06<span class="date-time">Before 10:00</span></td>
-            <td class="cell-dates">2026-04-06<span class="date-time">After 22:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">After 22:00</span></td>
           </tr>
-          <tr class="data-row" data-status="picked" data-booking-no="GL9901ABCD" data-from="Park Hyatt Seoul" data-to="인천공항 T1" data-customer="Emma Chen" data-phone="+1 6505551234" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-13" data-storage-dropoff="2026-04-09" data-delivery="2026-04-13" data-from-type="hotel" data-to-type="ICN" data-from-city="서울" data-to-city="인천공항" data-step1-rank="3" data-step2-rank="2" data-step3-rank="1" data-step4-rank="0" data-route="서울-인천공항">
+          <tr class="data-row" data-status="picked" data-booking-no="GL9901ABCD" data-from="Park Hyatt Seoul" data-to="인천공항 T1" data-customer="Emma Chen" data-phone="+1 6505551234" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-13" data-storage-dropoff="2026-04-08" data-delivery="2026-04-13" data-from-type="hotel" data-to-type="ICN" data-from-city="서울" data-to-city="인천공항" data-step1-rank="3" data-step2-rank="2" data-step3-rank="1" data-step4-rank="0" data-route="서울-인천공항">
             <td class="cell-num">41</td>
             <td class="cell-id">GL9901ABCD</td>
             <td class="cell-status"><span class="status-badge st-picked">PICKED<br>_UP</span></td>
@@ -1750,9 +1708,8 @@
             </td>
             <td class="cell-customer"><div class="name">Emma Chen</div><div class="phone">+1 6505551234</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 11:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 11:00</span></td>
             <td class="cell-dates">2026-04-13<span class="date-time">14:00-15:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
           <tr class="data-row" data-status="arrived" data-booking-no="GL9902EFGH" data-from="Grand Hyatt Seoul" data-to="부산신라호텔" data-customer="Mark Johnson" data-phone="+44 7900123456" data-bags="3" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-11" data-storage-dropoff="2026-04-08" data-delivery="2026-04-11" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="3" data-step4-rank="0" data-route="서울-부산">
             <td class="cell-num">42</td>
@@ -1790,9 +1747,8 @@
             <td class="cell-bags">3</td>
             <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
             <td class="cell-dates">2026-04-11<span class="date-time">After 14:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="dropped" data-booking-no="GL9903IJKL" data-from="신라호텔 서울" data-to="김포공항" data-customer="최민서" data-phone="010-3456-7890" data-bags="1" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-12" data-storage-dropoff="2026-04-09" data-delivery="2026-04-12" data-from-type="hotel" data-to-type="GMP" data-from-city="서울" data-to-city="김포공항" data-step1-rank="2" data-step2-rank="1" data-step3-rank="1" data-step4-rank="0" data-route="서울-김포공항">
+          <tr class="data-row" data-status="dropped" data-booking-no="GL9903IJKL" data-from="신라호텔 서울" data-to="김포공항" data-customer="최민서" data-phone="010-3456-7890" data-bags="1" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-12" data-storage-dropoff="2026-04-08" data-delivery="2026-04-12" data-from-type="hotel" data-to-type="GMP" data-from-city="서울" data-to-city="김포공항" data-step1-rank="2" data-step2-rank="1" data-step3-rank="1" data-step4-rank="0" data-route="서울-김포공항">
             <td class="cell-num">43</td>
             <td class="cell-id">GL9903IJKL</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
@@ -1828,11 +1784,10 @@
             </td>
             <td class="cell-customer"><div class="name">최민서</div><div class="phone">010-3456-7890</div></td>
             <td class="cell-bags">1</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 12:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 12:00</span></td>
             <td class="cell-dates">2026-04-12<span class="date-time">Before 15:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="dropped" data-booking-no="GL9904MNOP" data-from="The Shilla Seoul" data-to="롯데호텔 서울" data-customer="Yuki Tanaka" data-phone="+81 9012345678" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-09" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="서울" data-step1-rank="2" data-step2-rank="0" data-step3-rank="0" data-step4-rank="0" data-route="서울-서울">
+          <tr class="data-row" data-status="dropped" data-booking-no="GL9904MNOP" data-from="The Shilla Seoul" data-to="롯데호텔 서울" data-customer="Yuki Tanaka" data-phone="+81 9012345678" data-bags="2" data-booking-date="2026-04-09" data-dropoff="2026-04-08" data-pickup="2026-04-09" data-storage-dropoff="" data-delivery="2026-04-09" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="서울" data-step1-rank="2" data-step2-rank="0" data-step3-rank="0" data-step4-rank="0" data-route="서울-서울">
             <td class="cell-num">44</td>
             <td class="cell-id">GL9904MNOP</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
@@ -1856,18 +1811,17 @@
             </td>
             <td class="cell-customer"><div class="name">Yuki Tanaka</div><div class="phone">+81 9012345678</div></td>
             <td class="cell-bags">2</td>
-            <td class="cell-dates">2026-04-09<span class="date-time">Before 11:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 11:00</span></td>
             <td class="cell-dates">2026-04-09<span class="date-time">14:00-15:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
-          <tr class="data-row" data-status="arrived" data-booking-no="GL9905QRST" data-from="Airbnb 홍대" data-to="인천공항 T2" data-customer="Luca Rossi" data-phone="+39 3401234567" data-bags="1" data-booking-date="2026-04-07" data-dropoff="2026-04-07" data-pickup="2026-04-07" data-storage-dropoff="" data-delivery="2026-04-07" data-from-type="airbnb" data-to-type="ICN" data-from-city="서울" data-to-city="인천공항" data-step1-rank="3" data-step2-rank="0" data-step3-rank="0" data-step4-rank="0" data-route="서울-인천공항">
+          <tr class="data-row" data-status="arrived" data-booking-no="GL9905QRST" data-from="Airbnb 홍대" data-to="인천공항 T2" data-customer="Luca Rossi" data-phone="+39 3401234567" data-bags="7" data-booking-date="2026-04-08" data-dropoff="2026-04-08" data-pickup="2026-04-08" data-storage-dropoff="" data-delivery="2026-04-08" data-from-type="airbnb" data-to-type="ICN" data-from-city="서울" data-to-city="인천공항" data-step1-rank="3" data-step2-rank="0" data-step3-rank="0" data-step4-rank="0" data-route="서울-인천공항">
             <td class="cell-num">45</td>
             <td class="cell-id">GL9905QRST</td>
             <td class="cell-status"><span class="status-badge st-arrived">ARRIVED</span></td>
             <td class="seg-cell">
               <div class="step-block delivery done">
                 <i class="bi bi-truck step-icon"></i>
-                <div class="step-text"><span class="step-label">배송</span><span class="step-sub">홍대 에어비앤비<br>→인천공항 T2 <span class="drv calt">CALT</span></span></div>
+                <div class="step-text"><span class="step-label">배송</span><span class="step-sub">홍대 에어비앤비<br>→인천공항 T2 <span class="drv kakao">카카오T</span></span></div>
               </div>
             </td>
             <td class="seg-cell empty">—</td>
@@ -1883,12 +1837,11 @@
               <div class="cell-loc-detail">인천 국제공항 제2여객터미널</div>
             </td>
             <td class="cell-customer"><div class="name">Luca Rossi</div><div class="phone">+39 3401234567</div></td>
-            <td class="cell-bags">1</td>
-            <td class="cell-dates">2026-04-07<span class="date-time">Before 10:00</span></td>
-            <td class="cell-dates">2026-04-07<span class="date-time">15:00-16:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
+            <td class="cell-bags">7</td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 10:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">15:00-16:00</span></td>
           </tr>
-          <tr class="data-row" data-status="none" data-booking-no="GL9906UVWX" data-from="Park Hyatt Seoul" data-to="김포공항" data-customer="박지연" data-phone="010-7890-1234" data-bags="3" data-booking-date="2026-04-10" data-dropoff="2026-04-10" data-pickup="2026-04-10" data-storage-dropoff="" data-delivery="2026-04-10" data-from-type="hotel" data-to-type="GMP" data-from-city="서울" data-to-city="김포공항" data-step1-rank="1" data-step2-rank="0" data-step3-rank="0" data-step4-rank="0" data-route="서울-김포공항">
+          <tr class="data-row" data-status="none" data-booking-no="GL9906UVWX" data-from="Park Hyatt Seoul" data-to="김포공항" data-customer="박지연" data-phone="010-7890-1234" data-bags="3" data-booking-date="2026-04-10" data-dropoff="2026-04-08" data-pickup="2026-04-10" data-storage-dropoff="" data-delivery="2026-04-10" data-from-type="hotel" data-to-type="GMP" data-from-city="서울" data-to-city="김포공항" data-step1-rank="1" data-step2-rank="0" data-step3-rank="0" data-step4-rank="0" data-route="서울-김포공항">
             <td class="cell-num">46</td>
             <td class="cell-id">GL9906UVWX</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
@@ -1912,12 +1865,11 @@
             </td>
             <td class="cell-customer"><div class="name">박지연</div><div class="phone">010-7890-1234</div></td>
             <td class="cell-bags">3</td>
-            <td class="cell-dates">2026-04-10<span class="date-time">Before 12:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 12:00</span></td>
             <td class="cell-dates">2026-04-10<span class="date-time">16:00-17:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
 
-          <tr class="data-row" data-status="dropped" data-booking-no="GL9907YZAB" data-from="InterContinental Seoul COEX" data-to="해운대 그랜드호텔" data-customer="Sarah Williams" data-phone="+1 2125559876" data-bags="3" data-booking-date="2026-04-10" data-dropoff="2026-04-10" data-pickup="2026-04-14" data-storage-dropoff="2026-04-10" data-delivery="2026-04-14" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="2" data-step4-rank="1" data-route="서울-부산">
+          <tr class="data-row" data-status="dropped" data-booking-no="GL9907YZAB" data-from="InterContinental Seoul COEX" data-to="해운대 그랜드호텔" data-customer="Sarah Williams" data-phone="+1 2125559876" data-bags="3" data-booking-date="2026-04-10" data-dropoff="2026-04-08" data-pickup="2026-04-14" data-storage-dropoff="2026-04-08" data-delivery="2026-04-14" data-from-type="hotel" data-to-type="hotel" data-from-city="서울" data-to-city="부산" data-step1-rank="3" data-step2-rank="3" data-step3-rank="2" data-step4-rank="1" data-route="서울-부산">
             <td class="cell-num">47</td>
             <td class="cell-id">GL9907YZAB</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
@@ -1956,9 +1908,8 @@
             </td>
             <td class="cell-customer"><div class="name">Sarah Williams</div><div class="phone">+1 2125559876</div></td>
             <td class="cell-bags">3</td>
-            <td class="cell-dates">2026-04-10<span class="date-time">Before 11:00</span></td>
+            <td class="cell-dates">2026-04-08<span class="date-time">Before 11:00</span></td>
             <td class="cell-dates">2026-04-14<span class="date-time">14:00-16:00</span></td>
-            <td><button class="action-btn"><i class="bi bi-three-dots"></i></button></td>
           </tr>
 
         </tbody>
@@ -2443,10 +2394,10 @@ document.addEventListener('DOMContentLoaded', captureOriginalOrder);
 
 // Set today's date and auto-filter on load
 document.addEventListener('DOMContentLoaded', function() {
-  const today = new Date().toISOString().split('T')[0];
+  const today = '2026-04-08';
   document.getElementById('startDate').value = today;
   document.getElementById('endDate').value = today;
-  document.getElementById('dateType').value = 'Booking Date';
+  document.getElementById('dateType').value = 'Drop-off Date';
   // Delay to let other DOMContentLoaded handlers finish first
   setTimeout(function() { applySearch(); }, 100);
 });
