@@ -2488,19 +2488,32 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Add 배차완료 label next to 카카오T driver badges (bottom of step-block)
+// Rule: 배차완료 only if this is the first non-empty step, OR the previous non-empty step has class 'done'
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.seg-cell .step-block .drv.kakao').forEach(drv => {
-    const block = drv.closest('.step-block');
-    const wrap = document.createElement('span');
-    wrap.className = 'drv-wrap';
-    const dispatch = document.createElement('span');
-    dispatch.className = 'dispatch';
-    dispatch.innerHTML = '<i class="bi bi-star-fill" style="font-size:0.4rem;color:#f59e0b;margin-right:.1rem;vertical-align:top;"></i>배차완료';
-    wrap.appendChild(dispatch);
-    drv.parentNode.removeChild(drv);
-    drv.style.position = 'static';
-    wrap.appendChild(drv);
-    block.appendChild(wrap);
+  document.querySelectorAll('.data-row').forEach(row => {
+    const cells = Array.from(row.querySelectorAll('.seg-cell')).filter(c => !c.classList.contains('empty'));
+    cells.forEach((cell, idx) => {
+      const drv = cell.querySelector('.step-block .drv.kakao');
+      if (!drv) return;
+      const block = drv.closest('.step-block');
+      let dispatched = true;
+      if (idx > 0) {
+        const prevBlock = cells[idx - 1].querySelector('.step-block');
+        dispatched = !!(prevBlock && prevBlock.classList.contains('done'));
+      }
+      const wrap = document.createElement('span');
+      wrap.className = 'drv-wrap';
+      if (dispatched) {
+        const dispatch = document.createElement('span');
+        dispatch.className = 'dispatch';
+        dispatch.innerHTML = '<i class="bi bi-star-fill" style="font-size:0.4rem;color:#f59e0b;margin-right:.1rem;vertical-align:top;"></i>배차완료';
+        wrap.appendChild(dispatch);
+      }
+      drv.parentNode.removeChild(drv);
+      drv.style.position = 'static';
+      wrap.appendChild(drv);
+      block.appendChild(wrap);
+    });
   });
 });
 
