@@ -257,6 +257,19 @@
     /* Noshow row highlight */
     tr.row-alert { box-shadow:inset 3px 0 0 #dc2626; }
     tr.row-kakao { box-shadow:inset 3px 0 0 #f59e0b; }
+
+    /* Mobile: stack search condition vertically, full-width inputs */
+    @media (max-width: 768px) {
+      .search-columns { flex-direction:column !important; gap:.35rem !important; }
+      .search-columns > div { flex:1 1 100% !important; width:100%; }
+      .search-row { flex-wrap:wrap; gap:.3rem; }
+      .search-row select,
+      .search-row input[type="date"],
+      .search-row input[type="text"] { flex:1 1 0; min-width:0; width:auto !important; }
+      .search-row label.field-label { width:68px !important; }
+      .search-actions { flex-wrap:wrap; }
+      .table-toolbar { flex-wrap:wrap; gap:.4rem; }
+    }
   </style>
 </head>
 <body>
@@ -266,7 +279,7 @@
   <!-- Search Condition -->
   <div class="search-condition">
     <div class="search-condition-title">Search Condition</div>
-    <div style="display:flex; gap:2.5rem;">
+    <div class="search-columns" style="display:flex; gap:2.5rem;">
       <!-- Left column -->
       <div style="flex:1;">
         <div class="search-row">
