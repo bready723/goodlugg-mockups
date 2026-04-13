@@ -425,7 +425,7 @@
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
             <td class="seg-cell">
               <div class="seg-wrap">
-                <div class="step-block delivery active">
+                <div class="step-block delivery active" data-dispatched="1">
                 <i class="bi bi-truck step-icon"></i>
                 <div class="step-text"><span class="step-label">배송</span><span class="step-sub">켄트호텔 광안리 by 켄싱턴<br>→부산터미널 <span class="drv kakao">카카오T</span></span></div></div>
                 <div class="seg-note">체크아웃 11시, 로비 대기</div>
@@ -990,7 +990,7 @@
             <td class="cell-id">9SW689091S</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
             <td class="seg-cell">
-              <div class="step-block delivery active">
+              <div class="step-block delivery active" data-dispatched="1">
                 <i class="bi bi-truck step-icon"></i>
                 <div class="step-text"><span class="step-label">배송</span><span class="step-sub">하운드호텔 부산역<br>→부산터미널 <span class="drv kakao">카카오T</span></span></div>
               </div>
@@ -1118,7 +1118,7 @@
             <td class="cell-id">7TSD359CL0</td>
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
             <td class="seg-cell">
-              <div class="step-block delivery active">
+              <div class="step-block delivery active" data-dispatched="1">
                 <i class="bi bi-truck step-icon"></i>
                 <div class="step-text"><span class="step-label">배송</span><span class="step-sub">리베로호텔<br>→부산터미널 <span class="drv kakao">카카오T</span></span></div>
               </div>
@@ -1777,7 +1777,7 @@
             <td class="cell-status"><span class="status-badge st-dropped">DROPPED<br>_OFF</span></td>
             <td class="seg-cell">
               <div class="seg-wrap">
-                <div class="step-block delivery active">
+                <div class="step-block delivery active" data-dispatched="1">
                 <i class="bi bi-truck step-icon"></i>
                 <div class="step-text"><span class="step-label">배송</span><span class="step-sub">신라호텔<br>→COEX <span class="drv kakao">카카오T</span></span></div></div>
                 <div class="seg-note">계단 3층, 엘베 없음</div>
@@ -2403,17 +2403,31 @@ function sortTable(th) {
     });
   }
 
+  const isStepKey = key === 'step1' || key === 'step2' || key === 'step3' || key === 'step4';
+
+  // For step columns, rank is computed from the step-block visual state itself
+  // (not the row's overall tracking status): 1=gray no 배차완료, 2=gray with 배차완료, 3=green done.
+  function stepRank(row, stepKey) {
+    const stepIdx = { step1:0, step2:1, step3:2, step4:3 }[stepKey];
+    const cells = Array.from(row.querySelectorAll('.seg-cell')).filter(c => !c.classList.contains('empty'));
+    if (!cells[stepIdx]) return 0;
+    const block = cells[stepIdx].querySelector('.step-block');
+    if (!block) return 0;
+    if (block.classList.contains('done')) return 3;
+    if (hasDispatch(row, stepKey)) return 2;
+    return 1;
+  }
+
   rows.sort((a, b) => {
     let va = a.getAttribute(attr) || '';
     let vb = b.getAttribute(attr) || '';
     if (isStatus) { va = statusOrder[va] ?? 0; vb = statusOrder[vb] ?? 0; }
     else if (isNum) {
-      va = parseInt(va) || 0; vb = parseInt(vb) || 0;
-      // Secondary sort by 배차완료 within same rank — undispatched first, dispatched next
-      if (va === vb && (key === 'step1' || key === 'step2' || key === 'step3' || key === 'step4')) {
-        const da = hasDispatch(a, key) ? 1 : 0;
-        const db = hasDispatch(b, key) ? 1 : 0;
-        if (da !== db) return dir === 'asc' ? da - db : db - da;
+      if (isStepKey) {
+        va = stepRank(a, key);
+        vb = stepRank(b, key);
+      } else {
+        va = parseInt(va) || 0; vb = parseInt(vb) || 0;
       }
     }
     else if (isFromTo) {
