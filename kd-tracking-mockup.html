@@ -69,6 +69,11 @@
     .table-toolbar { padding:.5rem .75rem; border-bottom:1px solid #e5e7eb; display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
     .table-toolbar .result-count { font-size:.72rem; color:#6b7280; }
     .table-toolbar .result-count strong { color:#1e2a3b; }
+    .page-nav { display:flex; gap:3px; align-items:center; }
+    .page-nav button { padding:.2rem .5rem; border:1px solid #d1d5db; background:#fff; border-radius:4px; font-size:.7rem; cursor:pointer; color:#374151; min-width:26px; }
+    .page-nav button:hover:not(:disabled) { background:#f3f4f6; }
+    .page-nav button.active { background:#512B74; color:#fff; border-color:#512B74; }
+    .page-nav button:disabled { opacity:.4; cursor:not-allowed; }
     .table-toolbar .search-box { margin-left:auto; position:relative; }
     .table-toolbar .search-box input { padding:.25rem .5rem .25rem 1.6rem; border:1px solid #d1d5db; border-radius:5px; font-size:.72rem; width:180px; }
     .table-toolbar .search-box .bi { position:absolute; left:.5rem; top:50%; transform:translateY(-50%); color:#9ca3af; }
@@ -336,7 +341,12 @@
   <div class="table-card">
     <div class="table-toolbar">
       <span class="result-count">총 <strong>46</strong>건</span>
-      <select style="padding:.25rem .4rem; border:1px solid #d1d5db; border-radius:5px; font-size:.72rem;"><option>20건씩</option><option>50건씩</option></select>
+      <select id="pageSizeSelect" onchange="changePageSize(this.value)" style="padding:.25rem .4rem; border:1px solid #d1d5db; border-radius:5px; font-size:.72rem;">
+        <option value="20">20건씩</option>
+        <option value="50">50건씩</option>
+        <option value="100">100건씩</option>
+      </select>
+      <div id="pageNav" class="page-nav"></div>
       <div class="search-box"><i class="bi bi-search"></i><input type="text" placeholder="Keyword" oninput="keywordSearch(this.value)"/></div>
     </div>
 
@@ -2031,6 +2041,67 @@ function clickPreset(preset) {
 function updateCount(count) {
   const el = document.querySelector('.result-count strong');
   if (el) el.textContent = count;
+  applyPagination();
+}
+
+let _currentPage = 1;
+let _pageSize = 20;
+let _filterVisibleRows = [];  // rows passing the current filter, in DOM order
+
+function applyPagination() {
+  // Called after a filter pass — capture which rows the filter let through,
+  // then slice to the current page.
+  const rows = document.querySelectorAll('.tracking-table tbody tr.data-row');
+  _filterVisibleRows = Array.from(rows).filter(r => r.style.display !== 'none');
+  sliceToPage();
+}
+
+function sliceToPage() {
+  const totalPages = Math.max(1, Math.ceil(_filterVisibleRows.length / _pageSize));
+  if (_currentPage > totalPages) _currentPage = totalPages;
+  if (_currentPage < 1) _currentPage = 1;
+  const start = (_currentPage - 1) * _pageSize;
+  const end = start + _pageSize;
+  _filterVisibleRows.forEach((r, i) => {
+    r.style.display = (i >= start && i < end) ? '' : 'none';
+  });
+  // Re-hide empty route headers after pagination slicing
+  document.querySelectorAll('.tracking-table tbody tr.route-header').forEach(header => {
+    let next = header.nextElementSibling;
+    let hasVisible = false;
+    while (next && !next.classList.contains('route-header')) {
+      if (next.classList.contains('data-row') && next.style.display !== 'none') {
+        hasVisible = true; break;
+      }
+      next = next.nextElementSibling;
+    }
+    header.style.display = hasVisible ? '' : 'none';
+  });
+  renderPageNav(totalPages);
+}
+
+function renderPageNav(totalPages) {
+  const nav = document.getElementById('pageNav');
+  if (!nav) return;
+  if (totalPages <= 1) { nav.innerHTML = ''; return; }
+  let html = '';
+  html += `<button ${_currentPage===1?'disabled':''} onclick="goToPage(${_currentPage-1})">‹</button>`;
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<button class="${i===_currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
+  }
+  html += `<button ${_currentPage===totalPages?'disabled':''} onclick="goToPage(${_currentPage+1})">›</button>`;
+  nav.innerHTML = html;
+}
+
+function goToPage(n) {
+  _currentPage = n;
+  sliceToPage();
+}
+
+function changePageSize(v) {
+  _pageSize = parseInt(v, 10) || 20;
+  _currentPage = 1;
+  sliceToPage();
 }
 
 function toggleSubAirport(prefix, value) {
