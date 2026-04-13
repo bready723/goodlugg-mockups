@@ -1187,7 +1187,7 @@
             <td class="cell-id">S2NNG5C7ZE</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
             <td class="seg-cell">
-              <div class="step-block delivery pending">
+              <div class="step-block delivery pending" data-dispatched="1">
                 <i class="bi bi-truck step-icon"></i>
                 <div class="step-text"><span class="step-label">배송</span><span class="step-sub">SL호텔 명동<br>→서울경부터미널 <span class="drv kakao">카카오T</span></span></div>
               </div>
@@ -1278,7 +1278,7 @@
             <td class="cell-id">13U4W8D227</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
             <td class="seg-cell">
-              <div class="step-block delivery pending">
+              <div class="step-block delivery pending" data-dispatched="1">
                 <i class="bi bi-truck step-icon"></i>
                 <div class="step-text"><span class="step-label">배송</span><span class="step-sub">InterContinental Grand Se<br>→서울경부터미널 <span class="drv kakao">카카오T</span></span></div>
               </div>
@@ -1408,7 +1408,7 @@
             <td class="cell-id">77JQ84T9B2</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
             <td class="seg-cell">
-              <div class="step-block delivery pending">
+              <div class="step-block delivery pending" data-dispatched="1">
                 <i class="bi bi-truck step-icon"></i>
                 <div class="step-text"><span class="step-label">배송</span><span class="step-sub">호텔 더 디자이너스 서울역<br>→서울경부터미널 <span class="drv kakao">카카오T</span></span></div>
               </div>
@@ -1602,7 +1602,7 @@
             <td class="cell-id">25S45X8YT4</td>
             <td class="cell-status"><span class="status-badge st-none">NONE</span></td>
             <td class="seg-cell">
-              <div class="step-block delivery pending">
+              <div class="step-block delivery pending" data-dispatched="1">
                 <i class="bi bi-truck step-icon"></i>
                 <div class="step-text"><span class="step-label">배송</span><span class="step-sub">그랜드 조선 부산<br>→부산터미널 <span class="drv kakao">카카오T</span></span></div>
               </div>
@@ -2582,7 +2582,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const block = drv.closest('.step-block');
       let dispatched;
       if (idx === 0) {
-        dispatched = block.classList.contains('done');
+        dispatched = block.classList.contains('done') || block.dataset.dispatched === '1';
       } else {
         const prevBlock = cells[idx - 1].querySelector('.step-block');
         dispatched = !!(prevBlock && prevBlock.classList.contains('done'));
