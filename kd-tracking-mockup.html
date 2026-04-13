@@ -356,7 +356,7 @@
       <span class="result-count">총 <strong>46</strong>건</span>
       <select id="pageSizeSelect" onchange="changePageSize(this.value)" style="padding:.25rem .4rem; border:1px solid #d1d5db; border-radius:5px; font-size:.72rem;">
         <option value="20">20건씩</option>
-        <option value="50">50건씩</option>
+        <option value="50" selected>50건씩</option>
         <option value="100">100건씩</option>
       </select>
       <div id="pageNav" class="page-nav"></div>
@@ -2058,7 +2058,7 @@ function updateCount(count) {
 }
 
 let _currentPage = 1;
-let _pageSize = 20;
+let _pageSize = 50;
 let _filterVisibleRows = [];  // rows passing the current filter, in DOM order
 
 function applyPagination() {
