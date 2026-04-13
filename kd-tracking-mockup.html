@@ -2349,13 +2349,21 @@ function sortTable(th) {
   const isNum = key === 'bags' || key === 'step1' || key === 'step2' || key === 'step3' || key === 'step4';
   const isStatus = key === 'status';
 
-  // Helper: check if a specific step in a row has 배차완료 (카카오T)
+  // Helper: check if a specific step in a row actually renders the 배차완료 label.
+  // Matches the display rule: requires 카카오T, and step-block is either done,
+  // has data-dispatched="1" (step 1), or follows a done step (steps 2+).
   function hasDispatch(row, stepKey) {
     const stepIdx = { step1:0, step2:1, step3:2, step4:3 }[stepKey];
     if (stepIdx === undefined) return false;
-    const cells = row.querySelectorAll('.seg-cell');
+    const cells = Array.from(row.querySelectorAll('.seg-cell')).filter(c => !c.classList.contains('empty'));
     if (!cells[stepIdx]) return false;
-    return !!cells[stepIdx].querySelector('.drv.kakao');
+    const block = cells[stepIdx].querySelector('.step-block');
+    if (!block || !block.querySelector('.drv.kakao')) return false;
+    if (stepIdx === 0) {
+      return block.classList.contains('done') || block.dataset.dispatched === '1';
+    }
+    const prevBlock = cells[stepIdx - 1].querySelector('.step-block');
+    return !!(prevBlock && prevBlock.classList.contains('done'));
   }
 
   // Normalize location names (different languages → canonical English)
@@ -2401,11 +2409,11 @@ function sortTable(th) {
     if (isStatus) { va = statusOrder[va] ?? 0; vb = statusOrder[vb] ?? 0; }
     else if (isNum) {
       va = parseInt(va) || 0; vb = parseInt(vb) || 0;
-      // Secondary sort by 배차완료 within same rank
+      // Secondary sort by 배차완료 within same rank — undispatched first, dispatched next
       if (va === vb && (key === 'step1' || key === 'step2' || key === 'step3' || key === 'step4')) {
         const da = hasDispatch(a, key) ? 1 : 0;
         const db = hasDispatch(b, key) ? 1 : 0;
-        if (da !== db) return dir === 'asc' ? db - da : da - db;
+        if (da !== db) return dir === 'asc' ? da - db : db - da;
       }
     }
     else if (isFromTo) {
