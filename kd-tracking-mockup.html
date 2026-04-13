@@ -2572,7 +2572,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Add 배차완료 label next to 카카오T driver badges (bottom of step-block)
-// Rule: 배차완료 only if this is the first non-empty step, OR the previous non-empty step has class 'done'
+// Rule: step 1 shows 배차완료 only if its own step-block is 'done'; later steps show it when the previous step is 'done'
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.data-row').forEach(row => {
     const cells = Array.from(row.querySelectorAll('.seg-cell')).filter(c => !c.classList.contains('empty'));
@@ -2580,8 +2580,10 @@ document.addEventListener('DOMContentLoaded', function() {
       const drv = cell.querySelector('.step-block .drv.kakao');
       if (!drv) return;
       const block = drv.closest('.step-block');
-      let dispatched = true;
-      if (idx > 0) {
+      let dispatched;
+      if (idx === 0) {
+        dispatched = block.classList.contains('done');
+      } else {
         const prevBlock = cells[idx - 1].querySelector('.step-block');
         dispatched = !!(prevBlock && prevBlock.classList.contains('done'));
       }
