@@ -1,0 +1,159 @@
+/* =========================================================================
+ * Goodlugg — Colors & Type
+ * Brand hex pulled directly from logo_circle.png / logo_square.png:
+ *   Purple  #512a72
+ *   Chartreuse / yellow-green  #c7c22e
+ * ========================================================================= */
+
+/* -------- Fonts --------
+ * Brand font: **Pretendard** (self-hosted from /fonts). Pretendard is the
+ * official Goodlugg typeface — a geometric sans with excellent Korean + Latin
+ * harmony and a full weight range (100 Thin → 800 ExtraBold). It's used for
+ * everything: wordmark, display, UI, body, KR text.
+ *
+ * Mono fallback stays as JetBrains Mono via Google Fonts for tracking numbers,
+ * prices, and codes.
+ * ---------------------- */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+@font-face { font-family: 'Pretendard'; font-weight: 100; font-style: normal; font-display: swap;
+  src: url('fonts/Pretendard-Thin.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 200; font-style: normal; font-display: swap;
+  src: url('fonts/Pretendard-ExtraLight.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 300; font-style: normal; font-display: swap;
+  src: url('fonts/Pretendard-Light.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 400; font-style: normal; font-display: swap;
+  src: url('fonts/Pretendard-Regular.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 500; font-style: normal; font-display: swap;
+  src: url('fonts/Pretendard-Medium.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 600; font-style: normal; font-display: swap;
+  src: url('fonts/Pretendard-SemiBold.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 700; font-style: normal; font-display: swap;
+  src: url('fonts/Pretendard-Bold.otf') format('opentype'); }
+@font-face { font-family: 'Pretendard'; font-weight: 800; font-style: normal; font-display: swap;
+  src: url('fonts/Pretendard-ExtraBold.otf') format('opentype'); }
+
+:root {
+  /* ---------- Brand core ---------- */
+  --gl-purple-900: #2b1640;
+  --gl-purple-800: #3a1e56;
+  --gl-purple-700: #452373;   /* pressed / deeper chrome */
+  --gl-purple-600: #512a72;   /* BRAND PURPLE — from logo */
+  --gl-purple-500: #6a3f91;
+  --gl-purple-400: #8a66ad;
+  --gl-purple-300: #b499cc;
+  --gl-purple-200: #d8c9e4;
+  --gl-purple-100: #ece3f2;
+  --gl-purple-050: #f6f1fa;
+
+  --gl-lime-900: #4e4a10;
+  --gl-lime-800: #7a7518;
+  --gl-lime-700: #a29d24;
+  --gl-lime-600: #b7b228;
+  --gl-lime-500: #c7c22e;     /* BRAND CHARTREUSE — from logo */
+  --gl-lime-400: #d4d058;
+  --gl-lime-300: #e1de86;
+  --gl-lime-200: #eeecb3;
+  --gl-lime-100: #f6f5d7;
+  --gl-lime-050: #fbfaec;
+
+  /* Accent oranges pulled from New Year 2026 gradient & KB / Toss mockups */
+  --gl-orange-500: #ff7a45;
+  --gl-orange-400: #ff9b63;
+  --gl-coral-500:  #ff6b6b;
+
+  /* ---------- Neutrals ---------- */
+  --gl-ink:        #1a1420;     /* body text on light */
+  --gl-ink-2:      #3d3048;     /* secondary text */
+  --gl-ink-3:      #6a5d74;     /* tertiary / placeholder */
+  --gl-line:       #e7e1ec;     /* 1px divider on light */
+  --gl-line-2:     #f0ecf3;     /* subtler divider */
+  --gl-surface:    #ffffff;     /* cards */
+  --gl-bg:         #fbfaf7;     /* page background, slightly warm off-white */
+  --gl-bg-alt:     #f4f0f7;     /* alt banded bg, purple-tinted */
+
+  /* ---------- Semantic ---------- */
+  --gl-success:    #3aa874;
+  --gl-warning:    #e8a53a;
+  --gl-danger:     #d84141;
+  --gl-info:       var(--gl-purple-600);
+  --gl-beta:       #e83a3a;     /* the red "Beta" pill in marketing */
+
+  /* ---------- Surfaces on dark purple ---------- */
+  --gl-on-purple-fg:   #ffffff;
+  --gl-on-purple-fg-2: rgba(255,255,255,0.72);
+  --gl-on-purple-line: rgba(255,255,255,0.14);
+  --gl-on-purple-card: rgba(255,255,255,0.06);
+
+  /* ---------- Shadows ---------- */
+  --gl-shadow-xs: 0 1px 2px rgba(50, 25, 80, .06);
+  --gl-shadow-sm: 0 2px 6px rgba(50, 25, 80, .08);
+  --gl-shadow-md: 0 8px 24px rgba(50, 25, 80, .10);
+  --gl-shadow-lg: 0 20px 48px rgba(50, 25, 80, .18);
+  --gl-shadow-purple: 0 12px 28px rgba(81, 42, 114, .28);
+
+  /* ---------- Radii ---------- */
+  --gl-r-sm: 8px;
+  --gl-r-md: 14px;
+  --gl-r-lg: 20px;
+  --gl-r-xl: 28px;
+  --gl-r-pill: 999px;
+  --gl-r-tag: 10px;     /* luggage-tag shape */
+
+  /* ---------- Spacing (4px base) ---------- */
+  --gl-sp-1: 4px;
+  --gl-sp-2: 8px;
+  --gl-sp-3: 12px;
+  --gl-sp-4: 16px;
+  --gl-sp-5: 20px;
+  --gl-sp-6: 24px;
+  --gl-sp-8: 32px;
+  --gl-sp-10: 40px;
+  --gl-sp-12: 48px;
+  --gl-sp-16: 64px;
+  --gl-sp-20: 80px;
+
+  /* ---------- Type families ---------- */
+  --gl-font-ui:      'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --gl-font-display: 'Pretendard', sans-serif;
+  --gl-font-kr:      'Pretendard', sans-serif;
+  --gl-font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---------- Type scale (semantic) ---------- */
+  --gl-t-display: 800 64px/1.02 var(--gl-font-display);
+  --gl-t-h1:      800 44px/1.08 var(--gl-font-display);
+  --gl-t-h2:      700 32px/1.15 var(--gl-font-display);
+  --gl-t-h3:      700 24px/1.25 var(--gl-font-ui);
+  --gl-t-h4:      600 20px/1.3  var(--gl-font-ui);
+  --gl-t-lead:    500 18px/1.5  var(--gl-font-ui);
+  --gl-t-body:    400 16px/1.55 var(--gl-font-ui);
+  --gl-t-body-s:  400 14px/1.5  var(--gl-font-ui);
+  --gl-t-caption: 500 12px/1.4  var(--gl-font-ui);
+  --gl-t-overline: 700 11px/1   var(--gl-font-ui);
+  --gl-t-mono:    500 13px/1.5  var(--gl-font-mono);
+
+  /* ---------- Motion ---------- */
+  --gl-ease:        cubic-bezier(.2,.7,.2,1);
+  --gl-ease-out:    cubic-bezier(.16,1,.3,1);
+  --gl-dur-fast:    140ms;
+  --gl-dur-med:     240ms;
+  --gl-dur-slow:    420ms;
+}
+
+/* Semantic element styles — import this file then tag elements */
+.gl-display { font: var(--gl-t-display); letter-spacing: -0.02em; color: var(--gl-ink); }
+.gl-h1      { font: var(--gl-t-h1); letter-spacing: -0.02em; color: var(--gl-ink); }
+.gl-h2      { font: var(--gl-t-h2); letter-spacing: -0.01em; color: var(--gl-ink); }
+.gl-h3      { font: var(--gl-t-h3); color: var(--gl-ink); }
+.gl-h4      { font: var(--gl-t-h4); color: var(--gl-ink); }
+.gl-lead    { font: var(--gl-t-lead); color: var(--gl-ink-2); }
+.gl-body    { font: var(--gl-t-body); color: var(--gl-ink); }
+.gl-body-s  { font: var(--gl-t-body-s); color: var(--gl-ink-2); }
+.gl-caption { font: var(--gl-t-caption); color: var(--gl-ink-3); }
+.gl-overline{ font: var(--gl-t-overline); text-transform: uppercase; letter-spacing: .14em; color: var(--gl-purple-600); }
+.gl-mono    { font: var(--gl-t-mono); color: var(--gl-ink-2); }
+
+/* A handy wordmark mimic when the PNG isn't appropriate */
+.gl-wordmark { font-family: var(--gl-font-display); font-weight: 800; letter-spacing: -0.025em; }
+.gl-wordmark .good { color: var(--gl-purple-600); }
+.gl-wordmark .lugg { color: var(--gl-lime-500); }
