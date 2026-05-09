@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goodlugg — Set Departure (Airbnb Meet-up)</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ECECEC;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .phone {
+            width: 100%;
+            max-width: 430px;
+            background: #FFFFFF;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Header */
+        .lang-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 20px 18px;
+            position: relative;
+        }
+        .nav .logo {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .nav .logo .good { color: #512772; }
+        .nav .logo .lugg { color: #C8C32E; }
+        .nav .menu {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .nav .menu span {
+            width: 24px;
+            height: 3px;
+            background: #512772;
+            border-radius: 2px;
+        }
+
+        /* Progress bar */
+        .progress {
+            display: flex;
+            gap: 6px;
+            padding: 14px 20px 24px;
+        }
+        .progress .seg {
+            flex: 1;
+            height: 4px;
+            background: #E5E5E5;
+            border-radius: 2px;
+        }
+        .progress .seg.active { background: #512772; }
+
+        /* Page heading */
+        .page-title {
+            padding: 0 20px;
+            font-size: 30px;
+            font-weight: 900;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .page-sub {
+            padding: 0 20px;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 22px;
+        }
+
+        /* Departure card */
+        .section {
+            padding: 0 20px;
+            margin-bottom: 26px;
+        }
+
+        .departure-card {
+            border: 2px solid #8C7DD9;
+            background: #F8F7FE;
+            border-radius: 10px;
+            padding: 16px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .departure-card .label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #6B5DC7;
+            letter-spacing: 1.2px;
+            margin-bottom: 6px;
+        }
+        .departure-card .name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        .departure-card .name .pin { margin-right: 6px; }
+        .departure-card .addr {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.4;
+            padding-left: 24px;
+        }
+        .departure-card .change-btn {
+            background: #6B5DC7;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* Section labels */
+        .label-row {
+            font-size: 18px;
+            font-weight: 900;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        .label-row .req {
+            color: #FF6A3D;
+            margin-left: 2px;
+        }
+
+        /* Option cards */
+        .opt-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .opt {
+            border: 1.5px solid #E0E0E0;
+            background: #FAFAFA;
+            border-radius: 12px;
+            padding: 18px 18px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.15s;
+        }
+        .opt-row .opt {
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+            margin-bottom: 0;
+            padding: 20px 14px;
+        }
+        .opt:hover { border-color: #C0B6E8; }
+        .opt.selected {
+            border: 2px solid #512772;
+            background: #F5EFFB;
+        }
+        .opt-header {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .opt .icon {
+            font-size: 26px;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .opt-row .opt .icon {
+            font-size: 32px;
+            margin-top: 0;
+        }
+        .opt .body { flex: 1; }
+        .opt .title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 3px;
+        }
+        .opt-row .opt .title {
+            font-size: 15px;
+        }
+        .opt.selected .title { color: #512772; }
+        .opt .desc {
+            font-size: 13.5px;
+            color: #666;
+            line-height: 1.4;
+        }
+        .opt-row .opt .desc {
+            font-size: 12.5px;
+        }
+        .opt.selected .desc { color: #6B4D8E; }
+
+        /* Expand area inside opt card */
+        .opt-expand {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed #C8B8E0;
+        }
+        .opt.selected .opt-expand { display: block; }
+        .expand-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #512772;
+            margin-bottom: 10px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        /* Search box */
+        .search-block { margin-top: 14px; }
+        .search-box {
+            width: 100%;
+            border: 1.5px solid #D5D5D5;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 15px;
+            color: #333;
+            background: white;
+            font-family: inherit;
+        }
+        .search-box::placeholder { color: #aaa; }
+        .search-box:focus { outline: none; border-color: #512772; }
+
+        .helper {
+            font-size: 12.5px;
+            color: #6B4D8E;
+            margin-top: 8px;
+            line-height: 1.4;
+            padding: 0 4px;
+        }
+        .helper .ic {
+            color: #512772;
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        /* Notes */
+        .notes-box {
+            width: 100%;
+            border: 1.5px solid #D5D5D5;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 15px;
+            color: #333;
+            min-height: 90px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .notes-box::placeholder { color: #aaa; }
+        .notes-box:focus { outline: none; border-color: #512772; }
+
+        /* Meet-up rules box */
+        .rules {
+            background: #FFF5EC;
+            border: 1px solid #FFD9B8;
+            border-radius: 10px;
+            padding: 16px 18px;
+            color: #B85A1F;
+        }
+        .rules .rules-title {
+            font-weight: 900;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .rules ul {
+            list-style: none;
+            padding: 0;
+        }
+        .rules li {
+            font-size: 14px;
+            line-height: 1.55;
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 4px;
+        }
+        .rules li:before {
+            content: "\2022";
+            position: absolute;
+            left: 2px;
+        }
+        .rules b { font-weight: 700; }
+
+        /* Next button */
+        .next-btn {
+            width: calc(100% - 40px);
+            margin: 24px 20px 28px;
+            background: #512772;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .next-btn:hover { background: #3c245a; }
+
+        /* Floating WhatsApp */
+        .float-wa {
+            position: fixed;
+            bottom: 90px;
+            right: max(calc(50% - 215px + 16px), 16px);
+            width: 52px;
+            height: 52px;
+            background: #25D366;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            cursor: pointer;
+            color: white;
+            font-size: 26px;
+        }
+
+
+        /* Hide section when not applicable */
+        .meet-section { display: none; }
+        .meet-section.show { display: block; }
+        .leave-section { display: none; }
+        .leave-section.show { display: block; }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <!-- Language Bar -->
+        <div class="lang-bar">🌐 English ▾</div>
+
+        <!-- Navigation -->
+        <div class="nav">
+            <div class="logo">
+                <span class="good">Good</span><span class="lugg">lugg</span>
+            </div>
+            <div class="menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress">
+            <div class="seg active"></div>
+            <div class="seg"></div>
+            <div class="seg"></div>
+        </div>
+
+        <!-- Page Title -->
+        <div class="page-title">Set departure</div>
+        <div class="page-sub">Where will you drop off your luggage?</div>
+
+        <!-- Departure Card Section -->
+        <div class="section">
+            <div class="label-row">DEPARTURE</div>
+            <div class="departure-card">
+                <div>
+                    <div class="label">CURRENT LOCATION</div>
+                    <div class="name"><span class="pin">📍</span>Stay Ohana</div>
+                    <div class="addr">3, 5F, 32 우정국로2길 종로구 서울특별시 South Korea</div>
+                </div>
+                <button class="change-btn">Change</button>
+            </div>
+        </div>
+
+        <!-- Handoff Method Section -->
+        <div class="section">
+            <div class="label-row">Handoff method <span class="req">*</span></div>
+
+            <div class="opt-row">
+                <div class="opt" id="opt-leave" onclick="selectMethod('leave')">
+                    <div class="icon">🏠</div>
+                    <div class="body">
+                        <div class="title">Leave at the Airbnb</div>
+                        <div class="desc">Drop off with the host or at an on-site storage spot</div>
+                    </div>
+                </div>
+
+                <div class="opt" id="opt-meet" onclick="selectMethod('meet')">
+                    <div class="icon">🤝</div>
+                    <div class="body">
+                        <div class="title">Meet the driver in person</div>
+                        <div class="desc">Hand luggage directly to the driver</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meet Section (Hidden by default) -->
+        <div id="meetSection" class="meet-section">
+            <!-- Meet Location Selection -->
+            <div class="section">
+                <div class="label-row">Meet location <span class="req">*</span></div>
+
+                <div class="opt" id="loc-entrance" onclick="selectLoc('entrance')">
+                    <div class="opt-header">
+                        <div class="icon">🏠</div>
+                        <div class="body">
+                            <div class="title">Building main entrance / gate</div>
+                            <div class="desc">Main door or security gate of your building</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="opt" id="loc-parking" onclick="selectLoc('parking')">
+                    <div class="opt-header">
+                        <div class="icon">🅿️</div>
+                        <div class="body">
+                            <div class="title">Parking entrance / loading zone</div>
+                            <div class="desc">If your building has car-accessible parking</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="opt" id="loc-nearby" onclick="selectLoc('nearby')">
+                    <div class="opt-header">
+                        <div class="icon">📍</div>
+                        <div class="body">
+                            <div class="title">Nearby spot</div>
+                            <div class="desc">Cafe, subway exit, convenience store, or any place that shows up on Maps</div>
+                        </div>
+                    </div>
+                    <div class="opt-expand">
+                        <div class="expand-label">Search the meeting place</div>
+                        <div class="search-block">
+                            <input type="text" class="search-box" placeholder="e.g., Starbucks Insadong-gil, Anguk Station Exit 6">
+                        </div>
+                        <div class="helper">
+                            <span class="ic">ⓘ</span>The driver will navigate to this exact spot. If your
+                            place doesn't appear in search, please pick a nearby cafe, station exit, or
+                            convenience store.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Notes Section -->
+            <div class="section">
+                <div class="label-row">Additional notes</div>
+                <textarea class="notes-box" placeholder="Any special instructions for the driver?"></textarea>
+            </div>
+
+            <!-- Meet-up Rules -->
+            <div class="section">
+                <div class="rules">
+                    <div class="rules-title">Meet-up Rules</div>
+                    <ul>
+                        <li>Choose a meet-up time: <b>8 am, 9 am, or 10 am</b></li>
+                        <li>Be at the spot <b>10 min before</b> your time</li>
+                        <li>Driver will wait <b>up to 10 min</b></li>
+                        <li>Driver tracking opens <b>30 min before</b> your time</li>
+                        <li>If you're not there, your booking will be cancelled as a no-show and
+                        <b>50% of your payment will be refunded.</b></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leave Section (Hidden by default) -->
+        <div id="leaveSection" class="leave-section">
+            <div class="section">
+                <div class="rules">
+                    <div class="rules-title">Drop-off instructions</div>
+                    <ul>
+                        <li>Prepare your luggage for collection</li>
+                        <li>Ensure access is arranged with the host</li>
+                        <li>Confirm the drop-off location in advance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Button -->
+        <button class="next-btn">Next</button>
+
+        <!-- Floating WhatsApp Button -->
+        <div class="float-wa">💬</div>
+    </div>
+
+    <script>
+        function selectMethod(m) {
+            document.getElementById('opt-leave').classList.toggle('selected', m === 'leave');
+            document.getElementById('opt-meet').classList.toggle('selected', m === 'meet');
+            document.getElementById('meetSection').classList.toggle('show', m === 'meet');
+            document.getElementById('leaveSection').classList.toggle('show', m === 'leave');
+        }
+
+        function selectLoc(l) {
+            ['entrance','parking','nearby'].forEach(function(id) {
+                document.getElementById('loc-' + id).classList.toggle('selected', id === l);
+            });
+        }
+    </script>
+</body>
+</html>
