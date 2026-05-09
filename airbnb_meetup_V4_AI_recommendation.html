@@ -25,7 +25,6 @@
             padding-bottom: 100px;
         }
 
-        /* Header */
         .lang-bar {
             display: flex;
             align-items: center;
@@ -67,7 +66,6 @@
             border-radius: 2px;
         }
 
-        /* Progress bar */
         .progress {
             display: flex;
             gap: 6px;
@@ -81,7 +79,6 @@
         }
         .progress .seg.active { background: #512772; }
 
-        /* Page heading */
         .page-title {
             padding: 0 20px;
             font-size: 30px;
@@ -144,7 +141,6 @@
             flex-shrink: 0;
         }
 
-        /* Section labels */
         .label-row {
             font-size: 17px;
             font-weight: 900;
@@ -156,7 +152,7 @@
             margin-left: 2px;
         }
 
-        /* Top option row (handoff method) */
+        /* Handoff method top row */
         .opt-row {
             display: flex;
             gap: 10px;
@@ -175,13 +171,12 @@
             gap: 8px;
             transition: all 0.15s;
         }
+        .opt-row .opt:hover { border-color: #C0B6E8; }
         .opt-row .opt.selected {
             border: 2px solid #512772;
             background: #F5EFFB;
         }
-        .opt-row .opt .icon {
-            font-size: 30px;
-        }
+        .opt-row .opt .icon { font-size: 30px; }
         .opt-row .opt .title {
             font-size: 14px;
             font-weight: 700;
@@ -195,7 +190,18 @@
         }
         .opt-row .opt.selected .desc { color: #6B4D8E; }
 
-        /* AI banner — analyzing / done */
+        /* AI block — hidden by default */
+        .ai-block {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .ai-block.show { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* AI banner */
         .ai-banner {
             margin: 0 20px 18px;
             background: linear-gradient(135deg, #512772 0%, #6B3F8E 100%);
@@ -218,6 +224,13 @@
             font-size: 20px;
             flex-shrink: 0;
         }
+        .ai-banner.analyzing .ai-icon {
+            animation: spin 1.5s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
         .ai-banner .ai-text { flex: 1; }
         .ai-banner .ai-title {
             font-size: 13px;
@@ -233,6 +246,7 @@
             line-height: 1.35;
         }
 
+        /* Analyzing factors — light up sequentially */
         .ai-factors {
             display: flex;
             gap: 6px;
@@ -241,16 +255,46 @@
             margin-bottom: 18px;
         }
         .factor {
-            background: #F5EFFB;
-            color: #512772;
+            background: #ECECEC;
+            color: #999;
             font-size: 11.5px;
             font-weight: 700;
             padding: 5px 10px;
             border-radius: 14px;
             letter-spacing: 0.2px;
+            transition: all 0.3s ease;
+        }
+        .factor.checking {
+            background: #F5EFFB;
+            color: #512772;
+            animation: pulse 0.8s ease-in-out infinite;
+        }
+        .factor.done {
+            background: #E8F5E9;
+            color: #1F7A2A;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.97); }
         }
 
-        /* Location option cards (with AI scoring) */
+        /* Hint above the location list */
+        .pick-hint {
+            font-size: 12.5px;
+            color: #6B4D8E;
+            background: #F5EFFB;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .pick-hint b { color: #512772; font-weight: 800; }
+
+        /* Meet-location list — hidden until analysis done */
+        #meetList { display: none; }
+        #meetList.show { display: block; animation: fadeIn 0.5s ease-out; }
+
+        /* Location option cards */
         .loc-opt {
             border: 1.5px solid #E0E0E0;
             background: #FAFAFA;
@@ -261,18 +305,13 @@
             position: relative;
             transition: all 0.15s;
         }
+        .loc-opt:hover { border-color: #C0B6E8; }
         .loc-opt.selected {
             border: 2px solid #512772;
             background: #FFFFFF;
             box-shadow: 0 6px 20px rgba(81,39,114,0.12);
         }
-        .loc-opt.selected.ai-pick {
-            border: 2px solid #512772;
-            background: #FFFFFF;
-            box-shadow: 0 8px 24px rgba(81,39,114,0.18);
-        }
 
-        /* AI Recommended badge */
         .ai-badge {
             position: absolute;
             top: -10px;
@@ -289,7 +328,6 @@
             gap: 5px;
             box-shadow: 0 3px 10px rgba(81,39,114,0.35);
         }
-        .ai-badge .sparkle { font-size: 12px; }
 
         .loc-header {
             display: flex;
@@ -345,7 +383,6 @@
             border-radius: 3px;
         }
         .score-fill.high { background: linear-gradient(90deg, #512772 0%, #C8C32E 100%); }
-        .score-fill.mid { background: #B8A8D4; }
         .score-fill.low { background: #D5D5D5; }
         .score-num {
             font-size: 12px;
@@ -373,19 +410,7 @@
         .chip.warn { background: #FFF3E0; color: #B85A1F; }
         .chip.bad { background: #FFEBEE; color: #C62828; }
 
-        /* Hint above the location list */
-        .pick-hint {
-            font-size: 12.5px;
-            color: #6B4D8E;
-            background: #F5EFFB;
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-        .pick-hint b { color: #512772; font-weight: 800; }
-
-        /* AI suggestion panel — only visible when Nearby is selected */
+        /* AI suggestion panel — only when Nearby is selected */
         .ai-spot {
             display: none;
             margin-top: 14px;
@@ -445,7 +470,35 @@
             border-top: 1px dashed #E0D5EB;
         }
 
-        /* Next button */
+        /* Leave-at-Airbnb branch */
+        #leaveBlock { display: none; }
+        #leaveBlock.show { display: block; animation: fadeIn 0.4s ease-out; }
+        .rules {
+            background: #FFF5EC;
+            border: 1px solid #FFD9B8;
+            border-radius: 10px;
+            padding: 16px 18px;
+            color: #B85A1F;
+        }
+        .rules .rules-title {
+            font-weight: 900;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .rules ul { list-style: none; padding: 0; }
+        .rules li {
+            font-size: 14px;
+            line-height: 1.55;
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 4px;
+        }
+        .rules li:before {
+            content: "\2022";
+            position: absolute;
+            left: 2px;
+        }
+
         .next-btn {
             width: calc(100% - 40px);
             margin: 18px 20px 28px;
@@ -460,8 +513,8 @@
             font-family: inherit;
         }
         .next-btn:hover { background: #3c245a; }
+        .next-btn[disabled] { background: #C8B8E0; cursor: not-allowed; }
 
-        /* Floating WhatsApp */
         .float-wa {
             position: fixed;
             bottom: 90px;
@@ -482,18 +535,13 @@
 </head>
 <body>
     <div class="phone">
-        <!-- Language Bar -->
         <div class="lang-bar">🌐 English ▾</div>
 
-        <!-- Navigation -->
         <div class="nav">
-            <div class="logo">
-                <span class="good">Good</span><span class="lugg">lugg</span>
-            </div>
+            <div class="logo"><span class="good">Good</span><span class="lugg">lugg</span></div>
             <div class="menu"><span></span><span></span><span></span></div>
         </div>
 
-        <!-- Progress Bar -->
         <div class="progress">
             <div class="seg active"></div>
             <div class="seg"></div>
@@ -503,7 +551,7 @@
         <div class="page-title">Set departure</div>
         <div class="page-sub">Where will you drop off your luggage?</div>
 
-        <!-- Departure Card -->
+        <!-- Departure -->
         <div class="section">
             <div class="label-row">DEPARTURE</div>
             <div class="departure-card">
@@ -520,12 +568,12 @@
         <div class="section">
             <div class="label-row">Handoff method <span class="req">*</span></div>
             <div class="opt-row">
-                <div class="opt">
+                <div class="opt" id="m-leave" onclick="selectMethod('leave')">
                     <div class="icon">🏠</div>
                     <div class="title">Leave at the Airbnb</div>
                     <div class="desc">Drop off with the host</div>
                 </div>
-                <div class="opt selected">
+                <div class="opt" id="m-meet" onclick="selectMethod('meet')">
                     <div class="icon">🤝</div>
                     <div class="title">Meet the driver in person</div>
                     <div class="desc">Hand luggage directly</div>
@@ -533,112 +581,193 @@
             </div>
         </div>
 
-        <!-- AI Banner -->
-        <div class="ai-banner">
-            <div class="ai-icon">✨</div>
-            <div class="ai-text">
-                <div class="ai-title">Goodlugg AI · Analysis Complete</div>
-                <div class="ai-msg">We analyzed 3 candidate spots and chose the best handover point for you.</div>
+        <!-- AI block — appears when "meet" is chosen -->
+        <div class="ai-block" id="aiBlock">
+            <!-- Phase 1: Analyzing banner + factors lighting up -->
+            <div class="ai-banner analyzing" id="aiBanner">
+                <div class="ai-icon" id="aiBannerIcon">⚙️</div>
+                <div class="ai-text">
+                    <div class="ai-title" id="aiBannerTitle">Goodlugg AI · Analyzing</div>
+                    <div class="ai-msg" id="aiBannerMsg">Finding the best handover point near your stay…</div>
+                </div>
+            </div>
+
+            <div class="ai-factors" id="factors">
+                <div class="factor" data-id="f1">🚗 Vehicle stop safety</div>
+                <div class="factor" data-id="f2">🚦 Live traffic</div>
+                <div class="factor" data-id="f3">🚶 Walking access</div>
+                <div class="factor" data-id="f4">👁 Visual landmark</div>
+            </div>
+
+            <!-- Phase 2: Meet-location list (revealed after analysis) -->
+            <div class="section" id="meetList">
+                <div class="label-row">Meet location <span class="req">*</span></div>
+                <div class="pick-hint">AI scored each candidate. <b>You still pick the spot.</b></div>
+
+                <div class="loc-opt" id="loc-entrance" onclick="selectLoc('entrance')">
+                    <div class="loc-header">
+                        <div class="loc-icon">🏠</div>
+                        <div class="loc-body">
+                            <div class="loc-title">Building main entrance</div>
+                            <div class="loc-desc">Front door of Stay Ohana on 우정국로2길</div>
+                        </div>
+                    </div>
+                    <div class="reason-chips">
+                        <div class="chip bad">Narrow alley · vehicle blocked</div>
+                        <div class="chip warn">No legal stopping zone</div>
+                    </div>
+                    <div class="ai-score">
+                        <div class="score-label">AI Score</div>
+                        <div class="score-bar"><div class="score-fill low" style="width:22%"></div></div>
+                        <div class="score-num">22 / 100</div>
+                    </div>
+                </div>
+
+                <div class="loc-opt" id="loc-parking" onclick="selectLoc('parking')">
+                    <div class="loc-header">
+                        <div class="loc-icon">🅿️</div>
+                        <div class="loc-body">
+                            <div class="loc-title">Parking entrance / loading zone</div>
+                            <div class="loc-desc">Building has no dedicated parking</div>
+                        </div>
+                    </div>
+                    <div class="reason-chips">
+                        <div class="chip bad">No parking lot at this address</div>
+                    </div>
+                    <div class="ai-score">
+                        <div class="score-label">AI Score</div>
+                        <div class="score-bar"><div class="score-fill low" style="width:8%"></div></div>
+                        <div class="score-num">8 / 100</div>
+                    </div>
+                </div>
+
+                <div class="loc-opt" id="loc-nearby" onclick="selectLoc('nearby')">
+                    <div class="ai-badge">✨ AI RECOMMENDED</div>
+                    <div class="loc-header">
+                        <div class="loc-icon">📍</div>
+                        <div class="loc-body">
+                            <div class="loc-title">Nearby spot</div>
+                            <div class="loc-desc">Highly visible landmark with safe vehicle access</div>
+                        </div>
+                    </div>
+                    <div class="reason-chips">
+                        <div class="chip good">✓ Vehicle pull-over zone</div>
+                        <div class="chip good">✓ 2-min walk from your stay</div>
+                        <div class="chip good">✓ Clear visual landmark</div>
+                        <div class="chip good">✓ Low traffic 8–10 AM</div>
+                    </div>
+                    <div class="ai-score">
+                        <div class="score-label">AI Score</div>
+                        <div class="score-bar"><div class="score-fill high" style="width:94%"></div></div>
+                        <div class="score-num">94 / 100</div>
+                    </div>
+
+                    <div class="ai-spot">
+                        <div class="ai-spot-label">📍 AI-suggested handover point (you can change)</div>
+                        <input type="text" class="search-box" value="Anguk Station Exit 6" />
+                        <div class="ai-spot-meta">
+                            <span class="m">🚶 180 m · 2 min walk</span>
+                            <span class="m">🚗 Stop-allowed bay</span>
+                        </div>
+                        <div class="helper-mini">Don't like this spot? Type any cafe, station exit, or convenience store nearby.</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Factors considered -->
-        <div class="ai-factors">
-            <div class="factor">🚗 Vehicle stop safety</div>
-            <div class="factor">🚦 Live traffic</div>
-            <div class="factor">🚶 Walking access</div>
-            <div class="factor">👁 Visual landmark</div>
-        </div>
-
-        <!-- Meet location section -->
-        <div class="section">
-            <div class="label-row">Meet location <span class="req">*</span></div>
-            <div class="pick-hint">AI scored each candidate. <b>You still pick the spot.</b></div>
-
-            <!-- Option 1: Building entrance — narrow alley, low score -->
-            <div class="loc-opt" id="loc-entrance" onclick="selectLoc('entrance')">
-                <div class="loc-header">
-                    <div class="loc-icon">🏠</div>
-                    <div class="loc-body">
-                        <div class="loc-title">Building main entrance</div>
-                        <div class="loc-desc">Front door of Stay Ohana on 우정국로2길</div>
-                    </div>
-                </div>
-                <div class="reason-chips">
-                    <div class="chip bad">Narrow alley · vehicle blocked</div>
-                    <div class="chip warn">No legal stopping zone</div>
-                </div>
-                <div class="ai-score">
-                    <div class="score-label">AI Score</div>
-                    <div class="score-bar"><div class="score-fill low" style="width:22%"></div></div>
-                    <div class="score-num">22 / 100</div>
-                </div>
-            </div>
-
-            <!-- Option 2: Parking entrance — building has none -->
-            <div class="loc-opt" id="loc-parking" onclick="selectLoc('parking')">
-                <div class="loc-header">
-                    <div class="loc-icon">🅿️</div>
-                    <div class="loc-body">
-                        <div class="loc-title">Parking entrance / loading zone</div>
-                        <div class="loc-desc">Building has no dedicated parking</div>
-                    </div>
-                </div>
-                <div class="reason-chips">
-                    <div class="chip bad">No parking lot at this address</div>
-                </div>
-                <div class="ai-score">
-                    <div class="score-label">AI Score</div>
-                    <div class="score-bar"><div class="score-fill low" style="width:8%"></div></div>
-                    <div class="score-num">8 / 100</div>
-                </div>
-            </div>
-
-            <!-- Option 3: Nearby spot — AI RECOMMENDED (NOT pre-selected) -->
-            <div class="loc-opt ai-pick" id="loc-nearby" onclick="selectLoc('nearby')">
-                <div class="ai-badge"><span class="sparkle">✨</span>AI RECOMMENDED</div>
-                <div class="loc-header">
-                    <div class="loc-icon">📍</div>
-                    <div class="loc-body">
-                        <div class="loc-title">Nearby spot</div>
-                        <div class="loc-desc">Highly visible landmark with safe vehicle access</div>
-                    </div>
-                </div>
-                <div class="reason-chips">
-                    <div class="chip good">✓ Vehicle pull-over zone</div>
-                    <div class="chip good">✓ 2-min walk from your stay</div>
-                    <div class="chip good">✓ Clear visual landmark</div>
-                    <div class="chip good">✓ Low traffic 8–10 AM</div>
-                </div>
-                <div class="ai-score">
-                    <div class="score-label">AI Score</div>
-                    <div class="score-bar"><div class="score-fill high" style="width:94%"></div></div>
-                    <div class="score-num">94 / 100</div>
-                </div>
-
-                <!-- AI suggestion appears after user actively picks Nearby spot -->
-                <div class="ai-spot" id="aiSpot">
-                    <div class="ai-spot-label">📍 AI-suggested handover point (you can change)</div>
-                    <input type="text" class="search-box" value="Anguk Station Exit 6" />
-                    <div class="ai-spot-meta">
-                        <span class="m">🚶 180 m · 2 min walk</span>
-                        <span class="m">🚗 Stop-allowed bay</span>
-                    </div>
-                    <div class="helper-mini">Don't like this spot? Type any cafe, station exit, or convenience store nearby.</div>
+        <!-- Leave-at-Airbnb branch -->
+        <div id="leaveBlock">
+            <div class="section">
+                <div class="rules">
+                    <div class="rules-title">Drop-off instructions</div>
+                    <ul>
+                        <li>Prepare your luggage for collection</li>
+                        <li>Ensure access is arranged with the host</li>
+                        <li>Confirm the drop-off location in advance</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <button class="next-btn">Confirm & Next</button>
+        <button class="next-btn" id="nextBtn" disabled>Confirm & Next</button>
 
         <div class="float-wa">💬</div>
     </div>
 
     <script>
+        var aiTimers = [];
+        function clearAi() {
+            aiTimers.forEach(clearTimeout);
+            aiTimers = [];
+            document.querySelectorAll('.factor').forEach(function(f){
+                f.classList.remove('checking', 'done');
+            });
+        }
+
+        function selectMethod(m) {
+            document.getElementById('m-leave').classList.toggle('selected', m === 'leave');
+            document.getElementById('m-meet').classList.toggle('selected', m === 'meet');
+
+            if (m === 'leave') {
+                document.getElementById('aiBlock').classList.remove('show');
+                document.getElementById('leaveBlock').classList.add('show');
+                document.getElementById('meetList').classList.remove('show');
+                clearAi();
+                document.getElementById('nextBtn').disabled = false;
+                return;
+            }
+
+            // m === 'meet' → show AI block, run analysis sequence
+            document.getElementById('leaveBlock').classList.remove('show');
+            document.getElementById('aiBlock').classList.add('show');
+            document.getElementById('meetList').classList.remove('show');
+            document.getElementById('nextBtn').disabled = true;
+            clearAi();
+
+            var banner = document.getElementById('aiBanner');
+            var bannerIcon = document.getElementById('aiBannerIcon');
+            var bannerTitle = document.getElementById('aiBannerTitle');
+            var bannerMsg = document.getElementById('aiBannerMsg');
+            banner.classList.add('analyzing');
+            bannerIcon.textContent = '⚙️';
+            bannerTitle.textContent = 'Goodlugg AI · Analyzing';
+            bannerMsg.textContent = 'Finding the best handover point near your stay…';
+
+            var factors = document.querySelectorAll('.factor');
+            var msgs = [
+                'Checking vehicle stop safety…',
+                'Reading live traffic conditions…',
+                'Estimating walking access…',
+                'Confirming visual landmark…'
+            ];
+            // Sequentially light up each factor
+            factors.forEach(function(f, i){
+                aiTimers.push(setTimeout(function(){
+                    f.classList.add('checking');
+                    bannerMsg.textContent = msgs[i];
+                }, 400 + i * 700));
+                aiTimers.push(setTimeout(function(){
+                    f.classList.remove('checking');
+                    f.classList.add('done');
+                }, 400 + i * 700 + 600));
+            });
+
+            // After all factors done → reveal recommendation
+            var totalDelay = 400 + factors.length * 700 + 400;
+            aiTimers.push(setTimeout(function(){
+                banner.classList.remove('analyzing');
+                bannerIcon.textContent = '✨';
+                bannerTitle.textContent = 'Goodlugg AI · Analysis Complete';
+                bannerMsg.textContent = 'We analyzed 3 candidate spots and recommend the best one.';
+                document.getElementById('meetList').classList.add('show');
+            }, totalDelay));
+        }
+
         function selectLoc(l) {
             ['entrance','parking','nearby'].forEach(function(id) {
                 document.getElementById('loc-' + id).classList.toggle('selected', id === l);
             });
+            document.getElementById('nextBtn').disabled = false;
         }
     </script>
 </body>
