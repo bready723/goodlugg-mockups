@@ -499,7 +499,6 @@
     </div>
 
     <div class="cta-bar">
-      <div class="price" id="priceRow" style="display:none;"><span class="l">Door2Door · 2 bags</span><span class="v">₩29,700</span></div>
       <button class="cta disabled" id="cta" onclick="onCta()">Select a handoff method</button>
     </div>
   </div>
@@ -641,8 +640,7 @@
     var d = candData[chosenId];
     document.getElementById('chosenName').textContent = d.name;
     document.getElementById('chosenScore').textContent = 'AI score ' + d.score + ' / 100';
-    // Update CTA → Next + price
-    document.getElementById('priceRow').style.display = 'flex';
+    // Update CTA → Next
     var cta = document.getElementById('cta');
     cta.classList.remove('disabled');
     cta.innerHTML = 'Next <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
@@ -658,7 +656,6 @@
     document.getElementById('step4').classList.remove('show');
     document.getElementById('pageTitle').textContent = 'Where will you drop off your luggage?';
     document.getElementById('pageSub').style.display = 'none';
-    document.getElementById('priceRow').style.display = 'none';
     var cta = document.getElementById('cta');
     cta.textContent = chosenId === 'nearby' ? 'Confirm AI-recommended spot' : 'Confirm my chosen spot';
   }
