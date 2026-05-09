@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goodlugg — AI Meet-up Recommendation</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ECECEC;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone {
+            width: 100%;
+            max-width: 430px;
+            background: #FFFFFF;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 100px;
+        }
+
+        /* Header */
+        .lang-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 20px 18px;
+            position: relative;
+        }
+        .nav .logo {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .nav .logo .good { color: #512772; }
+        .nav .logo .lugg { color: #C8C32E; }
+        .nav .menu {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .nav .menu span {
+            width: 24px;
+            height: 3px;
+            background: #512772;
+            border-radius: 2px;
+        }
+
+        /* Progress bar */
+        .progress {
+            display: flex;
+            gap: 6px;
+            padding: 14px 20px 24px;
+        }
+        .progress .seg {
+            flex: 1;
+            height: 4px;
+            background: #E5E5E5;
+            border-radius: 2px;
+        }
+        .progress .seg.active { background: #512772; }
+
+        /* Page heading */
+        .page-title {
+            padding: 0 20px;
+            font-size: 30px;
+            font-weight: 900;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .page-sub {
+            padding: 0 20px;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 22px;
+        }
+
+        .section {
+            padding: 0 20px;
+            margin-bottom: 22px;
+        }
+
+        /* Departure card */
+        .departure-card {
+            border: 2px solid #8C7DD9;
+            background: #F8F7FE;
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .departure-card .label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #6B5DC7;
+            letter-spacing: 1.1px;
+            margin-bottom: 4px;
+        }
+        .departure-card .name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        .departure-card .name .pin { margin-right: 6px; }
+        .departure-card .addr {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.4;
+            padding-left: 22px;
+        }
+        .departure-card .change-btn {
+            background: #6B5DC7;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* Section labels */
+        .label-row {
+            font-size: 17px;
+            font-weight: 900;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        .label-row .req {
+            color: #FF6A3D;
+            margin-left: 2px;
+        }
+
+        /* Top option row (handoff method) */
+        .opt-row {
+            display: flex;
+            gap: 10px;
+        }
+        .opt-row .opt {
+            flex: 1;
+            border: 1.5px solid #E0E0E0;
+            background: #FAFAFA;
+            border-radius: 12px;
+            padding: 18px 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+            transition: all 0.15s;
+        }
+        .opt-row .opt.selected {
+            border: 2px solid #512772;
+            background: #F5EFFB;
+        }
+        .opt-row .opt .icon {
+            font-size: 30px;
+        }
+        .opt-row .opt .title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .opt-row .opt.selected .title { color: #512772; }
+        .opt-row .opt .desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.35;
+        }
+        .opt-row .opt.selected .desc { color: #6B4D8E; }
+
+        /* AI banner — analyzing / done */
+        .ai-banner {
+            margin: 0 20px 18px;
+            background: linear-gradient(135deg, #512772 0%, #6B3F8E 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 14px rgba(81,39,114,0.22);
+        }
+        .ai-banner .ai-icon {
+            width: 38px;
+            height: 38px;
+            background: rgba(255,255,255,0.18);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .ai-banner .ai-text { flex: 1; }
+        .ai-banner .ai-title {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: #F4E5FF;
+            margin-bottom: 3px;
+        }
+        .ai-banner .ai-msg {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .ai-factors {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+            margin-bottom: 18px;
+        }
+        .factor {
+            background: #F5EFFB;
+            color: #512772;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 14px;
+            letter-spacing: 0.2px;
+        }
+
+        /* Location option cards (with AI scoring) */
+        .loc-opt {
+            border: 1.5px solid #E0E0E0;
+            background: #FAFAFA;
+            border-radius: 12px;
+            padding: 14px 16px 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .loc-opt.selected {
+            border: 2px solid #512772;
+            background: #FFFFFF;
+            box-shadow: 0 6px 20px rgba(81,39,114,0.12);
+        }
+        .loc-opt.selected.ai-pick {
+            border: 2px solid #512772;
+            background: #FFFFFF;
+            box-shadow: 0 8px 24px rgba(81,39,114,0.18);
+        }
+
+        /* AI Recommended badge */
+        .ai-badge {
+            position: absolute;
+            top: -10px;
+            left: 14px;
+            background: linear-gradient(135deg, #512772 0%, #C8C32E 200%);
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 11px 5px 9px;
+            border-radius: 14px;
+            letter-spacing: 0.7px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 3px 10px rgba(81,39,114,0.35);
+        }
+        .ai-badge .sparkle { font-size: 12px; }
+
+        .loc-header {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-top: 6px;
+        }
+        .loc-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 2px;
+        }
+        .loc-body { flex: 1; min-width: 0; }
+        .loc-title {
+            font-size: 15.5px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 3px;
+        }
+        .loc-opt.selected .loc-title { color: #512772; }
+        .loc-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* AI score line */
+        .ai-score {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #E0D5EB;
+        }
+        .score-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #888;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+        .score-bar {
+            flex: 1;
+            height: 6px;
+            background: #ECECEC;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .score-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+        .score-fill.high { background: linear-gradient(90deg, #512772 0%, #C8C32E 100%); }
+        .score-fill.mid { background: #B8A8D4; }
+        .score-fill.low { background: #D5D5D5; }
+        .score-num {
+            font-size: 12px;
+            font-weight: 800;
+            color: #512772;
+            min-width: 36px;
+            text-align: right;
+        }
+        .loc-opt:not(.selected) .score-num { color: #888; }
+
+        /* Reasoning chips */
+        .reason-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .chip {
+            font-size: 11.5px;
+            padding: 4px 9px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .chip.good { background: #E8F5E9; color: #1F7A2A; }
+        .chip.warn { background: #FFF3E0; color: #B85A1F; }
+        .chip.bad { background: #FFEBEE; color: #C62828; }
+
+        /* AI selected spot panel (only on selected/recommended) */
+        .ai-spot {
+            margin-top: 14px;
+            padding: 12px 14px;
+            background: #F8F4FE;
+            border: 1px dashed #C8B8E0;
+            border-radius: 10px;
+        }
+        .ai-spot-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #512772;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .ai-spot-name {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        .ai-spot-meta {
+            font-size: 12.5px;
+            color: #666;
+            line-height: 1.4;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .ai-spot-meta .m {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        /* Override option */
+        .override-link {
+            text-align: center;
+            color: #6B5DC7;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Next button */
+        .next-btn {
+            width: calc(100% - 40px);
+            margin: 18px 20px 28px;
+            background: #512772;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .next-btn:hover { background: #3c245a; }
+
+        /* Floating WhatsApp */
+        .float-wa {
+            position: fixed;
+            bottom: 90px;
+            right: max(calc(50% - 215px + 16px), 16px);
+            width: 52px;
+            height: 52px;
+            background: #25D366;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            cursor: pointer;
+            color: white;
+            font-size: 26px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <!-- Language Bar -->
+        <div class="lang-bar">🌐 English ▾</div>
+
+        <!-- Navigation -->
+        <div class="nav">
+            <div class="logo">
+                <span class="good">Good</span><span class="lugg">lugg</span>
+            </div>
+            <div class="menu"><span></span><span></span><span></span></div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress">
+            <div class="seg active"></div>
+            <div class="seg"></div>
+            <div class="seg"></div>
+        </div>
+
+        <div class="page-title">Set departure</div>
+        <div class="page-sub">Where will you drop off your luggage?</div>
+
+        <!-- Departure Card -->
+        <div class="section">
+            <div class="label-row">DEPARTURE</div>
+            <div class="departure-card">
+                <div>
+                    <div class="label">CURRENT LOCATION</div>
+                    <div class="name"><span class="pin">📍</span>Stay Ohana</div>
+                    <div class="addr">3, 5F, 32 우정국로2길 종로구 서울특별시 South Korea</div>
+                </div>
+                <button class="change-btn">Change</button>
+            </div>
+        </div>
+
+        <!-- Handoff Method -->
+        <div class="section">
+            <div class="label-row">Handoff method <span class="req">*</span></div>
+            <div class="opt-row">
+                <div class="opt">
+                    <div class="icon">🏠</div>
+                    <div class="title">Leave at the Airbnb</div>
+                    <div class="desc">Drop off with the host</div>
+                </div>
+                <div class="opt selected">
+                    <div class="icon">🤝</div>
+                    <div class="title">Meet the driver in person</div>
+                    <div class="desc">Hand luggage directly</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Banner -->
+        <div class="ai-banner">
+            <div class="ai-icon">✨</div>
+            <div class="ai-text">
+                <div class="ai-title">Goodlugg AI · Analysis Complete</div>
+                <div class="ai-msg">We analyzed 3 candidate spots and chose the best handover point for you.</div>
+            </div>
+        </div>
+
+        <!-- Factors considered -->
+        <div class="ai-factors">
+            <div class="factor">🚗 Vehicle stop safety</div>
+            <div class="factor">🚦 Live traffic</div>
+            <div class="factor">🚶 Walking access</div>
+            <div class="factor">👁 Visual landmark</div>
+        </div>
+
+        <!-- Meet location section -->
+        <div class="section">
+            <div class="label-row">Meet location <span class="req">*</span></div>
+
+            <!-- Option 1: Building entrance — narrow alley, low score -->
+            <div class="loc-opt">
+                <div class="loc-header">
+                    <div class="loc-icon">🏠</div>
+                    <div class="loc-body">
+                        <div class="loc-title">Building main entrance</div>
+                        <div class="loc-desc">Front door of Stay Ohana on 우정국로2길</div>
+                    </div>
+                </div>
+                <div class="reason-chips">
+                    <div class="chip bad">Narrow alley · vehicle blocked</div>
+                    <div class="chip warn">No legal stopping zone</div>
+                </div>
+                <div class="ai-score">
+                    <div class="score-label">AI Score</div>
+                    <div class="score-bar"><div class="score-fill low" style="width:22%"></div></div>
+                    <div class="score-num">22 / 100</div>
+                </div>
+            </div>
+
+            <!-- Option 2: Parking entrance — building has none -->
+            <div class="loc-opt">
+                <div class="loc-header">
+                    <div class="loc-icon">🅿️</div>
+                    <div class="loc-body">
+                        <div class="loc-title">Parking entrance / loading zone</div>
+                        <div class="loc-desc">Building has no dedicated parking</div>
+                    </div>
+                </div>
+                <div class="reason-chips">
+                    <div class="chip bad">No parking lot at this address</div>
+                </div>
+                <div class="ai-score">
+                    <div class="score-label">AI Score</div>
+                    <div class="score-bar"><div class="score-fill low" style="width:8%"></div></div>
+                    <div class="score-num">8 / 100</div>
+                </div>
+            </div>
+
+            <!-- Option 3: Nearby spot — AI RECOMMENDED -->
+            <div class="loc-opt selected ai-pick">
+                <div class="ai-badge"><span class="sparkle">✨</span>AI RECOMMENDED</div>
+                <div class="loc-header">
+                    <div class="loc-icon">📍</div>
+                    <div class="loc-body">
+                        <div class="loc-title">Nearby spot</div>
+                        <div class="loc-desc">Highly visible landmark with safe vehicle access</div>
+                    </div>
+                </div>
+                <div class="reason-chips">
+                    <div class="chip good">✓ Vehicle pull-over zone</div>
+                    <div class="chip good">✓ 2-min walk from your stay</div>
+                    <div class="chip good">✓ Clear visual landmark</div>
+                    <div class="chip good">✓ Low traffic 8–10 AM</div>
+                </div>
+                <div class="ai-score">
+                    <div class="score-label">AI Score</div>
+                    <div class="score-bar"><div class="score-fill high" style="width:94%"></div></div>
+                    <div class="score-num">94 / 100</div>
+                </div>
+
+                <!-- AI selected exact spot -->
+                <div class="ai-spot">
+                    <div class="ai-spot-label">📍 AI-selected handover point</div>
+                    <div class="ai-spot-name">Anguk Station Exit 6</div>
+                    <div class="ai-spot-meta">
+                        <span class="m">🚶 180 m · 2 min walk</span>
+                        <span class="m">🚗 Stop-allowed bay</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="override-link">Use a different spot</div>
+        </div>
+
+        <button class="next-btn">Confirm & Next</button>
+
+        <div class="float-wa">💬</div>
+    </div>
+</body>
+</html>
