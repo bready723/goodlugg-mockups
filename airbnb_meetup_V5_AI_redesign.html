@@ -188,6 +188,36 @@
   .rules li{font:500 12.5px/1.55 var(--gl-font-ui);padding-left:14px;position:relative;}
   .rules li:before{content:"\2022";position:absolute;left:2px;}
 
+  /* Step 4 — chosen summary */
+  .step4-block{display:none;flex-direction:column;gap:12px;}
+  .step4-block.show{display:flex;animation:fadeIn .4s var(--gl-ease);}
+  .chosen{background:var(--gl-purple-600);color:#fff;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px;}
+  .chosen .top{display:flex;align-items:center;gap:10px;}
+  .chosen .check{width:32px;height:32px;border-radius:999px;background:var(--gl-lime-500);color:var(--gl-purple-800);display:flex;align-items:center;justify-content:center;font:800 16px/1 var(--gl-font-ui);flex-shrink:0;}
+  .chosen .lab{font:800 10px/1 var(--gl-font-ui);letter-spacing:.16em;text-transform:uppercase;color:var(--gl-lime-300);}
+  .chosen h3{font:700 16px/1.25 var(--gl-font-ui);margin:3px 0 0;}
+  .chosen .map{height:118px;border-radius:12px;background:linear-gradient(135deg,#3a1e56 0%,#512a72 100%);position:relative;overflow:hidden;}
+  .chosen .map svg{position:absolute;inset:0;width:100%;height:100%;}
+  .chosen .meta{display:flex;gap:8px;flex-wrap:wrap;}
+  .chosen .meta span{font:600 11px/1 var(--gl-font-ui);background:rgba(255,255,255,.1);padding:7px 10px;border-radius:999px;color:#fff;display:inline-flex;align-items:center;gap:5px;}
+  .chosen-foot{display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,.14);}
+  .chosen-foot .ai-score-text{font:500 11px/1.3 var(--gl-font-ui);color:var(--gl-lime-300);}
+  .chosen-foot .change{font:700 12px/1 var(--gl-font-ui);color:#fff;text-decoration:underline;text-underline-offset:3px;background:transparent;border:0;padding:0;cursor:pointer;font-family:inherit;}
+
+  /* Curated chip */
+  .curated{background:var(--gl-ai-bg);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
+  .curated .sp{width:26px;height:26px;border-radius:999px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .curated .lab{font:600 13px/1 var(--gl-font-ui);color:var(--gl-ink);}
+  .curated .lab b{font-weight:800;}
+  .curated .why{margin-left:auto;font:700 11px/1 var(--gl-font-ui);color:var(--gl-purple-700);text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+
+  /* Driver note */
+  .note{background:var(--gl-bg);border:1px dashed var(--gl-line);border-radius:14px;padding:12px;display:flex;gap:10px;align-items:flex-start;}
+  .note .ic{font-size:18px;line-height:1;}
+  .note .lab{font:700 12px/1.2 var(--gl-font-ui);}
+  .note .lab .opt{color:var(--gl-ink-3);font-weight:500;}
+  .note .ph{font:500 11px/1.4 var(--gl-font-ui);color:var(--gl-ink-3);margin-top:3px;}
+
   /* CTA bar */
   .cta-bar{margin-top:auto;padding:14px 22px 26px;background:#fff;border-top:1px solid var(--gl-line);flex-shrink:0;position:sticky;bottom:0;}
   .cta-bar .price{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
@@ -225,8 +255,9 @@
     </div>
 
     <div class="h-wrap">
-      <div class="crumb">Step 2 of 3 · Pickup</div>
-      <h1>Where will you drop off your luggage?</h1>
+      <div class="crumb" id="crumb">Step 2 of 3 · Pickup</div>
+      <h1 id="pageTitle">Where will you drop off your luggage?</h1>
+      <p id="pageSub" style="display:none;">Your driver will be waiting at this exact spot. We'll send a SMS with their photo &amp; plate 30 min before pickup.</p>
       <div class="progress"><i class="on"></i><i class="on"></i><i></i></div>
     </div>
 
@@ -405,8 +436,71 @@
       </div>
     </div>
 
+      <!-- Step 4 — chosen summary (hidden until confirmed) -->
+      <div class="step4-block" id="step4">
+        <div class="dep-card" style="padding:10px 14px;">
+          <div class="pin" style="width:32px;height:32px;border-radius:10px;"><svg class="ico" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="info">
+            <div class="lab">Departure · Stay</div>
+            <div class="name">Stay Ohana</div>
+          </div>
+        </div>
+        <div class="chosen">
+          <div class="top">
+            <div class="check">✓</div>
+            <div>
+              <div class="lab">Meet-up point · selected</div>
+              <h3 id="chosenName">Anguk Stn. Exit 6</h3>
+            </div>
+          </div>
+          <div class="map">
+            <svg viewBox="0 0 320 118" preserveAspectRatio="none">
+              <defs>
+                <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                  <path d="M32 0H0V32" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="320" height="118" fill="url(#grid)"/>
+              <path d="M0 80 Q 80 60 160 70 T 320 50" stroke="rgba(255,255,255,.18)" stroke-width="14" fill="none" stroke-linecap="round"/>
+              <path d="M120 0 L 140 118" stroke="rgba(255,255,255,.12)" stroke-width="8" fill="none"/>
+              <path d="M70 88 Q 110 80 145 65" stroke="#c7c22e" stroke-width="2.5" stroke-dasharray="4 4" fill="none"/>
+              <circle cx="70" cy="88" r="8" fill="#fff"/>
+              <text x="70" y="92" text-anchor="middle" font-size="9" font-weight="800" fill="#512a72">A</text>
+              <circle cx="148" cy="63" r="13" fill="#c7c22e"/>
+              <circle cx="148" cy="63" r="20" fill="none" stroke="#c7c22e" stroke-opacity=".4" stroke-width="2"/>
+              <text x="148" y="67" text-anchor="middle" font-size="11" font-weight="800" fill="#3a1e56">B</text>
+            </svg>
+          </div>
+          <div class="meta">
+            <span>🚶 180 m · 2 min</span>
+            <span>🚗 Pull-over OK</span>
+            <span>👁 Landmark</span>
+          </div>
+          <div class="chosen-foot">
+            <span class="ai-score-text" id="chosenScore">AI score 94 / 100</span>
+            <button class="change" onclick="backToCands()">Change spot</button>
+          </div>
+        </div>
+        <div class="curated">
+          <div class="sp">
+            <svg class="spark-svg" style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6L12 3z" fill="#512a72"/></svg>
+          </div>
+          <div class="lab">Curated by <b>Goodlugg AI</b></div>
+          <a class="why">Why this spot?</a>
+        </div>
+        <div class="note">
+          <div class="ic">💬</div>
+          <div>
+            <div class="lab">Note for the driver <span class="opt">(optional)</span></div>
+            <div class="ph">e.g. "I'll be in a red jacket, 2 silver suitcases."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="cta-bar">
-      <button class="cta disabled" id="cta">Select a handoff method</button>
+      <div class="price" id="priceRow" style="display:none;"><span class="l">Door2Door · 2 bags</span><span class="v">₩29,700</span></div>
+      <button class="cta disabled" id="cta" onclick="onCta()">Select a handoff method</button>
     </div>
   </div>
 </div>
@@ -502,13 +596,71 @@
     }, totalDelay));
   }
 
+  var chosenId = null;
+  var candData = {
+    entrance: { name: 'Building main entrance', score: 22 },
+    parking:  { name: 'Parking entrance / loading zone', score: 8 },
+    nearby:   { name: 'Anguk Stn. Exit 6 · GS25 corner', score: 94 }
+  };
+
   function selectCand(id) {
+    chosenId = id;
     ['entrance','parking','nearby'].forEach(function(c){
       document.getElementById('cand-' + c).classList.toggle('sel', c === id);
     });
     var cta = document.getElementById('cta');
     cta.classList.remove('disabled');
     cta.textContent = id === 'nearby' ? 'Confirm AI-recommended spot' : 'Confirm my chosen spot';
+  }
+
+  function onCta() {
+    if (document.getElementById('cta').classList.contains('disabled')) return;
+    // If a candidate was chosen → go to step 4
+    if (chosenId) {
+      goToStep4();
+      return;
+    }
+    // For "leave at airbnb" branch, just a placeholder confirm
+    alert('Confirmed (Leave at Airbnb branch)');
+  }
+
+  function goToStep4() {
+    // Hide the choosing UI
+    document.querySelector('.dep-card').style.display = 'none';
+    document.querySelectorAll('.sec-h, .methods, .ai-box-wrap, .cands-wrap, .leave-block').forEach(function(el){
+      el.style.display = 'none';
+    });
+    // Update header
+    document.getElementById('crumb').textContent = 'Step 2 of 3 · Pickup';
+    document.getElementById('pageTitle').textContent = 'Meetup Spot Map';
+    document.getElementById('pageSub').style.display = 'block';
+    // Show step 4
+    var s4 = document.getElementById('step4');
+    s4.classList.add('show');
+    // Fill in chosen data
+    var d = candData[chosenId];
+    document.getElementById('chosenName').textContent = d.name;
+    document.getElementById('chosenScore').textContent = 'AI score ' + d.score + ' / 100';
+    // Update CTA → Next + price
+    document.getElementById('priceRow').style.display = 'flex';
+    var cta = document.getElementById('cta');
+    cta.classList.remove('disabled');
+    cta.innerHTML = 'Next <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+  }
+
+  function backToCands() {
+    // Restore step 3 view
+    document.querySelector('.dep-card').style.display = '';
+    document.querySelector('.sec-h').style.display = '';
+    document.querySelector('.methods').style.display = '';
+    document.querySelector('.ai-box-wrap').style.display = '';
+    document.querySelector('.cands-wrap').style.display = '';
+    document.getElementById('step4').classList.remove('show');
+    document.getElementById('pageTitle').textContent = 'Where will you drop off your luggage?';
+    document.getElementById('pageSub').style.display = 'none';
+    document.getElementById('priceRow').style.display = 'none';
+    var cta = document.getElementById('cta');
+    cta.textContent = chosenId === 'nearby' ? 'Confirm AI-recommended spot' : 'Confirm my chosen spot';
   }
 </script>
 </body>
