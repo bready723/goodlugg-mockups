@@ -131,12 +131,12 @@
 
   /* AI Complete state */
   .ai-complete{background:var(--gl-ai-bg);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:12px;}
-  .ai-banner{background:var(--gl-purple-600);color:#fff;border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start;}
-  .ai-banner .spark{width:54px;height:54px;border-radius:999px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .ai-banner .spark svg{width:26px;height:26px;}
-  .ai-banner .lab{font:700 15px/1.25 var(--gl-font-ui);color:#fff;letter-spacing:-.005em;}
+  .ai-banner{background:transparent;color:var(--gl-ink);border-radius:0;padding:2px 2px 4px;display:flex;gap:12px;align-items:flex-start;}
+  .ai-banner .spark{width:48px;height:48px;border-radius:999px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ai-banner .spark svg{width:24px;height:24px;}
+  .ai-banner .lab{font:700 15px/1.25 var(--gl-font-ui);color:var(--gl-ink);letter-spacing:-.005em;}
   .ai-banner .lab b{font-weight:800;}
-  .ai-banner .msg{font:400 13px/1.45 var(--gl-font-ui);margin-top:6px;color:#fff;opacity:.9;}
+  .ai-banner .msg{font:400 13px/1.45 var(--gl-font-ui);margin-top:6px;color:var(--gl-ink-2);}
   .crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
   .crit{display:flex;align-items:center;gap:6px;background:var(--gl-lime-100);border:1px solid var(--gl-lime-300);padding:8px 10px;border-radius:999px;font:700 11px/1 var(--gl-font-ui);color:var(--gl-lime-900);}
   .crit .em{font-size:13px;line-height:1;}
@@ -353,7 +353,7 @@
         <div class="ai-complete" id="aiComplete" style="display:none;">
           <div class="ai-banner">
             <div class="spark">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6L12 3z" fill="#c7c22e"/><path d="M19 4l.8 2L22 7l-2.2.7L19 10l-.8-2.3L16 7l2.2-1L19 4z" fill="#c7c22e"/></svg>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6L12 3z" fill="#512a72"/><path d="M19 4l.8 2L22 7l-2.2.7L19 10l-.8-2.3L16 7l2.2-1L19 4z" fill="#512a72"/></svg>
             </div>
             <div>
               <div class="lab"><b>Goodlugg AI</b> · Analysis complete</div>
