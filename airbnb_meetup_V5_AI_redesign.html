@@ -191,25 +191,26 @@
   /* Step 4 — chosen summary */
   .step4-block{display:none;flex-direction:column;gap:12px;}
   .step4-block.show{display:flex;animation:fadeIn .4s var(--gl-ease);}
-  .chosen{background:var(--gl-purple-600);color:#fff;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px;}
-  .chosen .top{display:flex;align-items:center;gap:10px;}
-  .chosen .check{width:32px;height:32px;border-radius:999px;background:var(--gl-lime-500);color:var(--gl-purple-800);display:flex;align-items:center;justify-content:center;font:800 16px/1 var(--gl-font-ui);flex-shrink:0;}
-  .chosen .lab{font:800 10px/1 var(--gl-font-ui);letter-spacing:.16em;text-transform:uppercase;color:var(--gl-lime-300);}
-  .chosen h3{font:700 16px/1.25 var(--gl-font-ui);margin:3px 0 0;}
-  .chosen .map{height:160px;border-radius:12px;background:#eef0e8;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,.06);}
+  .chosen{background:#ece6f5;color:var(--gl-ink);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:10px;}
+  .chosen .top{display:flex;align-items:flex-start;gap:10px;}
+  .chosen .check{width:28px;height:28px;border-radius:999px;background:var(--gl-purple-600);color:#fff;display:flex;align-items:center;justify-content:center;font:800 14px/1 var(--gl-font-ui);flex-shrink:0;margin-top:2px;}
+  .chosen .lab{font:800 10px/1 var(--gl-font-ui);letter-spacing:.16em;text-transform:uppercase;color:var(--gl-purple-700);}
+  .chosen h3{font:700 16px/1.25 var(--gl-font-ui);margin:3px 0 0;color:var(--gl-ink);}
+  .chosen .sub{font:500 11px/1.4 var(--gl-font-ui);color:var(--gl-ink-3);margin-top:4px;}
+  .chosen .map{height:240px;border-radius:4px;background:#eef0e8;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,.08);}
   .chosen .map svg{position:absolute;inset:0;width:100%;height:100%;}
-  .chosen .map .zoom{position:absolute;right:8px;top:8px;display:flex;flex-direction:column;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.18);overflow:hidden;}
-  .chosen .map .zoom button{width:22px;height:22px;border:0;background:#fff;color:#444;font:600 14px/1 var(--gl-font-ui);cursor:pointer;padding:0;}
+  .chosen .map .zoom{position:absolute;right:8px;top:8px;display:flex;flex-direction:column;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.18);overflow:hidden;z-index:3;}
+  .chosen .map .zoom button{width:24px;height:24px;border:0;background:#fff;color:#444;font:600 14px/1 var(--gl-font-ui);cursor:pointer;padding:0;}
   .chosen .map .zoom button + button{border-top:1px solid #e5e5e5;}
-  .chosen .map .scale{position:absolute;right:8px;bottom:6px;font:600 9px/1 var(--gl-font-ui);color:#666;background:rgba(255,255,255,.85);padding:3px 6px;border-radius:3px;display:flex;align-items:center;gap:4px;}
+  .chosen .map .scale{position:absolute;right:8px;bottom:8px;font:600 9px/1 var(--gl-font-ui);color:#666;background:rgba(255,255,255,.85);padding:3px 6px;border-radius:3px;display:flex;align-items:center;gap:4px;z-index:3;}
   .chosen .map .scale::after{content:"";display:inline-block;width:24px;height:6px;border:1px solid #666;border-top:0;}
-  .chosen .map .attr{position:absolute;left:6px;bottom:4px;font:500 8px/1 var(--gl-font-ui);color:#888;}
-  .chosen .map .pin-marker{position:absolute;left:50%;top:48%;transform:translate(-50%,-100%);}
-  .chosen .meta{display:flex;gap:8px;flex-wrap:wrap;}
-  .chosen .meta span{font:600 11px/1 var(--gl-font-ui);background:rgba(255,255,255,.1);padding:7px 10px;border-radius:999px;color:#fff;display:inline-flex;align-items:center;gap:5px;}
-  .chosen-foot{display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,.14);}
-  .chosen-foot .ai-score-text{font:500 11px/1.3 var(--gl-font-ui);color:var(--gl-lime-300);}
-  .chosen-foot .change{font:700 12px/1 var(--gl-font-ui);color:#fff;text-decoration:underline;text-underline-offset:3px;background:transparent;border:0;padding:0;cursor:pointer;font-family:inherit;}
+  .chosen .map .attr{position:absolute;left:8px;top:8px;font:500 9px/1 var(--gl-font-ui);color:#666;background:rgba(255,255,255,.85);padding:3px 5px;border-radius:3px;z-index:3;}
+  .chosen .map .pin-marker{position:absolute;left:59%;top:53%;transform:translate(-50%,-100%);z-index:2;}
+  .chosen .map .chips{position:absolute;left:8px;bottom:34px;right:8px;display:flex;gap:5px;flex-wrap:wrap;z-index:3;}
+  .chosen .map .chips span{font:600 10px/1 var(--gl-font-ui);background:#fff;padding:6px 9px;border-radius:999px;color:#333;box-shadow:0 1px 3px rgba(0,0,0,.2);display:inline-flex;align-items:center;gap:4px;}
+  .chosen .map-hint{font:500 11px/1.4 var(--gl-font-ui);color:var(--gl-ink-3);}
+  .chosen-foot{display:flex;justify-content:flex-end;align-items:center;}
+  .chosen-foot .change{font:700 12px/1 var(--gl-font-ui);color:var(--gl-purple-700);text-decoration:underline;text-underline-offset:3px;background:transparent;border:0;padding:0;cursor:pointer;font-family:inherit;}
 
   /* Curated chip */
   .curated{background:var(--gl-ai-bg);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
@@ -457,46 +458,47 @@
             <div class="check">✓</div>
             <div>
               <div class="lab">Meet-up point · selected</div>
-              <h3 id="chosenName">Anguk Stn. Exit 6</h3>
+              <h3 id="chosenName">Anguk Stn. Exit 6 · GS25 corner</h3>
+              <div class="sub">Gwanhun-dong, Jongno District, Seoul</div>
             </div>
           </div>
           <div class="map">
-            <svg viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice">
+            <svg viewBox="0 0 320 240" preserveAspectRatio="xMidYMid slice">
               <!-- base land -->
-              <rect width="320" height="160" fill="#eef0e8"/>
-              <!-- park / green block -->
-              <path d="M-2 88 Q 30 82 60 86 L 78 110 L 40 138 L -2 132 Z" fill="#d6e3c4"/>
-              <text x="32" y="116" font-size="7" font-weight="600" fill="#5a7a3e" font-family="system-ui,sans-serif">Yeollin Songhyeon</text>
+              <rect width="320" height="240" fill="#eef0e8"/>
+              <!-- park / green block (Yeollin Songhyeon) -->
+              <path d="M-2 134 Q 32 126 64 130 L 84 168 L 42 208 L -2 200 Z" fill="#d6e3c4"/>
+              <text x="32" y="174" font-size="9" font-weight="600" fill="#5a7a3e" font-family="system-ui,sans-serif">Yeollin Songhyeon</text>
               <!-- building blocks -->
-              <rect x="86" y="32" width="44" height="34" fill="#e3e1d6" rx="2"/>
-              <rect x="138" y="22" width="36" height="28" fill="#e3e1d6" rx="2"/>
-              <rect x="182" y="20" width="50" height="36" fill="#e3e1d6" rx="2"/>
-              <rect x="240" y="26" width="58" height="42" fill="#e3e1d6" rx="2"/>
-              <rect x="92" y="118" width="48" height="38" fill="#e3e1d6" rx="2"/>
-              <rect x="160" y="112" width="52" height="44" fill="#e3e1d6" rx="2"/>
-              <rect x="222" y="120" width="62" height="40" fill="#e3e1d6" rx="2"/>
+              <rect x="86" y="48" width="44" height="40" fill="#e3e1d6" rx="2"/>
+              <rect x="138" y="36" width="36" height="34" fill="#e3e1d6" rx="2"/>
+              <rect x="182" y="34" width="50" height="44" fill="#e3e1d6" rx="2"/>
+              <rect x="240" y="42" width="58" height="48" fill="#e3e1d6" rx="2"/>
+              <rect x="92" y="178" width="48" height="48" fill="#e3e1d6" rx="2"/>
+              <rect x="160" y="172" width="52" height="56" fill="#e3e1d6" rx="2"/>
+              <rect x="222" y="184" width="62" height="50" fill="#e3e1d6" rx="2"/>
               <!-- main horizontal road (orange highlight - Yulgok-ro) -->
-              <path d="M-4 88 L 324 78" stroke="#fff" stroke-width="14" fill="none"/>
-              <path d="M-4 88 L 324 78" stroke="#ffb461" stroke-width="11" fill="none"/>
+              <path d="M-4 134 L 324 118" stroke="#fff" stroke-width="20" fill="none"/>
+              <path d="M-4 134 L 324 118" stroke="#ffb461" stroke-width="16" fill="none"/>
               <!-- vertical roads -->
-              <path d="M150 -2 L 152 162" stroke="#fff" stroke-width="9" fill="none"/>
-              <path d="M220 -2 L 224 162" stroke="#fff" stroke-width="7" fill="none"/>
+              <path d="M150 -2 L 152 242" stroke="#fff" stroke-width="11" fill="none"/>
+              <path d="M220 -2 L 224 242" stroke="#fff" stroke-width="9" fill="none"/>
               <!-- minor roads -->
-              <path d="M82 -2 L 80 162" stroke="#fff" stroke-width="5" fill="none" opacity=".85"/>
-              <path d="M-4 30 L 324 22" stroke="#fff" stroke-width="5" fill="none" opacity=".85"/>
-              <path d="M-4 130 L 324 122" stroke="#fff" stroke-width="5" fill="none" opacity=".85"/>
-              <!-- subway line indicator (Anguk Stn) -->
-              <circle cx="186" cy="83" r="5" fill="#fff" stroke="#e6863a" stroke-width="2"/>
-              <text x="186" y="98" text-anchor="middle" font-size="7" font-weight="700" fill="#3a3a3a" font-family="system-ui,sans-serif">Anguk Stn.</text>
-              <text x="186" y="106" text-anchor="middle" font-size="6" font-weight="600" fill="#888" font-family="system-ui,sans-serif">안국역</text>
+              <path d="M82 -2 L 80 242" stroke="#fff" stroke-width="6" fill="none" opacity=".85"/>
+              <path d="M-4 42 L 324 30" stroke="#fff" stroke-width="6" fill="none" opacity=".85"/>
+              <path d="M-4 196 L 324 178" stroke="#fff" stroke-width="6" fill="none" opacity=".85"/>
+              <!-- subway dot (Anguk Stn) -->
+              <circle cx="190" cy="128" r="6" fill="#fff" stroke="#e6863a" stroke-width="2.2"/>
+              <text x="190" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="#3a3a3a" font-family="system-ui,sans-serif">Anguk Stn.</text>
+              <text x="190" y="158" text-anchor="middle" font-size="8" font-weight="600" fill="#888" font-family="system-ui,sans-serif">안국역</text>
               <!-- secondary labels -->
-              <text x="58" y="60" font-size="6" font-weight="600" fill="#888" font-family="system-ui,sans-serif">Gyeongbokgung</text>
-              <text x="250" y="100" font-size="6" font-weight="600" fill="#888" font-family="system-ui,sans-serif">Insa-dong</text>
+              <text x="58" y="78" font-size="8" font-weight="600" fill="#888" font-family="system-ui,sans-serif">Gyeongbokgung</text>
+              <text x="252" y="156" font-size="8" font-weight="600" fill="#888" font-family="system-ui,sans-serif">Insa-dong</text>
               <!-- A origin marker -->
-              <circle cx="92" cy="92" r="7" fill="#fff" stroke="#512a72" stroke-width="2"/>
-              <text x="92" y="95" text-anchor="middle" font-size="8" font-weight="800" fill="#512a72" font-family="system-ui,sans-serif">A</text>
-              <!-- walking dashed path -->
-              <path d="M99 90 Q 130 86 158 80" stroke="#512a72" stroke-width="1.8" stroke-dasharray="3 3" fill="none" opacity=".7"/>
+              <circle cx="96" cy="146" r="9" fill="#fff" stroke="#512a72" stroke-width="2.2"/>
+              <text x="96" y="150" text-anchor="middle" font-size="10" font-weight="800" fill="#512a72" font-family="system-ui,sans-serif">A</text>
+              <!-- walking dashed path A → meetup -->
+              <path d="M104 142 Q 140 130 178 118" stroke="#512a72" stroke-width="2.2" stroke-dasharray="4 3" fill="none" opacity=".75"/>
             </svg>
             <!-- purple teardrop pin (HTML element on top of SVG) -->
             <div class="pin-marker">
@@ -508,14 +510,14 @@
             <div class="zoom"><button>+</button><button>−</button></div>
             <div class="scale">100m</div>
             <div class="attr">© NAVER</div>
+            <div class="chips">
+              <span>🚶 180 m · 2 min</span>
+              <span>🚗 Pull-over OK</span>
+              <span>👁 Landmark</span>
+            </div>
           </div>
-          <div class="meta">
-            <span>🚶 180 m · 2 min</span>
-            <span>🚗 Pull-over OK</span>
-            <span>👁 Landmark</span>
-          </div>
+          <div class="map-hint">Move the map to set the exact meeting spot.</div>
           <div class="chosen-foot">
-            <span class="ai-score-text" id="chosenScore">AI score 94 / 100</span>
             <button class="change" onclick="backToCands()">Change spot</button>
           </div>
         </div>
@@ -677,7 +679,6 @@
     // Fill in chosen data
     var d = candData[chosenId];
     document.getElementById('chosenName').textContent = d.name;
-    document.getElementById('chosenScore').textContent = 'AI score ' + d.score + ' / 100';
     // Update CTA → Next
     var cta = document.getElementById('cta');
     cta.classList.remove('disabled');
