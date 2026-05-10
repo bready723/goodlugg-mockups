@@ -494,11 +494,10 @@
               <!-- secondary labels -->
               <text x="58" y="78" font-size="8" font-weight="600" fill="#888" font-family="system-ui,sans-serif">Gyeongbokgung</text>
               <text x="252" y="156" font-size="8" font-weight="600" fill="#888" font-family="system-ui,sans-serif">Insa-dong</text>
-              <!-- A origin marker -->
-              <circle cx="96" cy="146" r="9" fill="#fff" stroke="#512a72" stroke-width="2.2"/>
-              <text x="96" y="150" text-anchor="middle" font-size="10" font-weight="800" fill="#512a72" font-family="system-ui,sans-serif">A</text>
-              <!-- walking dashed path A → meetup -->
-              <path d="M104 142 Q 140 130 178 118" stroke="#512a72" stroke-width="2.2" stroke-dasharray="4 3" fill="none" opacity=".75"/>
+              <!-- route along streets: A (south of main road) → up to main road → east to meetup -->
+              <path d="M96 146 L 96 132 L 188 124" stroke="#512a72" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <!-- Airbnb (A) origin: red dot -->
+              <circle cx="96" cy="146" r="6.5" fill="#e74c3c" stroke="#fff" stroke-width="2.2"/>
             </svg>
             <!-- purple teardrop pin (HTML element on top of SVG) -->
             <div class="pin-marker">
