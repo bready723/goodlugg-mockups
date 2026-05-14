@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-pack check popup — Original vs V8 (page-by-page)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  --accent: #512B74;
+  --accent-dark: #431A61;
+  --accent-soft: #f6f1fa;
+  --text: #252424;
+  --gray-bg: #F5F4F4;
+  --gray-border: #E5E4E4;
+  --gray-text: #666666;
+  --gray-light: #888888;
+  --white: #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--gray-bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 48px 24px 96px; }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 36px;
+  gap: 16px;
+}
+.title-group h1 { font-size: 26px; font-weight: 800; color: var(--accent); letter-spacing: -0.02em; }
+.title-group .sub { font-size: 13px; color: var(--gray-text); margin-top: 6px; line-height: 1.5; }
+.confidential {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-dark); border: 1px solid var(--accent-dark);
+  padding: 4px 10px; border-radius: 2px; white-space: nowrap;
+}
+
+/* Column-header strip (sticky) */
+.col-strip {
+  position: sticky; top: 0; z-index: 10;
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr;
+  gap: 24px;
+  padding: 14px 8px;
+  background: var(--gray-bg);
+  border-bottom: 1px solid var(--gray-border);
+  margin-bottom: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.col-strip .label.original { color: var(--gray-light); text-align: center; }
+.col-strip .label.v8       { color: var(--accent); text-align: center; }
+.col-strip .label.v8 .badge {
+  display: inline-block; margin-left: 6px;
+  font-size: 9px; padding: 2px 6px; border-radius: 2px;
+  background: var(--accent); color: #fff; vertical-align: middle;
+  letter-spacing: 0.04em;
+}
+
+/* Per-step row */
+.compare-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 56px;
+}
+.step-marker {
+  position: sticky; top: 64px;
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 12px;
+}
+.step-marker .num {
+  font-size: 22px; font-weight: 800; color: var(--accent);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  letter-spacing: -0.02em;
+}
+.step-marker .step-label {
+  font-size: 10px; font-weight: 700; color: var(--gray-light);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-top: 8px; writing-mode: vertical-rl; transform: rotate(180deg);
+}
+
+.frame-cell {
+  display: flex; justify-content: center;
+}
+.frame-cell iframe {
+  border: none;
+  width: 460px;
+  height: 900px;
+  background: transparent;
+  border-radius: 12px;
+  /* subtle drop so the phone doesn't float in nothing */
+  filter: drop-shadow(0 6px 18px rgba(50,25,80,0.10));
+}
+
+/* Notes column under the V8 frame */
+.notes {
+  grid-column: 3 / 4;
+  margin-top: -28px;
+  padding: 16px 18px;
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.55;
+  max-width: 460px;
+  justify-self: center;
+}
+.notes b { color: var(--accent-dark); font-weight: 700; }
+.notes ul { margin: 6px 0 0 18px; }
+.notes li { margin-bottom: 3px; }
+
+footer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--gray-border);
+  font-size: 11px;
+  color: var(--gray-light);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="title-group">
+      <h1>Pre-pack check popup · Original vs V8</h1>
+      <div class="sub">
+        Page-by-page comparison · D2D Jeju air freight restricted-items popup<br>
+        <b>Original:</b> teammate's first build &nbsp;·&nbsp; <b>V8:</b> Goodlugg design system, Lucide icons, simplified consent
+      </div>
+    </div>
+    <div class="confidential">Internal · 2026-05-13</div>
+  </header>
+
+  <div class="col-strip">
+    <div></div>
+    <div class="label original">Original (teammate)</div>
+    <div class="label v8">V8 <span class="badge">NEW</span></div>
+  </div>
+
+  <!-- ===================== STEP 1 ===================== -->
+  <div class="compare-row">
+    <div class="step-marker"><div class="num">1</div><div class="step-label">Why air cargo</div></div>
+    <div class="frame-cell"><iframe data-step="1" data-src="original" src="luggage-check-popup.html"></iframe></div>
+    <div class="frame-cell"><iframe data-step="1" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
+    <div class="notes">
+      <b>What changed</b>
+      <ul>
+        <li>Original: side-by-side "checked baggage vs cargo" comparison block (CEO didn't like this — implies our service is worse than airline check-in)</li>
+        <li>V8: one clear yellow caution triangle + single-sentence "banned in air cargo" message in soft purple panel</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== STEP 2 ===================== -->
+  <div class="compare-row">
+    <div class="step-marker"><div class="num">2</div><div class="step-label">Liquids</div></div>
+    <div class="frame-cell"><iframe data-step="2" data-src="original" src="luggage-check-popup.html"></iframe></div>
+    <div class="frame-cell"><iframe data-step="2" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
+    <div class="notes">
+      <b>What changed</b>
+      <ul>
+        <li>Pulled <b>warning</b> ("All liquids opened — don't lock") to a yellow alert at top, ahead of the lists</li>
+        <li>"Banned" pills dropped — item names are now bold (weight 600), the red "Don't pack these" header carries the signal</li>
+        <li>"These are fine — bag still opened" → <b>"Pack freely (bag will still be opened at the desk)"</b> — clearer, more reassuring</li>
+        <li>Goodlugg purple/gold tokens, Pretendard typography</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== STEP 3 ===================== -->
+  <div class="compare-row">
+    <div class="step-marker"><div class="num">3</div><div class="step-label">Lithium</div></div>
+    <div class="frame-cell"><iframe data-step="3" data-src="original" src="luggage-check-popup.html"></iframe></div>
+    <div class="frame-cell"><iframe data-step="3" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
+    <div class="notes">
+      <b>What changed</b>
+      <ul>
+        <li>Banned list expanded with commonly-missed items (wireless earbuds, smartwatch, hair dryer, digital thermometer)</li>
+        <li>Yellow "Conditional" pill kept on the one row that earns it: pop-out battery devices</li>
+        <li>"The rule" yellow alert removed — list label "Don't pack these — built-in lithium battery" already says it</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== STEP 4 ===================== -->
+  <div class="compare-row">
+    <div class="step-marker"><div class="num">4</div><div class="step-label">Other items</div></div>
+    <div class="frame-cell"><iframe data-step="4" data-src="original" src="luggage-check-popup.html"></iframe></div>
+    <div class="frame-cell"><iframe data-step="4" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
+    <div class="notes">
+      <b>What changed</b>
+      <ul>
+        <li>Hand-drawn SVGs replaced with <b>Lucide icons</b> (laptop, spray-can, flame, ellipsis) — proper icon system</li>
+        <li>Red emphasis on commonly-missed items inline (Laptop, phone, Nail polish, heat packs, Lighters, Bluetooth speakers)</li>
+        <li>"Heat packs — easy to forget" warning callout at bottom (winter coat pockets, gym bags, gift sets)</li>
+        <li>"Other" → "Others"</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== STEP 5 ===================== -->
+  <div class="compare-row">
+    <div class="step-marker"><div class="num">5</div><div class="step-label">Confirm</div></div>
+    <div class="frame-cell"><iframe data-step="5" data-src="original" src="luggage-check-popup.html"></iframe></div>
+    <div class="frame-cell"><iframe data-step="5" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
+    <div class="notes">
+      <b>What changed</b>
+      <ul>
+        <li>Summary card uses purple-tinted category cells with Lucide icons (droplet / battery / ellipsis)</li>
+        <li>Red highlight pared back to <b>one item per category row</b> (Toner, wireless earbuds, heat packs) — emphasis only where it earns its keep</li>
+        <li>Consent: <b>3 checkboxes → 2</b> (legal "disposed of" line folded into the first)</li>
+        <li>Submit appends "Have a Goodlugg! ✷" — brand sign-off</li>
+        <li>X-button now wired to a "Leave the check?" confirmation</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    Generated 2026-05-13 · sources at <code>AirCargoRestriction/luggage-check-popup.html</code> and <code>AirCargoRestriction/luggage-check-popup-v8.html</code>
+  </footer>
+
+</div>
+
+<script>
+  /* ── Drive each iframe to its target step after load ────────
+     Original popup: window.next('en') is exposed (inline onclick handlers)
+     V8 popup: click [data-next] button (closure-scoped go() called by handler)
+     Both files have a Korean column? Original yes, V8 no — hide Korean in original. */
+
+  function advanceTo(iframe, target) {
+    const doc = iframe.contentDocument;
+    const win = iframe.contentWindow;
+    const src = iframe.dataset.src;
+
+    if (src === 'original') {
+      // Hide Korean column so only English phone shows
+      const style = doc.createElement('style');
+      style.textContent = 'body > div:first-of-type { display: none !important; } body { justify-content: center !important; }';
+      doc.head.appendChild(style);
+
+      // Step English column to target
+      try {
+        for (let i = 1; i < target; i++) win.next('en');
+      } catch (e) { console.warn('original step advance failed', e); }
+    }
+    else if (src === 'v8') {
+      // V8 has only English column; just click Next (target - 1) times
+      const nextBtn = doc.querySelector('[data-next]');
+      if (!nextBtn) return;
+      for (let i = 1; i < target; i++) nextBtn.click();
+
+      // For step 5, V8 disables Continue Booking until both checkboxes are checked.
+      // Pre-check them so Sara can see the "active" state of the CTA in the comparison.
+      if (target === 5) {
+        doc.querySelectorAll('.check-row').forEach(r => r.click());
+      }
+    }
+  }
+
+  document.querySelectorAll('iframe[data-step]').forEach(iframe => {
+    iframe.addEventListener('load', () => {
+      const target = Number(iframe.dataset.step);
+      // Small delay so the iframe's own initial render() has run
+      setTimeout(() => advanceTo(iframe, target), 80);
+    });
+  });
+</script>
+
+</body>
+</html>

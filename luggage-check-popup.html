@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>짐 싸기 전 확인 - 굿럭</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: #e0e0e0;
+    min-height: 100vh;
+    color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .phone {
+    width: 375px;
+    height: 780px;
+    background: #888;
+    border-radius: 40px;
+    padding: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.45);
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .phone-label {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+
+  .popup {
+    width: 100%;
+    max-height: 88%;
+    background: #fff;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease-out;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .popup-handle { text-align: center; padding: 10px 0 0; flex-shrink: 0; }
+  .popup-handle span { display: inline-block; width: 36px; height: 4px; background: #ddd; border-radius: 2px; }
+
+  .popup-header { padding: 16px 20px 0; flex-shrink: 0; }
+  .popup-header h1 { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 5px; }
+  .popup-header .subtitle { font-size: 12px; color: #888; line-height: 1.5; }
+
+  .progress-bar { display: flex; align-items: center; gap: 4px; padding: 14px 20px 0; flex-shrink: 0; }
+  .progress-dot { flex: 1; height: 3px; border-radius: 1.5px; background: #eee; transition: background 0.3s; }
+  .progress-dot.active { background: #222; }
+  .progress-dot.done { background: #222; }
+  .step-label { font-size: 10px; color: #aaa; font-weight: 600; flex-shrink: 0; margin-left: 6px; }
+
+  .header-divider { height: 1px; background: #f0f0f0; margin: 14px 0 0; }
+
+  .step-content { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .step { display: none; padding: 20px; animation: fadeIn 0.2s ease-out; }
+  .step.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-header { margin-bottom: 16px; }
+  .step-num { font-size: 10px; font-weight: 700; color: #bbb; letter-spacing: 0.5px; margin-bottom: 5px; }
+  .step-header h2 { font-size: 15px; font-weight: 800; color: #111; line-height: 1.4; }
+  .step-reason { font-size: 12px; color: #999; line-height: 1.5; margin-top: 5px; }
+
+  .divider { height: 1px; background: #f0f0f0; margin: 16px 0; }
+
+  .tip-box { background: #F8F8F6; border-radius: 8px; padding: 10px 12px; font-size: 11px; color: #555; line-height: 1.6; }
+  .tip-box strong { color: #333; }
+
+  /* Intro step: compare box */
+  .compare-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .compare-card {
+    flex: 1;
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+  }
+  .compare-card.gray { background: #F5F5F5; }
+  .compare-card.highlight { background: #FFF3F3; border: 1.5px solid #E0B4B4; }
+  .compare-card-icon { font-size: 24px; margin-bottom: 6px; }
+  .compare-card-title { font-size: 12px; font-weight: 700; color: #333; margin-bottom: 4px; }
+  .compare-card-desc { font-size: 10px; color: #999; line-height: 1.4; }
+  .compare-card.highlight .compare-card-title { color: #C62828; }
+  .compare-card.highlight .compare-card-desc { color: #C62828; }
+
+  .intro-preview-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #aaa;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+  }
+  .intro-preview-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .intro-preview-row:last-child { border-bottom: none; }
+  .intro-preview-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #C62828;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .intro-preview-text {
+    font-size: 12px;
+    color: #555;
+    flex: 1;
+  }
+
+  /* Item lists */
+  .list-label { font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+  .list-label.red { color: #C62828; }
+  .list-label.green { color: #2E7D32; }
+
+  .item-list { margin-bottom: 16px; }
+  .item-row { display: flex; align-items: center; padding: 7px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
+  .item-row:last-child { border-bottom: none; }
+  .item-dot { width: 5px; height: 5px; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
+  .item-dot.red { background: #C62828; }
+  .item-dot.green { background: #2E7D32; }
+  .item-label { flex: 1; color: #333; }
+  .item-tag { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; }
+  .item-tag.red { background: #FFEBEE; color: #C62828; }
+  .item-tag.yellow { background: #FFF8E1; color: #E65100; }
+  .item-tag.green { background: #E8F5E9; color: #2E7D32; }
+  .item-dot.yellow { background: #F9A825; }
+  .list-label.yellow { color: #E65100; }
+
+  /* Other items */
+  .other-row { display: flex; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
+  .other-row:last-child { border-bottom: none; }
+  .other-row-icon { font-size: 15px; margin-right: 10px; margin-top: 1px; flex-shrink: 0; }
+  .other-row-info { flex: 1; }
+  .other-row-info h4 { font-size: 12px; font-weight: 700; color: #333; margin-bottom: 2px; }
+  .other-row-info p { font-size: 11px; color: #999; line-height: 1.4; }
+
+  /* Summary */
+  .summary-group { margin-bottom: 14px; }
+  .summary-group-title { font-size: 11px; font-weight: 700; color: #999; margin-bottom: 7px; }
+  .summary-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .s-tag { font-size: 11px; padding: 5px 10px; border-radius: 20px; background: #F5F5F5; color: #333; font-weight: 500; }
+
+  .warning-strip { background: #FFF8E1; border-radius: 8px; padding: 12px 14px; margin-top: 4px; margin-bottom: 4px; }
+  .warning-strip p { font-size: 11px; color: #777; line-height: 1.7; padding-left: 8px; position: relative; }
+  .warning-strip p::before { content: '·'; position: absolute; left: 0; font-weight: 700; }
+  .warning-strip p + p { margin-top: 2px; }
+
+  /* Footer */
+  .popup-footer { flex-shrink: 0; padding: 12px 20px 24px; background: #fff; border-top: 1px solid #f0f0f0; }
+  .footer-buttons { display: flex; gap: 8px; }
+  .btn-back { padding: 12px 14px; background: #F5F5F5; color: #777; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0; }
+  .btn-back:active { background: #eee; }
+  .btn-next { flex: 1; padding: 12px; background: #111; color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .btn-next:active { background: #333; }
+  .btn-next:disabled { background: #ddd; color: #aaa; cursor: not-allowed; }
+
+  .confirm-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px; }
+  .custom-check { width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; margin-top: 1px; transition: all 0.15s; background: #fff; }
+  .custom-check.checked { background: #111; border-color: #111; }
+  .custom-check.checked::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
+  .confirm-row label { font-size: 12px; color: #555; line-height: 1.5; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- ==================== 한국어 ==================== -->
+<div>
+  <div class="phone-label">한국어</div>
+  <div class="phone">
+    <div class="phone-screen">
+      <div class="popup">
+        <div class="popup-handle"><span></span></div>
+        <div class="popup-header">
+          <h1>이것만 빼주세요</h1>
+          <p class="subtitle">넣으시면 안 되는 물품이 있습니다. 짐 싸기 전에 꼭 확인해주세요.</p>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-dot active" id="ko-dot-1"></div>
+          <div class="progress-dot" id="ko-dot-2"></div>
+          <div class="progress-dot" id="ko-dot-3"></div>
+          <div class="progress-dot" id="ko-dot-4"></div>
+          <div class="progress-dot" id="ko-dot-5"></div>
+          <span class="step-label" id="ko-stepLabel">1 / 5</span>
+        </div>
+        <div class="header-divider"></div>
+
+        <div class="step-content" id="ko-stepContent">
+
+          <!-- STEP 1: 왜 다른지 -->
+          <div class="step active" id="ko-step-1">
+            <div class="step-header">
+              <div class="step-num">STEP 1</div>
+              <h2>일반 수하물이 아니에요</h2>
+              <p class="step-reason">굿럭 짐배송은 비행기에 직접 부치는 게 아니라, 항공화물로 따로 보내는 거예요.</p>
+            </div>
+
+            <div class="compare-box">
+              <div class="compare-card gray">
+                <div class="compare-card-icon">🧳</div>
+                <div class="compare-card-title">위탁수하물</div>
+                <div class="compare-card-desc">공항에서 직접 부치는 짐<br>규정이 비교적 넓음</div>
+              </div>
+              <div class="compare-card highlight">
+                <div class="compare-card-icon">📦</div>
+                <div class="compare-card-title">항공화물 (굿럭)</div>
+                <div class="compare-card-desc">화물칸으로 따로 운송<br>규정이 더 까다로움</div>
+              </div>
+            </div>
+
+            <div class="tip-box" style="margin-bottom:16px;">
+              <strong>왜 더 까다로울까?</strong> 항공화물은 사람이 동반하지 않아서, 문제 발생 시 대응이 어렵기 때문에 더 엄격한 기준이 적용돼요.
+            </div>
+
+            <div class="intro-preview-label">그래서 이런 것들이 안 돼요</div>
+            <div class="intro-preview-row"><div class="intro-preview-dot"></div><span class="intro-preview-text">알콜 농도 높은 화장품 (스킨, 향수, 스프레이)</span></div>
+            <div class="intro-preview-row"><div class="intro-preview-dot"></div><span class="intro-preview-text">리튬배터리가 들어간 제품 (보조배터리, 이어폰 등)</span></div>
+            <div class="intro-preview-row"><div class="intro-preview-dot"></div><span class="intro-preview-text">전자기기, 화재 위험 물품 등</span></div>
+          </div>
+
+          <!-- STEP 2: 화장품 -->
+          <div class="step" id="ko-step-2">
+            <div class="step-header">
+              <div class="step-num">STEP 2</div>
+              <h2>스킨·향수는 넣을 수 없어요</h2>
+              <p class="step-reason">알콜 농도가 높아서 항공 규정상 위험물로 분류돼요.</p>
+            </div>
+            <div class="list-label red">넣으면 안 돼요</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">스킨, 토너</span><span class="item-tag red">불가</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">향수</span><span class="item-tag red">불가</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">손소독제</span><span class="item-tag red">불가</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">모든 스프레이류</span><span class="item-tag red">불가</span></div>
+            </div>
+            <div class="list-label green">이건 넣어도 돼요 (개봉검사 진행)</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot green"></div><span class="item-label">로션, 크림</span><span class="item-tag green">가능</span></div>
+              <div class="item-row"><div class="item-dot green"></div><span class="item-label">에센스, 선크림</span><span class="item-tag green">가능</span></div>
+              <div class="item-row"><div class="item-dot green"></div><span class="item-label">샴푸·바디워시</span><span class="item-tag green">가능</span></div>
+            </div>
+            <div class="tip-box" style="margin-bottom:10px;">
+              <strong>잘 모르겠다면?</strong> 물처럼 흐르면 빼주세요. 크림처럼 걸쭉하면 OK.
+            </div>
+            <div class="tip-box">
+              <strong>참고</strong> — 액체류는 종류에 관계없이 모두 개봉검사를 진행해요. 짐을 잠그지 말아주세요.
+            </div>
+          </div>
+
+          <!-- STEP 3: 리튬배터리 -->
+          <div class="step" id="ko-step-3">
+            <div class="step-header">
+              <div class="step-num">STEP 3</div>
+              <h2>리튬배터리가 들어간 건 안 돼요</h2>
+              <p class="step-reason">항공화물에 리튬배터리는 운송이 금지되어 있어요.</p>
+            </div>
+            <div class="list-label red">넣으면 안 돼요 (내장 리튬배터리)</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">보조배터리</span><span class="item-tag red">불가</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">골프용 거리측정기</span><span class="item-tag red">불가</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">셀카봉</span><span class="item-tag red">불가</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">무선 이어폰</span><span class="item-tag red">불가</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">스마트워치</span><span class="item-tag red">불가</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">헤어드라이기</span><span class="item-tag red">불가</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">체온계</span><span class="item-tag red">불가</span></div>
+            </div>
+            <div class="list-label yellow">배터리 빼면 넣을 수 있어요</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot yellow"></div><span class="item-label">분리형 배터리 제품</span><span class="item-tag yellow">조건부</span></div>
+            </div>
+            <div class="list-label green">괜찮아요</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot green"></div><span class="item-label">일반 건전지 (AA/AAA)</span><span class="item-tag green">가능</span></div>
+            </div>
+          </div>
+
+          <!-- STEP 4: 기타 -->
+          <div class="step" id="ko-step-4">
+            <div class="step-header">
+              <div class="step-num">STEP 4</div>
+              <h2>이런 것도 안 돼요</h2>
+            </div>
+            <div class="other-row"><span class="other-row-icon">🔌</span><div class="other-row-info"><h4>전자기기류</h4><p>노트북, 태블릿, 휴대폰, 전기면도기, 고데기 등</p></div></div>
+            <div class="other-row"><span class="other-row-icon">🧴</span><div class="other-row-info"><h4>생활용품</h4><p>매니큐어 및 리무버, 염색약, 파마약, 잉크, 핫팩</p></div></div>
+            <div class="other-row"><span class="other-row-icon">🔥</span><div class="other-row-info"><h4>화재 가능 물품</h4><p>라이터, 전자담배, 캠핑용 스토브, 성냥</p></div></div>
+            <div class="other-row"><span class="other-row-icon">📦</span><div class="other-row-info"><h4>기타</h4><p>살충제, 디퓨져, 블루투스 마이크</p></div></div>
+          </div>
+
+          <!-- STEP 5: 최종 확인 -->
+          <div class="step" id="ko-step-5">
+            <div class="step-header">
+              <div class="step-num">마지막 확인</div>
+              <h2>다시 한번, 이건 빼셨죠?</h2>
+              <p class="step-reason">해당 물품이 없는지 확인해주세요.</p>
+            </div>
+            <div class="summary-group">
+              <div class="summary-group-title">화장품·액체류</div>
+              <div class="summary-tags">
+                <span class="s-tag">스킨·토너</span><span class="s-tag">향수</span><span class="s-tag">손소독제</span><span class="s-tag">스프레이류</span>
+              </div>
+            </div>
+            <div class="summary-group">
+              <div class="summary-group-title">리튬배터리 제품</div>
+              <div class="summary-tags">
+                <span class="s-tag">보조배터리</span><span class="s-tag">거리측정기</span><span class="s-tag">셀카봉</span><span class="s-tag">무선 이어폰</span><span class="s-tag">스마트워치</span><span class="s-tag">헤어드라이기</span><span class="s-tag">체온계</span>
+              </div>
+            </div>
+            <div class="summary-group">
+              <div class="summary-group-title">전자기기·기타</div>
+              <div class="summary-tags">
+                <span class="s-tag">노트북·태블릿·휴대폰</span><span class="s-tag">라이터·전자담배</span><span class="s-tag">매니큐어·리무버</span><span class="s-tag">염색약·파마약</span><span class="s-tag">핫팩</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="popup-footer">
+          <div class="footer-buttons" id="ko-navButtons">
+            <button class="btn-back" id="ko-btnBack" onclick="prev('ko')" style="display:none;">이전</button>
+            <button class="btn-next" id="ko-btnNext" onclick="next('ko')">네, 이해했어요</button>
+          </div>
+          <div id="ko-confirmArea" style="display:none;">
+            <div class="confirm-row">
+              <div class="custom-check" id="ko-check-1" onclick="toggleMulti('ko',1)"></div>
+              <label onclick="toggleMulti('ko',1)">위 안내를 확인했으며, 짐에 해당 물품이 없음을 확인합니다</label>
+            </div>
+            <div class="confirm-row">
+              <div class="custom-check" id="ko-check-2" onclick="toggleMulti('ko',2)"></div>
+              <label onclick="toggleMulti('ko',2)">금지물품 발견 시 폐기에 동의합니다</label>
+            </div>
+            <div class="confirm-row">
+              <div class="custom-check" id="ko-check-3" onclick="toggleMulti('ko',3)"></div>
+              <label onclick="toggleMulti('ko',3)">개봉검사를 위해 짐을 잠그지 않겠습니다</label>
+            </div>
+            <button class="btn-next" id="ko-ctaBtn" disabled onclick="submit('ko')">확인했어요, 예약 계속하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== English ==================== -->
+<div>
+  <div class="phone-label">English</div>
+  <div class="phone">
+    <div class="phone-screen">
+      <div class="popup">
+        <div class="popup-handle"><span></span></div>
+        <div class="popup-header">
+          <h1>Leave these out</h1>
+          <p class="subtitle">Some items can't go in your luggage. Please check before you pack.</p>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-dot active" id="en-dot-1"></div>
+          <div class="progress-dot" id="en-dot-2"></div>
+          <div class="progress-dot" id="en-dot-3"></div>
+          <div class="progress-dot" id="en-dot-4"></div>
+          <div class="progress-dot" id="en-dot-5"></div>
+          <span class="step-label" id="en-stepLabel">1 / 5</span>
+        </div>
+        <div class="header-divider"></div>
+
+        <div class="step-content" id="en-stepContent">
+
+          <!-- STEP 1: Why it's different -->
+          <div class="step active" id="en-step-1">
+            <div class="step-header">
+              <div class="step-num">STEP 1</div>
+              <h2>This isn't regular checked baggage</h2>
+              <p class="step-reason">GoodLugg ships your bags as air cargo — not at the check-in counter, but through a separate freight channel.</p>
+            </div>
+
+            <div class="compare-box">
+              <div class="compare-card gray">
+                <div class="compare-card-icon">🧳</div>
+                <div class="compare-card-title">Checked baggage</div>
+                <div class="compare-card-desc">You hand it over at the airport<br>More lenient rules</div>
+              </div>
+              <div class="compare-card highlight">
+                <div class="compare-card-icon">📦</div>
+                <div class="compare-card-title">Air cargo (GoodLugg)</div>
+                <div class="compare-card-desc">Shipped separately as freight<br>Stricter regulations</div>
+              </div>
+            </div>
+
+            <div class="tip-box" style="margin-bottom:16px;">
+              <strong>Why stricter?</strong> Air cargo travels without a passenger. If something goes wrong, there's no one on board to respond — so the rules are tighter.
+            </div>
+
+            <div class="intro-preview-label">Here's what can't go in</div>
+            <div class="intro-preview-row"><div class="intro-preview-dot"></div><span class="intro-preview-text">High-alcohol cosmetics (toner, perfume, sprays)</span></div>
+            <div class="intro-preview-row"><div class="intro-preview-dot"></div><span class="intro-preview-text">Anything with a lithium battery (power banks, earbuds, etc.)</span></div>
+            <div class="intro-preview-row"><div class="intro-preview-dot"></div><span class="intro-preview-text">Electronics, fire hazards, and more</span></div>
+          </div>
+
+          <!-- STEP 2: Cosmetics -->
+          <div class="step" id="en-step-2">
+            <div class="step-header">
+              <div class="step-num">STEP 2</div>
+              <h2>No toners, perfumes, or sprays</h2>
+              <p class="step-reason">They're high in alcohol, which makes them hazardous for air cargo.</p>
+            </div>
+            <div class="list-label red">Can't go in your bag</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Skin toner</span><span class="item-tag red">No</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Perfume, cologne</span><span class="item-tag red">No</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Hand sanitizer</span><span class="item-tag red">No</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Any spray</span><span class="item-tag red">No</span></div>
+            </div>
+            <div class="list-label green">These are fine (will be opened for inspection)</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot green"></div><span class="item-label">Lotion, cream</span><span class="item-tag green">OK</span></div>
+              <div class="item-row"><div class="item-dot green"></div><span class="item-label">Serum, sunscreen</span><span class="item-tag green">OK</span></div>
+              <div class="item-row"><div class="item-dot green"></div><span class="item-label">Shampoo, body wash</span><span class="item-tag green">OK</span></div>
+            </div>
+            <div class="tip-box" style="margin-bottom:10px;">
+              <strong>Not sure?</strong> If it pours like water, leave it out. Thick and creamy? You're good.
+            </div>
+            <div class="tip-box">
+              <strong>Note</strong> — all liquids will be opened and inspected regardless of type. Please don't lock your bag.
+            </div>
+          </div>
+
+          <!-- STEP 3: Lithium batteries -->
+          <div class="step" id="en-step-3">
+            <div class="step-header">
+              <div class="step-num">STEP 3</div>
+              <h2>Lithium batteries are a no-go</h2>
+              <p class="step-reason">Lithium batteries are banned from air cargo shipments.</p>
+            </div>
+            <div class="list-label red">Can't go in your bag (built-in lithium battery)</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Power bank</span><span class="item-tag red">No</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Golf rangefinder</span><span class="item-tag red">No</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Selfie stick</span><span class="item-tag red">No</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Wireless earbuds</span><span class="item-tag red">No</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Smartwatch</span><span class="item-tag red">No</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Hair dryer</span><span class="item-tag red">No</span></div>
+              <div class="item-row"><div class="item-dot red"></div><span class="item-label">Thermometer</span><span class="item-tag red">No</span></div>
+            </div>
+            <div class="list-label yellow">Remove the battery, then it's OK</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot yellow"></div><span class="item-label">Removable battery devices</span><span class="item-tag yellow">Conditional</span></div>
+            </div>
+            <div class="list-label green">These are fine</div>
+            <div class="item-list">
+              <div class="item-row"><div class="item-dot green"></div><span class="item-label">Regular batteries (AA/AAA)</span><span class="item-tag green">OK</span></div>
+            </div>
+          </div>
+
+          <!-- STEP 4: Other -->
+          <div class="step" id="en-step-4">
+            <div class="step-header">
+              <div class="step-num">STEP 4</div>
+              <h2>These are off-limits too</h2>
+            </div>
+            <div class="other-row"><span class="other-row-icon">🔌</span><div class="other-row-info"><h4>Electronics</h4><p>Laptops, tablets, phones, electric shavers, hair straighteners, etc.</p></div></div>
+            <div class="other-row"><span class="other-row-icon">🧴</span><div class="other-row-info"><h4>Personal care</h4><p>Nail polish &amp; remover, hair dye, perm solution, ink, heat packs</p></div></div>
+            <div class="other-row"><span class="other-row-icon">🔥</span><div class="other-row-info"><h4>Fire hazards</h4><p>Lighters, e-cigarettes, camping stoves, matches</p></div></div>
+            <div class="other-row"><span class="other-row-icon">📦</span><div class="other-row-info"><h4>Other</h4><p>Insecticide, diffusers, Bluetooth mics</p></div></div>
+          </div>
+
+          <!-- STEP 5: Final -->
+          <div class="step" id="en-step-5">
+            <div class="step-header">
+              <div class="step-num">FINAL CHECK</div>
+              <h2>Quick — did you take these out?</h2>
+              <p class="step-reason">Make sure none of these are in your bag.</p>
+            </div>
+            <div class="summary-group">
+              <div class="summary-group-title">Cosmetics &amp; liquids</div>
+              <div class="summary-tags">
+                <span class="s-tag">Toner</span><span class="s-tag">Perfume</span><span class="s-tag">Sanitizer</span><span class="s-tag">Sprays</span>
+              </div>
+            </div>
+            <div class="summary-group">
+              <div class="summary-group-title">Lithium battery items</div>
+              <div class="summary-tags">
+                <span class="s-tag">Power bank</span><span class="s-tag">Rangefinder</span><span class="s-tag">Selfie stick</span><span class="s-tag">Earbuds</span><span class="s-tag">Smartwatch</span><span class="s-tag">Hair dryer</span><span class="s-tag">Thermometer</span>
+              </div>
+            </div>
+            <div class="summary-group">
+              <div class="summary-group-title">Electronics &amp; other</div>
+              <div class="summary-tags">
+                <span class="s-tag">Laptop·Tablet·Phone</span><span class="s-tag">Lighters</span><span class="s-tag">Nail polish</span><span class="s-tag">Hair dye</span><span class="s-tag">Heat packs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="popup-footer">
+          <div class="footer-buttons" id="en-navButtons">
+            <button class="btn-back" id="en-btnBack" onclick="prev('en')" style="display:none;">Back</button>
+            <button class="btn-next" id="en-btnNext" onclick="next('en')">Got it, makes sense</button>
+          </div>
+          <div id="en-confirmArea" style="display:none;">
+            <div class="confirm-row">
+              <div class="custom-check" id="en-check-1" onclick="toggleMulti('en',1)"></div>
+              <label onclick="toggleMulti('en',1)">I've read the above and confirm my bag has none of these items</label>
+            </div>
+            <div class="confirm-row">
+              <div class="custom-check" id="en-check-2" onclick="toggleMulti('en',2)"></div>
+              <label onclick="toggleMulti('en',2)">I agree that prohibited items found will be disposed of</label>
+            </div>
+            <div class="confirm-row">
+              <div class="custom-check" id="en-check-3" onclick="toggleMulti('en',3)"></div>
+              <label onclick="toggleMulti('en',3)">I will leave my bag unlocked for inspection</label>
+            </div>
+            <button class="btn-next" id="en-ctaBtn" disabled onclick="submit('en')">All clear, continue booking</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const state = { ko: { current: 1, checks: { 1: false, 2: false, 3: false } }, en: { current: 1, checks: { 1: false, 2: false, 3: false } } };
+  const total = 5;
+
+  const btnLabels = {
+    ko: { 1: '네, 이해했어요', 2: '네, 화장품 확인했어요', 3: '네, 배터리 확인했어요', 4: '네, 확인했어요' },
+    en: { 1: 'Got it, makes sense', 2: 'Got it, cosmetics checked', 3: 'Got it, batteries checked', 4: 'Got it, noted' }
+  };
+
+  function updateUI(lang) {
+    const s = state[lang];
+    for (let i = 1; i <= total; i++) {
+      document.getElementById(lang + '-step-' + i).classList.toggle('active', i === s.current);
+      const dot = document.getElementById(lang + '-dot-' + i);
+      dot.className = 'progress-dot';
+      if (i < s.current) dot.classList.add('done');
+      else if (i === s.current) dot.classList.add('active');
+    }
+    document.getElementById(lang + '-stepLabel').textContent = s.current + ' / ' + total;
+    document.getElementById(lang + '-stepContent').scrollTop = 0;
+
+    if (s.current < total) {
+      document.getElementById(lang + '-navButtons').style.display = 'flex';
+      document.getElementById(lang + '-confirmArea').style.display = 'none';
+      document.getElementById(lang + '-btnBack').style.display = s.current > 1 ? 'block' : 'none';
+      document.getElementById(lang + '-btnNext').textContent = btnLabels[lang][s.current];
+    } else {
+      document.getElementById(lang + '-navButtons').style.display = 'none';
+      document.getElementById(lang + '-confirmArea').style.display = 'block';
+    }
+  }
+
+  function next(lang) { if (state[lang].current < total) { state[lang].current++; updateUI(lang); } }
+  function prev(lang) { if (state[lang].current > 1) { state[lang].current--; updateUI(lang); } }
+  function toggleMulti(lang, n) {
+    state[lang].checks[n] = !state[lang].checks[n];
+    document.getElementById(lang + '-check-' + n).classList.toggle('checked', state[lang].checks[n]);
+    const allChecked = state[lang].checks[1] && state[lang].checks[2] && state[lang].checks[3];
+    document.getElementById(lang + '-ctaBtn').disabled = !allChecked;
+  }
+  function submit(lang) { alert(lang === 'ko' ? '예약을 계속 진행합니다.' : 'Continuing with your booking.'); }
+</script>
+
+</body>
+</html>
