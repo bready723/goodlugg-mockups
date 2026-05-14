@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Pre-pack check — Goodlugg (V8)</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  /* Goodlugg tokens (lifted from colors_and_type.css) */
+  --gl-purple-900:#2b1640; --gl-purple-800:#3a1e56; --gl-purple-700:#452373;
+  --gl-purple-600:#512a72; --gl-purple-500:#6a3f91; --gl-purple-400:#8a66ad;
+  --gl-purple-300:#b499cc; --gl-purple-200:#d8c9e4; --gl-purple-100:#ece3f2;
+  --gl-purple-050:#f6f1fa;
+  --gl-lime-700:#a29d24; --gl-lime-600:#b7b228; --gl-lime-500:#c7c22e;
+  --gl-lime-300:#e1de86; --gl-lime-200:#eeecb3; --gl-lime-100:#f6f5d7; --gl-lime-050:#fbfaec;
+  --gl-ink:#1a1420; --gl-ink-2:#3d3048; --gl-ink-3:#6a5d74;
+  --gl-line:#e7e1ec; --gl-line-2:#f0ecf3;
+  --gl-surface:#ffffff; --gl-bg:#fbfaf7; --gl-bg-alt:#f4f0f7;
+  --gl-success:#3aa874; --gl-warning:#e8a53a; --gl-danger:#d84141;
+  --gl-beta:#e83a3a;
+  --gl-on-purple-line:rgba(255,255,255,0.14); --gl-on-purple-card:rgba(255,255,255,0.06);
+  --gl-shadow-sm: 0 2px 6px rgba(50, 25, 80, .08);
+  --gl-shadow-md: 0 8px 24px rgba(50, 25, 80, .10);
+  --gl-shadow-lg: 0 20px 48px rgba(50, 25, 80, .18);
+  --gl-shadow-purple: 0 12px 28px rgba(81, 42, 114, .28);
+  --gl-r-sm:8px; --gl-r-md:14px; --gl-r-lg:20px; --gl-r-xl:28px; --gl-r-pill:999px; --gl-r-tag:10px;
+  --gl-font-ui:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+  --gl-ease:cubic-bezier(.2,.7,.2,1); --gl-ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: var(--gl-font-ui);
+  background: var(--gl-bg);
+  min-height: 100vh;
+  color: var(--gl-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.page {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 56px 32px 72px;
+  min-height: 100vh;
+}
+
+.lang-col { display: flex; flex-direction: column; align-items: center; }
+.lang-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gl-purple-600);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.lang-label::before, .lang-label::after {
+  content: ''; width: 18px; height: 1px; background: var(--gl-purple-300);
+}
+
+/* Phone */
+.phone {
+  width: 390px;
+  height: 820px;
+  background: #1a1420;
+  border-radius: 44px;
+  padding: 10px;
+  box-shadow: var(--gl-shadow-lg);
+  position: relative;
+}
+.phone::before {
+  content: '';
+  position: absolute;
+  top: 14px; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 28px;
+  background: #000;
+  border-radius: 999px;
+  z-index: 5;
+}
+.phone-screen {
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.55);
+  border-radius: 34px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+}
+
+/* Popup sheet */
+.popup {
+  width: 100%;
+  max-height: 92%;
+  background: #fff;
+  border-radius: 20px 20px 34px 34px;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.35s var(--gl-ease-out);
+}
+@keyframes slideUp {
+  from { transform: translateY(36px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.handle { text-align:center; padding: 10px 0 0; flex-shrink:0; }
+.handle span { display:inline-block; width:40px; height:4px; background:var(--gl-line); border-radius:2px; }
+
+/* Header */
+.header { padding: 18px 22px 0; flex-shrink: 0; position: relative; }
+.header h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gl-ink);
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+  margin-bottom: 6px;
+}
+.header .subtitle {
+  font-size: 14px;
+  color: var(--gl-ink-2);
+  line-height: 1.55;
+}
+.header .subtitle b, .header .subtitle strong {
+  color: var(--gl-purple-600);
+  font-weight: 700;
+}
+.header .close-btn {
+  position: absolute;
+  top: 14px; right: 16px;
+  width: 32px; height: 32px;
+  border: none; background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--gl-ink-3);
+  border-radius: var(--gl-r-pill);
+  transition: background var(--gl-ease) 140ms;
+}
+.header .close-btn:hover { background: rgba(81,42,114,0.08); color: var(--gl-ink); }
+
+/* Progress */
+.progress {
+  display: flex; align-items: center; gap: 4px;
+  padding: 16px 22px 14px;
+  flex-shrink: 0;
+}
+.progress .dot {
+  flex: 1; height: 3px; border-radius: 999px;
+  background: var(--gl-line); transition: background 0.3s var(--gl-ease);
+}
+.progress .dot.done { background: var(--gl-purple-300); }
+.progress .dot.active { background: var(--gl-purple-600); }
+.progress .label {
+  font-size: 11px; font-weight: 600;
+  color: var(--gl-ink-3);
+  margin-left: 8px; flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.header-rule { height: 1px; background: var(--gl-line-2); flex-shrink: 0; }
+
+/* Content scroll */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.content::-webkit-scrollbar { width: 4px; }
+.content::-webkit-scrollbar-thumb { background: var(--gl-purple-100); border-radius: 2px; }
+.step { display: none; padding: 20px 22px 28px; animation: stepFade 0.24s var(--gl-ease-out); }
+.step.active { display: block; }
+@keyframes stepFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====================== STEP 1: WARNING PANEL (v6 scheme, v8 with airplane) ====================== */
+.hero {
+  background: var(--gl-purple-050);
+  border-radius: var(--gl-r-md);
+  padding: 30px 22px 28px;
+  text-align: center;
+  margin-top: 4px;
+}
+.hero-warning {
+  width: 96px; height: 96px;
+  margin: 0 auto 18px;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(81,43,116,0.18));
+}
+.hero-text {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--gl-ink-2);
+  line-height: 1.5;
+  max-width: 290px;
+  margin: 0 auto;
+}
+.hero-text .emph {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gl-danger);
+  margin-top: 8px;
+  letter-spacing: -0.01em;
+}
+
+/* ====================== ALERT TOP (steps 2-4, v6 scheme) ====================== */
+.alert {
+  display: flex; gap: 12px;
+  padding: 14px 16px;
+  background: #FFF8E1;
+  border-left: 4px solid var(--gl-warning);
+  border-radius: var(--gl-r-sm);
+  margin-bottom: 20px;
+}
+.alert .alert-icon {
+  flex-shrink: 0; margin-top: 2px;
+  width: 22px; height: 22px;
+  color: var(--gl-danger);
+}
+.alert .alert-icon { display: none; }
+
+.alert-text { font-size: 13.5px; line-height: 1.55; color: #5d3a00; }
+.alert-text strong {
+  display: block;
+  font-size: 14px; font-weight: 800;
+  margin-bottom: 4px;
+  color: var(--gl-danger);
+}
+.alert-text b { font-weight: 700; color: #5d3a00; }
+
+/* ====================== LIST LABELS + ITEMS ====================== */
+.list-label {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.005em;
+  margin: 10px 0 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.list-label .lab-sub {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gl-ink-3);
+  letter-spacing: 0;
+}
+.list-label.red    { color: var(--gl-danger); }
+.list-label.green  { color: var(--gl-success); }
+.list-label.yellow { color: #c08317; }
+
+.list-label .lab-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.list-label.red .lab-dot    { background: var(--gl-danger); }
+.list-label.green .lab-dot  { background: var(--gl-success); }
+.list-label.yellow .lab-dot { background: var(--gl-warning); }
+
+.item-list { margin-bottom: 12px; }
+.item-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--gl-line-2);
+  font-size: 14px;
+}
+.item-row:last-child { border-bottom: none; }
+.item-label { flex: 1; color: var(--gl-ink); font-weight: 600; }
+.item-label .row-sub {
+  display: block;
+  font-size: 12px;
+  color: var(--gl-ink-3);
+  font-weight: 400;
+  margin-top: 2px;
+}
+.item-tag {
+  font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: var(--gl-r-pill);
+  flex-shrink: 0;
+  letter-spacing: 0.01em;
+}
+.item-tag.red    { background: #fdecec; color: var(--gl-danger); }
+.item-tag.green  { background: #e6f4ed; color: var(--gl-success); }
+.item-tag.yellow { background: var(--gl-lime-100); color: var(--gl-lime-700); }
+
+.section-divider {
+  height: 1px;
+  background: var(--gl-line);
+  margin: 8px 0 18px;
+}
+
+/* Tip box (purple-tinted) */
+.tip {
+  background: var(--gl-purple-050);
+  border-radius: var(--gl-r-md);
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--gl-ink-2);
+  margin-top: 12px;
+}
+.tip strong { color: var(--gl-purple-700); font-weight: 700; }
+.tip.lime { background: var(--gl-lime-050); }
+.tip.lime strong { color: var(--gl-lime-700); }
+
+/* ====================== STEP 4: OTHER ICONIC ROWS ====================== */
+.other-row {
+  display: flex; align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--gl-line-2);
+}
+.other-row:last-child { border-bottom: none; }
+.other-icon {
+  width: 40px; height: 40px;
+  background: var(--gl-purple-050);
+  color: var(--gl-purple-600);
+  border-radius: var(--gl-r-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-right: 14px;
+}
+.other-icon.danger { background:#fdecec; color: var(--gl-danger); }
+.other-icon svg { width: 22px; height: 22px; }
+.other-info { flex: 1; padding-top: 1px; }
+.other-info h4 { font-size: 15px; font-weight: 700; color: var(--gl-ink); margin-bottom: 4px; }
+.other-info p {
+  font-size: 13px; color: var(--gl-ink-2); line-height: 1.55;
+}
+.other-info .hl { color: var(--gl-danger); font-weight: 700; }
+
+/* ====================== STEP 5: REVIEW ====================== */
+.review-card {
+  border: 1px solid var(--gl-line);
+  border-radius: var(--gl-r-md);
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.review-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  border-bottom: 1px solid var(--gl-line-2);
+}
+.review-row:last-child { border-bottom: none; }
+.review-cat {
+  background: var(--gl-purple-050);
+  padding: 14px 12px;
+  display: flex; flex-direction: column; gap: 8px;
+  align-items: flex-start;
+}
+.review-cat .icon {
+  width: 30px; height: 30px;
+  background: #fff;
+  border-radius: var(--gl-r-sm);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gl-purple-600);
+}
+.review-cat .icon svg { width: 18px; height: 18px; }
+.review-cat .name {
+  font-size: 12.5px; font-weight: 700; color: var(--gl-purple-700);
+  line-height: 1.3;
+}
+.review-items {
+  padding: 14px 14px;
+  font-size: 13px; line-height: 1.6; color: var(--gl-ink-2);
+}
+.review-items .hl { color: var(--gl-danger); font-weight: 700; }
+
+.checks { margin-top: 18px; }
+.check-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+.checkbox {
+  width: 22px; height: 22px;
+  border: 2px solid var(--gl-line);
+  background: #fff;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+  transition: all 0.15s var(--gl-ease);
+}
+.checkbox.checked {
+  background: var(--gl-purple-600);
+  border-color: var(--gl-purple-600);
+}
+.checkbox.checked::after {
+  content: '';
+  width: 12px; height: 7px;
+  border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translateY(-1px);
+}
+.check-row label {
+  font-size: 13.5px;
+  color: var(--gl-ink-2);
+  line-height: 1.5;
+  cursor: pointer;
+  flex: 1;
+}
+.check-row label b { color: var(--gl-ink); font-weight: 700; }
+
+/* ====================== FOOTER ====================== */
+.footer {
+  flex-shrink: 0;
+  padding: 14px 22px 22px;
+  background: #fff;
+  border-top: 1px solid var(--gl-line-2);
+}
+.footer-row { display: flex; gap: 10px; }
+.btn-back {
+  padding: 13px 16px;
+  background: transparent;
+  color: var(--gl-ink-2);
+  border: 1px solid var(--gl-line);
+  border-radius: var(--gl-r-md);
+  font-size: 14px; font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--gl-ease) 140ms;
+}
+.btn-back:hover { background: var(--gl-purple-050); }
+.btn-next {
+  flex: 1;
+  padding: 13px;
+  background: var(--gl-purple-600);
+  color: #fff;
+  border: none;
+  border-radius: var(--gl-r-md);
+  font-size: 14.5px; font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--gl-ease) 140ms, transform var(--gl-ease) 140ms;
+  box-shadow: 0 4px 10px rgba(81,42,114,0.22);
+}
+.btn-next:hover  { background: var(--gl-purple-500); }
+.btn-next:active { background: var(--gl-purple-700); transform: scale(0.985); }
+.btn-next:disabled {
+  background: var(--gl-purple-200); color: #fff;
+  cursor: not-allowed; box-shadow: none;
+}
+
+/* Sync chip between phones */
+.sync-strip {
+  position: fixed;
+  top: 16px; left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid var(--gl-line);
+  border-radius: var(--gl-r-pill);
+  padding: 6px 14px 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gl-ink-3);
+  display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: var(--gl-shadow-sm);
+  z-index: 99;
+}
+.sync-strip .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gl-success);
+  box-shadow: 0 0 0 3px rgba(58,168,116,0.15);
+}
+.sync-strip b { color: var(--gl-purple-700); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ==================== ENGLISH ==================== -->
+  <div class="lang-col">
+    <div class="lang-label">English · V8</div>
+    <div class="phone" data-lang="en">
+      <div class="phone-screen">
+        <div class="popup">
+          <div class="handle"><span></span></div>
+
+          <div class="header">
+            <button class="close-btn" aria-label="Close" data-close>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+            </button>
+            <h1 data-h1></h1>
+            <p class="subtitle" data-sub></p>
+          </div>
+
+          <div class="progress">
+            <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            <span class="label">1 / 5</span>
+          </div>
+          <div class="header-rule"></div>
+
+          <div class="content">
+
+            <!-- STEP 1 — clean v6-style caution triangle with exclamation -->
+            <div class="step active" data-step="1">
+              <div class="hero">
+                <svg class="hero-warning" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M28 4L2 52h52L28 4z" fill="#FFD54F" stroke="#1a1420" stroke-width="2.5" stroke-linejoin="round"/>
+                  <rect x="25.5" y="20" width="5" height="17" rx="2.5" fill="#1a1420"/>
+                  <circle cx="28" cy="43" r="3" fill="#1a1420"/>
+                </svg>
+                <div class="hero-text">
+                  Some items allowed in checked baggage are
+                  <span class="emph">banned in air cargo</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: Liquids / Cosmetics -->
+            <div class="step" data-step="2">
+              <div class="alert">
+                <div class="alert-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div class="alert-text">
+                  <strong>All liquids are opened for inspection</strong>
+                  Please <b>don't lock your bag</b>. If you must, share the code with us at drop-off.
+                </div>
+              </div>
+
+              <div class="list-label red"><span class="lab-dot"></span>Don't pack these</div>
+              <div class="item-list">
+                <div class="item-row"><span class="item-label">Skin toner <span class="row-sub">Even sample size</span></span></div>
+                <div class="item-row"><span class="item-label">Perfume &amp; cologne</span></div>
+                <div class="item-row"><span class="item-label">Hand sanitizer</span></div>
+                <div class="item-row"><span class="item-label">Aerosol sprays (any kind)</span></div>
+              </div>
+
+              <div class="section-divider"></div>
+
+              <div class="list-label green"><span class="lab-dot"></span>Pack freely <span class="lab-sub">(bag will still be opened at the desk)</span></div>
+              <div class="item-list">
+                <div class="item-row"><span class="item-label">Lotion &amp; cream</span></div>
+                <div class="item-row"><span class="item-label">Serum &amp; sunscreen</span></div>
+                <div class="item-row"><span class="item-label">Shampoo &amp; body wash</span></div>
+              </div>
+
+            </div>
+
+            <!-- STEP 3: Lithium batteries -->
+            <div class="step" data-step="3">
+              <div class="alert">
+                <div class="alert-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="20" y1="11" x2="20" y2="13"/></svg>
+                </div>
+                <div class="alert-text">
+                  <strong>The rule</strong>
+                  Anything with a <b>non-removable lithium battery</b> is banned. Devices with a removable battery are fine — just take the battery out first.
+                </div>
+              </div>
+
+              <div class="list-label red"><span class="lab-dot"></span>Don't pack these <span class="lab-sub">— built-in lithium battery</span></div>
+              <div class="item-list">
+                <div class="item-row"><span class="item-label">Power bank</span></div>
+                <div class="item-row"><span class="item-label">Golf rangefinder</span></div>
+                <div class="item-row"><span class="item-label">Selfie stick</span></div>
+                <div class="item-row"><span class="item-label">Wireless earbuds</span></div>
+                <div class="item-row"><span class="item-label">Smartwatch</span></div>
+                <div class="item-row"><span class="item-label">Hair dryer</span></div>
+                <div class="item-row"><span class="item-label">Digital thermometer</span></div>
+              </div>
+
+              <div class="section-divider"></div>
+
+              <div class="list-label yellow"><span class="lab-dot"></span>Pack the device, not the battery</div>
+              <div class="item-list">
+                <div class="item-row"><span class="item-label">Devices with a pop-out battery <span class="row-sub">flashlight, kid's toy, some cameras, remote</span></span><span class="item-tag yellow">Conditional</span></div>
+              </div>
+
+              <div class="section-divider"></div>
+
+              <div class="list-label green"><span class="lab-dot"></span>These are fine</div>
+              <div class="item-list">
+                <div class="item-row"><span class="item-label">Standard AA / AAA batteries <span class="row-sub">bag will be opened for inspection</span></span></div>
+              </div>
+            </div>
+
+            <!-- STEP 4: Other -->
+            <div class="step" data-step="4">
+              <div class="other-row">
+                <div class="other-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9"/><path d="M2 16h20l-1.28 2.55a1 1 0 0 1-.9 1.45H4.18a1 1 0 0 1-.9-1.45L2 16Z"/></svg>
+                </div>
+                <div class="other-info">
+                  <h4>Electronics</h4>
+                  <p><span class="hl">Laptop</span>, tablet, <span class="hl">phone</span>, electric shaver, hair straightener</p>
+                </div>
+              </div>
+
+              <div class="other-row">
+                <div class="other-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h.01"/><path d="M7 5h.01"/><path d="M11 7h.01"/><path d="M3 7h.01"/><path d="M7 9h.01"/><path d="M3 11h.01"/><rect width="4" height="4" x="15" y="5"/><path d="m19 9 2 2v10c0 .6-.4 1-1 1h-6c-.6 0-1-.4-1-1V11l2-2"/><path d="m13 14 8-2"/><path d="m13 19 8-2"/></svg>
+                </div>
+                <div class="other-info">
+                  <h4>Personal care</h4>
+                  <p><span class="hl">Nail polish &amp; remover</span>, hair dye, perm solution, ink, <span class="hl">heat packs</span></p>
+                </div>
+              </div>
+
+              <div class="other-row">
+                <div class="other-icon danger">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                </div>
+                <div class="other-info">
+                  <h4>Fire hazards</h4>
+                  <p><span class="hl">Lighters</span>, e-cigarettes, camping stoves, matches</p>
+                </div>
+              </div>
+
+              <div class="other-row">
+                <div class="other-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                </div>
+                <div class="other-info">
+                  <h4>Others</h4>
+                  <p>Insecticide, scent diffusers, <span class="hl">Bluetooth speakers and mics</span></p>
+                </div>
+              </div>
+
+              <div class="alert warning" style="margin-top:18px;margin-bottom:0;">
+                <div class="alert-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <div class="alert-text">
+                  <strong>"Heat packs" — easy to forget</strong>
+                  Especially in winter. Check coat pockets, gym bags, and gift sets before you pack.
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="step" data-step="5">
+              <div class="review-card">
+                <div class="review-row">
+                  <div class="review-cat">
+                    <div class="icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                    </div>
+                    <span class="name">Alcohols / Liquids</span>
+                  </div>
+                  <div class="review-items"><span class="hl">Toner</span>, perfume, hand sanitizer, aerosol sprays</div>
+                </div>
+                <div class="review-row">
+                  <div class="review-cat">
+                    <div class="icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.856 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h1.144"/><path d="M22 14v-4"/><path d="m11 7-3 5h4l-3 5"/></svg>
+                    </div>
+                    <span class="name">Lithium battery</span>
+                  </div>
+                  <div class="review-items">Power bank, rangefinder, selfie stick, <span class="hl">wireless earbuds</span>, smartwatch, hair dryer, thermometer</div>
+                </div>
+                <div class="review-row">
+                  <div class="review-cat">
+                    <div class="icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </div>
+                    <span class="name">Others</span>
+                  </div>
+                  <div class="review-items">Laptop, tablet, phone, lighter, e-cigarette, nail polish, hair dye, <span class="hl">heat packs</span></div>
+                </div>
+              </div>
+
+              <div class="checks">
+                <div class="check-row" data-check="1">
+                  <div class="checkbox"></div>
+                  <label>My bag has <b>none of the items above</b>, and I agree any prohibited items found will be disposed of</label>
+                </div>
+                <div class="check-row" data-check="2">
+                  <div class="checkbox"></div>
+                  <label>I'll leave my <b>bag unlocked</b> for inspection</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="footer">
+            <div class="footer-row">
+              <button class="btn-back" data-back style="display:none;">Back</button>
+              <button class="btn-next" data-next>Next</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── Per-step headers + button labels, in both languages
+  const COPY = {
+    en: {
+      headers: {
+        1: { h1: 'Your bags fly without you', sub: "Goodlugg ships your bags as <b>air cargo</b> — in the plane's hold, without you on board. Stricter rules apply when bags travel alone." },
+        2: { h1: 'Skip the toners and sprays', sub: 'High in alcohol or pressurized — too risky to fly as cargo.' },
+        3: { h1: "Lithium batteries can't fly as cargo", sub: 'They’re a fire risk in unattended cargo holds — no exceptions.' },
+        4: { h1: 'A few more to leave behind', sub: 'Anything electronic, flammable, or pressurized stays home.' },
+        5: { h1: 'One last check', sub: "Make sure none of these are in your bag, then confirm to continue." }
+      },
+      btn: { back:'Back', next:'Next', cta:'Continue Booking' }
+    }
+  };
+
+  const TOTAL = 5;
+  let current = 1;
+  const checks = { 1:false, 2:false };
+
+  const phones = [...document.querySelectorAll('.phone')];
+
+  function render() {
+    phones.forEach(phone => {
+      const lang = phone.dataset.lang;
+      const copy = COPY[lang];
+
+      // header
+      phone.querySelector('[data-h1]').textContent = copy.headers[current].h1;
+      phone.querySelector('[data-sub]').innerHTML = copy.headers[current].sub;
+
+      // progress
+      const dots = phone.querySelectorAll('.progress .dot');
+      dots.forEach((d,i) => {
+        d.classList.remove('active','done');
+        if (i+1 < current) d.classList.add('done');
+        else if (i+1 === current) d.classList.add('active');
+      });
+      phone.querySelector('.progress .label').textContent = current + ' / ' + TOTAL;
+
+      // step bodies
+      phone.querySelectorAll('.step').forEach(s => {
+        s.classList.toggle('active', Number(s.dataset.step) === current);
+      });
+      phone.querySelector('.content').scrollTop = 0;
+
+      // buttons
+      const back = phone.querySelector('[data-back]');
+      const next = phone.querySelector('[data-next]');
+      back.style.display = current > 1 ? 'block' : 'none';
+      back.textContent = copy.btn.back;
+
+      if (current === TOTAL) {
+        const ok = checks[1] && checks[2];
+        next.textContent = copy.btn.cta;
+        next.disabled = !ok;
+      } else {
+        next.textContent = copy.btn.next;
+        next.disabled = false;
+      }
+
+      // checkbox state
+      phone.querySelectorAll('.check-row').forEach(row => {
+        const idx = Number(row.dataset.check);
+        row.querySelector('.checkbox').classList.toggle('checked', !!checks[idx]);
+      });
+    });
+  }
+
+  function go(delta) {
+    const target = current + delta;
+    if (target < 1 || target > TOTAL) return;
+    current = target;
+    render();
+  }
+
+  // Hook nav buttons (synced across both phones)
+  document.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (current === TOTAL) {
+        if (checks[1] && checks[2]) {
+          alert('All clear — continuing with your booking.\n\nHave a Goodlugg! ✷');
+        }
+      } else go(+1);
+    });
+  });
+  document.querySelectorAll('[data-back]').forEach(btn => {
+    btn.addEventListener('click', () => go(-1));
+  });
+
+  // Checkboxes (synced)
+  document.querySelectorAll('.check-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const idx = Number(row.dataset.check);
+      checks[idx] = !checks[idx];
+      render();
+    });
+  });
+
+  // Keyboard
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') go(+1);
+    if (e.key === 'ArrowLeft') go(-1);
+  });
+
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (confirm("Leave the check? You'll need to redo it before continuing your booking.")) {
+        alert('Closed — go back to your booking to resume.');
+      }
+    });
+  });
+
+  render();
+</script>
+
+</body>
+</html>
