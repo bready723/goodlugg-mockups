@@ -110,24 +110,6 @@ header {
   filter: drop-shadow(0 6px 18px rgba(50,25,80,0.10));
 }
 
-/* Notes column under the V8 frame */
-.notes {
-  grid-column: 3 / 4;
-  margin-top: -28px;
-  padding: 16px 18px;
-  background: var(--accent-soft);
-  border-left: 3px solid var(--accent);
-  border-radius: 6px;
-  font-size: 12.5px;
-  color: var(--text);
-  line-height: 1.55;
-  max-width: 460px;
-  justify-self: center;
-}
-.notes b { color: var(--accent-dark); font-weight: 700; }
-.notes ul { margin: 6px 0 0 18px; }
-.notes li { margin-bottom: 3px; }
-
 footer {
   margin-top: 24px;
   padding-top: 18px;
@@ -164,13 +146,6 @@ footer {
     <div class="step-marker"><div class="num">1</div><div class="step-label">Why air cargo</div></div>
     <div class="frame-cell"><iframe data-step="1" data-src="original" src="luggage-check-popup.html"></iframe></div>
     <div class="frame-cell"><iframe data-step="1" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
-    <div class="notes">
-      <b>What changed</b>
-      <ul>
-        <li>Original: side-by-side "checked baggage vs cargo" comparison block (CEO didn't like this — implies our service is worse than airline check-in)</li>
-        <li>V8: one clear yellow caution triangle + single-sentence "banned in air cargo" message in soft purple panel</li>
-      </ul>
-    </div>
   </div>
 
   <!-- ===================== STEP 2 ===================== -->
@@ -178,15 +153,6 @@ footer {
     <div class="step-marker"><div class="num">2</div><div class="step-label">Liquids</div></div>
     <div class="frame-cell"><iframe data-step="2" data-src="original" src="luggage-check-popup.html"></iframe></div>
     <div class="frame-cell"><iframe data-step="2" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
-    <div class="notes">
-      <b>What changed</b>
-      <ul>
-        <li>Pulled <b>warning</b> ("All liquids opened — don't lock") to a yellow alert at top, ahead of the lists</li>
-        <li>"Banned" pills dropped — item names are now bold (weight 600), the red "Don't pack these" header carries the signal</li>
-        <li>"These are fine — bag still opened" → <b>"Pack freely (bag will still be opened at the desk)"</b> — clearer, more reassuring</li>
-        <li>Goodlugg purple/gold tokens, Pretendard typography</li>
-      </ul>
-    </div>
   </div>
 
   <!-- ===================== STEP 3 ===================== -->
@@ -194,14 +160,6 @@ footer {
     <div class="step-marker"><div class="num">3</div><div class="step-label">Lithium</div></div>
     <div class="frame-cell"><iframe data-step="3" data-src="original" src="luggage-check-popup.html"></iframe></div>
     <div class="frame-cell"><iframe data-step="3" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
-    <div class="notes">
-      <b>What changed</b>
-      <ul>
-        <li>Banned list expanded with commonly-missed items (wireless earbuds, smartwatch, hair dryer, digital thermometer)</li>
-        <li>Yellow "Conditional" pill kept on the one row that earns it: pop-out battery devices</li>
-        <li>"The rule" yellow alert removed — list label "Don't pack these — built-in lithium battery" already says it</li>
-      </ul>
-    </div>
   </div>
 
   <!-- ===================== STEP 4 ===================== -->
@@ -209,15 +167,6 @@ footer {
     <div class="step-marker"><div class="num">4</div><div class="step-label">Other items</div></div>
     <div class="frame-cell"><iframe data-step="4" data-src="original" src="luggage-check-popup.html"></iframe></div>
     <div class="frame-cell"><iframe data-step="4" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
-    <div class="notes">
-      <b>What changed</b>
-      <ul>
-        <li>Hand-drawn SVGs replaced with <b>Lucide icons</b> (laptop, spray-can, flame, ellipsis) — proper icon system</li>
-        <li>Red emphasis on commonly-missed items inline (Laptop, phone, Nail polish, heat packs, Lighters, Bluetooth speakers)</li>
-        <li>"Heat packs — easy to forget" warning callout at bottom (winter coat pockets, gym bags, gift sets)</li>
-        <li>"Other" → "Others"</li>
-      </ul>
-    </div>
   </div>
 
   <!-- ===================== STEP 5 ===================== -->
@@ -225,16 +174,6 @@ footer {
     <div class="step-marker"><div class="num">5</div><div class="step-label">Confirm</div></div>
     <div class="frame-cell"><iframe data-step="5" data-src="original" src="luggage-check-popup.html"></iframe></div>
     <div class="frame-cell"><iframe data-step="5" data-src="v8" src="luggage-check-popup-v8.html"></iframe></div>
-    <div class="notes">
-      <b>What changed</b>
-      <ul>
-        <li>Summary card uses purple-tinted category cells with Lucide icons (droplet / battery / ellipsis)</li>
-        <li>Red highlight pared back to <b>one item per category row</b> (Toner, wireless earbuds, heat packs) — emphasis only where it earns its keep</li>
-        <li>Consent: <b>3 checkboxes → 2</b> (legal "disposed of" line folded into the first)</li>
-        <li>Submit appends "Have a Goodlugg! ✷" — brand sign-off</li>
-        <li>X-button now wired to a "Leave the check?" confirmation</li>
-      </ul>
-    </div>
   </div>
 
   <footer>
@@ -255,9 +194,15 @@ footer {
     const src = iframe.dataset.src;
 
     if (src === 'original') {
-      // Hide Korean column so only English phone shows
+      // Hide Korean column, center the English phone, and resize the
+      // phone frame to match V8 (390 x 820) so the two sit at identical
+      // dimensions for a clean side-by-side comparison.
       const style = doc.createElement('style');
-      style.textContent = 'body > div:first-of-type { display: none !important; } body { justify-content: center !important; }';
+      style.textContent = `
+        body > div:first-of-type { display: none !important; }
+        body { justify-content: center !important; padding: 56px 32px 72px !important; }
+        .phone { width: 390px !important; height: 820px !important; }
+      `;
       doc.head.appendChild(style);
 
       // Step English column to target
