@@ -307,13 +307,13 @@ body {
 
 /* superscript yellow star + inline red note for skin toner */
 .star-sup {
-  display: inline-block;
+  position: absolute;
+  left: -2px;
+  top: -0.82em;
   font-size: 0.78em;
   color: #e8ff00;
-  -webkit-text-stroke: 1px var(--gl-danger);
-  vertical-align: super;
+  -webkit-text-stroke: 1px #c08317;
   line-height: 1;
-  margin: 0 1px;
 }
 .inline-warn {
   color: var(--gl-ink-2);
@@ -322,6 +322,7 @@ body {
   margin-left: 10px;
 }
 .inline-warn .hilite {
+  position: relative;
   color: var(--gl-danger);
   background-image: linear-gradient(rgba(232, 255, 0, 0.55), rgba(232, 255, 0, 0.55));
   background-repeat: no-repeat;
@@ -625,7 +626,7 @@ body {
 
               <div class="list-label red"><span class="lab-dot"></span>Don't pack these</div>
               <div class="item-list red-list">
-                <div class="item-row"><span class="item-label"><span class="ban-name">Skin toner</span><span class="inline-warn">Even<sup class="star-sup">★</sup><span class="hilite">sample size</span> not accepted</span></span></div>
+                <div class="item-row"><span class="item-label"><span class="ban-name">Skin toner</span><span class="inline-warn">Even <span class="hilite"><sup class="star-sup">★</sup>sample size</span> not accepted</span></span></div>
                 <div class="item-row"><span class="item-label"><span class="ban-name">Perfume &amp; cologne</span></span></div>
                 <div class="item-row"><span class="item-label"><span class="ban-name">Hand sanitizer</span></span></div>
                 <div class="item-row"><span class="item-label"><span class="ban-name">Aerosol sprays (any kind)</span></span></div>
