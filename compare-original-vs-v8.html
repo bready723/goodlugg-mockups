@@ -118,6 +118,28 @@ footer {
   color: var(--gray-light);
   text-align: center;
 }
+
+/* ── Print: one step per page, custom paper size to fit two 390×820 phones side-by-side ── */
+@media print {
+  @page { size: 1100px 1000px; margin: 0; }
+  html, body { background: #fff !important; }
+  .wrap { max-width: none; padding: 24px 24px 0; }
+  header { margin-bottom: 16px; padding-bottom: 14px; }
+  .col-strip { position: static !important; padding: 8px 8px 14px; margin-bottom: 8px; }
+  .step-marker { position: static !important; padding-top: 0; }
+  .step-marker .num { width: 36px; height: 36px; font-size: 18px; border-width: 2px; }
+  .step-marker .step-label { font-size: 9px; margin-top: 6px; }
+  .compare-row {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    page-break-before: always;
+    break-before: page;
+    margin-bottom: 0;
+  }
+  .compare-row:first-of-type { page-break-before: avoid; break-before: auto; }
+  .frame-cell iframe { filter: none; box-shadow: none; }
+  footer { display: none; }
+}
 </style>
 </head>
 <body>
