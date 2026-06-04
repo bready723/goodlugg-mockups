@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>D2D How-To Video v2 — Goodlugg</title>
+<link rel="stylesheet" href="colors_and_type.css" />
+<style>
+  html, body { margin: 0; height: 100%; background: #0a0a0a; overflow: hidden; }
+  #root { position: fixed; inset: 0; }
+  * { box-sizing: border-box; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<template id="__bundler_thumbnail">
+  <div style="width:100%;height:100%;background:#512B74;display:flex;align-items:center;justify-content:center;">
+    <div style="font-family:sans-serif;font-weight:800;font-size:20vmin;letter-spacing:-.04em;color:#fff;">D<span style="color:#c7c22e;">2</span>D</div>
+  </div>
+</template>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="animations.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="lib/chrome.jsx"></script>
+<script type="text/babel" src="lib/phone.jsx"></script>
+<script type="text/babel" src="lib/track.jsx"></script>
+<script type="text/babel" src="scenes.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+  // optional ?t=SECONDS&play=0 to freeze on a frame (review / capture aid)
+  const __p = new URLSearchParams(location.search);
+  const __t = __p.get('t');
+  if (__t != null) { try { localStorage.setItem('d2d-howto-v2:t', __t); } catch (e) {} }
+  const __autoplay = __p.get('play') !== '0';
+
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "introStyle": "tiger",
+    "highlight": "chartreuse",
+    "stepBg": "warm"
+  }/*EDITMODE-END*/;
+
+  function App() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    const hlVars = t.highlight === 'purple'
+      ? { '--hl-bg': '#512B74', '--hl-fg': '#ffffff' }
+      : { '--hl-bg': '#c7c22e', '--hl-fg': '#2b1640' };
+    const bg = t.stepBg === 'lilac' ? '#f4f0f7' : '#fbfaf7';
+    return (
+      <div style={{ position: 'absolute', inset: 0, ...hlVars }}>
+        <Stage width={1600} height={900} duration={TOTAL} background={bg}
+               persistKey="d2d-howto-v2" loop={true} autoplay={__autoplay}>
+          <Scenes tw={{ introStyle: t.introStyle }} />
+        </Stage>
+        <TweaksPanel title="Tweaks">
+          <TweakSection label="Intro / title" />
+          <TweakRadio label="Style" value={t.introStyle}
+            options={['tiger', 'banner', 'minimal']}
+            onChange={(v) => setTweak('introStyle', v)} />
+          <TweakSection label="Look" />
+          <TweakRadio label="Highlight" value={t.highlight}
+            options={['chartreuse', 'purple']}
+            onChange={(v) => setTweak('highlight', v)} />
+          <TweakRadio label="Step background" value={t.stepBg}
+            options={['warm', 'lilac']}
+            onChange={(v) => setTweak('stepBg', v)} />
+        </TweaksPanel>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
