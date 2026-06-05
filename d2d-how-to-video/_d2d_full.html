@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D2D — full video (new style)</title>
+<style>
+@font-face{font-family:'Pretendard';font-weight:400;src:url('../fonts/Pretendard-Regular.otf') format('opentype');font-display:swap;}
+@font-face{font-family:'Pretendard';font-weight:600;src:url('../fonts/Pretendard-SemiBold.otf') format('opentype');font-display:swap;}
+@font-face{font-family:'Pretendard';font-weight:700;src:url('../fonts/Pretendard-Bold.otf') format('opentype');font-display:swap;}
+@font-face{font-family:'Pretendard';font-weight:800;src:url('../fonts/Pretendard-ExtraBold.otf') format('opentype');font-display:swap;}
+:root{
+  --purple:#512B74; --purple050:#f1ecf6; --lime:#C7C22E; --lime-bright:#d6ff00;
+  --ink:#241733; --ink2:#5b5170; --ink3:#8a8398; --bg:#f5f6fb; --line:#e7e7ef;
+  --font:'Pretendard',-apple-system,system-ui,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#11071c;font-family:var(--font);overflow:hidden}
+#wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{width:1280px;height:720px;background:var(--bg);position:relative;overflow:hidden;
+  transform-origin:center center;box-shadow:0 40px 120px rgba(0,0,0,.6)}
+.pilotpill{position:absolute;top:22px;right:28px;z-index:60;font:700 12px/1 var(--font);
+  letter-spacing:.12em;color:#fff;background:var(--purple);padding:8px 13px;border-radius:99px}
+.card{position:absolute;left:0;right:0;top:0;bottom:30px;display:flex;align-items:center;
+  opacity:0;transition:opacity .45s ease;pointer-events:none}
+.card.brandcard{bottom:0}
+.card.on{opacity:1}
+.col{flex:1;padding:0 40px 0 84px}
+.kick{display:inline-flex;align-items:center;gap:11px;margin-bottom:26px}
+.kick .num{font:800 15px/1 var(--font);letter-spacing:.02em;color:#fff;background:var(--purple);border-radius:8px;padding:8px 12px}
+.kick .lbl{font:800 21px/1 var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--purple)}
+.head{font:800 58px/1.07 var(--font);letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
+.head .hl{color:var(--purple);background:linear-gradient(transparent 60%,rgba(199,194,46,.5) 0)}
+.note{font:600 25px/1.45 var(--font);color:var(--ink2);margin-top:22px;max-width:500px;text-wrap:pretty}
+.extras{margin-top:22px;display:flex;flex-direction:column;gap:13px;max-width:540px}
+.faq{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 18px;box-shadow:0 10px 26px rgba(81,42,114,.10)}
+.faq .q{display:flex;align-items:center;gap:9px;font:700 19px/1.25 var(--font);color:var(--purple)}
+.faq .q b{font:800 10px/1 var(--font);letter-spacing:.12em;color:#fff;background:#9b7fb5;border-radius:99px;padding:4px 8px;flex-shrink:0}
+.faq .a{font:500 17px/1.4 var(--font);color:var(--ink2);margin-top:6px}
+.toast{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;box-shadow:0 10px 26px rgba(81,42,114,.12)}
+.toast .ic{flex-shrink:0;width:38px;height:38px;border-radius:11px;background:var(--purple050);display:flex;align-items:center;justify-content:center;color:var(--purple);font-size:18px}
+.toast .tt{font:700 18px/1.2 var(--font);color:var(--ink)}
+.toast .ts{font:500 15px/1.3 var(--font);color:var(--ink3);margin-top:2px}
+/* each page lands in order: kicker → title → note → FAQ/toast (slide from left) */
+.card.on .kick{animation:rise2 .75s ease .1s both}
+.card.on .head{animation:rise2 1.0s cubic-bezier(.2,.7,.2,1) .35s both}
+.card.on .note{animation:rise2 .85s ease .95s both}
+.card.on .faq,.card.on .toast{animation-name:slidein;animation-duration:.8s;animation-timing-function:cubic-bezier(.2,.7,.2,1);animation-fill-mode:both}
+/* brand (intro / ending) pages land in order too */
+.card.on .bword,.card.on .bword2{animation:rise2 .65s ease 0s both}
+.card.on .bkick{animation:rise2 .65s ease .18s both}
+.card.on .btitle,.card.on .btitle2,.card.on .bend{animation:rise2 1.0s cubic-bezier(.2,.7,.2,1) .4s both}
+.card.on .bsub,.card.on .bsub2,.card.on .btag{animation:rise2 .85s ease .85s both}
+/* promise lines land one by one, slowly */
+.bpromise .pl{display:block}
+.card.on .bpromise .pl{animation:rise2 .8s cubic-bezier(.2,.7,.2,1) both}
+.card.on .bpromise .pl:nth-child(1){animation-delay:.35s}
+.card.on .bpromise .pl:nth-child(2){animation-delay:.85s}
+.card.on .bpromise .pl:nth-child(3){animation-delay:1.35s}
+.card.on .bpromise .pl:nth-child(4){animation-delay:1.85s}
+@keyframes rise2{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slidein{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+/* phone */
+.phonewrap{width:560px;display:flex;align-items:flex-start;justify-content:center;padding-top:26px;height:100%}
+.phone{position:relative;width:372px;height:744px;border-radius:54px;padding:12px;
+  background:linear-gradient(152deg,#322c46,#14101c 60%);
+  box-shadow:0 30px 70px rgba(43,22,64,.40),inset 0 0 0 1px rgba(255,255,255,.10),inset 0 0 8px rgba(0,0,0,.55)}
+.phone::after{content:'';position:absolute;right:-2px;top:190px;width:2.5px;height:92px;border-radius:3px;background:linear-gradient(#423a58,#241d34)}
+.phone::before{content:'';position:absolute;left:-2px;top:166px;width:2.5px;height:138px;border-radius:3px;background:linear-gradient(#423a58,#241d34)}
+.screen{position:relative;width:100%;height:100%;border-radius:42px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.island{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:116px;height:26px;border-radius:14px;background:#14101c;z-index:40}
+.statusbar{flex-shrink:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font:700 15px/1 var(--font);color:var(--ink);z-index:30;background:#fff}
+.statusbar .r{display:flex;gap:6px;align-items:center;font-size:13px}
+.viewport{position:relative;flex:1;overflow:hidden}
+.viewport img{position:absolute;left:0;top:0;will-change:transform;transition:transform .6s cubic-bezier(.4,.1,.2,1)}
+.ring{position:absolute;border:4px solid rgba(214,255,0,.88);border-radius:16px;background:rgba(214,255,0,.07);
+  box-shadow:0 0 0 2px rgba(81,43,114,.16),0 0 18px 4px rgba(214,255,0,.35);
+  animation:glow 1.3s ease-in-out infinite;pointer-events:none}
+@keyframes glow{
+  0%,100%{box-shadow:0 0 0 2px rgba(81,43,114,.16),0 0 14px 3px rgba(214,255,0,.30);border-color:rgba(199,194,46,.78)}
+  50%{box-shadow:0 0 0 2px rgba(81,43,114,.22),0 0 30px 10px rgba(214,255,0,.6);border-color:#eaff5e}}
+.imgcard{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.imgcard img{max-width:78%;max-height:74%;border-radius:14px;border:9px solid #fff;box-shadow:0 30px 70px rgba(43,22,64,.34);transform:rotate(-2.5deg)}
+/* brand scenes (intro / contact / ending) */
+.brandscene{position:absolute;inset:0;background:var(--purple);color:#fff;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:0 90px}
+.brandscene.center{align-items:center;text-align:center}
+.bdisc{position:absolute;border-radius:999px;background:radial-gradient(circle,rgba(199,194,46,.22),transparent 70%);pointer-events:none}
+.lime{color:var(--lime)}
+.hl2{background:var(--lime);color:var(--purple);border-radius:6px;padding:.02em .22em;font-weight:800;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.bword{height:42px;margin-bottom:18px;align-self:flex-start}
+.bkick{font:800 17px/1 var(--font);letter-spacing:.18em;color:var(--lime);margin-bottom:22px}
+.btitle{font:800 76px/1.0 var(--font);letter-spacing:-.03em;margin:0;position:relative;z-index:2}
+.bsub{font:700 28px/1.3 var(--font);margin-top:22px;position:relative;z-index:2}
+.bcircle{position:absolute;right:64px;top:50%;transform:translateY(-50%);width:400px;height:400px;border-radius:999px;background:var(--lime);z-index:0}
+.btiger{position:absolute;right:84px;top:50%;transform:translateY(-50%);width:360px;filter:drop-shadow(0 16px 24px rgba(0,0,0,.35));z-index:1}
+.card.on .bcircle{animation:popcircle .7s cubic-bezier(.2,.8,.2,1) .25s both}
+.card.on .btiger{animation:tigerland .95s cubic-bezier(.2,.8,.2,1) .5s both}
+@keyframes popcircle{from{opacity:0;transform:translateY(-50%) scale(.4)}to{opacity:1;transform:translateY(-50%) scale(1)}}
+@keyframes tigerland{from{opacity:0;transform:translateY(-50%) translateX(170px)}to{opacity:1;transform:translateY(-50%) translateX(0)}}
+.bpromise{font:800 60px/1.32 var(--font);letter-spacing:-.02em;max-width:1000px;text-wrap:balance}
+.btitle2{font:800 78px/1.04 var(--font);letter-spacing:-.03em;margin:14px 0 0}
+.bsub2{font:600 28px/1.4 var(--font);color:rgba(255,255,255,.9);margin-top:24px;max-width:560px}
+.qrs{position:absolute;right:84px;top:50%;transform:translateY(-50%);display:flex;gap:40px}
+.qr{display:flex;flex-direction:column;align-items:center;gap:12px}
+.qr img{width:180px;height:180px;border-radius:20px;background:#fff;padding:10px;object-fit:contain}
+.qr span{font:700 24px/1 var(--font)}
+.btiger2{width:270px;filter:drop-shadow(0 16px 24px rgba(0,0,0,.35))}
+.bend{font:800 58px/1.12 var(--font);letter-spacing:-.03em;margin:24px 0 0}
+.bword2{height:46px;margin-top:34px}
+.btag{font:800 42px/1 var(--font);letter-spacing:-.02em;color:var(--lime);margin-top:16px}
+/* progress bar */
+#bar{position:absolute;left:0;right:0;bottom:0;height:30px;background:#fff;border-top:1px solid var(--line);display:flex;box-shadow:0 -6px 24px rgba(43,22,64,.06);z-index:50}
+#bar .sliver{position:absolute;top:0;left:0;height:3px;background:#e3e0ec;width:100%}
+#bar .sliverfill{position:absolute;top:0;left:0;height:3px;background:var(--lime);transition:width .5s}
+#bar .seg{flex:1;position:relative;display:flex;align-items:center;justify-content:center;gap:7px;border-right:1px solid var(--line);background:#fff;transition:background .3s}
+#bar .seg:last-child{border-right:none}
+#bar .seg.active{background:var(--purple)}
+#bar .dot{width:15px;height:15px;border-radius:99px;display:flex;align-items:center;justify-content:center;font:800 9px/1 var(--font);background:var(--purple050);color:#9b86b3}
+#bar .seg.active .dot{background:rgba(255,255,255,.18);color:#fff}
+#bar .seg.done .dot{background:var(--lime);color:var(--purple)}
+#bar .lbl{font:700 13px/1 var(--font);letter-spacing:-.01em;color:var(--ink3)}
+#bar .seg.active .lbl{color:#fff}
+#bar .seg.done .lbl{color:#9b86b3}
+#replay{position:absolute;bottom:42px;right:22px;z-index:60;font:700 13px/1 var(--font);color:var(--purple);background:#fff;border:1px solid var(--line);border-radius:99px;padding:9px 14px;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+  <div id="cards"></div>
+  <button id="replay">↻ Replay</button>
+  <div id="bar"></div>
+</div></div>
+<script>
+const VIEW_W = 348, VIS_H = 612;
+const KICK = {1:['STEP 01','Book'],2:['STEP 02','Drop-off'],3:['STEP 03','Track'],4:['STEP 04','Collect']};
+const SEGS = [{n:'✓',l:"What’s D2D?"},{n:'01',l:'Book'},{n:'02',l:'Drop-off'},{n:'03',l:'Track'},{n:'04',l:'Collect'}];
+const BRAND = {
+  intro1:`<div class="brandscene">
+    <div class="bcircle"></div>
+    <img class="bword" src="assets/logo_wordmark_white.png">
+    <div class="bkick">HOW TO · GOODLUGG GUIDE</div>
+    <h1 class="btitle">Door2Door<br>Delivery <span class="lime">across Korea</span></h1>
+    <div class="bsub"><span class="lime">Yes,</span> even from your Airbnb</div>
+    <img class="btiger" src="assets/tiger.png">
+  </div>`,
+  intro2:`<div class="brandscene center">
+    <div class="bdisc" style="top:-130px;left:50%;margin-left:-220px;width:440px;height:440px"></div>
+    <p class="bpromise">
+      <span class="pl">Goodlugg picks up your luggage</span>
+      <span class="pl">from <span class="hl2">any accommodation in Korea</span></span>
+      <span class="pl">and delivers it to your next hotel or</span>
+      <span class="pl">airport — <span class="hl2">same day or scheduled</span>.</span>
+    </p>
+  </div>`,
+  contact:`<div class="brandscene">
+    <div class="bdisc" style="top:-150px;right:-110px;width:440px;height:440px"></div>
+    <div class="bkick">NEED HELP?</div>
+    <h1 class="btitle2">We’re one<br>message away</h1>
+    <p class="bsub2">Reach us anytime on <span class="hl2">WhatsApp</span> or <span class="hl2">KakaoTalk</span>.</p>
+    <div class="qrs">
+      <div class="qr"><img src="assets/qr_whatsapp.jpeg"><span>WhatsApp</span></div>
+      <div class="qr"><img src="assets/qr_kakao.jpeg"><span>KakaoTalk</span></div>
+    </div>
+  </div>`,
+  ending:`<div class="brandscene center">
+    <div class="bdisc" style="top:90px;left:50%;margin-left:-180px;width:360px;height:360px"></div>
+    <img class="btiger2" src="assets/tiger.png">
+    <h1 class="bend">Your <span class="lime">bagless travel</span> in Korea<br>starts here!</h1>
+    <img class="bword2" src="assets/logo_wordmark_white.png">
+    <div class="btag">Have a Goodlugg on every trip!</div>
+  </div>`,
+};
+const CARDS = [
+  // ── INTRO ──
+  {brand:'intro1',sec:0},
+  {brand:'intro2',sec:0},
+  // ── BOOK ──
+  {sec:1,head:'Check your <span class="hl">route &amp; price</span>',note:'Set departure → destination in the Price Calculator.',img:'assets/scr_price_calc.png',ar:0.461,cy:0.253,m:[0.04,0.227,0.96,0.279]},
+  {sec:1,head:'Add your <span class="hl">bags</span>',note:'Carry-on, checked-in, oversize.',img:'assets/scr_price_calc.png',ar:0.461,cy:0.761,m:[0.035,0.726,0.965,0.797]},
+  {sec:1,head:'Tap <span class="hl">Book with these options</span>',note:'Once the price calculator shows your quote.',img:'assets/scr_price_book_clean.png',ar:0.461,cy:0.55,m:[0.08,0.50,0.88,0.602]},
+  {sec:1,head:'<span class="hl">Same-day</span> or schedule it',note:'Pick your drop-off & pickup dates.',img:'assets/scr_schedule_later.png',ar:0.461,cy:0.38,m:[0.02,0.255,0.55,0.49]},
+  {sec:1,head:'<span class="hl">Any country’s</span> number works',note:'Name, email, phone — no Korean number needed.',img:'assets/scr_contact_country.png',ar:0.461,cy:0.695,m:[0.02,0.658,0.965,0.732],faqs:[{q:'Need a Korean phone number?',a:'No — we accept international phone numbers too.'}]},
+  {sec:1,head:'Pay with your <span class="hl">card or PayPal</span>',note:'Your home-country card works.',img:'assets/scr_pay_method.png',ar:0.461,cy:0.219,m:[0.025,0.146,0.955,0.292]},
+  {sec:1,head:'<span class="hl">Confirmed</span> — it’s in your email',note:'With your tracking link.',img:'assets/scr_email_tracking.png',ar:0.484,cy:0.70,m:[0.255,0.675,0.605,0.726]},
+  // ── DROP-OFF ──
+  {sec:2,type:'image',head:'At a hotel? <span class="hl">Show your card</span>',note:'Hand the message card to the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
+  {sec:2,type:'image',head:'<span class="hl">Upload a photo</span> of your tag',note:'Or just a clear photo of your bags.',img:'assets/hotel_tag_example.jpg',faqs:[{q:'What’s a hotel tag?',a:'A tag the hotel gives you for your bags. No tag? Just upload a clear photo.'}]},
+  {sec:2,head:'At an Airbnb? <span class="hl">Pick a meet-up time</span>',note:'Choose the time slot to meet the driver.',img:'assets/scr_schedule_time.png',ar:0.461,cy:0.869,m:[0.03,0.848,0.97,0.89]},
+  {sec:2,head:'Then <span class="hl">meet the driver</span>',note:'See their ETA & plate number.',img:'assets/scr_driver_eta.jpeg',ar:0.611,zoom:1.12,cy:0.86,m:[0.03,0.785,0.97,0.985]},
+  {sec:2,head:'<span class="hl">Handed over</span> — done!',note:'Your bag is on its way.',img:'assets/scr_meetup_done.png',ar:0.466,cy:0.49,m:[0.18,0.40,0.82,0.63]},
+  // ── TRACK ──
+  {sec:3,head:'Track <span class="hl">every step</span>',note:'Every update lands in your inbox.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.58,m:[0.085,0.45,0.93,0.71],toasts:[{title:'Driver picked up your luggage',sub:'Delivery is on the way'},{title:'Your luggage has arrived',sub:'With pickup & delivery photos'}]},
+  // ── COLLECT ──
+  {sec:4,head:'Bags arrive <span class="hl">by 10 PM</span>',note:'Collect them at your hotel lobby — bagless travel.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.82,m:[0.085,0.70,0.93,0.95]},
+  // ── ENDING ──
+  {brand:'contact',noBar:true},
+  {brand:'ending',noBar:true},
+];
+const DUR = 3600, BRAND_DUR = 4200;
+const cardsEl = document.getElementById('cards');
+const barEl = document.getElementById('bar');
+
+barEl.innerHTML = '<div class="sliver"></div><div class="sliverfill"></div>' +
+  SEGS.map(s=>`<div class="seg"><span class="dot">${s.n}</span><span class="lbl">${s.l}</span></div>`).join('');
+const segEls = [...barEl.querySelectorAll('.seg')];
+const fillEl = barEl.querySelector('.sliverfill');
+
+CARDS.forEach((c)=>{
+  const el=document.createElement('div'); el.className='card';
+  if(c.brand){ el.classList.add('brandcard'); el.innerHTML = BRAND[c.brand]; cardsEl.appendChild(el); return; }
+  let inner;
+  if(c.type==='image'){
+    inner = `<div class="phonewrap"><div class="imgcard"><img src="${c.img}"></div></div>`;
+  } else {
+    const z=c.zoom||1, imgW=VIEW_W*z, imgH=imgW/c.ar;
+    const tx=(VIEW_W-imgW)/2;
+    const ty=Math.max(VIS_H-imgH, Math.min(0, VIS_H/2 - c.cy*imgH));
+    const mL=tx+c.m[0]*imgW, mW=(c.m[2]-c.m[0])*imgW, mT=ty+c.m[1]*imgH, mH=(c.m[3]-c.m[1])*imgH;
+    inner = `<div class="phonewrap"><div class="phone"><div class="screen">
+      <div class="island"></div>
+      <div class="statusbar"><span>9:41</span><span class="r">●●● ⌃ <b>96</b></span></div>
+      <div class="viewport">
+        <img src="${c.img}" style="width:${imgW}px;transform:translate(${tx}px,${ty}px)">
+        <div class="ring" style="left:${mL}px;top:${mT}px;width:${mW}px;height:${mH}px"></div>
+      </div>
+    </div></div></div>`;
+  }
+  let items=[], k=0;
+  if(c.toasts) c.toasts.forEach(t=>items.push(`<div class="toast" style="animation-delay:${(2.1+k++*0.6).toFixed(2)}s"><span class="ic">✉</span><div><div class="tt">${t.title}</div><div class="ts">${t.sub}</div></div></div>`));
+  if(c.faqs) c.faqs.forEach(f=>items.push(`<div class="faq" style="animation-delay:${(2.1+k++*0.6).toFixed(2)}s"><div class="q"><b>FAQ</b>${f.q}</div><div class="a">${f.a}</div></div>`));
+  const extras = items.length ? `<div class="extras">${items.join('')}</div>` : '';
+  el.innerHTML=`<div class="col">
+      <div class="kick"><span class="num">${KICK[c.sec][0]}</span><span class="lbl">${KICK[c.sec][1]}</span></div>
+      <div class="head">${c.head}</div>
+      <div class="note">${c.note}</div>
+      ${extras}
+    </div>${inner}`;
+  cardsEl.appendChild(el);
+});
+
+const cards=[...document.querySelectorAll('.card')];
+let idx=0, timer=null;
+function updateBar(sec){
+  segEls.forEach((s,i)=>{ s.classList.toggle('active',i===sec); s.classList.toggle('done',i<sec); });
+  fillEl.style.width = (sec/(SEGS.length-1)*100).toFixed(1)+'%';
+}
+function show(i){
+  cards.forEach((c,n)=>c.classList.toggle('on',n===i));
+  const c=CARDS[i];
+  if(c.noBar){ barEl.style.display='none'; }
+  else { barEl.style.display='flex'; updateBar(c.sec); }
+}
+function nextDelay(){ const c=CARDS[idx]; if(c.brand) return BRAND_DUR; if(c.faqs||c.toasts) return 5800; return DUR; }
+function tick(){ idx=(idx+1)%CARDS.length; show(idx); timer=setTimeout(tick, nextDelay()); }
+function play(){ show(idx); timer=setTimeout(tick, nextDelay()); }
+document.getElementById('replay').onclick=()=>{ clearTimeout(timer); idx=0; play(); };
+window.__stop=()=>clearTimeout(timer);
+window.__show=(n)=>{ clearTimeout(timer); idx=n; show(n); };
+function fit(){ const s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+  document.getElementById('stage').style.transform=`scale(${s})`; }
+window.addEventListener('resize',fit); fit();
+play();
+</script>
+</body>
+</html>

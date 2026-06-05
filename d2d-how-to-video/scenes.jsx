@@ -78,7 +78,8 @@ function IntroScene({ style = 'tiger' }) {
 
       {style === 'tiger' && (
         <>
-          <Reveal at={1.1} out={5.3} x={LX} y={206} width={860}>
+          {/* ── Screen 1 (0–2.9): title + tiger ── */}
+          <Reveal at={1.1} out={2.9} x={LX} y={300} width={860}>
             <h1 style={{ font: '800 78px/1.0 var(--gl-font-display)', letterSpacing: '-.03em', color: '#fff', margin: 0 }}>
               Door2Door<br />Delivery <span style={{ color: 'var(--gl-lime-500)' }}>across Korea</span>
             </h1>
@@ -88,15 +89,17 @@ function IntroScene({ style = 'tiger' }) {
               </span>
             </div>
           </Reveal>
-          <Reveal at={2.4} out={5.3} x={LX} y={540} width={680}>
-            <p style={{ font: '500 27px/1.5 var(--gl-font-ui)', color: 'rgba(255,255,255,.92)', margin: 0, textWrap: 'pretty' }}>
+          <div style={{ position: 'absolute', right: 168, top: 158, width: 548, height: 548, borderRadius: 999,
+            background: 'var(--gl-lime-500)', transform: `rotate(${discRot}deg)`, opacity: clamp((2.9 - t) / 0.4, 0, 1), willChange: 'transform, opacity' }} />
+          <Reveal at={2.0} out={2.9} right={96} y={170} dx={120} inDur={1.1}>
+            <Tiger width={524} />
+          </Reveal>
+
+          {/* ── Screen 2 (3.1–5.7): the promise, big & centered ── */}
+          <Reveal at={3.1} out={5.7} x={0} y={262} width={1600} inDur={0.6} style={{ textAlign: 'center' }}>
+            <p style={{ font: '700 62px/1.34 var(--gl-font-display)', letterSpacing: '-.02em', color: 'rgba(255,255,255,.96)', margin: '0 auto', maxWidth: 1240, textWrap: 'balance' }}>
               Goodlugg picks up your luggage from <span style={{ whiteSpace: 'nowrap' }}><HL>any accommodation in Korea</HL></span> and delivers it to your next hotel or airport — <HL>same day or scheduled</HL>.
             </p>
-          </Reveal>
-          <div style={{ position: 'absolute', right: 168, top: 158, width: 548, height: 548, borderRadius: 999,
-            background: 'var(--gl-lime-500)', transform: `rotate(${discRot}deg)`, willChange: 'transform' }} />
-          <Reveal at={2.0} out={5.3} right={96} y={170} dx={120} inDur={1.1}>
-            <Tiger width={524} />
           </Reveal>
         </>
       )}
