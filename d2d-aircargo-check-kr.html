@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>굿럭 · 항공화물 필수 확인 (일정·수하물)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#512a72;
+    --olive:#c7c22e;
+    --lime:#aacb3a;
+    --danger:#e23b2e;
+    --req:#f4732b;
+    --amber:#c98a1e;
+    --green:#2f9e54;
+    --ink:#26242e;
+    --muted:#8a8a93;
+    --meta:#a7a7ae;
+    --border:#e3e3e9;
+    --bg:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:#d9d9de;
+    font-family:'Noto Sans KR',sans-serif;color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    display:flex;justify-content:center;align-items:flex-start;
+    min-height:100vh;padding:24px 12px 60px;
+  }
+  .phone{
+    position:relative;width:430px;max-width:100%;background:var(--bg);
+    border-radius:26px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.22);
+    min-height:880px;
+  }
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px;border-bottom:1px solid #f0f0f3;}
+  .lang{display:flex;align-items:center;gap:6px;font-size:15px;color:var(--ink);font-weight:500;}
+  .lang .globe{width:18px;height:18px;border:1.6px solid var(--ink);border-radius:50%;position:relative;}
+  .lang .globe:before{content:"";position:absolute;inset:0;border-left:1.6px solid var(--ink);border-right:1.6px solid var(--ink);border-radius:50%;width:7px;margin:0 auto;}
+  .wordmark{font-weight:900;font-size:25px;letter-spacing:-.5px;}
+  .wordmark .g{color:var(--purple);}
+  .wordmark .l{color:var(--olive);}
+  .burger{display:flex;flex-direction:column;gap:4px;}
+  .burger span{width:24px;height:3px;background:var(--purple);border-radius:2px;}
+
+  .progress{display:flex;gap:7px;padding:18px 18px 0;}
+  .progress .seg{height:6px;border-radius:6px;flex:1;background:#e7e7ec;}
+  .progress .seg.done{background:var(--lime);}
+  .progress .seg.cur{background:var(--purple);}
+
+  .screen{padding:6px 22px 130px;}
+  h1.title{font-size:30px;font-weight:900;letter-spacing:-.5px;margin:16px 0 5px;}
+  .sub{color:var(--muted);font-size:16px;margin:0 0 6px;line-height:1.4;}
+
+  .blockhd{font-weight:800;font-size:20px;margin:24px 0 12px;}
+  .req{color:var(--req);font-weight:700;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .field label{display:block;font-weight:700;font-size:15px;margin-bottom:7px;}
+  .input{border:1.5px solid var(--border);border-radius:11px;padding:15px 14px;font-size:16px;color:var(--ink);background:#fff;}
+  .input.sel{background:#f4f4f6;display:flex;align-items:center;justify-content:space-between;}
+  .input.sel .chev{color:#9a9aa2;}
+
+  .divider{height:1px;background:#eee;margin:26px 0 4px;}
+
+  .lugg-row{display:flex;align-items:center;justify-content:space-between;padding:16px 2px;border-top:1px solid #eee;}
+  .lugg-row:first-of-type{border-top:none;}
+  .lugg-row .nm{font-weight:800;font-size:17px;}
+  .lugg-row .nm small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:3px;}
+  .stepper{display:flex;align-items:center;gap:16px;}
+  .stepper button{width:38px;height:38px;border-radius:50%;border:1.5px solid #e0e0e6;background:#fff;color:var(--purple);font-size:19px;line-height:1;cursor:pointer;}
+  .stepper .v{font-weight:700;min-width:14px;text-align:center;font-size:17px;}
+  .lugg-note{color:var(--danger);font-size:14px;margin:10px 0 2px;}
+
+  /* 항공화물 필수 확인 (폼 필드 스타일) */
+  .accheck{margin-top:26px;}
+  .accheck .lab{font-weight:700;font-size:16px;margin-bottom:9px;display:flex;align-items:center;gap:4px;}
+  .ac-btn{width:100%;display:flex;align-items:center;gap:12px;border:none;background:var(--purple);color:#fff;
+    font-family:inherit;font-weight:800;font-size:16px;border-radius:13px;padding:17px 16px;cursor:pointer;text-align:left;
+    box-shadow:0 6px 16px rgba(81,42,114,.28);transition:.16s;}
+  .ac-btn .ac-ic{font-size:18px;}
+  .ac-btn .ac-arrow{margin-left:auto;font-size:22px;line-height:1;}
+  .ac-btn.done{background:#eaf7ee;color:var(--green);box-shadow:none;}
+  .ac-btn.done .ac-arrow{display:none;}
+  .ac-hint{font-size:13px;color:var(--req);margin:10px 2px 0;font-weight:500;}
+  .ac-hint.ok{color:var(--green);}
+
+  .navrow{display:flex;gap:12px;margin-top:28px;}
+  .btn{font-family:inherit;font-weight:700;border:none;cursor:pointer;}
+  .btn.prev{flex:0 0 33%;background:#ededf0;color:#5d5d66;padding:18px 0;font-size:17px;border-radius:13px;}
+  .btn.next{flex:1;background:var(--purple);color:#fff;padding:18px 0;font-size:17px;border-radius:13px;box-shadow:0 6px 16px rgba(81,42,114,.3);}
+  .btn.next:disabled{background:#dcdce1;color:#a2a2ab;box-shadow:none;cursor:not-allowed;}
+
+  .paybar{position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #eee;box-shadow:0 -6px 18px rgba(0,0,0,.05);padding:16px 22px 18px;border-radius:22px 22px 0 0;}
+  .paychev{position:absolute;top:-1px;left:50%;transform:translateX(-50%);color:#8e7bd1;font-size:15px;}
+  .paybar .row{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+  .paybar .lab{font-weight:700;font-size:17px;}
+  .paybar .amt{font-weight:900;font-size:23px;color:#6f63d6;}
+
+  .toast{position:absolute;left:50%;bottom:130px;transform:translateX(-50%) translateY(10px);background:#26242e;color:#fff;font-size:13px;padding:11px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap;z-index:5;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* 팝업 (확정된 4페이지) */
+  .overlay{position:absolute;inset:0;background:rgba(20,16,30,.55);display:none;align-items:flex-end;justify-content:center;z-index:20;}
+  .overlay.open{display:flex;}
+  .sheet{background:#fff;width:100%;max-height:94%;border-radius:22px 22px 0 0;display:flex;flex-direction:column;overflow:hidden;animation:rise .28s ease;}
+  @keyframes rise{from{transform:translateY(40px);opacity:.6;}to{transform:translateY(0);opacity:1;}}
+  .grip{width:42px;height:5px;background:#d8d8de;border-radius:3px;margin:10px auto 4px;}
+  .sheet .shead{display:flex;align-items:flex-start;justify-content:space-between;padding:8px 22px 0;}
+  .sheet h2{font-size:23px;font-weight:900;margin:6px 0 4px;letter-spacing:-.4px;}
+  .sheet .lead{color:#54525c;font-size:14px;line-height:1.45;margin:0 0 12px;}
+  .x{background:none;border:none;font-size:22px;color:#9a9aa2;cursor:pointer;line-height:1;padding:6px;margin:2px -6px 0 0;}
+  .sheet .body{padding:0 22px 8px;overflow-y:auto;}
+  .pgdots{display:flex;gap:6px;align-items:center;margin:2px 0 14px;}
+  .pgdots span{height:5px;border-radius:5px;flex:1;background:#ece3f4;}
+  .pgdots span.fill{background:var(--purple);}
+  .pgdots .cnt{flex:0 0 auto;font-size:12px;color:var(--muted);font-weight:700;margin-left:6px;}
+  .illu{background:#e9f1fd;border-radius:14px;height:150px;display:flex;align-items:center;justify-content:center;margin:4px 0 16px;}
+  .illu .scan{width:120px;height:74px;border:3px solid #c7d6ee;border-radius:8px;position:relative;background:#fff;display:flex;align-items:center;justify-content:center;}
+  .illu .bars{display:flex;gap:3px;}
+  .illu .bars i{display:block;width:5px;height:34px;background:var(--purple);border-radius:1px;}
+  .illu .chk{position:absolute;top:-14px;right:-14px;width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;}
+  .p1text{font-size:15px;line-height:1.65;color:#3c3b44;}
+  .p1text .red{color:var(--danger);font-weight:700;}
+  .p1text b{font-weight:700;}
+  .yellowbox{background:#fdf6e3;border-radius:12px;padding:13px 14px;margin:6px 0 14px;}
+  .yellowbox .yh{font-weight:800;color:#8a6d12;font-size:14px;margin-bottom:4px;}
+  .yellowbox p{margin:0;font-size:13px;color:#6f5d23;line-height:1.5;}
+  .yellowbox b{font-weight:700;}
+  .yellowbox.stop .yh{color:var(--amber);}
+  .grouphd{font-weight:800;font-size:14px;margin:14px 0 2px;display:flex;align-items:center;gap:7px;}
+  .grouphd:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;}
+  .grouphd.no{color:var(--danger);}
+  .grouphd.cond{color:var(--amber);}
+  .grouphd.ok{color:var(--green);}
+  .grouphd small{font-weight:500;color:var(--muted);font-size:12px;}
+  .item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 2px;border-bottom:1px solid #f0f0f3;}
+  .item:last-child{border-bottom:none;}
+  .item .nm{font-size:14.5px;font-weight:600;}
+  .item .nm .note{font-weight:400;color:var(--muted);font-size:12.5px;margin-left:6px;}
+  .item .ban{width:21px;height:21px;border-radius:50%;background:var(--danger);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex:0 0 auto;}
+  .item .tag{font-size:11px;font-weight:700;color:#8a6d12;background:#fbeec2;border-radius:20px;padding:3px 9px;white-space:nowrap;}
+  .cat{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f3;}
+  .cat .ic{width:40px;height:40px;border-radius:10px;background:#f3f1f7;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:19px;}
+  .cat .ct{font-size:14px;line-height:1.5;}
+  .cat .ct strong{display:block;font-weight:800;font-size:14px;margin-bottom:1px;}
+  .cat .ct .red{color:var(--danger);font-weight:700;}
+  .checks{margin:16px 0 6px;}
+  .chk-row{display:flex;align-items:flex-start;gap:11px;padding:11px 0;cursor:pointer;font-size:14px;line-height:1.45;}
+  .chk-row .box{width:24px;height:24px;border-radius:7px;border:2px solid #cfcfd6;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;transition:.15s;}
+  .chk-row.on .box{background:var(--purple);border-color:var(--purple);}
+  .chk-row b{font-weight:700;}
+  .sheet .foot{display:flex;gap:12px;padding:14px 22px 22px;border-top:1px solid #f0f0f3;background:#fff;}
+  .btn.back{flex:0 0 30%;background:#fff;border:1.6px solid #d9d9df;color:#54525c;padding:15px 0;font-size:15px;border-radius:12px;}
+  .btn.fwd{flex:1;background:var(--purple);color:#fff;padding:15px 0;font-size:15px;border-radius:12px;box-shadow:0 5px 14px rgba(81,42,114,.28);}
+  .btn.fwd:disabled{background:#dcdce1;color:#a2a2ab;box-shadow:none;cursor:not-allowed;}
+
+  .anno{max-width:430px;margin:14px auto 0;color:#5c5c64;font-size:12.5px;line-height:1.6;background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 6px 18px rgba(0,0,0,.08);}
+  .anno b{color:#3c245a;}
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="topbar">
+    <div class="lang"><span class="globe"></span> 한국어 ⌄</div>
+    <div class="wordmark"><span class="g">Good</span><span class="l">lugg</span></div>
+    <div class="burger"><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="progress">
+    <div class="seg done"></div><div class="seg done"></div><div class="seg cur"></div><div class="seg"></div><div class="seg"></div>
+  </div>
+
+  <div class="screen">
+    <h1 class="title">배송일정 &amp; 짐정보</h1>
+    <p class="sub">언제 맡기고 찾으실 건가요?</p>
+
+    <div class="blockhd">출발지에서 맡기기</div>
+    <div class="grid2">
+      <div class="field"><label>날짜 <span class="req">*</span></label><div class="input">2026-06-28</div></div>
+      <div class="field"><label>시간대 <span class="req">*</span></label><div class="input sel">10:00 이전 <span class="chev">⌄</span></div></div>
+    </div>
+
+    <div class="blockhd">도착지에서 찾기</div>
+    <div class="grid2">
+      <div class="field"><label>날짜 <span class="req">*</span></label><div class="input">2026-06-28</div></div>
+      <div class="field"><label>시간대 <span class="req">*</span></label><div class="input sel">18:00 이후 <span class="chev">⌄</span></div></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="blockhd">수하물</div>
+    <div class="lugg-row"><div class="nm">기내용<small>기내 반입 크기 (22인치 이하)</small></div>
+      <div class="stepper"><button>−</button><span class="v">0</span><button>+</button></div></div>
+    <div class="lugg-row"><div class="nm">위탁수하물<small>일반 캐리어 (22인치 초과~30인치 이하), 골프백</small></div>
+      <div class="stepper"><button>−</button><span class="v">1</span><button>+</button></div></div>
+    <div class="lugg-row"><div class="nm">특대형<small>초대형 가방 (30인치 초과~32인치 이하)</small></div>
+      <div class="stepper"><button>−</button><span class="v">0</span><button>+</button></div></div>
+    <p class="lugg-note">* 32인치 초과 또는 30kg 초과는 접수할 수 없어요.</p>
+
+    <!-- ===== 항공화물 필수 확인 (제주 ⇄ 타지역 노선 한정) ===== -->
+    <div class="accheck">
+      <div class="lab">항공화물 금지물품 <span class="req">*</span></div>
+      <button class="ac-btn" id="acBtn" onclick="openModal()">
+        <span class="ac-ic">✈</span>
+        <span class="ac-main">캐리어에 넣으면 안 되는 물품 확인하기</span>
+        <span class="ac-arrow">›</span>
+      </button>
+      <p class="ac-hint" id="acHint">*제주-다른 지역 간 배송은 항공화물로 운송됩니다. 다음으로 진행하기 전에 꼭 확인해주세요.</p>
+    </div>
+
+    <div class="navrow">
+      <button class="btn prev">이전</button>
+      <button class="btn next" id="nextBtn" disabled onclick="goNext()">다음</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">✓ 항공화물 확인 완료 — 고객 정보 입력으로 이동해요</div>
+
+  <div class="paybar">
+    <div class="paychev">︿</div>
+    <div class="row"><span class="lab">결제 금액</span><span class="amt">₩152,500</span></div>
+  </div>
+
+  <!-- ===== 팝업: 확정된 4페이지 ===== -->
+  <div class="overlay" id="overlay">
+    <div class="sheet">
+      <div class="grip"></div>
+
+      <div class="page" data-page="1">
+        <div class="shead"><div></div><button class="x" onclick="closeModal()">✕</button></div>
+        <div class="body">
+          <h2>캐리어는 고객님 없이 비행기에 실려요</h2>
+          <div class="pgdots"><span class="fill"></span><span></span><span></span><span></span><span class="cnt">1/4</span></div>
+          <div class="illu"><div class="scan"><div class="bars"><i></i><i></i><i></i><i></i><i></i></div><div class="chk">✓</div></div></div>
+          <p class="p1text">굿럭은 고객님의 캐리어를 <b>항공화물</b>로 보내드려요 — 짐과 사람이 함께 이동하는 것이 아니라, <b>캐리어만 따로 운송하기 때문에 더 엄격한 규정이 적용돼요.</b></p>
+          <p class="p1text" style="margin-top:14px;">위탁수하물에는 허용되는 일부 물품도 <span class="red">항공화물에서는 금지돼요.</span></p>
+          <p class="p1text" style="margin-top:14px;">엑스레이 검사에서 적발되면 개봉검사되고, <span class="red">금지물품은 즉시 폐기돼요.</span></p>
+        </div>
+        <div class="foot"><button class="btn fwd" onclick="go(2)">다음</button></div>
+      </div>
+
+      <div class="page" data-page="2" hidden>
+        <div class="shead"><div></div><button class="x" onclick="closeModal()">✕</button></div>
+        <div class="body">
+          <h2>주류 · 스프레이 금지</h2>
+          <p class="lead">도수가 높거나 압축된 제품은 화물로 보내기엔 너무 위험해요.</p>
+          <div class="pgdots"><span class="fill"></span><span class="fill"></span><span></span><span></span><span class="cnt">2/4</span></div>
+          <div class="yellowbox"><div class="yh">모든 액체류는 개봉 후 검사해요</div><p>캐리어는 <b>잠그지 말아 주세요.</b> 꼭 잠가야 한다면 맡기실 때 비밀번호를 알려주세요.</p></div>
+          <div class="grouphd no">넣지 마세요</div>
+          <div class="item"><div class="nm">스킨 · 토너 <span class="note">샘플 사이즈도 <b>안 돼요</b></span></div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">위스키 · 고도주 <span class="note">70도(ABV) 이상</span></div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">향수 · 코롱</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">손 소독제</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">스프레이 (모든 종류)</div><span class="ban">⊘</span></div>
+          <div class="grouphd ok">넣어도 돼요 <small>(데스크에서 개봉 검사는 진행돼요)</small></div>
+          <div class="item"><div class="nm">로션 · 크림</div></div>
+          <div class="item"><div class="nm">세럼 · 선크림</div></div>
+          <div class="item"><div class="nm">샴푸 · 바디워시</div></div>
+        </div>
+        <div class="foot"><button class="btn back" onclick="go(1)">이전</button><button class="btn fwd" onclick="go(3)">다음</button></div>
+      </div>
+
+      <div class="page" data-page="3" hidden>
+        <div class="shead"><div></div><button class="x" onclick="closeModal()">✕</button></div>
+        <div class="body">
+          <h2>리튬 배터리 금지</h2>
+          <p class="lead">무인 화물칸에서 화재 위험이 있어요 — 예외는 없어요.</p>
+          <div class="pgdots"><span class="fill"></span><span class="fill"></span><span class="fill"></span><span></span><span class="cnt">3/4</span></div>
+          <div class="grouphd no">넣지 마세요 <small>— 리튬 배터리 내장</small></div>
+          <div class="item"><div class="nm">보조배터리</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">전동칫솔</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">셀카봉</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">골프 거리측정기</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">무선 이어폰</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">스마트워치</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">헤어드라이어</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">디지털 체온계</div><span class="ban">⊘</span></div>
+          <div class="grouphd cond">배터리는 빼고 기기만 넣으세요</div>
+          <div class="item"><div class="nm">배터리 분리형 기기 <span class="note">손전등, 유아 장난감, 일부 카메라, 리모컨</span></div><span class="tag">조건부</span></div>
+          <div class="grouphd ok">이건 괜찮아요</div>
+          <div class="item"><div class="nm">일반 AA / AAA 건전지 <span class="note">개봉 검사는 진행돼요</span></div></div>
+        </div>
+        <div class="foot"><button class="btn back" onclick="go(2)">이전</button><button class="btn fwd" onclick="go(4)">다음</button></div>
+      </div>
+
+      <div class="page" data-page="4" hidden>
+        <div class="shead"><div></div><button class="x" onclick="closeModal()">✕</button></div>
+        <div class="body">
+          <h2>이런 물품도 두고 오세요</h2>
+          <p class="lead">전자제품 · 인화성 · 압축 제품은 집에 두고, 확인 후 계속 진행해 주세요.</p>
+          <div class="pgdots"><span class="fill"></span><span class="fill"></span><span class="fill"></span><span class="fill"></span><span class="cnt">4/4</span></div>
+          <div class="cat"><div class="ic">🔌</div><div class="ct"><strong>전자제품</strong><span class="red">노트북</span>, 태블릿, <span class="red">휴대폰</span>, 전기면도기, 고데기</div></div>
+          <div class="cat"><div class="ic">🥫</div><div class="ct"><strong>장류 · 농축액</strong><span class="red">고추장</span>, <span class="red">쌈장</span>, 홍삼 · 인삼 농축액</div></div>
+          <div class="cat"><div class="ic">💅</div><div class="ct"><strong>퍼스널 케어</strong><span class="red">본국 처방약</span>, 매니큐어 · 리무버, 염색약, 펌 약, 잉크, <span class="red">핫팩</span></div></div>
+          <div class="cat"><div class="ic">🔥</div><div class="ct"><strong>화기류</strong><span class="red">라이터</span>, <span class="red">전자담배</span>, 캠핑 버너, 성냥</div></div>
+          <div class="cat"><div class="ic">🎙️</div><div class="ct"><strong>기타</strong>살충제, 디퓨저, <span class="red">블루투스 스피커 · 마이크</span></div></div>
+          <div class="yellowbox stop" style="margin-top:14px;"><div class="yh">⊘ 핫팩</div><p>특히 겨울철에 조심하세요. 외투 주머니, 운동가방, 선물세트를 꼭 확인하세요.</p></div>
+          <div class="checks">
+            <div class="chk-row" id="c1" onclick="toggleChk('c1')"><div class="box">✓</div><div>제 캐리어에는 <b>금지물품이 없으며,</b> 발견 시 폐기되는 것에 동의해요</div></div>
+            <div class="chk-row" id="c2" onclick="toggleChk('c2')"><div class="box">✓</div><div>검사를 위해 캐리어를 <b>잠그지 않고</b> 맡길게요</div></div>
+          </div>
+        </div>
+        <div class="foot"><button class="btn back" onclick="go(3)">이전</button><button class="btn fwd" id="continueBtn" disabled onclick="confirmDone()">예약 계속하기</button></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="anno">
+  <b>적용 위치:</b> 3단계(일정 · 수하물) 화면 맨 아래, 수하물 카운터 바로 밑에 들어가는 필수 항목 — 날짜 / 시간대와 동일한 주황색 <b>*</b> 마커예요. <b>제주 ⇄ 타지역</b> 노선(양방향)에서만 노출돼요. 버튼을 누르면 확정된 4페이지 팝업이 열리고, 팝업을 완료(체크 2개 + “예약 계속하기”)해야 <b>다음</b> 버튼이 활성화돼요. 확인 없이는 통과할 수 없어 필수가 보장돼요.
+</div>
+
+<script>
+  function openModal(){ document.getElementById('overlay').classList.add('open'); go(1); }
+  function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+  function go(n){
+    document.querySelectorAll('.page').forEach(p=>{ p.hidden = (+p.dataset.page !== n); });
+    document.querySelector('.sheet .body').scrollTop = 0;
+  }
+  const checked = {c1:false, c2:false};
+  function toggleChk(id){
+    checked[id] = !checked[id];
+    document.getElementById(id).classList.toggle('on', checked[id]);
+    document.getElementById('continueBtn').disabled = !(checked.c1 && checked.c2);
+  }
+  function confirmDone(){
+    closeModal();
+    const btn = document.getElementById('acBtn');
+    btn.classList.add('done');
+    btn.querySelector('.ac-ic').textContent = '✓';
+    btn.querySelector('.ac-main').textContent = '확인 완료 — 계속 진행할 수 있어요';
+    const h = document.getElementById('acHint');
+    h.textContent = '항공화물 규정을 확인했어요.'; h.classList.add('ok');
+    document.getElementById('nextBtn').disabled = false;
+  }
+  function goNext(){
+    const t = document.getElementById('toast');
+    t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2600);
+  }
+</script>
+</body>
+</html>
