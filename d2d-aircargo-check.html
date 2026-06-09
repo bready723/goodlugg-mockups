@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goodlugg · Air-Cargo required check (Schedule & Luggage)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#512a72;
+    --olive:#c7c22e;
+    --lime:#aacb3a;
+    --danger:#e23b2e;
+    --req:#f4732b;
+    --amber:#c98a1e;
+    --green:#2f9e54;
+    --ink:#26242e;
+    --muted:#8a8a93;
+    --meta:#a7a7ae;
+    --border:#e3e3e9;
+    --bg:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:#d9d9de;
+    font-family:'Noto Sans KR',sans-serif;color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    display:flex;justify-content:center;align-items:flex-start;
+    min-height:100vh;padding:24px 12px 60px;
+  }
+  .phone{
+    position:relative;width:430px;max-width:100%;background:var(--bg);
+    border-radius:26px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.22);
+    min-height:880px;
+  }
+
+  /* header */
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px;border-bottom:1px solid #f0f0f3;}
+  .lang{display:flex;align-items:center;gap:6px;font-size:15px;color:var(--ink);font-weight:500;}
+  .lang .globe{width:18px;height:18px;border:1.6px solid var(--ink);border-radius:50%;position:relative;}
+  .lang .globe:before{content:"";position:absolute;inset:0;border-left:1.6px solid var(--ink);border-right:1.6px solid var(--ink);border-radius:50%;width:7px;margin:0 auto;}
+  .wordmark{font-weight:900;font-size:25px;letter-spacing:-.5px;}
+  .wordmark .g{color:var(--purple);}
+  .wordmark .l{color:var(--olive);}
+  .burger{display:flex;flex-direction:column;gap:4px;}
+  .burger span{width:24px;height:3px;background:var(--purple);border-radius:2px;}
+
+  /* progress: step 3 of 5 */
+  .progress{display:flex;gap:7px;padding:18px 18px 0;}
+  .progress .seg{height:6px;border-radius:6px;flex:1;background:#e7e7ec;}
+  .progress .seg.done{background:var(--lime);}
+  .progress .seg.cur{background:var(--purple);}
+
+  .screen{padding:6px 22px 130px;}
+  h1.title{font-size:30px;font-weight:900;letter-spacing:-.5px;margin:16px 0 5px;}
+  .sub{color:var(--muted);font-size:16px;margin:0 0 6px;line-height:1.4;}
+
+  .blockhd{font-weight:800;font-size:20px;margin:24px 0 12px;}
+  .req{color:var(--req);font-weight:700;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .field label{display:block;font-weight:700;font-size:15px;margin-bottom:7px;}
+  .input{border:1.5px solid var(--border);border-radius:11px;padding:15px 14px;font-size:16px;color:var(--ink);background:#fff;}
+  .input.sel{background:#f4f4f6;display:flex;align-items:center;justify-content:space-between;}
+  .input.sel .chev{color:#9a9aa2;}
+
+  .divider{height:1px;background:#eee;margin:26px 0 4px;}
+
+  .lugg-row{display:flex;align-items:center;justify-content:space-between;padding:16px 2px;border-top:1px solid #eee;}
+  .lugg-row:first-of-type{border-top:none;}
+  .lugg-row .nm{font-weight:800;font-size:17px;}
+  .lugg-row .nm small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:3px;}
+  .stepper{display:flex;align-items:center;gap:16px;}
+  .stepper button{width:38px;height:38px;border-radius:50%;border:1.5px solid #e0e0e6;background:#fff;color:var(--purple);font-size:19px;line-height:1;cursor:pointer;}
+  .stepper .v{font-weight:700;min-width:14px;text-align:center;font-size:17px;}
+  .lugg-note{color:var(--danger);font-size:14px;margin:10px 0 2px;}
+
+  /* ===== NEW: Air-Cargo required button (matches required-field style) ===== */
+  .accheck{margin-top:26px;}
+  .accheck .lab{font-weight:700;font-size:16px;margin-bottom:9px;display:flex;align-items:center;gap:4px;}
+  .ac-btn{width:100%;display:flex;align-items:center;gap:12px;border:none;background:var(--purple);color:#fff;
+    font-family:inherit;font-weight:800;font-size:16px;border-radius:13px;padding:17px 16px;cursor:pointer;text-align:left;
+    box-shadow:0 6px 16px rgba(81,42,114,.28);transition:.16s;}
+  .ac-btn .ac-ic{font-size:18px;}
+  .ac-btn .ac-arrow{margin-left:auto;font-size:22px;line-height:1;}
+  .ac-btn.done{background:#eaf7ee;color:var(--green);box-shadow:none;}
+  .ac-btn.done .ac-arrow{display:none;}
+  .ac-hint{font-size:13px;color:var(--req);margin:10px 2px 0;font-weight:500;}
+  .ac-hint.ok{color:var(--green);}
+
+  /* nav */
+  .navrow{display:flex;gap:12px;margin-top:28px;}
+  .btn{font-family:inherit;font-weight:700;border:none;cursor:pointer;}
+  .btn.prev{flex:0 0 33%;background:#ededf0;color:#5d5d66;padding:18px 0;font-size:17px;border-radius:13px;}
+  .btn.next{flex:1;background:var(--purple);color:#fff;padding:18px 0;font-size:17px;border-radius:13px;box-shadow:0 6px 16px rgba(81,42,114,.3);}
+  .btn.next:disabled{background:#dcdce1;color:#a2a2ab;box-shadow:none;cursor:not-allowed;}
+
+  /* sticky pay bar */
+  .paybar{position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #eee;box-shadow:0 -6px 18px rgba(0,0,0,.05);padding:16px 22px 18px;border-radius:22px 22px 0 0;}
+  .paychev{position:absolute;top:-1px;left:50%;transform:translateX(-50%);color:#8e7bd1;font-size:15px;}
+  .paybar .row{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+  .paybar .lab{font-weight:700;font-size:17px;}
+  .paybar .amt{font-weight:900;font-size:23px;color:#6f63d6;}
+
+  /* toast */
+  .toast{position:absolute;left:50%;bottom:130px;transform:translateX(-50%) translateY(10px);background:#26242e;color:#fff;font-size:13px;padding:11px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap;z-index:5;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ===== MODAL: confirmed 4-page popup ===== */
+  .overlay{position:absolute;inset:0;background:rgba(20,16,30,.55);display:none;align-items:flex-end;justify-content:center;z-index:20;}
+  .overlay.open{display:flex;}
+  .sheet{background:#fff;width:100%;max-height:94%;border-radius:22px 22px 0 0;display:flex;flex-direction:column;overflow:hidden;animation:rise .28s ease;}
+  @keyframes rise{from{transform:translateY(40px);opacity:.6;}to{transform:translateY(0);opacity:1;}}
+  .grip{width:42px;height:5px;background:#d8d8de;border-radius:3px;margin:10px auto 4px;}
+  .sheet .shead{display:flex;align-items:flex-start;justify-content:space-between;padding:8px 22px 0;}
+  .sheet h2{font-size:23px;font-weight:900;margin:6px 0 4px;letter-spacing:-.4px;}
+  .sheet .lead{color:#54525c;font-size:14px;line-height:1.45;margin:0 0 12px;}
+  .x{background:none;border:none;font-size:22px;color:#9a9aa2;cursor:pointer;line-height:1;padding:6px;margin:2px -6px 0 0;}
+  .sheet .body{padding:0 22px 8px;overflow-y:auto;}
+  .pgdots{display:flex;gap:6px;align-items:center;margin:2px 0 14px;}
+  .pgdots span{height:5px;border-radius:5px;flex:1;background:#ece3f4;}
+  .pgdots span.fill{background:var(--purple);}
+  .pgdots .cnt{flex:0 0 auto;font-size:12px;color:var(--muted);font-weight:700;margin-left:6px;}
+  .illu{background:#e9f1fd;border-radius:14px;height:150px;display:flex;align-items:center;justify-content:center;margin:4px 0 16px;}
+  .illu .scan{width:120px;height:74px;border:3px solid #c7d6ee;border-radius:8px;position:relative;background:#fff;display:flex;align-items:center;justify-content:center;}
+  .illu .bars{display:flex;gap:3px;}
+  .illu .bars i{display:block;width:5px;height:34px;background:var(--purple);border-radius:1px;}
+  .illu .chk{position:absolute;top:-14px;right:-14px;width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;}
+  .p1text{font-size:15px;line-height:1.6;color:#3c3b44;}
+  .p1text .red{color:var(--danger);font-weight:700;}
+  .p1text b{font-weight:700;}
+  .yellowbox{background:#fdf6e3;border-radius:12px;padding:13px 14px;margin:6px 0 14px;}
+  .yellowbox .yh{font-weight:800;color:#8a6d12;font-size:14px;margin-bottom:4px;}
+  .yellowbox p{margin:0;font-size:13px;color:#6f5d23;line-height:1.45;}
+  .yellowbox b{font-weight:700;}
+  .yellowbox.stop .yh{color:var(--amber);}
+  .grouphd{font-weight:800;font-size:14px;margin:14px 0 2px;display:flex;align-items:center;gap:7px;}
+  .grouphd:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;}
+  .grouphd.no{color:var(--danger);}
+  .grouphd.cond{color:var(--amber);}
+  .grouphd.ok{color:var(--green);}
+  .grouphd small{font-weight:500;color:var(--muted);font-size:12px;}
+  .item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 2px;border-bottom:1px solid #f0f0f3;}
+  .item:last-child{border-bottom:none;}
+  .item .nm{font-size:14.5px;font-weight:600;}
+  .item .nm .note{font-weight:400;color:var(--muted);font-size:12.5px;margin-left:6px;}
+  .item .ban{width:21px;height:21px;border-radius:50%;background:var(--danger);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex:0 0 auto;}
+  .item .tag{font-size:11px;font-weight:700;color:#8a6d12;background:#fbeec2;border-radius:20px;padding:3px 9px;}
+  .cat{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f3;}
+  .cat .ic{width:40px;height:40px;border-radius:10px;background:#f3f1f7;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:19px;}
+  .cat .ct{font-size:14px;line-height:1.45;}
+  .cat .ct strong{display:block;font-weight:800;font-size:14px;margin-bottom:1px;}
+  .cat .ct .red{color:var(--danger);font-weight:700;}
+  .checks{margin:16px 0 6px;}
+  .chk-row{display:flex;align-items:flex-start;gap:11px;padding:11px 0;cursor:pointer;font-size:14px;line-height:1.45;}
+  .chk-row .box{width:24px;height:24px;border-radius:7px;border:2px solid #cfcfd6;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;transition:.15s;}
+  .chk-row.on .box{background:var(--purple);border-color:var(--purple);}
+  .chk-row b{font-weight:700;}
+  .sheet .foot{display:flex;gap:12px;padding:14px 22px 22px;border-top:1px solid #f0f0f3;background:#fff;}
+  .btn.back{flex:0 0 30%;background:#fff;border:1.6px solid #d9d9df;color:#54525c;padding:15px 0;font-size:15px;border-radius:12px;}
+  .btn.fwd{flex:1;background:var(--purple);color:#fff;padding:15px 0;font-size:15px;border-radius:12px;box-shadow:0 5px 14px rgba(81,42,114,.28);}
+  .btn.fwd:disabled{background:#dcdce1;color:#a2a2ab;box-shadow:none;cursor:not-allowed;}
+
+  .anno{max-width:430px;margin:14px auto 0;color:#5c5c64;font-size:12.5px;line-height:1.5;background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 6px 18px rgba(0,0,0,.08);}
+  .anno b{color:#3c245a;}
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="topbar">
+    <div class="lang"><span class="globe"></span> English ⌄</div>
+    <div class="wordmark"><span class="g">Good</span><span class="l">lugg</span></div>
+    <div class="burger"><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="progress">
+    <div class="seg done"></div><div class="seg done"></div><div class="seg cur"></div><div class="seg"></div><div class="seg"></div>
+  </div>
+
+  <div class="screen">
+    <h1 class="title">Schedule &amp; Luggage</h1>
+    <p class="sub">When will you drop off and pick up?</p>
+
+    <div class="blockhd">Drop-off at your departure</div>
+    <div class="grid2">
+      <div class="field"><label>Date <span class="req">*</span></label><div class="input">2026-06-28</div></div>
+      <div class="field"><label>Time slot <span class="req">*</span></label><div class="input sel">Before 10:00 <span class="chev">⌄</span></div></div>
+    </div>
+
+    <div class="blockhd">Pickup at your destination</div>
+    <div class="grid2">
+      <div class="field"><label>Date <span class="req">*</span></label><div class="input">2026-06-28</div></div>
+      <div class="field"><label>Time slot <span class="req">*</span></label><div class="input sel">After 18:00 <span class="chev">⌄</span></div></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="blockhd">Luggage</div>
+    <div class="lugg-row"><div class="nm">Carry-on<small>Cabin size (bag ≤ 22")</small></div>
+      <div class="stepper"><button>−</button><span class="v">0</span><button>+</button></div></div>
+    <div class="lugg-row"><div class="nm">Checked-in<small>Standard suitcase (22"&lt; bag ≤ 30"), golf bag</small></div>
+      <div class="stepper"><button>−</button><span class="v">1</span><button>+</button></div></div>
+    <div class="lugg-row"><div class="nm">Oversize<small>Extra large bag (30"&lt; bag ≤ 32")</small></div>
+      <div class="stepper"><button>−</button><span class="v">0</span><button>+</button></div></div>
+    <p class="lugg-note">* Over 32" or over 30 kg not accepted.</p>
+
+    <!-- ===== NEW required check (Jeju ⇄ other-region only) ===== -->
+    <div class="accheck">
+      <div class="lab">Air-Cargo Prohibited Items <span class="req">*</span></div>
+      <button class="ac-btn" id="acBtn" onclick="openModal()">
+        <span class="ac-ic">✈</span>
+        <span class="ac-main">Check what can't fly in your bag</span>
+        <span class="ac-arrow">›</span>
+      </button>
+      <p class="ac-hint" id="acHint">Required before you continue — Jeju bags ship as air cargo.</p>
+    </div>
+
+    <div class="navrow">
+      <button class="btn prev">Previous</button>
+      <button class="btn next" id="nextBtn" disabled onclick="goNext()">Next</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">✓ Air-cargo check confirmed — proceeding to Customer info</div>
+
+  <div class="paybar">
+    <div class="paychev">︿</div>
+    <div class="row"><span class="lab">Payment amount</span><span class="amt">₩152,500</span></div>
+  </div>
+
+  <!-- ===== MODAL: confirmed 4-page popup ===== -->
+  <div class="overlay" id="overlay">
+    <div class="sheet">
+      <div class="grip"></div>
+
+      <div class="page" data-page="1">
+        <div class="shead"><div></div><button class="x" onclick="closeModal()">✕</button></div>
+        <div class="body">
+          <h2>Your bags fly without you</h2>
+          <div class="pgdots"><span class="fill"></span><span></span><span></span><span></span><span class="cnt">1/4</span></div>
+          <div class="illu"><div class="scan"><div class="bars"><i></i><i></i><i></i><i></i><i></i></div><div class="chk">✓</div></div></div>
+          <p class="p1text">Goodlugg ships your bags as <b>air cargo</b> — in the plane's hold, without you on board. <b>Stricter rules apply when bags travel alone.</b></p>
+          <p class="p1text" style="margin-top:14px;">Some items allowed in checked baggage are <span class="red">banned in air cargo.</span></p>
+          <p class="p1text" style="margin-top:14px;">If X-ray detection is triggered, your bag may be opened, and <span class="red">any banned items will be disposed of immediately.</span></p>
+        </div>
+        <div class="foot"><button class="btn fwd" onclick="go(2)">Next</button></div>
+      </div>
+
+      <div class="page" data-page="2" hidden>
+        <div class="shead"><div></div><button class="x" onclick="closeModal()">✕</button></div>
+        <div class="body">
+          <h2>No Alcohols &amp; Sprays</h2>
+          <p class="lead">High in alcohol or pressurized — too risky to fly as cargo.</p>
+          <div class="pgdots"><span class="fill"></span><span class="fill"></span><span></span><span></span><span class="cnt">2/4</span></div>
+          <div class="yellowbox"><div class="yh">All liquids are opened for inspection</div><p>Please <b>don't lock your bag.</b> If you must, share the code with us at drop-off.</p></div>
+          <div class="grouphd no">Don't pack these</div>
+          <div class="item"><div class="nm">Skin toner <span class="note">Even <b>sample size</b> not accepted</span></div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Whiskey &amp; high-proof alcohol <span class="note">70% ABV or higher</span></div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Perfume &amp; cologne</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Hand sanitizer</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Aerosol sprays (any kind)</div><span class="ban">⊘</span></div>
+          <div class="grouphd ok">Pack freely <small>(bag will still be opened at the desk)</small></div>
+          <div class="item"><div class="nm">Lotion &amp; cream</div></div>
+          <div class="item"><div class="nm">Serum &amp; sunscreen</div></div>
+          <div class="item"><div class="nm">Shampoo &amp; body wash</div></div>
+        </div>
+        <div class="foot"><button class="btn back" onclick="go(1)">Back</button><button class="btn fwd" onclick="go(3)">Next</button></div>
+      </div>
+
+      <div class="page" data-page="3" hidden>
+        <div class="shead"><div></div><button class="x" onclick="closeModal()">✕</button></div>
+        <div class="body">
+          <h2>No Lithium Batteries</h2>
+          <p class="lead">They're a fire risk in unattended cargo holds — no exceptions.</p>
+          <div class="pgdots"><span class="fill"></span><span class="fill"></span><span class="fill"></span><span></span><span class="cnt">3/4</span></div>
+          <div class="grouphd no">Don't pack these <small>— built-in lithium battery</small></div>
+          <div class="item"><div class="nm">Power bank</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Electric toothbrush</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Selfie stick</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Golf rangefinder</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Wireless earbuds</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Smartwatch</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Hair dryer</div><span class="ban">⊘</span></div>
+          <div class="item"><div class="nm">Digital thermometer</div><span class="ban">⊘</span></div>
+          <div class="grouphd cond">Pack the device, not the battery</div>
+          <div class="item"><div class="nm">Devices with a pop-out battery <span class="note">flashlight, kid's toy, some cameras, remote</span></div><span class="tag">Conditional</span></div>
+          <div class="grouphd ok">These are fine</div>
+          <div class="item"><div class="nm">Standard AA / AAA batteries <span class="note">bag will be opened for inspection</span></div></div>
+        </div>
+        <div class="foot"><button class="btn back" onclick="go(2)">Back</button><button class="btn fwd" onclick="go(4)">Next</button></div>
+      </div>
+
+      <div class="page" data-page="4" hidden>
+        <div class="shead"><div></div><button class="x" onclick="closeModal()">✕</button></div>
+        <div class="body">
+          <h2>A few more to leave behind</h2>
+          <p class="lead">Anything electronic, flammable, or pressurized stays home — then confirm to continue.</p>
+          <div class="pgdots"><span class="fill"></span><span class="fill"></span><span class="fill"></span><span class="fill"></span><span class="cnt">4/4</span></div>
+          <div class="cat"><div class="ic">🔌</div><div class="ct"><strong>Electronics</strong><span class="red">laptop</span>, tablet, <span class="red">phone</span>, electric shaver, hair straightener</div></div>
+          <div class="cat"><div class="ic">🥫</div><div class="ct"><strong>Pastes &amp; extracts</strong><span class="red">gochujang</span> (red pepper paste), <span class="red">ssamjang</span> (dipping paste), ginseng extract</div></div>
+          <div class="cat"><div class="ic">💅</div><div class="ct"><strong>Personal care</strong><span class="red">home-country prescribed medicine</span>, nail polish &amp; remover, hair dye, perm solution, ink, <span class="red">heat packs</span></div></div>
+          <div class="cat"><div class="ic">🔥</div><div class="ct"><strong>Fire hazards</strong><span class="red">lighters</span>, <span class="red">e-cigarettes</span>, camping stoves, matches</div></div>
+          <div class="cat"><div class="ic">🎙️</div><div class="ct"><strong>Others</strong>insecticide, scent diffusers, <span class="red">Bluetooth speakers and mics</span></div></div>
+          <div class="yellowbox stop" style="margin-top:14px;"><div class="yh">⊘ Heat Packs</div><p>Especially in winter. Check coat pockets, gym bags, and gift sets before you pack.</p></div>
+          <div class="checks">
+            <div class="chk-row" id="c1" onclick="toggleChk('c1')"><div class="box">✓</div><div>My bag has <b>none of the banned items,</b> and I agree any prohibited items found will be disposed of</div></div>
+            <div class="chk-row" id="c2" onclick="toggleChk('c2')"><div class="box">✓</div><div>I'll leave my bag <b>unlocked</b> for inspection</div></div>
+          </div>
+        </div>
+        <div class="foot"><button class="btn back" onclick="go(3)">Back</button><button class="btn fwd" id="continueBtn" disabled onclick="confirmDone()">Continue Booking</button></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="anno">
+  <b>Where it sits:</b> a required field at the end of step 3 (Schedule &amp; Luggage), right below the luggage counters — same orange <b>*</b> marker as Date / Time slot. It only appears on Jeju ⇄ other-region routes. Tapping the box opens your confirmed 4-page pop-up; finishing it (both checkboxes + “Continue Booking”) ticks the box and enables <b>Next</b>. The box can't be ticked without reviewing — that's what makes it mandatory.
+</div>
+
+<script>
+  function openModal(){ document.getElementById('overlay').classList.add('open'); go(1); }
+  function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+  function go(n){
+    document.querySelectorAll('.page').forEach(p=>{ p.hidden = (+p.dataset.page !== n); });
+    document.querySelector('.sheet .body').scrollTop = 0;
+  }
+  const checked = {c1:false, c2:false};
+  function toggleChk(id){
+    checked[id] = !checked[id];
+    document.getElementById(id).classList.toggle('on', checked[id]);
+    document.getElementById('continueBtn').disabled = !(checked.c1 && checked.c2);
+  }
+  function confirmDone(){
+    closeModal();
+    const btn = document.getElementById('acBtn');
+    btn.classList.add('done');
+    btn.querySelector('.ac-ic').textContent = '✓';
+    btn.querySelector('.ac-main').textContent = "Reviewed — you're set to continue";
+    const h = document.getElementById('acHint');
+    h.textContent = 'Air-cargo rules confirmed.'; h.classList.add('ok');
+    document.getElementById('nextBtn').disabled = false;
+  }
+  function goNext(){
+    const t = document.getElementById('toast');
+    t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2600);
+  }
+</script>
+</body>
+</html>
