@@ -192,7 +192,7 @@ const BRAND = {
 };
 const CARDS = [
   // ── TITLE (whiteboard pen-writing) ──
-  {brand:'intro0',sec:0,noBar:true,dur:9400},
+  {brand:'intro0',sec:0,noBar:true,dur:13500},
   // ── INTRO ──
   {brand:'intro1',sec:0},
   {brand:'intro2',sec:0},
@@ -208,12 +208,12 @@ const CARDS = [
   {sec:2,type:'image',head:'At a hotel? <span class="hl">Show your card</span>',note:'Hand the message card to the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
   {sec:2,type:'image',head:'<span class="hl">Upload a photo</span> of your tag',note:'Or just a clear photo of your bags.',img:'assets/hotel_tag_example.jpg',faqs:[{q:'What’s a hotel tag?',a:'A tag the hotel gives you for your bags. No tag? Just upload a clear photo.'}]},
   {sec:2,head:'At an Airbnb? <span class="hl">Pick a meet-up time</span>',note:'Choose the time slot to meet the driver.',img:'assets/scr_schedule_time.png',ar:0.461,cy:0.869,m:[0.012,0.843,0.988,0.895]},
-  {sec:2,head:'Then <span class="hl">meet the driver</span>',note:'See their ETA & plate number.',img:'assets/scr_driver_eta.jpeg',ar:0.611,zoom:1.12,cy:0.86,m:[0.03,0.785,0.97,0.985]},
+  {sec:2,head:'Then <span class="hl">meet the driver</span>',note:'See their ETA & plate number.',img:'assets/scr_driver_eta.jpeg',ar:0.611,zoom:1.12,cy:0.86,m:[0.068,0.788,0.932,0.982]},
   {sec:2,head:'<span class="hl">Handed over</span> — done!',note:'Your bag is on its way.',img:'assets/scr_meetup_done.png',ar:0.466,cy:0.49,m:[0.18,0.40,0.82,0.63]},
   // ── TRACK ──
-  {sec:3,head:'Track <span class="hl">every step</span>',note:'Every update lands in your inbox.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.58,m:[0.085,0.45,0.93,0.71],toasts:[{title:'Driver picked up your luggage',sub:'Delivery is on the way'},{title:'Your luggage has arrived',sub:'With pickup & delivery photos'}]},
+  {sec:3,head:'Track <span class="hl">every step</span>',note:'Every update lands in your inbox.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.58,m:[0.062,0.402,0.935,0.682],toasts:[{title:'Driver picked up your luggage',sub:'Delivery is on the way'},{title:'Your luggage has arrived',sub:'With pickup & delivery photos'}]},
   // ── COLLECT ──
-  {sec:4,head:'Bags arrive <span class="hl">by 10 PM</span>',note:'Collect them at your hotel lobby — bagless travel.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.82,m:[0.085,0.70,0.93,0.95]},
+  {sec:4,head:'Bags arrive <span class="hl">by 10 PM</span>',note:'Collect them at your hotel lobby — bagless travel.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.82,m:[0.062,0.708,0.935,0.970]},
   // ── ENDING ──
   {brand:'contact',noBar:true},
   {brand:'ending',noBar:true},
@@ -290,14 +290,14 @@ function startWriting(cardEl){
     const yTop=H*0.20, yBot=H*0.72, strokes=[]; let x=0, dirDown=true;
     [...text].forEach((ch,ci)=>{
       const w=widths[ci];
-      if(ch===' '){ strokes.push({x0:x,x1:x+w,y0:yTop-14,y1:yTop-14,dur:90,lift:true}); x+=w; return; }
+      if(ch===' '){ strokes.push({x0:x,x1:x+w,y0:yTop-14,y1:yTop-14,dur:150,lift:true}); x+=w; return; }
       const n=Math.max(1,Math.min(4,Math.round(w/24)));
       const jit=i=>(((ci*7+i)*7919)%13)/13; // deterministic wobble
       for(let s=0;s<n;s++){
         const a=dirDown?yTop+jit(s)*10:yBot-jit(s)*12, b=dirDown?yBot-jit(s+1)*12:yTop+jit(s+1)*10;
-        strokes.push({x0:x,x1:x+w/n,y0:a,y1:b,dur:62+jit(s)*26}); x+=w/n; dirDown=!dirDown;
+        strokes.push({x0:x,x1:x+w/n,y0:a,y1:b,dur:105+jit(s)*45}); x+=w/n; dirDown=!dirDown;
       }
-      strokes.push({x0:x,x1:x,y0:dirDown?yTop:yBot,y1:dirDown?yTop:yBot,dur:18}); // micro pause between letters
+      strokes.push({x0:x,x1:x,y0:dirDown?yTop:yBot,y1:dirDown?yTop:yBot,dur:34}); // micro pause between letters
     });
     pen.style.opacity=1;
     let si=0, t0=null;
