@@ -85,8 +85,11 @@ html,body{height:100%;background:#11071c;font-family:var(--font);overflow:hidden
 @keyframes glow{
   0%,100%{box-shadow:0 0 0 2px rgba(81,43,114,.16),0 0 8px 2px rgba(214,255,0,.25);border-color:rgba(199,194,46,.78)}
   50%{box-shadow:0 0 0 2px rgba(81,43,114,.22),0 0 16px 4px rgba(214,255,0,.5);border-color:#eaff5e}}
-.imgcard{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.imgcard{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 .imgcard img{max-width:78%;max-height:74%;border-radius:14px;border:9px solid #fff;box-shadow:0 30px 70px rgba(43,22,64,.34);transform:rotate(-2.5deg)}
+/* second photo (e.g. Goodlugg bags) lands on top when the note appears */
+.imgcard .img2{position:absolute;left:14px;bottom:34px;width:47%;max-width:none;max-height:none;border-radius:14px;border:9px solid #fff;box-shadow:0 26px 60px rgba(43,22,64,.36);transform:rotate(4deg)}
+.card.on .imgcard .img2{animation:rise2 .8s cubic-bezier(.2,.7,.2,1) 1.3s both}
 /* brand scenes (intro / contact / ending) */
 .brandscene{position:absolute;inset:0;background:var(--purple);color:#fff;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:0 90px}
 .brandscene.center{align-items:center;text-align:center}
@@ -208,12 +211,12 @@ const CARDS = [
   {sec:1,head:'Add your <span class="hl">bags</span>',note:'<span class="nl">Carry-on</span><span class="nl">Checked-in</span><span class="nl">Oversize</span>',img:'assets/scr_price_calc.png',ar:0.461,cy:0.761,m:[0.035,0.726,0.965,0.797],dur:4600},
   {sec:1,head:'Tap <span class="hl">Book with these options</span>',note:'Once the price calculator shows your quote.',img:'assets/scr_price_book_clean.png',ar:0.461,cy:0.55,m:[0.08,0.50,0.88,0.602]},
   {sec:1,head:'<span class="hl">Same-day</span> or schedule it',note:'Pick your drop-off & pickup dates.',img:'assets/scr_schedule_later.png',ar:0.461,cy:0.38,m:[0.025,0.252,0.975,0.493]},
-  {sec:1,head:'<span class="hl">Any country’s</span> number works',note:'Name, email, phone:<br>no Korean number needed.',img:'assets/scr_contact_country.png',ar:0.461,cy:0.695,m:[0.02,0.658,0.965,0.732],faqs:[{q:'Need a Korean phone number?',a:'No — we accept international phone numbers too.'}]},
+  {sec:1,head:'<span class="hl">Any country’s</span> number works',note:'Name, email, phone:<br>no Korean number needed.',img:'assets/scr_contact_country.png',ar:0.461,cy:0.695,m:[0.02,0.658,0.965,0.732]},
   {sec:1,head:'Pay with your <span class="hl">card or PayPal</span>',note:'Your home-country card works.',img:'assets/scr_pay_method.png',ar:0.461,cy:0.219,m:[0.03,0.150,0.955,0.284]},
   {sec:1,head:'<span class="hl">Confirmed</span> — it’s in your email',note:'With your tracking link.',img:'assets/scr_email_tracking.png',ar:0.484,cy:0.70,m:[0.255,0.675,0.605,0.726]},
   // ── DROP-OFF ──
   {sec:2,type:'image',head:'At a hotel? <span class="hl">Show this screen</span>',note:'The info card is on our website:<br>no printing needed,<br>just show your phone at the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
-  {sec:2,type:'image',head:'<span class="hl">Upload a photo</span> of your tag',note:'Or just a clear photo of your bags.',img:'assets/hotel_tag_example.jpg',faqs:[{q:'What’s a hotel tag?',a:'A tag the hotel gives you for your bags. No tag? Just upload a clear photo.'}]},
+  {sec:2,type:'image',head:'<span class="hl">Upload a photo</span> of your tag',note:'Or just a clear photo of your bags.',img:'assets/hotel_tag_example.jpg',img2:'assets/goodlugg_2bags.jpg',faqs:[{q:'What’s a hotel tag?',a:'A tag the hotel gives you for your bags. No tag? Just upload a clear photo.'}]},
   {sec:2,head:'At an Airbnb? <span class="hl">Pick a meet-up time</span>',note:'Choose the time slot to meet the driver.',img:'assets/scr_schedule_time.png',ar:0.461,cy:0.869,m:[0.012,0.843,0.988,0.895]},
   {sec:2,head:'Then <span class="hl">meet the driver</span>',note:'See their ETA & plate number.',img:'assets/scr_driver_eta.jpeg',ar:0.611,zoom:1.12,cy:0.86,m:[0.068,0.788,0.932,0.982]},
   {sec:2,head:'<span class="hl">Handed over</span> — done!',note:'Your bag is on its way.',img:'assets/scr_meetup_done.png',ar:0.466,cy:0.49,m:[0.18,0.40,0.82,0.63]},
@@ -239,7 +242,8 @@ CARDS.forEach((c)=>{
   if(c.brand){ el.classList.add('brandcard'); el.innerHTML = BRAND[c.brand]; cardsEl.appendChild(el); return; }
   let inner;
   if(c.type==='image'){
-    inner = `<div class="phonewrap"><div class="imgcard"><img src="${c.img}"></div></div>`;
+    const extraImg = c.img2 ? `<img class="img2" src="${c.img2}">` : '';
+    inner = `<div class="phonewrap"><div class="imgcard"><img src="${c.img}">${extraImg}</div></div>`;
   } else {
     const z=c.zoom||1, imgW=VIEW_W*z, imgH=imgW/c.ar;
     const tx=(VIEW_W-imgW)/2;
