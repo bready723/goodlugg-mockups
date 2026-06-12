@@ -108,6 +108,27 @@ html,body{height:100%;background:#11071c;font-family:var(--font);overflow:hidden
 .bend{font:800 58px/1.12 var(--font);letter-spacing:-.03em;margin:24px 0 0}
 .bword2{height:46px;margin-top:34px}
 .btag{font:800 42px/1 var(--font);letter-spacing:-.02em;color:var(--lime);margin-top:16px}
+/* whiteboard intro (pen-writing title) */
+.wbscene{position:absolute;inset:0;background:#fff;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.wblogo{position:absolute;top:52px;right:60px;width:120px;height:120px;border-radius:999px;box-shadow:0 12px 30px rgba(43,22,64,.20)}
+.wbtitle{display:flex;flex-direction:column;align-items:center;gap:10px}
+.wbl{position:relative;display:inline-block}
+.wbl .ink{display:block;white-space:nowrap;clip-path:inset(0 100% -.25em 0);
+  font:700 78px/1.16 var(--font);letter-spacing:-.02em;color:#1c1726}
+.wbl3 .ink{color:var(--purple)}
+/* the marker that glides along each line while it is written */
+.wbl .pen{position:absolute;left:0;top:54%;opacity:0;pointer-events:none}
+.pen img{position:absolute;left:-14px;top:-126px;width:540px;height:auto;
+  filter:drop-shadow(0 12px 18px rgba(43,22,64,.20))}
+.card.on .wbl1 .ink{animation:writeln 1.15s linear .35s both}
+.card.on .wbl1 .pen{animation:penrun 1.15s linear .35s forwards, penoff .3s ease 1.5s forwards}
+.card.on .wbl2 .ink{animation:writeln .9s linear 1.65s both}
+.card.on .wbl2 .pen{animation:penrun .9s linear 1.65s forwards, penoff .3s ease 2.55s forwards}
+.card.on .wbl3 .ink{animation:writeln .8s linear 2.7s both}
+.card.on .wbl3 .pen{animation:penrun .8s linear 2.7s forwards, penoff .3s ease 3.5s forwards}
+@keyframes writeln{from{clip-path:inset(0 100% -.25em 0)}to{clip-path:inset(0 0 -.25em 0)}}
+@keyframes penrun{0%{left:0;opacity:1}100%{left:100%;opacity:1}}
+@keyframes penoff{to{opacity:0}}
 /* progress bar */
 #bar{position:absolute;left:0;right:0;bottom:0;height:30px;background:#fff;border-top:1px solid var(--line);display:flex;box-shadow:0 -6px 24px rgba(43,22,64,.06);z-index:50}
 #bar .sliver{position:absolute;top:0;left:0;height:3px;background:#e3e0ec;width:100%}
@@ -135,6 +156,14 @@ const VIEW_W = 348, VIS_H = 612;
 const KICK = {1:['STEP 01','Book'],2:['STEP 02','Drop-off'],3:['STEP 03','Track'],4:['STEP 04','Collect']};
 const SEGS = [{n:'✓',l:"What’s D2D?"},{n:'01',l:'Book'},{n:'02',l:'Drop-off'},{n:'03',l:'Track'},{n:'04',l:'Collect'}];
 const BRAND = {
+  intro0:`<div class="wbscene">
+    <img class="wblogo" src="assets/logo_circle.png">
+    <div class="wbtitle">
+      <div class="wbl wbl1"><span class="ink">Door2Door Delivery</span><span class="pen"><img src="assets/hand_writing.png"></span></div>
+      <div class="wbl wbl2"><span class="ink">across Korea</span><span class="pen"><img src="assets/hand_writing.png"></span></div>
+      <div class="wbl wbl3"><span class="ink">How It Works</span><span class="pen"><img src="assets/hand_writing.png"></span></div>
+    </div>
+  </div>`,
   intro1:`<div class="brandscene">
     <div class="bcircle"></div>
     <img class="bword" src="assets/logo_wordmark_white.png">
@@ -171,6 +200,8 @@ const BRAND = {
   </div>`,
 };
 const CARDS = [
+  // ── TITLE (whiteboard pen-writing) ──
+  {brand:'intro0',sec:0,noBar:true,dur:5200},
   // ── INTRO ──
   {brand:'intro1',sec:0},
   {brand:'intro2',sec:0},
@@ -250,7 +281,7 @@ function show(i){
   if(c.noBar){ barEl.style.display='none'; }
   else { barEl.style.display='flex'; updateBar(c.sec); }
 }
-function nextDelay(){ const c=CARDS[idx]; if(c.brand) return BRAND_DUR; if(c.faqs||c.toasts) return 5800; return DUR; }
+function nextDelay(){ const c=CARDS[idx]; if(c.dur) return c.dur; if(c.brand) return BRAND_DUR; if(c.faqs||c.toasts) return 5800; return DUR; }
 function tick(){ idx=(idx+1)%CARDS.length; show(idx); timer=setTimeout(tick, nextDelay()); }
 function play(){ show(idx); timer=setTimeout(tick, nextDelay()); }
 document.getElementById('replay').onclick=()=>{ clearTimeout(timer); idx=0; play(); };
