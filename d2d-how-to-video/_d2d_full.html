@@ -192,7 +192,7 @@ const BRAND = {
 };
 const CARDS = [
   // ── TITLE (whiteboard pen-writing) ──
-  {brand:'intro0',sec:0,noBar:true,dur:13500},
+  {brand:'intro0',sec:0,noBar:true,dur:7600},
   // ── INTRO ──
   {brand:'intro1',sec:0},
   {brand:'intro2',sec:0},
@@ -205,7 +205,7 @@ const CARDS = [
   {sec:1,head:'Pay with your <span class="hl">card or PayPal</span>',note:'Your home-country card works.',img:'assets/scr_pay_method.png',ar:0.461,cy:0.219,m:[0.03,0.150,0.955,0.284]},
   {sec:1,head:'<span class="hl">Confirmed</span> — it’s in your email',note:'With your tracking link.',img:'assets/scr_email_tracking.png',ar:0.484,cy:0.70,m:[0.255,0.675,0.605,0.726]},
   // ── DROP-OFF ──
-  {sec:2,type:'image',head:'At a hotel? <span class="hl">Show your card</span>',note:'Hand the message card to the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
+  {sec:2,type:'image',head:'At a hotel? <span class="hl">Show this screen</span>',note:'The info card is on our website — no printing, just show your phone at the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
   {sec:2,type:'image',head:'<span class="hl">Upload a photo</span> of your tag',note:'Or just a clear photo of your bags.',img:'assets/hotel_tag_example.jpg',faqs:[{q:'What’s a hotel tag?',a:'A tag the hotel gives you for your bags. No tag? Just upload a clear photo.'}]},
   {sec:2,head:'At an Airbnb? <span class="hl">Pick a meet-up time</span>',note:'Choose the time slot to meet the driver.',img:'assets/scr_schedule_time.png',ar:0.461,cy:0.869,m:[0.012,0.843,0.988,0.895]},
   {sec:2,head:'Then <span class="hl">meet the driver</span>',note:'See their ETA & plate number.',img:'assets/scr_driver_eta.jpeg',ar:0.611,zoom:1.12,cy:0.86,m:[0.068,0.788,0.932,0.982]},
@@ -272,10 +272,19 @@ let wRaf=null, wTimer=null;
 function startWriting(cardEl){
   cancelAnimationFrame(wRaf); clearTimeout(wTimer);
   const lines=[...cardEl.querySelectorAll('.wbl')];
-  lines.forEach(l=>{ const ink=l.querySelector('.ink'), pen=l.querySelector('.pen');
-    ink.style.clipPath='inset(0 100% -0.25em 0)'; pen.style.opacity=0; pen.style.transition='none'; });
+  // lines 1-2 simply land (no pen); only the last line is pen-written
+  lines.forEach((l,n)=>{ const ink=l.querySelector('.ink'), pen=l.querySelector('.pen');
+    pen.style.opacity=0; pen.style.transition='none'; ink.style.animation='none';
+    if(n<lines.length-1){
+      ink.style.clipPath='inset(0 0px -0.25em 0)';
+      void ink.offsetHeight;
+      ink.style.animation=`rise2 .8s cubic-bezier(.2,.7,.2,1) ${(0.3+n*0.5).toFixed(2)}s both`;
+    } else {
+      ink.style.clipPath='inset(0 100% -0.25em 0)';
+    }
+  });
   const meas=document.createElement('canvas').getContext('2d');
-  let li=0;
+  let li=lines.length-1;
   function writeLine(){
     if(li>=lines.length) return;
     const line=lines[li++], ink=line.querySelector('.ink'), pen=line.querySelector('.pen');
@@ -319,7 +328,7 @@ function startWriting(cardEl){
     }
     wRaf=requestAnimationFrame(frame);
   }
-  wTimer=setTimeout(writeLine, 450);
+  wTimer=setTimeout(writeLine, 1750);
 }
 function show(i){
   cards.forEach((c,n)=>c.classList.toggle('on',n===i));
