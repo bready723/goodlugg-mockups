@@ -74,11 +74,11 @@ html,body{height:100%;background:#11071c;font-family:var(--font);overflow:hidden
 .viewport{position:relative;flex:1;overflow:hidden}
 .viewport img{position:absolute;left:0;top:0;will-change:transform;transition:transform .6s cubic-bezier(.4,.1,.2,1)}
 .ring{position:absolute;border:4px solid rgba(214,255,0,.88);border-radius:16px;background:rgba(214,255,0,.07);
-  box-shadow:0 0 0 2px rgba(81,43,114,.16),0 0 18px 4px rgba(214,255,0,.35);
+  box-shadow:0 0 0 2px rgba(81,43,114,.16),0 0 10px 2px rgba(214,255,0,.30);
   animation:glow 1.3s ease-in-out infinite;pointer-events:none}
 @keyframes glow{
-  0%,100%{box-shadow:0 0 0 2px rgba(81,43,114,.16),0 0 14px 3px rgba(214,255,0,.30);border-color:rgba(199,194,46,.78)}
-  50%{box-shadow:0 0 0 2px rgba(81,43,114,.22),0 0 30px 10px rgba(214,255,0,.6);border-color:#eaff5e}}
+  0%,100%{box-shadow:0 0 0 2px rgba(81,43,114,.16),0 0 8px 2px rgba(214,255,0,.25);border-color:rgba(199,194,46,.78)}
+  50%{box-shadow:0 0 0 2px rgba(81,43,114,.22),0 0 16px 4px rgba(214,255,0,.5);border-color:#eaff5e}}
 .imgcard{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 .imgcard img{max-width:78%;max-height:74%;border-radius:14px;border:9px solid #fff;box-shadow:0 30px 70px rgba(43,22,64,.34);transform:rotate(-2.5deg)}
 /* brand scenes (intro / contact / ending) */
@@ -117,26 +117,10 @@ html,body{height:100%;background:#11071c;font-family:var(--font);overflow:hidden
   font:700 78px/1.16 var(--font);letter-spacing:-.02em;color:#1c1726}
 .wbl3 .ink{color:var(--purple)}
 /* the marker that glides along each line while it is written */
-.wbl .pen{position:absolute;left:0;top:54%;opacity:0;pointer-events:none}
+/* pen position + ink reveal are driven per-letter by JS (startWriting) */
+.wbl .pen{position:absolute;left:0;top:0;opacity:0;pointer-events:none;will-change:left,top,transform}
 .pen img{position:absolute;left:-14px;top:-126px;width:540px;height:auto;
-  transform-origin:7% 30%;filter:drop-shadow(0 12px 18px rgba(43,22,64,.20));
-  animation:penbob .62s ease-in-out infinite}
-/* up-down + tilt jitter so the hand looks like it's forming letters, not sliding */
-@keyframes penbob{
-  0%{transform:translateY(0) rotate(0deg)}
-  20%{transform:translateY(-7px) rotate(-1.8deg)}
-  45%{transform:translateY(3px) rotate(.7deg)}
-  70%{transform:translateY(-4px) rotate(-1deg)}
-  100%{transform:translateY(0) rotate(0deg)}}
-.card.on .wbl1 .ink{animation:writeln 2.8s linear .5s both}
-.card.on .wbl1 .pen{animation:penrun 2.8s linear .5s forwards, penoff .35s ease 3.3s forwards}
-.card.on .wbl2 .ink{animation:writeln 1.9s linear 3.7s both}
-.card.on .wbl2 .pen{animation:penrun 1.9s linear 3.7s forwards, penoff .35s ease 5.6s forwards}
-.card.on .wbl3 .ink{animation:writeln 1.9s linear 6.0s both}
-.card.on .wbl3 .pen{animation:penrun 1.9s linear 6.0s forwards, penoff .35s ease 7.9s forwards}
-@keyframes writeln{from{clip-path:inset(0 100% -.25em 0)}to{clip-path:inset(0 0 -.25em 0)}}
-@keyframes penrun{0%{left:0;opacity:1}100%{left:100%;opacity:1}}
-@keyframes penoff{to{opacity:0}}
+  filter:drop-shadow(0 12px 18px rgba(43,22,64,.20))}
 /* progress bar */
 #bar{position:absolute;left:0;right:0;bottom:0;height:30px;background:#fff;border-top:1px solid var(--line);display:flex;box-shadow:0 -6px 24px rgba(43,22,64,.06);z-index:50}
 #bar .sliver{position:absolute;top:0;left:0;height:3px;background:#e3e0ec;width:100%}
@@ -216,14 +200,14 @@ const CARDS = [
   {sec:1,head:'Check your <span class="hl">route &amp; price</span>',note:'Set departure → destination in the Price Calculator.',img:'assets/scr_price_calc.png',ar:0.461,cy:0.253,m:[0.04,0.227,0.96,0.279]},
   {sec:1,head:'Add your <span class="hl">bags</span>',note:'Carry-on, checked-in, oversize.',img:'assets/scr_price_calc.png',ar:0.461,cy:0.761,m:[0.035,0.726,0.965,0.797]},
   {sec:1,head:'Tap <span class="hl">Book with these options</span>',note:'Once the price calculator shows your quote.',img:'assets/scr_price_book_clean.png',ar:0.461,cy:0.55,m:[0.08,0.50,0.88,0.602]},
-  {sec:1,head:'<span class="hl">Same-day</span> or schedule it',note:'Pick your drop-off & pickup dates.',img:'assets/scr_schedule_later.png',ar:0.461,cy:0.38,m:[0.02,0.255,0.55,0.49]},
+  {sec:1,head:'<span class="hl">Same-day</span> or schedule it',note:'Pick your drop-off & pickup dates.',img:'assets/scr_schedule_later.png',ar:0.461,cy:0.38,m:[0.025,0.252,0.975,0.493]},
   {sec:1,head:'<span class="hl">Any country’s</span> number works',note:'Name, email, phone — no Korean number needed.',img:'assets/scr_contact_country.png',ar:0.461,cy:0.695,m:[0.02,0.658,0.965,0.732],faqs:[{q:'Need a Korean phone number?',a:'No — we accept international phone numbers too.'}]},
-  {sec:1,head:'Pay with your <span class="hl">card or PayPal</span>',note:'Your home-country card works.',img:'assets/scr_pay_method.png',ar:0.461,cy:0.219,m:[0.025,0.146,0.955,0.292]},
+  {sec:1,head:'Pay with your <span class="hl">card or PayPal</span>',note:'Your home-country card works.',img:'assets/scr_pay_method.png',ar:0.461,cy:0.219,m:[0.03,0.150,0.955,0.284]},
   {sec:1,head:'<span class="hl">Confirmed</span> — it’s in your email',note:'With your tracking link.',img:'assets/scr_email_tracking.png',ar:0.484,cy:0.70,m:[0.255,0.675,0.605,0.726]},
   // ── DROP-OFF ──
   {sec:2,type:'image',head:'At a hotel? <span class="hl">Show your card</span>',note:'Hand the message card to the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
   {sec:2,type:'image',head:'<span class="hl">Upload a photo</span> of your tag',note:'Or just a clear photo of your bags.',img:'assets/hotel_tag_example.jpg',faqs:[{q:'What’s a hotel tag?',a:'A tag the hotel gives you for your bags. No tag? Just upload a clear photo.'}]},
-  {sec:2,head:'At an Airbnb? <span class="hl">Pick a meet-up time</span>',note:'Choose the time slot to meet the driver.',img:'assets/scr_schedule_time.png',ar:0.461,cy:0.869,m:[0.03,0.848,0.97,0.89]},
+  {sec:2,head:'At an Airbnb? <span class="hl">Pick a meet-up time</span>',note:'Choose the time slot to meet the driver.',img:'assets/scr_schedule_time.png',ar:0.461,cy:0.869,m:[0.012,0.843,0.988,0.895]},
   {sec:2,head:'Then <span class="hl">meet the driver</span>',note:'See their ETA & plate number.',img:'assets/scr_driver_eta.jpeg',ar:0.611,zoom:1.12,cy:0.86,m:[0.03,0.785,0.97,0.985]},
   {sec:2,head:'<span class="hl">Handed over</span> — done!',note:'Your bag is on its way.',img:'assets/scr_meetup_done.png',ar:0.466,cy:0.49,m:[0.18,0.40,0.82,0.63]},
   // ── TRACK ──
@@ -282,11 +266,67 @@ function updateBar(sec){
   segEls.forEach((s,i)=>{ s.classList.toggle('active',i===sec); s.classList.toggle('done',i<sec); });
   fillEl.style.width = (sec/(SEGS.length-1)*100).toFixed(1)+'%';
 }
+// ── per-letter writing engine: the pen strokes each letter (down-up zigzags),
+//    hops over spaces, and the ink is revealed exactly at the pen tip ──
+let wRaf=null, wTimer=null;
+function startWriting(cardEl){
+  cancelAnimationFrame(wRaf); clearTimeout(wTimer);
+  const lines=[...cardEl.querySelectorAll('.wbl')];
+  lines.forEach(l=>{ const ink=l.querySelector('.ink'), pen=l.querySelector('.pen');
+    ink.style.clipPath='inset(0 100% -0.25em 0)'; pen.style.opacity=0; pen.style.transition='none'; });
+  const meas=document.createElement('canvas').getContext('2d');
+  let li=0;
+  function writeLine(){
+    if(li>=lines.length) return;
+    const line=lines[li++], ink=line.querySelector('.ink'), pen=line.querySelector('.pen');
+    const cs=getComputedStyle(ink);
+    meas.font=`${cs.fontWeight} ${cs.fontSize}/${cs.lineHeight} ${cs.fontFamily}`;
+    const text=ink.textContent, W=ink.offsetWidth, H=line.offsetHeight;
+    const ls=parseFloat(cs.letterSpacing)||0;
+    // per-char widths, normalized so they sum to the real laid-out width
+    let widths=[...text].map(ch=>meas.measureText(ch).width+ls);
+    const k=W/widths.reduce((a,b)=>a+b,0); widths=widths.map(w=>w*k);
+    // build strokes: each letter = 1..4 down/up strokes; spaces = a quick lifted hop
+    const yTop=H*0.20, yBot=H*0.72, strokes=[]; let x=0, dirDown=true;
+    [...text].forEach((ch,ci)=>{
+      const w=widths[ci];
+      if(ch===' '){ strokes.push({x0:x,x1:x+w,y0:yTop-14,y1:yTop-14,dur:90,lift:true}); x+=w; return; }
+      const n=Math.max(1,Math.min(4,Math.round(w/24)));
+      const jit=i=>(((ci*7+i)*7919)%13)/13; // deterministic wobble
+      for(let s=0;s<n;s++){
+        const a=dirDown?yTop+jit(s)*10:yBot-jit(s)*12, b=dirDown?yBot-jit(s+1)*12:yTop+jit(s+1)*10;
+        strokes.push({x0:x,x1:x+w/n,y0:a,y1:b,dur:62+jit(s)*26}); x+=w/n; dirDown=!dirDown;
+      }
+      strokes.push({x0:x,x1:x,y0:dirDown?yTop:yBot,y1:dirDown?yTop:yBot,dur:18}); // micro pause between letters
+    });
+    pen.style.opacity=1;
+    let si=0, t0=null;
+    function frame(ts){
+      if(t0===null) t0=ts;
+      let dt=ts-t0;
+      while(si<strokes.length && dt>strokes[si].dur){ dt-=strokes[si].dur; t0=ts-dt; si++; }
+      if(si>=strokes.length){
+        ink.style.clipPath='inset(0 0px -0.25em 0)';
+        pen.style.transition='opacity .3s ease'; pen.style.opacity=0;
+        wTimer=setTimeout(writeLine, 420); return;
+      }
+      const st=strokes[si], p=dt/st.dur;
+      const px=st.x0+(st.x1-st.x0)*p, py=st.y0+(st.y1-st.y0)*p;
+      pen.style.left=px+'px'; pen.style.top=py+'px';
+      pen.style.transform=`rotate(${-2+((py-yTop)/(yBot-yTop))*2.6}deg)`;
+      if(!st.lift) ink.style.clipPath=`inset(0 ${Math.max(0,W-px)}px -0.25em 0)`;
+      wRaf=requestAnimationFrame(frame);
+    }
+    wRaf=requestAnimationFrame(frame);
+  }
+  wTimer=setTimeout(writeLine, 450);
+}
 function show(i){
   cards.forEach((c,n)=>c.classList.toggle('on',n===i));
   const c=CARDS[i];
   if(c.noBar){ barEl.style.display='none'; }
   else { barEl.style.display='flex'; updateBar(c.sec); }
+  if(c.brand==='intro0') document.fonts.ready.then(()=>startWriting(cards[i]));
 }
 function nextDelay(){ const c=CARDS[idx]; if(c.dur) return c.dur; if(c.brand) return BRAND_DUR; if(c.faqs||c.toasts) return 5800; return DUR; }
 function tick(){ idx=(idx+1)%CARDS.length; show(idx); timer=setTimeout(tick, nextDelay()); }
