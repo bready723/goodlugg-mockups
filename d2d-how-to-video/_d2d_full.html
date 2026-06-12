@@ -120,12 +120,12 @@ html,body{height:100%;background:#11071c;font-family:var(--font);overflow:hidden
 .wbl .pen{position:absolute;left:0;top:54%;opacity:0;pointer-events:none}
 .pen img{position:absolute;left:-14px;top:-126px;width:540px;height:auto;
   filter:drop-shadow(0 12px 18px rgba(43,22,64,.20))}
-.card.on .wbl1 .ink{animation:writeln 1.15s linear .35s both}
-.card.on .wbl1 .pen{animation:penrun 1.15s linear .35s forwards, penoff .3s ease 1.5s forwards}
-.card.on .wbl2 .ink{animation:writeln .9s linear 1.65s both}
-.card.on .wbl2 .pen{animation:penrun .9s linear 1.65s forwards, penoff .3s ease 2.55s forwards}
-.card.on .wbl3 .ink{animation:writeln .8s linear 2.7s both}
-.card.on .wbl3 .pen{animation:penrun .8s linear 2.7s forwards, penoff .3s ease 3.5s forwards}
+.card.on .wbl1 .ink{animation:writeln 2.8s linear .5s both}
+.card.on .wbl1 .pen{animation:penrun 2.8s linear .5s forwards, penoff .35s ease 3.3s forwards}
+.card.on .wbl2 .ink{animation:writeln 1.9s linear 3.7s both}
+.card.on .wbl2 .pen{animation:penrun 1.9s linear 3.7s forwards, penoff .35s ease 5.6s forwards}
+.card.on .wbl3 .ink{animation:writeln 1.9s linear 6.0s both}
+.card.on .wbl3 .pen{animation:penrun 1.9s linear 6.0s forwards, penoff .35s ease 7.9s forwards}
 @keyframes writeln{from{clip-path:inset(0 100% -.25em 0)}to{clip-path:inset(0 0 -.25em 0)}}
 @keyframes penrun{0%{left:0;opacity:1}100%{left:100%;opacity:1}}
 @keyframes penoff{to{opacity:0}}
@@ -201,7 +201,7 @@ const BRAND = {
 };
 const CARDS = [
   // ── TITLE (whiteboard pen-writing) ──
-  {brand:'intro0',sec:0,noBar:true,dur:5200},
+  {brand:'intro0',sec:0,noBar:true,dur:9400},
   // ── INTRO ──
   {brand:'intro1',sec:0},
   {brand:'intro2',sec:0},
