@@ -197,21 +197,21 @@ const CARDS = [
   {brand:'intro1',sec:0},
   {brand:'intro2',sec:0},
   // ── BOOK ──
-  {sec:1,head:'Check your <span class="hl">route &amp; price</span>',note:'Set departure → destination in the Price Calculator.',img:'assets/scr_price_calc.png',ar:0.461,cy:0.253,m:[0.04,0.227,0.96,0.279]},
+  {sec:1,head:'Check your <span class="hl">route &amp; price</span>',note:'Set departure → destination<br>in the Price Calculator<br>before booking.',img:'assets/scr_price_calc.png',ar:0.461,cy:0.253,m:[0.04,0.227,0.96,0.279]},
   {sec:1,head:'Add your <span class="hl">bags</span>',note:'Carry-on, checked-in, oversize.',img:'assets/scr_price_calc.png',ar:0.461,cy:0.761,m:[0.035,0.726,0.965,0.797]},
   {sec:1,head:'Tap <span class="hl">Book with these options</span>',note:'Once the price calculator shows your quote.',img:'assets/scr_price_book_clean.png',ar:0.461,cy:0.55,m:[0.08,0.50,0.88,0.602]},
   {sec:1,head:'<span class="hl">Same-day</span> or schedule it',note:'Pick your drop-off & pickup dates.',img:'assets/scr_schedule_later.png',ar:0.461,cy:0.38,m:[0.025,0.252,0.975,0.493]},
-  {sec:1,head:'<span class="hl">Any country’s</span> number works',note:'Name, email, phone — no Korean number needed.',img:'assets/scr_contact_country.png',ar:0.461,cy:0.695,m:[0.02,0.658,0.965,0.732],faqs:[{q:'Need a Korean phone number?',a:'No — we accept international phone numbers too.'}]},
+  {sec:1,head:'<span class="hl">Any country’s</span> number works',note:'Name, email, phone<br>— no Korean number needed.',img:'assets/scr_contact_country.png',ar:0.461,cy:0.695,m:[0.02,0.658,0.965,0.732],faqs:[{q:'Need a Korean phone number?',a:'No — we accept international phone numbers too.'}]},
   {sec:1,head:'Pay with your <span class="hl">card or PayPal</span>',note:'Your home-country card works.',img:'assets/scr_pay_method.png',ar:0.461,cy:0.219,m:[0.03,0.150,0.955,0.284]},
   {sec:1,head:'<span class="hl">Confirmed</span> — it’s in your email',note:'With your tracking link.',img:'assets/scr_email_tracking.png',ar:0.484,cy:0.70,m:[0.255,0.675,0.605,0.726]},
   // ── DROP-OFF ──
-  {sec:2,type:'image',head:'At a hotel? <span class="hl">Show this screen</span>',note:'The info card is on our website — no printing, just show your phone at the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
+  {sec:2,type:'image',head:'At a hotel? <span class="hl">Show this screen</span>',note:'The info card is on our website<br>— no printing needed,<br>just show your phone at the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
   {sec:2,type:'image',head:'<span class="hl">Upload a photo</span> of your tag',note:'Or just a clear photo of your bags.',img:'assets/hotel_tag_example.jpg',faqs:[{q:'What’s a hotel tag?',a:'A tag the hotel gives you for your bags. No tag? Just upload a clear photo.'}]},
   {sec:2,head:'At an Airbnb? <span class="hl">Pick a meet-up time</span>',note:'Choose the time slot to meet the driver.',img:'assets/scr_schedule_time.png',ar:0.461,cy:0.869,m:[0.012,0.843,0.988,0.895]},
   {sec:2,head:'Then <span class="hl">meet the driver</span>',note:'See their ETA & plate number.',img:'assets/scr_driver_eta.jpeg',ar:0.611,zoom:1.12,cy:0.86,m:[0.068,0.788,0.932,0.982]},
   {sec:2,head:'<span class="hl">Handed over</span> — done!',note:'Your bag is on its way.',img:'assets/scr_meetup_done.png',ar:0.466,cy:0.49,m:[0.18,0.40,0.82,0.63]},
   // ── TRACK ──
-  {sec:3,head:'Track <span class="hl">every step</span>',note:'Every update lands in your inbox.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.58,m:[0.062,0.402,0.935,0.682],toasts:[{title:'Driver picked up your luggage',sub:'Delivery is on the way'},{title:'Your luggage has arrived',sub:'With pickup & delivery photos'}]},
+  {sec:3,head:'Track <span class="hl">every step</span>',note:'Every update lands in your inbox.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.58,m:[0.062,0.402,0.935,0.682],m2:[0.062,0.708,0.935,0.970],m2at:2900,toasts:[{title:'Driver picked up your luggage',sub:'Delivery is on the way'},{title:'Your luggage has arrived',sub:'With pickup & delivery photos'}]},
   // ── COLLECT ──
   {sec:4,head:'Bags arrive <span class="hl">by 10 PM</span>',note:'Collect them at your hotel lobby — bagless travel.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.82,m:[0.062,0.708,0.935,0.970]},
   // ── ENDING ──
@@ -238,12 +238,15 @@ CARDS.forEach((c)=>{
     const tx=(VIEW_W-imgW)/2;
     const ty=Math.max(VIS_H-imgH, Math.min(0, VIS_H/2 - c.cy*imgH));
     const mL=tx+c.m[0]*imgW, mW=(c.m[2]-c.m[0])*imgW, mT=ty+c.m[1]*imgH, mH=(c.m[3]-c.m[1])*imgH;
+    let mvAttrs='';
+    if(c.m2){ const l2=tx+c.m2[0]*imgW, w2=(c.m2[2]-c.m2[0])*imgW, t2=ty+c.m2[1]*imgH, h2=(c.m2[3]-c.m2[1])*imgH;
+      mvAttrs=` data-from="${mL},${mT},${mW},${mH}" data-to="${l2},${t2},${w2},${h2}" data-at="${c.m2at||2900}"`; }
     inner = `<div class="phonewrap"><div class="phone"><div class="screen">
       <div class="island"></div>
       <div class="statusbar"><span>9:41</span><span class="r">●●● ⌃ <b>96</b></span></div>
       <div class="viewport">
         <img src="${c.img}" style="width:${imgW}px;transform:translate(${tx}px,${ty}px)">
-        <div class="ring" style="left:${mL}px;top:${mT}px;width:${mW}px;height:${mH}px"></div>
+        <div class="ring"${mvAttrs} style="left:${mL}px;top:${mT}px;width:${mW}px;height:${mH}px"></div>
       </div>
     </div></div></div>`;
   }
@@ -330,12 +333,27 @@ function startWriting(cardEl){
   }
   wTimer=setTimeout(writeLine, 1750);
 }
+let ringTimer=null;
 function show(i){
   cards.forEach((c,n)=>c.classList.toggle('on',n===i));
   const c=CARDS[i];
   if(c.noBar){ barEl.style.display='none'; }
   else { barEl.style.display='flex'; updateBar(c.sec); }
   if(c.brand==='intro0') document.fonts.ready.then(()=>startWriting(cards[i]));
+  // ring that travels to a second step mid-card (e.g. Track: Driver Picked up → Bag Arrived)
+  clearTimeout(ringTimer);
+  const mv=cards[i].querySelector('.ring[data-to]');
+  if(mv){
+    const [l0,t0,w0,h0]=mv.dataset.from.split(',').map(Number);
+    mv.style.transition='none';
+    Object.assign(mv.style,{left:l0+'px',top:t0+'px',width:w0+'px',height:h0+'px'});
+    void mv.offsetHeight;
+    ringTimer=setTimeout(()=>{
+      const [l1,t1,w1,h1]=mv.dataset.to.split(',').map(Number);
+      mv.style.transition='left .9s cubic-bezier(.2,.7,.2,1),top .9s cubic-bezier(.2,.7,.2,1),width .9s cubic-bezier(.2,.7,.2,1),height .9s cubic-bezier(.2,.7,.2,1)';
+      Object.assign(mv.style,{left:l1+'px',top:t1+'px',width:w1+'px',height:h1+'px'});
+    }, +mv.dataset.at);
+  }
 }
 function nextDelay(){ const c=CARDS[idx]; if(c.dur) return c.dur; if(c.brand) return BRAND_DUR; if(c.faqs||c.toasts) return 5800; return DUR; }
 function tick(){ idx=(idx+1)%CARDS.length; show(idx); timer=setTimeout(tick, nextDelay()); }
