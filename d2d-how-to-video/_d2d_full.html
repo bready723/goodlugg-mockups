@@ -45,6 +45,12 @@ html,body{height:100%;background:#11071c;font-family:var(--font);overflow:hidden
 .card.on .kick{animation:rise2 .75s ease .1s both}
 .card.on .head{animation:rise2 1.0s cubic-bezier(.2,.7,.2,1) .35s both}
 .card.on .note{animation:rise2 .85s ease .95s both}
+/* list notes: lines land one by one */
+.note .nl{display:block}
+.card.on .note .nl{animation:rise2 .7s cubic-bezier(.2,.7,.2,1) both}
+.card.on .note .nl:nth-child(1){animation-delay:1.05s}
+.card.on .note .nl:nth-child(2){animation-delay:1.55s}
+.card.on .note .nl:nth-child(3){animation-delay:2.05s}
 .card.on .faq,.card.on .toast{animation-name:slidein;animation-duration:.8s;animation-timing-function:cubic-bezier(.2,.7,.2,1);animation-fill-mode:both}
 /* brand (intro / ending) pages land in order too */
 .card.on .bword,.card.on .bword2{animation:rise2 .65s ease 0s both}
@@ -160,7 +166,7 @@ const BRAND = {
     <div class="bcircle"></div>
     <img class="bword" src="assets/logo_wordmark_white.png">
     <div class="bkick">HOW TO · GOODLUGG GUIDE</div>
-    <h1 class="btitle">Door2Door<br>Delivery <span class="lime">across Korea</span></h1>
+    <h1 class="btitle">Door2Door Delivery<br><span class="lime">across Korea</span></h1>
     <div class="bsub"><span class="lime">Yes,</span> even from your Airbnb</div>
     <img class="btiger" src="assets/tiger.png">
   </div>`,
@@ -199,14 +205,14 @@ const CARDS = [
   {brand:'intro2',sec:0},
   // ── BOOK ──
   {sec:1,head:'Check your <span class="hl">route &amp; price</span>',note:'Set departure → destination<br>in the Price Calculator<br>before booking.',img:'assets/scr_price_calc.png',ar:0.461,cy:0.253,m:[0.04,0.227,0.96,0.279]},
-  {sec:1,head:'Add your <span class="hl">bags</span>',note:'Carry-on, checked-in, oversize.',img:'assets/scr_price_calc.png',ar:0.461,cy:0.761,m:[0.035,0.726,0.965,0.797]},
+  {sec:1,head:'Add your <span class="hl">bags</span>',note:'<span class="nl">Carry-on</span><span class="nl">Checked-in</span><span class="nl">Oversize</span>',img:'assets/scr_price_calc.png',ar:0.461,cy:0.761,m:[0.035,0.726,0.965,0.797],dur:4600},
   {sec:1,head:'Tap <span class="hl">Book with these options</span>',note:'Once the price calculator shows your quote.',img:'assets/scr_price_book_clean.png',ar:0.461,cy:0.55,m:[0.08,0.50,0.88,0.602]},
   {sec:1,head:'<span class="hl">Same-day</span> or schedule it',note:'Pick your drop-off & pickup dates.',img:'assets/scr_schedule_later.png',ar:0.461,cy:0.38,m:[0.025,0.252,0.975,0.493]},
-  {sec:1,head:'<span class="hl">Any country’s</span> number works',note:'Name, email, phone<br>— no Korean number needed.',img:'assets/scr_contact_country.png',ar:0.461,cy:0.695,m:[0.02,0.658,0.965,0.732],faqs:[{q:'Need a Korean phone number?',a:'No — we accept international phone numbers too.'}]},
+  {sec:1,head:'<span class="hl">Any country’s</span> number works',note:'Name, email, phone:<br>no Korean number needed.',img:'assets/scr_contact_country.png',ar:0.461,cy:0.695,m:[0.02,0.658,0.965,0.732],faqs:[{q:'Need a Korean phone number?',a:'No — we accept international phone numbers too.'}]},
   {sec:1,head:'Pay with your <span class="hl">card or PayPal</span>',note:'Your home-country card works.',img:'assets/scr_pay_method.png',ar:0.461,cy:0.219,m:[0.03,0.150,0.955,0.284]},
   {sec:1,head:'<span class="hl">Confirmed</span> — it’s in your email',note:'With your tracking link.',img:'assets/scr_email_tracking.png',ar:0.484,cy:0.70,m:[0.255,0.675,0.605,0.726]},
   // ── DROP-OFF ──
-  {sec:2,type:'image',head:'At a hotel? <span class="hl">Show this screen</span>',note:'The info card is on our website<br>— no printing needed,<br>just show your phone at the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
+  {sec:2,type:'image',head:'At a hotel? <span class="hl">Show this screen</span>',note:'The info card is on our website:<br>no printing needed,<br>just show your phone at the front desk on check-out.',img:'assets/message_card.jpeg',faqs:[{q:'When are bags collected?',a:'From hotels, the driver picks up between 10 AM and 12 PM.'}]},
   {sec:2,type:'image',head:'<span class="hl">Upload a photo</span> of your tag',note:'Or just a clear photo of your bags.',img:'assets/hotel_tag_example.jpg',faqs:[{q:'What’s a hotel tag?',a:'A tag the hotel gives you for your bags. No tag? Just upload a clear photo.'}]},
   {sec:2,head:'At an Airbnb? <span class="hl">Pick a meet-up time</span>',note:'Choose the time slot to meet the driver.',img:'assets/scr_schedule_time.png',ar:0.461,cy:0.869,m:[0.012,0.843,0.988,0.895]},
   {sec:2,head:'Then <span class="hl">meet the driver</span>',note:'See their ETA & plate number.',img:'assets/scr_driver_eta.jpeg',ar:0.611,zoom:1.12,cy:0.86,m:[0.068,0.788,0.932,0.982]},
@@ -214,7 +220,7 @@ const CARDS = [
   // ── TRACK ──
   {sec:3,head:'Track <span class="hl">every step</span>',note:'Every update lands in your inbox.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.58,m:[0.062,0.402,0.935,0.682],m2:[0.062,0.708,0.935,0.970],m2at:2900,toasts:[{title:'Driver picked up your luggage',sub:'Delivery is on the way'},{title:'Your luggage has arrived',sub:'With pickup & delivery photos'}]},
   // ── COLLECT ──
-  {sec:4,head:'Bags arrive <span class="hl">by 10 PM</span>',note:'Collect them at your hotel lobby — bagless travel.',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.82,m:[0.062,0.708,0.935,0.970]},
+  {sec:4,head:'Bags arrive <span class="hl">by 10 PM</span>',note:'Collect them at your hotel lobby:<br>Perfect Bagless Travel in Korea!',img:'assets/ref_track_full.png',ar:0.63,zoom:1.11,cy:0.82,m:[0.062,0.708,0.935,0.970]},
   // ── ENDING ──
   {brand:'contact',noBar:true},
   {brand:'ending',noBar:true},
