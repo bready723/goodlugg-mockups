@@ -119,7 +119,15 @@ html,body{height:100%;background:#11071c;font-family:var(--font);overflow:hidden
 /* the marker that glides along each line while it is written */
 .wbl .pen{position:absolute;left:0;top:54%;opacity:0;pointer-events:none}
 .pen img{position:absolute;left:-14px;top:-126px;width:540px;height:auto;
-  filter:drop-shadow(0 12px 18px rgba(43,22,64,.20))}
+  transform-origin:7% 30%;filter:drop-shadow(0 12px 18px rgba(43,22,64,.20));
+  animation:penbob .26s ease-in-out infinite}
+/* up-down + tilt jitter so the hand looks like it's forming letters, not sliding */
+@keyframes penbob{
+  0%{transform:translateY(0) rotate(0deg)}
+  20%{transform:translateY(-7px) rotate(-1.8deg)}
+  45%{transform:translateY(3px) rotate(.7deg)}
+  70%{transform:translateY(-4px) rotate(-1deg)}
+  100%{transform:translateY(0) rotate(0deg)}}
 .card.on .wbl1 .ink{animation:writeln 2.8s linear .5s both}
 .card.on .wbl1 .pen{animation:penrun 2.8s linear .5s forwards, penoff .35s ease 3.3s forwards}
 .card.on .wbl2 .ink{animation:writeln 1.9s linear 3.7s both}
