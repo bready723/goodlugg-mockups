@@ -177,9 +177,10 @@ const BRAND = {
     <div class="bdisc" style="top:-150px;right:-110px;width:440px;height:440px"></div>
     <div class="bkick">NEED HELP?</div>
     <h1 class="btitle2">We’re one<br>message away</h1>
-    <p class="bsub2">Reach us anytime on <span class="hl2">WhatsApp</span>.</p>
+    <p class="bsub2">Reach us anytime on <span class="hl2">WhatsApp</span> or <span class="hl2">KakaoTalk</span>.</p>
     <div class="qrs">
       <div class="qr"><img src="assets/qr_whatsapp.jpeg"><span>WhatsApp</span></div>
+      <div class="qr"><img src="assets/qr_kakao.jpeg"><span>KakaoTalk</span></div>
     </div>
   </div>`,
   ending:`<div class="brandscene center">
@@ -192,7 +193,7 @@ const BRAND = {
 };
 const CARDS = [
   // ── TITLE (whiteboard pen-writing) ──
-  {brand:'intro0',sec:0,noBar:true,dur:7600},
+  {brand:'intro0',sec:0,noBar:true,dur:6900},
   // ── INTRO ──
   {brand:'intro1',sec:0},
   {brand:'intro2',sec:0},
@@ -302,14 +303,14 @@ function startWriting(cardEl){
     const yTop=H*0.20, yBot=H*0.72, strokes=[]; let x=0, dirDown=true;
     [...text].forEach((ch,ci)=>{
       const w=widths[ci];
-      if(ch===' '){ strokes.push({x0:x,x1:x+w,y0:yTop-14,y1:yTop-14,dur:150,lift:true}); x+=w; return; }
+      if(ch===' '){ strokes.push({x0:x,x1:x+w,y0:yTop-14,y1:yTop-14,dur:120,lift:true}); x+=w; return; }
       const n=Math.max(1,Math.min(4,Math.round(w/24)));
       const jit=i=>(((ci*7+i)*7919)%13)/13; // deterministic wobble
       for(let s=0;s<n;s++){
         const a=dirDown?yTop+jit(s)*10:yBot-jit(s)*12, b=dirDown?yBot-jit(s+1)*12:yTop+jit(s+1)*10;
-        strokes.push({x0:x,x1:x+w/n,y0:a,y1:b,dur:105+jit(s)*45}); x+=w/n; dirDown=!dirDown;
+        strokes.push({x0:x,x1:x+w/n,y0:a,y1:b,dur:82+jit(s)*34}); x+=w/n; dirDown=!dirDown;
       }
-      strokes.push({x0:x,x1:x,y0:dirDown?yTop:yBot,y1:dirDown?yTop:yBot,dur:34}); // micro pause between letters
+      strokes.push({x0:x,x1:x,y0:dirDown?yTop:yBot,y1:dirDown?yTop:yBot,dur:26}); // micro pause between letters
     });
     pen.style.opacity=1;
     let si=0, t0=null;
@@ -362,7 +363,9 @@ document.getElementById('replay').onclick=()=>{ clearTimeout(timer); idx=0; play
 window.__stop=()=>clearTimeout(timer);
 window.__show=(n)=>{ clearTimeout(timer); idx=n; show(n); };
 function fit(){ const s=Math.min(window.innerWidth/1280, window.innerHeight/720);
-  document.getElementById('stage').style.transform=`scale(${s})`; }
+  const st=document.getElementById('stage');
+  if(new URLSearchParams(location.search).has('hq')){ st.style.zoom=s; st.style.transform='none'; }
+  else st.style.transform=`scale(${s})`; }
 window.addEventListener('resize',fit); fit();
 play();
 </script>
