@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Goodlugg · Card → Promo Page Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --purple:#512772; --purple-deep:#3c245a; --olive:#C8C32E;
+    --text:#333; --text2:#666; --meta:#999; --border:#e0e0e0;
+    --bg:#f5f5f5; --mint:#e9f6f3; --teal:#1a9c8c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:#dcdce0;color:var(--text);
+       min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 12px 60px;}
+  .caption{font-size:13px;color:#555;margin-bottom:14px;text-align:center;max-width:420px;}
+  .caption b{color:#222;}
+
+  /* phone frame */
+  .phone{width:390px;max-width:100%;height:760px;background:#fff;border-radius:26px;overflow:hidden;
+         box-shadow:0 12px 40px rgba(0,0,0,.22);position:relative;border:6px solid #111;}
+  .viewport{position:relative;width:100%;height:100%;overflow:hidden;}
+  .screens{display:flex;width:200%;height:100%;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+  .screens.show-promo{transform:translateX(-50%);}
+  .screen{width:50%;height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+
+  /* nav */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-bottom:1px solid #f0f0f0;
+       position:sticky;top:0;background:#fff;z-index:5;}
+  .nav .lang{font-size:13px;color:#444;}
+  .nav .back{font-size:20px;color:#333;background:none;border:none;cursor:pointer;width:24px;text-align:left;}
+  .logo{font-weight:900;font-size:21px;}
+  .logo .g{color:var(--purple);} .logo .l{color:var(--olive);}
+  .nav .ham{font-size:19px;color:#333;width:24px;text-align:right;}
+
+  /* ===== HOME screen ===== */
+  .promo-banner{height:74px;background:#ffe14d;display:flex;align-items:center;padding:0 18px;
+                font-size:13px;color:#222;font-weight:700;line-height:1.4;}
+  .section{padding:22px 18px 30px;}
+  .section h2{font-size:19px;font-weight:900;color:#222;margin-bottom:2px;}
+  .section .h2en{font-size:11px;color:var(--meta);margin-bottom:16px;font-weight:500;}
+
+  .ecard{width:228px;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;
+         box-shadow:0 2px 10px rgba(0,0,0,.06);cursor:pointer;transition:transform .12s, box-shadow .12s;}
+  .ecard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.13);}
+  .ecard .header{background:var(--purple);height:86px;display:flex;align-items:center;justify-content:center;}
+  .ecard .header .logo .g,.ecard .header .logo .l{color:#fff;}      /* ← ALL-WHITE logo in card */
+  .ecard .header .logo{font-size:23px;}
+  .ecard .body{padding:15px 16px 13px;}
+  .ecard .title{font-size:14px;font-weight:900;color:#222;margin-bottom:8px;line-height:1.3;white-space:nowrap;}
+  .ecard .lines{font-size:13px;color:#444;line-height:1.7;}
+  .ecard .lines .big{color:var(--purple);font-weight:700;}
+  .ecard .go{display:flex;align-items:center;justify-content:flex-end;gap:3px;margin-top:11px;
+             font-size:13px;font-weight:700;color:var(--purple);}
+  .tap-hint{font-size:12px;color:#888;margin-top:14px;}
+
+  /* ===== PROMO screen ===== */
+  .hero{background:linear-gradient(160deg,var(--purple),var(--purple-deep));color:#fff;text-align:center;padding:34px 20px 44px;}
+  .hero .eyebrow{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+                 font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 13px;border-radius:20px;text-transform:uppercase;margin-bottom:14px;}
+  .hero h1{font-size:25px;font-weight:900;line-height:1.25;margin-bottom:10px;}
+  .hero h1 .hl{color:var(--olive);}
+  .hero p{font-size:14px;color:#eadcff;max-width:300px;margin:0 auto;}
+
+  .couponcard{margin:-26px 18px 0;background:#fff;border-radius:15px;box-shadow:0 10px 26px rgba(0,0,0,.14);
+              overflow:hidden;position:relative;z-index:2;}
+  .codewrap{background:var(--mint);padding:18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .clbl{font-size:11px;color:#555;font-weight:700;margin-bottom:4px;}
+  .code{font-size:20px;font-weight:900;color:var(--teal);letter-spacing:.3px;}
+  .copybtn{background:#fff;border:1px solid #cfeae4;border-radius:8px;padding:9px 13px;font-size:12px;
+           font-weight:700;color:var(--teal);cursor:pointer;white-space:nowrap;}
+  .copybtn.done{background:var(--teal);color:#fff;border-color:var(--teal);}
+  .couponcard .disc{padding:15px 18px;text-align:center;border-top:1px dashed var(--border);}
+  .couponcard .disc .big{font-size:22px;font-weight:900;color:var(--purple);}
+  .couponcard .disc small{color:#777;font-size:13px;font-weight:600;}
+
+  .pbody{padding:26px 18px 10px;}
+  .pbody h3{font-size:17px;font-weight:900;color:#222;margin:22px 0 12px;}
+  .steps{list-style:none;}
+  .steps li{display:flex;gap:11px;margin-bottom:12px;align-items:flex-start;font-size:13.5px;color:#444;}
+  .steps li .n{flex:0 0 25px;height:25px;border-radius:50%;background:var(--purple);color:#fff;font-size:13px;
+               font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .services{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .svc{border:1px solid var(--border);border-radius:10px;padding:13px;text-decoration:none;color:inherit;}
+  .svc .badge{display:inline-block;font-size:9px;font-weight:800;color:#fff;padding:2px 8px;border-radius:10px;margin-bottom:7px;letter-spacing:.2px;}
+  .badge-premium{background:#9dce2e;}
+  .badge-blue{background:#3d8bd4;}
+  .badge-orange{background:#f5921e;}
+  .svc .kr{font-weight:700;color:#222;font-size:13.5px;line-height:1.3;}
+  .svc .en{font-size:12px;color:var(--purple);font-weight:700;margin-top:5px;}
+  .tc{list-style:none;background:var(--bg);border-radius:12px;padding:16px 18px;}
+  .tc li{position:relative;padding-left:15px;margin-bottom:7px;font-size:12.5px;color:#555;}
+  .tc li::before{content:"•";position:absolute;left:2px;color:#999;}
+  .cta{text-align:center;padding:26px 18px 34px;}
+  .cta a{display:inline-block;background:var(--purple);color:#fff;font-weight:700;font-size:15px;
+         padding:14px 34px;border-radius:8px;text-decoration:none;}
+  .fine{font-size:11px;color:var(--meta);font-style:italic;text-align:center;margin-top:12px;}
+</style>
+</head>
+<body>
+
+  <div class="caption">
+    <b>Click-through flow:</b> English homepage → tap the “Goodlugg Event” card → lands on the promotion page.
+    Tap the card to try it. Use the <b>←</b> arrow to go back.
+  </div>
+
+  <div class="phone">
+    <div class="viewport">
+      <div class="screens" id="screens">
+
+        <!-- ===================== SCREEN 1: HOME ===================== -->
+        <div class="screen" id="homeScreen">
+          <div class="nav">
+            <span class="lang">🌐 English ▾</span>
+            <span class="logo"><span class="g">Good</span><span class="l">lugg</span></span>
+            <span class="ham">☰</span>
+          </div>
+
+          <div class="promo-banner">Goodlugg Luggage Center @COEX Mall — Now Open ›</div>
+
+          <div class="section">
+            <h2>Goodlugg Event</h2>
+            <div class="h2en">Promotions running now</div>
+
+            <div class="ecard" onclick="goPromo()">
+              <div class="header">
+                <span class="logo"><span class="g">Good</span><span class="l">lugg</span></span>
+              </div>
+              <div class="body">
+                <div class="title">Welcome Offer: 10% OFF</div>
+                <div class="lines">
+                  Your first booking, <span class="big">any service</span><br/>
+                  Up to ₩50,000 off<br/>
+                  ~ Dec 31, 2026
+                </div>
+                <div class="go">Get coupon ›</div>
+              </div>
+            </div>
+
+            <div class="tap-hint">👆 Tap the card</div>
+          </div>
+        </div>
+
+        <!-- ===================== SCREEN 2: PROMO PAGE ===================== -->
+        <div class="screen" id="promoScreen">
+          <div class="nav">
+            <button class="back" onclick="goHome()">←</button>
+            <span class="logo"><span class="g">Good</span><span class="l">lugg</span></span>
+            <span class="ham">☰</span>
+          </div>
+
+          <div class="hero">
+            <span class="eyebrow">Welcome Offer</span>
+            <h1>New to Goodlugg?<br/>Your first trip is <span class="hl">10% off.</span></h1>
+            <p>Travel bagless across Korea — 10% off your first booking, on us.</p>
+          </div>
+
+          <div class="couponcard">
+            <div class="codewrap">
+              <div>
+                <div class="clbl">Coupon Code</div>
+                <div class="code">WelcomeGoodlugg10</div>
+              </div>
+              <button class="copybtn" id="copybtn" onclick="copyCode()">Copy</button>
+            </div>
+            <div class="disc"><span class="big">10% OFF</span> <small>first booking · up to ₩50,000</small></div>
+          </div>
+
+          <div class="pbody">
+            <h3>How to use your coupon</h3>
+            <ul class="steps">
+              <li><span class="n">1</span><span>Sign up or log in as a <b>Goodlugg member</b>.</span></li>
+              <li><span class="n">2</span><span>Enter code <b>WelcomeGoodlugg10</b> at checkout.</span></li>
+              <li><span class="n">3</span><span>Complete your booking — <b>10% comes off automatically</b>.</span></li>
+            </ul>
+
+            <h3>Valid on every service</h3>
+            <div class="services">
+              <a class="svc" href="https://www.goodlugg.com/luggage-delivery/korea-door-to-door" target="_blank" rel="noopener"><div class="kr">Door2Door Delivery across Korea</div><div class="en">- Any Routes</div></a>
+              <a class="svc" href="https://www.goodlugg.com/luggage-delivery/korea-door-to-door" target="_blank" rel="noopener"><div class="kr">Korea Luggage Delivery</div><div class="en">- Selected Routes</div></a>
+              <a class="svc" href="https://www.goodlugg.com/delivery" target="_blank" rel="noopener"><div class="kr">Hotel-Airport Delivery</div></a>
+              <a class="svc" href="https://www.goodlugg.com/storage" target="_blank" rel="noopener"><div class="kr">Realtime Storage</div></a>
+            </div>
+
+            <h3>Coupon terms</h3>
+            <ul class="tc">
+              <li>Valid for first-time bookings only</li>
+              <li>Valid on all Goodlugg services</li>
+              <li>One coupon per member · registered members only</li>
+              <li>10% off, up to a maximum discount of ₩50,000</li>
+              <li>Cannot be combined with other coupons or offers</li>
+              <li>Cannot be exchanged for cash</li>
+              <li>Expiration date: December 31, 2026</li>
+            </ul>
+          </div>
+
+          <div class="cta">
+            <a href="#">Book now &amp; save 10% ›</a>
+            <div class="fine">*Promotion is subject to change without prior notice.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script>
+  var screens=document.getElementById('screens');
+  function goPromo(){screens.classList.add('show-promo');document.getElementById('promoScreen').scrollTop=0;}
+  function goHome(){screens.classList.remove('show-promo');}
+  function copyCode(){
+    navigator.clipboard && navigator.clipboard.writeText('WelcomeGoodlugg10');
+    var b=document.getElementById('copybtn');
+    b.textContent='Copied!';b.classList.add('done');
+    setTimeout(function(){b.textContent='Copy';b.classList.remove('done');},1600);
+  }
+</script>
+</body>
+</html>
