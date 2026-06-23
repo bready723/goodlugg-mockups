@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Goodlugg · Card → Promo Page Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --purple:#512772; --purple-deep:#3c245a; --olive:#C8C32E;
+    --text:#333; --text2:#666; --meta:#999; --border:#e0e0e0;
+    --bg:#f5f5f5; --mint:#e9f6f3; --teal:#1a9c8c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:#dcdce0;color:var(--text);
+       min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 12px 60px;}
+  .caption{font-size:13px;color:#555;margin-bottom:14px;text-align:center;max-width:420px;}
+  .caption b{color:#222;}
+
+  /* phone frame */
+  .phone{width:390px;max-width:100%;height:760px;background:#fff;border-radius:26px;overflow:hidden;
+         box-shadow:0 12px 40px rgba(0,0,0,.22);position:relative;border:6px solid #111;}
+  .viewport{position:relative;width:100%;height:100%;overflow:hidden;}
+  .screens{display:flex;width:200%;height:100%;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+  .screens.show-promo{transform:translateX(-50%);}
+  .screen{width:50%;height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+
+  /* nav */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-bottom:1px solid #f0f0f0;
+       position:sticky;top:0;background:#fff;z-index:5;}
+  .nav .lang{font-size:13px;color:#444;}
+  .nav .back{font-size:20px;color:#333;background:none;border:none;cursor:pointer;width:24px;text-align:left;}
+  .logo{font-weight:900;font-size:21px;}
+  .logo .g{color:var(--purple);} .logo .l{color:var(--olive);}
+  .nav .ham{font-size:19px;color:#333;width:24px;text-align:right;}
+
+  /* ===== HOME screen ===== */
+  .promo-banner{height:74px;background:#ffe14d;display:flex;align-items:center;padding:0 18px;
+                font-size:13px;color:#222;font-weight:700;line-height:1.4;}
+  .section{padding:22px 18px 30px;}
+  .section h2,.video-section h2,.reviews-head h2{font-size:19px;font-weight:900;color:#222;margin-bottom:2px;}
+  .section .h2en,.video-section .h2en{font-size:11px;color:var(--meta);margin-bottom:16px;font-weight:500;}
+  .video-section .h2en{margin-bottom:7px;}
+
+  .ecard{width:166px;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;
+         box-shadow:0 2px 10px rgba(0,0,0,.06);cursor:pointer;transition:transform .12s, box-shadow .12s;}
+  .ecard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.13);}
+  .ecard .header{background:var(--purple);height:52px;display:flex;align-items:center;justify-content:center;}
+  .ecard .header .logo .g,.ecard .header .logo .l{color:#fff;}      /* ← ALL-WHITE logo in card */
+  .ecard .header .logo{font-size:16px;}
+  .ecard .body{padding:11px 12px 11px;}
+  .ecard .title{font-size:11px;font-weight:900;color:#222;margin-bottom:6px;line-height:1.3;white-space:nowrap;}
+  .ecard .lines{font-size:11px;color:#444;line-height:1.6;}
+  .ecard .lines .big{color:var(--purple);font-weight:700;}
+  .ecard .go{display:flex;align-items:center;justify-content:flex-end;gap:3px;margin-top:11px;
+             font-size:13px;font-weight:700;color:var(--purple);}
+  .tap-hint{font-size:12px;color:#888;margin-top:14px;}
+
+  /* ===== "See It in Action" video section ===== */
+  .video-section{padding:4px 18px 30px;}
+  .video-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:12px;overflow:hidden;
+              box-shadow:0 4px 16px rgba(0,0,0,.13);background:var(--purple);cursor:pointer;}
+  .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  .video-thumb{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .video-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:66px;height:46px;
+              border:0;border-radius:13px;background:#f00;opacity:.92;cursor:pointer;padding:0;transition:opacity .15s;}
+  .video-play::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-40%,-50%);
+              border-style:solid;border-width:11px 0 11px 19px;border-color:transparent transparent transparent #fff;}
+  .video-wrap:hover .video-play{opacity:1;}
+  .video-cap{font-size:12.5px;color:#777;margin-top:11px;line-height:1.5;}
+
+  /* ===== Creator Reels ===== */
+  .reels-head{display:flex;align-items:center;justify-content:space-between;margin:20px 0 11px;}
+  .reels-head h3{font-size:15px;font-weight:900;color:#222;margin:0;}
+  .reels-arrows{font-size:15px;color:#bbb;letter-spacing:7px;}
+  .reels-row{display:flex;gap:11px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px;scroll-snap-type:x mandatory;}
+  .reel-card{flex:0 0 128px;aspect-ratio:9/16;border-radius:12px;overflow:hidden;position:relative;display:block;
+             text-decoration:none;scroll-snap-align:start;box-shadow:0 3px 12px rgba(0,0,0,.16);
+             background:linear-gradient(135deg,#feda75,#fa7e1e 25%,#d62976 55%,#962fbf 80%,#4f5bd5);}
+  .reel-card .reel-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .reel-card .reel-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),rgba(0,0,0,0) 50%);}
+  .reel-card .ig{position:absolute;top:7px;right:9px;color:#fff;font-size:14px;opacity:.95;}
+  .reel-card .reel-play{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;
+             background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;}
+  .reel-card .reel-play::before{content:"";border-style:solid;border-width:7px 0 7px 12px;border-color:transparent transparent transparent #fff;margin-left:3px;}
+  .reel-card .reel-cap{position:absolute;left:9px;right:9px;bottom:9px;color:#fff;font-size:10.5px;font-weight:700;line-height:1.35;text-shadow:0 1px 3px rgba(0,0,0,.6);}
+  .reel-card .reel-tag{position:absolute;top:8px;left:8px;z-index:2;background:rgba(0,0,0,.6);color:#fff;
+             font-size:9px;font-weight:700;letter-spacing:.2px;padding:3px 8px;border-radius:11px;}
+  /* ===== combo carousel (V2) ===== */
+  .combo-row{display:flex;gap:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px;scroll-snap-type:x mandatory;align-items:flex-start;}
+  .combo-item{flex:0 0 auto;display:flex;flex-direction:column;scroll-snap-align:start;}
+  .combo-item.vid{width:260px;}
+  .combo-item.reel{width:128px;}
+  .combo-label{font-size:11px;font-weight:500;color:var(--meta);height:15px;line-height:15px;margin-bottom:7px;white-space:nowrap;}
+  .combo-item .video-wrap{width:100%;padding-top:0;aspect-ratio:16/9;}
+  .combo-item .reel-card{width:100%;}
+
+  /* ===== Customer Reviews section ===== */
+  .reviews-section{padding:4px 18px 34px;}
+  .reviews-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;}
+  .reviews-head .left{display:flex;align-items:baseline;gap:8px;}
+  .reviews-head h2{margin:0;}
+  .reviews-head .rating{font-size:13px;font-weight:700;color:#222;white-space:nowrap;}
+  .reviews-head .rating .stars{color:#ffb400;}
+  .reviews-head .viewall{font-size:12.5px;color:var(--purple);font-weight:700;text-decoration:none;white-space:nowrap;}
+  .review-cards{display:flex;gap:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;}
+  .review-card{flex:0 0 78%;border:1px solid var(--border);border-radius:12px;padding:14px;background:#fff;}
+  .review-card .top{display:flex;align-items:center;gap:6px;margin-bottom:7px;}
+  .review-card .src{font-size:12px;font-weight:700;color:#444;}
+  .review-card .date{font-size:11px;color:var(--meta);margin-left:auto;}
+  .review-card .stars{color:#ffb400;font-size:12px;margin-bottom:6px;}
+  .review-card .svc{font-size:13px;font-weight:700;color:#222;margin-bottom:5px;}
+  .review-card .txt{font-size:12.5px;color:#555;line-height:1.5;}
+  .review-card .author{font-size:11px;color:var(--meta);margin-top:9px;}
+
+  /* ===== PROMO screen ===== */
+  .hero{background:linear-gradient(160deg,var(--purple),var(--purple-deep));color:#fff;text-align:center;padding:34px 20px 44px;}
+  .hero .eyebrow{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+                 font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 13px;border-radius:20px;text-transform:uppercase;margin-bottom:14px;}
+  .hero h1{font-size:25px;font-weight:900;line-height:1.25;margin-bottom:10px;}
+  .hero h1 .hl{color:var(--olive);}
+  .hero p{font-size:14px;color:#eadcff;max-width:300px;margin:0 auto;}
+
+  .couponcard{margin:-26px 18px 0;background:#fff;border-radius:15px;box-shadow:0 10px 26px rgba(0,0,0,.14);
+              overflow:hidden;position:relative;z-index:2;}
+  .codewrap{background:var(--mint);padding:18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .clbl{font-size:11px;color:#555;font-weight:700;margin-bottom:4px;}
+  .code{font-size:20px;font-weight:900;color:var(--teal);letter-spacing:.3px;}
+  .copybtn{background:#fff;border:1px solid #cfeae4;border-radius:8px;padding:9px 13px;font-size:12px;
+           font-weight:700;color:var(--teal);cursor:pointer;white-space:nowrap;}
+  .copybtn.done{background:var(--teal);color:#fff;border-color:var(--teal);}
+  .couponcard .disc{padding:15px 18px;text-align:center;border-top:1px dashed var(--border);}
+  .couponcard .disc .big{font-size:22px;font-weight:900;color:var(--purple);}
+  .couponcard .disc small{color:#777;font-size:13px;font-weight:600;}
+
+  .pbody{padding:26px 18px 10px;}
+  .pbody h3{font-size:17px;font-weight:900;color:#222;margin:22px 0 12px;}
+  .steps{list-style:none;}
+  .steps li{display:flex;gap:11px;margin-bottom:12px;align-items:flex-start;font-size:13.5px;color:#444;}
+  .steps li .n{flex:0 0 25px;height:25px;border-radius:50%;background:var(--purple);color:#fff;font-size:13px;
+               font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .services{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .svc{border:1px solid var(--border);border-radius:10px;padding:13px;text-decoration:none;color:inherit;}
+  .svc .badge{display:inline-block;font-size:9px;font-weight:800;color:#fff;padding:2px 8px;border-radius:10px;margin-bottom:7px;letter-spacing:.2px;}
+  .badge-premium{background:#9dce2e;}
+  .badge-blue{background:#3d8bd4;}
+  .badge-orange{background:#f5921e;}
+  .svc .kr{font-weight:700;color:#222;font-size:13.5px;line-height:1.3;}
+  .svc .en{font-size:12px;color:var(--purple);font-weight:700;margin-top:5px;}
+  .tc{list-style:none;background:var(--bg);border-radius:12px;padding:16px 18px;}
+  .tc li{position:relative;padding-left:15px;margin-bottom:7px;font-size:12.5px;color:#555;}
+  .tc li::before{content:"•";position:absolute;left:2px;color:#999;}
+  .cta{text-align:center;padding:26px 18px 34px;}
+  .cta a{display:inline-block;background:var(--purple);color:#fff;font-weight:700;font-size:15px;
+         padding:14px 34px;border-radius:8px;text-decoration:none;}
+  .fine{font-size:11px;color:var(--meta);font-style:italic;text-align:center;margin-top:12px;}
+</style>
+</head>
+<body>
+
+  <div class="caption">
+    <b>VERSION 2 — Video + Reels in one swipe carousel.</b><br/><b>Flow:</b> English homepage → tap the “Goodlugg Event” card → lands on the promotion page.
+    Tap the card to try it. Use the <b>←</b> arrow to go back.
+  </div>
+
+  <div class="phone">
+    <div class="viewport">
+      <div class="screens" id="screens">
+
+        <!-- ===================== SCREEN 1: HOME ===================== -->
+        <div class="screen" id="homeScreen">
+          <div class="nav">
+            <span class="lang">🌐 English ▾</span>
+            <span class="logo"><span class="g">Good</span><span class="l">lugg</span></span>
+            <span class="ham">☰</span>
+          </div>
+
+          <div class="promo-banner">Goodlugg Luggage Center @COEX Mall — Now Open ›</div>
+
+          <div class="section">
+            <h2>Goodlugg Event</h2>
+            <div class="h2en">Promotions running now</div>
+
+            <div class="ecard" onclick="goPromo()">
+              <div class="header">
+                <span class="logo"><span class="g">Good</span><span class="l">lugg</span></span>
+              </div>
+              <div class="body">
+                <div class="title">Welcome Offer: 10% OFF</div>
+                <div class="lines">
+                  your 1st booking,<br/><span class="big">on any Korea services</span><br/>
+                  Up to ₩50,000 off<br/>
+                  ~ Dec 31, 2026
+                </div>
+                <div class="go">Get code ›</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== See It in Action (동영상) ===== -->
+          <div class="video-section">
+            <h2>See It in Action</h2>
+            <div class="combo-row">
+              <div class="combo-item vid">
+                <div class="combo-label">How Door2Door delivery works</div>
+                <div class="video-wrap" onclick="loadYT(this)" role="button" aria-label="Play: How to Use Goodlugg Door2Door">
+                  <img class="video-thumb" src="https://img.youtube.com/vi/eY7XP2svE-o/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/eY7XP2svE-o/hqdefault.jpg';" alt="Door2Door Delivery how-to" />
+                  <button class="video-play" type="button" aria-label="Play video"></button>
+                </div>
+              </div>
+              <div class="combo-item reel">
+                <div class="combo-label">From Our Creators</div>
+                <a class="reel-card" href="https://www.instagram.com/reel/DZUdHLWzrnR/" target="_blank" rel="noopener">
+                  <img class="reel-cover" src="reel-1-sameday.png" alt="Same-day door-to-door luggage delivery" />
+                  <span class="reel-play"></span>
+                </a>
+              </div>
+              <div class="combo-item reel">
+                <div class="combo-label">&nbsp;</div>
+                <a class="reel-card" href="https://www.instagram.com/reel/DZH7zzsK7n-/" target="_blank" rel="noopener">
+                  <img class="reel-cover" src="reel-2-parenthack.png" alt="The Korea travel hack every parent needs" />
+                  <span class="reel-play"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Customer Reviews (리뷰) ===== -->
+          <div class="reviews-section">
+            <div class="reviews-head">
+              <div class="left">
+                <h2>Customer Reviews</h2>
+                <span class="rating"><span class="stars">★</span> 5.0 (189)</span>
+              </div>
+              <a class="viewall" href="#">View All ›</a>
+            </div>
+            <div class="review-cards">
+              <div class="review-card">
+                <div class="top"><span class="src">★ Google</span><span class="date">2026-06-21</span></div>
+                <div class="stars">★★★★★</div>
+                <div class="svc">Korea Luggage Delivery</div>
+                <div class="txt">Highly recommend GoodLugg baggage service as it allowed my family to enjoy our vacation to the…</div>
+                <div class="author">A******e</div>
+              </div>
+              <div class="review-card">
+                <div class="top"><span class="src">★ Trazy</span><span class="date">2026-06-18</span></div>
+                <div class="stars">★★★★★</div>
+                <div class="svc">Korea Luggage Delivery</div>
+                <div class="txt">A positive experience. They were efficient and got the job done. Our luggage was delivered…</div>
+                <div class="author">Anonymous</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================== SCREEN 2: PROMO PAGE ===================== -->
+        <div class="screen" id="promoScreen">
+          <div class="nav">
+            <button class="back" onclick="goHome()">←</button>
+            <span class="logo"><span class="g">Good</span><span class="l">lugg</span></span>
+            <span class="ham">☰</span>
+          </div>
+
+          <div class="hero">
+            <span class="eyebrow">Welcome Offer</span>
+            <h1>New to Goodlugg?<br/>Your first trip is <span class="hl">10% off.</span></h1>
+            <p>Travel bagless across Korea<br/>10% off your first booking, on us.</p>
+          </div>
+
+          <div class="couponcard">
+            <div class="codewrap">
+              <div>
+                <div class="clbl">Discount Code</div>
+                <div class="code">WelcomeGoodlugg10</div>
+              </div>
+              <button class="copybtn" id="copybtn" onclick="copyCode()">Copy</button>
+            </div>
+            <div class="disc"><span class="big">10% OFF</span> <small>first booking · up to ₩50,000</small></div>
+          </div>
+
+          <div class="pbody">
+            <h3>How to use your coupon</h3>
+            <ul class="steps">
+              <li><span class="n">1</span><span>Sign up or log in as a <b>Goodlugg member</b>.</span></li>
+              <li><span class="n">2</span><span>Enter code <b>WelcomeGoodlugg10</b> at checkout.</span></li>
+              <li><span class="n">3</span><span>Complete your booking — <b>10% comes off automatically</b>.</span></li>
+            </ul>
+
+            <h3>Valid on all services in Korea</h3>
+            <div class="services">
+              <a class="svc" href="https://www.goodlugg.com/luggage-delivery/korea-door-to-door?language=en" target="_blank" rel="noopener"><div class="kr">Door2Door Delivery across Korea</div><div class="en">- Any Routes</div></a>
+              <a class="svc" href="https://www.goodlugg.com/luggage-delivery/korea?language=en" target="_blank" rel="noopener"><div class="kr">Korea Luggage Delivery</div><div class="en">- Selected Routes</div></a>
+              <a class="svc" href="https://www.goodlugg.com/bf/disabled?language=en" target="_blank" rel="noopener"><div class="kr">Baggage Free<br/>(for Disability)</div></a>
+              <a class="svc" href="https://www.goodlugg.com/bf/vulnerablePerson?language=en" target="_blank" rel="noopener"><div class="kr">Baggage Free<br/>(for PRMs)</div></a>
+            </div>
+
+            <h3>Discount Code Terms</h3>
+            <ul class="tc">
+              <li>Valid for first-time bookings only</li>
+              <li>Valid on all Goodlugg services in Korea</li>
+              <li>One code per member · registered members only</li>
+              <li>10% off, up to a maximum discount of ₩50,000</li>
+              <li>Cannot be combined with other coupons or offers</li>
+              <li>Cannot be exchanged for cash</li>
+              <li>Expiration date: December 31, 2026</li>
+            </ul>
+          </div>
+
+          <div class="cta">
+            <a href="https://www.goodlugg.com/?language=en" target="_blank" rel="noopener">Book now &amp; save 10% ›</a>
+            <div class="fine">*Promotion is subject to change without prior notice.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script>
+  var screens=document.getElementById('screens');
+  function goPromo(){screens.classList.add('show-promo');document.getElementById('promoScreen').scrollTop=0;}
+  function goHome(){screens.classList.remove('show-promo');}
+  function loadYT(el){
+    el.innerHTML='<iframe src="https://www.youtube.com/embed/eY7XP2svE-o?autoplay=1" '+
+      'title="How to Use Goodlugg Door2Door Luggage Delivery" '+
+      'allow="autoplay; encrypted-media; picture-in-picture; web-share" '+
+      'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  }
+  function copyCode(){
+    navigator.clipboard && navigator.clipboard.writeText('WelcomeGoodlugg10');
+    var b=document.getElementById('copybtn');
+    b.textContent='Copied!';b.classList.add('done');
+    setTimeout(function(){b.textContent='Copy';b.classList.remove('done');},1600);
+  }
+</script>
+</body>
+</html>
