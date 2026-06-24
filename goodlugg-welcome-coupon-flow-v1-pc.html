@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Goodlugg · See It in Action — PC View (V1, 5 Reels)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --purple:#512772; --purple-deep:#3c245a; --olive:#C8C32E;
+    --text:#333; --text2:#666; --meta:#999; --border:#e6e6e6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:#fff;color:var(--text);padding-bottom:60px;}
+  .pagecap{background:#dcdce0;color:#555;font-size:13px;text-align:center;padding:10px 16px;}
+  .pagecap b{color:#222;}
+
+  /* ===== top nav (desktop) ===== */
+  .nav{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;
+       padding:26px 24px 22px;}
+  .nav .logo{font-weight:900;font-size:30px;}
+  .nav .logo .g{color:var(--purple);} .nav .logo .l{color:var(--olive);}
+  .nav .menu{display:flex;align-items:center;gap:30px;font-size:16px;color:#333;}
+  .nav .menu .lang{display:flex;align-items:center;gap:6px;}
+  .nav .menu .logout{font-weight:700;color:var(--purple);}
+
+  /* ===== content wrap ===== */
+  .wrap{max-width:1180px;margin:0 auto;padding:14px 24px 0;}
+
+  h2{font-size:30px;font-weight:900;color:#222;margin-bottom:4px;}
+  .h2en{font-size:15px;color:var(--meta);font-weight:500;margin-bottom:14px;}
+
+  /* ===== video ===== */
+  .video-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:16px;overflow:hidden;
+              box-shadow:0 6px 22px rgba(0,0,0,.14);background:var(--purple);cursor:pointer;}
+  .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  .video-thumb{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .video-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:62px;
+              border:0;border-radius:16px;background:#f00;opacity:.92;cursor:pointer;padding:0;transition:opacity .15s;}
+  .video-play::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-40%,-50%);
+              border-style:solid;border-width:15px 0 15px 26px;border-color:transparent transparent transparent #fff;}
+  .video-wrap:hover .video-play{opacity:1;}
+
+  /* ===== creator reels (V1: own row below video) ===== */
+  .reels-head{display:flex;align-items:center;justify-content:space-between;margin:24px 0 12px;}
+  .reels-head h3{font-size:15px;font-weight:500;color:var(--meta);margin:0;}
+  .reels-arrows{font-size:20px;color:#bbb;letter-spacing:10px;cursor:pointer;}
+  .reels-row{display:flex;justify-content:space-between;gap:16px;padding-bottom:8px;}
+  .reel-card{flex:0 0 200px;aspect-ratio:9/16;border-radius:14px;overflow:hidden;position:relative;display:block;
+             text-decoration:none;scroll-snap-align:start;box-shadow:0 4px 14px rgba(0,0,0,.16);
+             background:linear-gradient(135deg,#feda75,#fa7e1e 25%,#d62976 55%,#962fbf 80%,#4f5bd5);
+             transition:transform .12s, box-shadow .12s;}
+  .reel-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.22);}
+  .reel-card .reel-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .reel-card .reel-play{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;
+             background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;}
+  .reel-card .reel-play::before{content:"";border-style:solid;border-width:10px 0 10px 17px;border-color:transparent transparent transparent #fff;margin-left:4px;}
+
+  /* ===== reviews header (just the top, for context) ===== */
+  .reviews-head{display:flex;align-items:baseline;justify-content:space-between;margin:54px 0 0;
+                border-top:1px solid #f0f0f0;padding-top:40px;}
+  .reviews-head .left{display:flex;align-items:baseline;gap:14px;}
+  .reviews-head h2{margin:0;}
+  .reviews-head .rating{font-size:17px;font-weight:700;color:#222;}
+  .reviews-head .rating .stars{color:#ffb400;}
+  .reviews-head .viewall{font-size:15px;color:var(--purple);font-weight:700;text-decoration:none;}
+</style>
+</head>
+<body>
+
+  <div class="pagecap"><b>VERSION 1 — PC / Desktop view.</b> The “From Our Creators” row now holds 5 Reels and fills the width that used to sit empty. Swipe / scroll the row sideways for more.</div>
+
+  <div class="nav">
+    <span class="logo"><span class="g">Good</span><span class="l">lugg</span></span>
+    <div class="menu">
+      <span class="lang">🌐 English ▾</span>
+      <span>My Page</span><span>Tracking</span><span>Reviews</span>
+      <span>Contact Us</span><span>Notices</span><span class="logout">Log Out</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h2>See It in Action</h2>
+    <div class="h2en">How Door2Door delivery works</div>
+
+    <div class="video-wrap" onclick="loadYT(this)" role="button" aria-label="Play: How to Use Goodlugg Door2Door">
+      <img class="video-thumb" src="https://img.youtube.com/vi/eY7XP2svE-o/maxresdefault.jpg"
+           onerror="this.onerror=null;this.src='https://img.youtube.com/vi/eY7XP2svE-o/hqdefault.jpg';"
+           alt="Door2Door Delivery across Korea — How it works" />
+      <button class="video-play" type="button" aria-label="Play video"></button>
+    </div>
+
+    <div class="reels-head">
+      <h3>From Our Creators</h3>
+      <span class="reels-arrows">‹ ›</span>
+    </div>
+    <div class="reels-row">
+      <a class="reel-card" href="https://www.instagram.com/reel/DZUdHLWzrnR/" target="_blank" rel="noopener">
+        <img class="reel-cover" src="reel-1-sameday.png" alt="Same-day door-to-door luggage delivery" />
+        <span class="reel-play"></span>
+      </a>
+      <a class="reel-card" href="https://www.instagram.com/reel/DZH7zzsK7n-/" target="_blank" rel="noopener">
+        <img class="reel-cover" src="reel-2-parenthack.png" alt="The Korea travel hack every parent needs" />
+        <span class="reel-play"></span>
+      </a>
+      <a class="reel-card" href="https://www.instagram.com/reel/DHp7HDCTJHw/" target="_blank" rel="noopener">
+        <img class="reel-cover" src="reel-3-coex.png" alt="Coex luggage center — did you know there's…" />
+        <span class="reel-play"></span>
+      </a>
+      <a class="reel-card" href="https://www.instagram.com/p/DR084GqDqm8/" target="_blank" rel="noopener">
+        <img class="reel-cover" src="reel-4-gangnam.png" alt="Gangnam itinerary + essential travel tips" />
+        <span class="reel-play"></span>
+      </a>
+      <a class="reel-card" href="https://www.instagram.com/p/DZXDT-2mvyD/" target="_blank" rel="noopener">
+        <img class="reel-cover" src="reel-5-antje.png" alt="Survival guide for the BTS concert in Busan" />
+        <span class="reel-play"></span>
+      </a>
+    </div>
+
+    <div class="reviews-head">
+      <div class="left">
+        <h2>Customer Reviews</h2>
+        <span class="rating"><span class="stars">★</span> 5.0 (189)</span>
+      </div>
+      <a class="viewall" href="#">View All ›</a>
+    </div>
+  </div>
+
+<script>
+  function loadYT(el){
+    el.innerHTML='<iframe src="https://www.youtube.com/embed/eY7XP2svE-o?autoplay=1" '+
+      'title="How to Use Goodlugg Door2Door Luggage Delivery" '+
+      'allow="autoplay; encrypted-media; picture-in-picture; web-share" '+
+      'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  }
+</script>
+</body>
+</html>
