@@ -220,6 +220,49 @@
         color: var(--lime-ink);
         width: 3ch;
       }
+      .opts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        gap: 34px;
+      }
+      .opt {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        border-top: 2px solid var(--ink);
+        padding-top: 14px;
+      }
+      .opt-head {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 2px 12px;
+        align-items: baseline;
+      }
+      .opt-code {
+        grid-row: span 2;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 19px;
+        font-weight: 500;
+        color: var(--lime-ink);
+      }
+      .opt-line {
+        font-family: Archivo, sans-serif;
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        line-height: 1.15;
+        text-wrap: balance;
+      }
+      .opt-note {
+        color: var(--ink-3);
+        font-size: 15px;
+      }
+      .opt-shots {
+        display: grid;
+        grid-template-columns: minmax(0, 118px) minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+      }
       .grid {
         display: flex;
         flex-direction: column;
@@ -269,10 +312,8 @@
         font-weight: 600;
       }
       .screen {
-        border: 7px solid var(--ink);
-        border-radius: 10px;
+        border-radius: 6px;
         overflow: hidden;
-        background: var(--ink);
         box-shadow: var(--shadow);
         line-height: 0;
       }
@@ -330,10 +371,11 @@
         >
         <h1>Bagless at the scale.</h1>
         <p class="lede">
-          Sixteen versions of the 15-second spot for Incheon&rsquo;s
-          luggage-weighing kiosks, each in both cuts the medium plays: a tall
-          film while the screen is idle, and a wide one that takes over the
-          moment a suitcase goes on the scale.
+          Eight main-copy options, five Seoul &#8646; Busan subtitles and
+          sixteen layout versions for Incheon&rsquo;s luggage-weighing kiosks,
+          each in both cuts the medium plays: a tall film while the screen is
+          idle, and a wide one that takes over the moment a suitcase goes on the
+          scale.
         </p>
         <div class="facts">
           <div class="fact">
@@ -374,6 +416,429 @@
         </p>
       </section>
 
+      <section>
+        <span class="eyebrow">Eight readings of the same line</span>
+        <h2>Main copy</h2>
+        <p class="col">
+          Every one of these is a rendering of 비자카드만 있으면 굿럭 짐배송 1개
+          공짜. They differ in what they lead with: the benefit, the low
+          barrier, or Goodlugg as the one doing the delivering. All eight are
+          set with the line breaks locked, so a phrase never splits across two
+          lines.
+        </p>
+        <div class="opts">
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">A</span>
+              <p class="opt-line">One bag free, with your Visa card.</p>
+              <p class="opt-note">
+                Benefit first, condition second. Shortest of the eight, so it
+                sets largest.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/MA_V.jpg"
+                  alt="MA portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/MA_H.jpg"
+                  alt="MA landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">B</span>
+              <p class="opt-line">Just your Visa card. One bag free.</p>
+              <p class="opt-note">
+                “Just” is the closest English to 만 있으면 — the whole point is
+                that this is all it takes.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/MB_V.jpg"
+                  alt="MB portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/MB_H.jpg"
+                  alt="MB landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">C</span>
+              <p class="opt-line">All you need is a Visa card.</p>
+              <p class="opt-note">
+                The lowest-barrier reading. The offer itself moves to the
+                subtitle.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/MC_V.jpg"
+                  alt="MC portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/MC_H.jpg"
+                  alt="MC landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">D</span>
+              <p class="opt-line">
+                Goodlugg delivers one bag free, with your Visa card.
+              </p>
+              <p class="opt-note">
+                Goodlugg is the grammatical subject, which is the posture the
+                agreement asks for.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/MD_V.jpg"
+                  alt="MD portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/MD_H.jpg"
+                  alt="MD landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">E</span>
+              <p class="opt-line">Have a Visa card? One bag travels free.</p>
+              <p class="opt-note">
+                A question stops the eye. “travels” says it is a delivery, not a
+                giveaway suitcase.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/ME_V.jpg"
+                  alt="ME portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/ME_H.jpg"
+                  alt="ME landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">F</span>
+              <p class="opt-line">Any Visa card. One bag free.</p>
+              <p class="opt-note">
+                Five words. Reads from the far side of a gate lounge.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/MF_V.jpg"
+                  alt="MF portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/MF_H.jpg"
+                  alt="MF landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">G</span>
+              <p class="opt-line">One bag on us, with your Visa card.</p>
+              <p class="opt-note">
+                Warmest of the eight. “on us” is idiomatic, so it may not land
+                for every reader.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/MG_V.jpg"
+                  alt="MG portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/MG_H.jpg"
+                  alt="MG landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">H</span>
+              <p class="opt-line">
+                One bag delivered free with your Visa card.
+              </p>
+              <p class="opt-note">
+                The current line. “delivered” removes any doubt about what is
+                being given.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/MH_V.jpg"
+                  alt="MH portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/MH_H.jpg"
+                  alt="MH landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <span class="eyebrow">Five ways to say it runs both ways</span>
+        <h2>Seoul ⇄ Busan subtitle</h2>
+        <p class="col">
+          The Seoul&ndash;Busan hotel route works in both directions, and the
+          earlier drafts only said one. These five all fix that; they differ in
+          how plainly they spell it out.
+        </p>
+        <div class="opts">
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">1</span>
+              <p class="opt-line">
+                Seoul and Busan, hotel to hotel, either way.
+              </p>
+              <p class="opt-note">
+                Plainest English. “either way” is the phrase a non-native reader
+                is most likely to know.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/S1_V.jpg"
+                  alt="S1 portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/S1_H.jpg"
+                  alt="S1 landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">2</span>
+              <p class="opt-line">Busan to Seoul, or Seoul to Busan. Free.</p>
+              <p class="opt-note">
+                Spells both directions out. Longest, but nothing is left to
+                inference.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/S2_V.jpg"
+                  alt="S2 portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/S2_H.jpg"
+                  alt="S2 landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">3</span>
+              <p class="opt-line">
+                Between Seoul and Busan hotels. Both directions.
+              </p>
+              <p class="opt-note">
+                “Between” already implies both, and the second sentence confirms
+                it.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/S3_V.jpg"
+                  alt="S3 portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/S3_H.jpg"
+                  alt="S3 landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">4</span>
+              <p class="opt-line">Seoul ⇄ Busan, hotel to hotel.</p>
+              <p class="opt-note">
+                The arrow does the work in any language, and it is the symbol
+                the route list already uses.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/S4_V.jpg"
+                  alt="S4 portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/S4_H.jpg"
+                  alt="S4 landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+          <article class="opt">
+            <div class="opt-head">
+              <span class="opt-code">5</span>
+              <p class="opt-line">
+                Either direction between Seoul and Busan hotels.
+              </p>
+              <p class="opt-note">
+                Leads on the reassurance rather than the cities.
+              </p>
+            </div>
+            <div class="opt-shots">
+              <div class="screen">
+                <img
+                  src="frames/S5_V.jpg"
+                  alt="S5 portrait"
+                  loading="lazy"
+                  width="820"
+                  height="1458"
+                />
+              </div>
+              <div class="screen">
+                <img
+                  src="frames/S5_H.jpg"
+                  alt="S5 landscape"
+                  loading="lazy"
+                  width="820"
+                  height="461"
+                />
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
       <section>
         <span class="eyebrow">The point worth pressing</span>
         <h2>Seoul to Busan is in it too</h2>
@@ -551,7 +1016,7 @@
             </div>
             <dl class="copy-out">
               <dt>Subtitle</dt>
-              <dd>Seoul hotel to Busan hotel. Free.</dd>
+              <dd>Seoul ⇄ Busan, hotel to hotel. | Free.</dd>
             </dl>
           </article>
           <article class="concept">
@@ -672,7 +1137,7 @@
             </div>
             <dl class="copy-out">
               <dt>Subtitle</dt>
-              <dd>Goodlugg delivers it while you travel Korea.</dd>
+              <dd>Goodlugg delivers it | while you travel Korea.</dd>
             </dl>
           </article>
           <article class="concept">
@@ -833,7 +1298,7 @@
             </div>
             <dl class="copy-out">
               <dt>Subtitle</dt>
-              <dd>Even Seoul to Busan, hotel to hotel.</dd>
+              <dd>Even Seoul ⇄ Busan, | hotel to hotel.</dd>
             </dl>
           </article>
           <article class="concept">
@@ -873,7 +1338,7 @@
             <dl class="copy-out">
               <dt></dt>
               <dd>
-                Value block: Seoul to Busan, worth up to
+                Value block: Seoul ⇄ Busan, hotel to hotel, worth up to
                 <b>KRW 55,000</b> &rarr; <b>Free</b>
               </dd>
               <dt></dt>
@@ -1002,7 +1467,7 @@
             </div>
             <dl class="copy-out">
               <dt>Subtitle</dt>
-              <dd>Explore Korea. We deliver to your hotel.</dd>
+              <dd>Explore Korea. | We deliver to your hotel.</dd>
             </dl>
           </article>
           <article class="concept">
@@ -1084,7 +1549,7 @@
             </div>
             <dl class="copy-out">
               <dt>Subtitle</dt>
-              <dd>Your hands are free. Korea is waiting.</dd>
+              <dd>Your hands are free. | Korea is waiting.</dd>
             </dl>
           </article>
           <article class="concept">
@@ -1124,7 +1589,7 @@
             </div>
             <dl class="copy-out">
               <dt>Subtitle</dt>
-              <dd>Seoul to Busan, worth up to ₩55,000.</dd>
+              <dd>Seoul ⇄ Busan, hotel to hotel, | worth up to ₩55,000.</dd>
             </dl>
           </article>
           <article class="concept">
