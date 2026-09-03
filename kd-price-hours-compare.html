@@ -248,15 +248,12 @@
       .visa {
         display: flex;
         align-items: center;
-        gap: 8px;
-        background: var(--purple-050);
-        border: 1px solid var(--purple-100);
-        border-radius: 10px;
-        padding: 10px 12px;
+        gap: 7px;
+        padding: 0 2px;
         font-size: 12px;
         color: var(--purple);
         font-weight: 600;
-        margin-top: 10px;
+        margin-top: 11px;
         line-height: 1.45;
       }
       .visa .vtag {
@@ -335,6 +332,12 @@
         font-weight: 600;
         color: var(--text);
         background: #fbfafd;
+      }
+      .rl span {
+        display: block;
+      }
+      .rl span + span {
+        margin-top: 1px;
       }
       table.gl td.val {
         font-weight: 700;
@@ -1031,8 +1034,19 @@
           if (ROUTES[i].id === id) return ROUTES[i];
         return null;
       }
+      function rline(a, arrow, b) {
+        return (
+          '<span class="rl"><span>' +
+          a +
+          " " +
+          arrow +
+          "</span><span>" +
+          b +
+          "</span></span>"
+        );
+      }
       function cardLabel(c) {
-        return c.left.name + " ⇄ " + c.right.name;
+        return rline(c.left.name, "⇄", c.right.name);
       }
       function priceCells(r) {
         if (!r || !r.price)
@@ -1043,7 +1057,7 @@
       }
       function priceHead() {
         return (
-          '<colgroup><col class="c1" /><col /><col /><col /></colgroup><tr><th></th>' +
+          '<colgroup><col class="c1" /><col /><col /><col /></colgroup><tr><th>Routes</th>' +
           BAGS.map((b) => "<th>" + b + "</th>").join("") +
           "</tr>"
         );
@@ -1064,11 +1078,11 @@
       /* direction rows for a route id: [{label, rows:[[drop,arr],...]}] */
       function directions(r) {
         var out = [
-          { label: LOC[r.a].name + " → " + LOC[r.b].name, rows: r.hours.ab },
+          { label: rline(LOC[r.a].name, "→", LOC[r.b].name), rows: r.hours.ab },
         ];
         if (r.hours.ba)
           out.push({
-            label: LOC[r.b].name + " → " + LOC[r.a].name,
+            label: rline(LOC[r.b].name, "→", LOC[r.a].name),
             rows: r.hours.ba,
           });
         return out;
@@ -1102,7 +1116,7 @@
         });
         return (
           '<div class="tbl"><table class="gl hours"><colgroup><col class="c1" /><col /><col /></colgroup>' +
-          "<tr><th></th><th>Drop-off</th><th>Arrival</th></tr>" +
+          "<tr><th>Routes</th><th>Drop-off</th><th>Arrival</th></tr>" +
           body +
           "</table></div>"
         );
@@ -1238,7 +1252,7 @@
               "</div>";
             return;
           }
-          var label = LOC[a].name + " → " + LOC[b].name;
+          var label = rline(LOC[a].name, "→", LOC[b].name);
           out.innerHTML =
             headHours() +
             hoursTable([{ label: label, rows: hit.rows }]) +
