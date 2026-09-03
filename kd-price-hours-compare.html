@@ -621,6 +621,94 @@
         color: var(--meta);
         margin-bottom: 10px;
       }
+
+      /* ── D2D banner: copied from the live KD page ── */
+      .d2d-slot {
+        padding: 0 16px;
+      }
+      .d2d-banner {
+        position: relative;
+        padding: 20px 18px;
+        background: #4b1979;
+        border-radius: 10px;
+        cursor: pointer;
+        color: #ffffff;
+        overflow: hidden;
+      }
+      .d2d-banner-title {
+        margin: 0 0 6px;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.6;
+        color: #d7fc53;
+      }
+      .d2d-banner-headline {
+        margin: 0;
+        font-size: 23px;
+        font-weight: 300;
+        line-height: 1.2;
+        color: #ffffff;
+      }
+      .d2d-banner-headline-row {
+        display: inline-flex;
+        align-items: flex-start;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+      .d2d-banner-headline-row strong {
+        font-weight: 500;
+      }
+      .d2d-beta-badge {
+        display: inline-flex;
+        align-items: center;
+        background: #ff4d00;
+        color: #ffffff;
+        font-size: 9px;
+        font-weight: 400;
+        line-height: 1;
+        padding: 2px 3px;
+        border-radius: 22px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+      }
+      .d2d-banner-features {
+        list-style: none;
+        margin: 8px 0 0;
+        padding: 0;
+      }
+      .d2d-banner-features li {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #ffffff;
+      }
+      .d2d-banner-features li::before {
+        content: "\2713  ";
+      }
+      .d2d-banner-feature-note {
+        display: block;
+        font-size: 12px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+        padding-left: 1.4em;
+      }
+      .d2d-banner-icon {
+        position: absolute;
+        width: 88px;
+        height: 89px;
+        right: 14px;
+        bottom: 14px;
+        pointer-events: none;
+      }
+      .d2d-banner-chevron {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+        color: #ffffff;
+        font-size: 16px;
+        pointer-events: none;
+        z-index: 1;
+      }
     </style>
   </head>
   <body>
@@ -711,6 +799,8 @@
               <div class="panel" data-panel="intercity"></div>
             </section>
 
+            <div class="d2d-slot"></div>
+
             <section class="sec">
               <h3 class="sec-title">How it works</h3>
               <p class="hint">(existing section continues below)</p>
@@ -779,6 +869,8 @@
               <div id="resultB"></div>
             </section>
 
+            <div class="d2d-slot"></div>
+
             <section class="sec tint">
               <h3 class="sec-title">How it works</h3>
               <p class="hint">(existing section continues below)</p>
@@ -824,6 +916,8 @@
                 <span>〉</span>
               </div>
             </section>
+
+            <div class="d2d-slot"></div>
 
             <section class="sec">
               <h3 class="sec-title">How it works</h3>
@@ -1342,6 +1436,29 @@
         /* open the first route so the reviewer sees the expanded state without tapping */
         list.querySelector(".acc-btn").click();
       })();
+
+      /* ───────── D2D banner (markup mirrors the live KD page) ───────── */
+      var D2D_BANNER =
+        '<section class="d2d-banner">' +
+        '<h3 class="d2d-banner-title">Can\'t find your route?</h3>' +
+        '<p class="d2d-banner-headline">' +
+        '<span class="d2d-banner-headline-row">' +
+        "<span>Try <strong>Door2Door Delivery</strong></span>" +
+        '<span class="d2d-beta-badge">BETA</span>' +
+        "</span><br />" +
+        "<span>across Korea</span>" +
+        "</p>" +
+        '<ul class="d2d-banner-features">' +
+        "<li>Anywhere in Korea</li>" +
+        "<li>Any accommodation" +
+        '<span class="d2d-banner-feature-note">hotel, Airbnb, guesthouse</span>' +
+        "</li></ul>" +
+        '<img class="d2d-banner-icon" src="https://www.goodlugg.com/images/koreaDelivery/d2d-banner-icon.svg" alt="" />' +
+        '<span class="d2d-banner-chevron">›</span>' +
+        "</section>";
+      document.querySelectorAll(".d2d-slot").forEach(function (el) {
+        el.innerHTML = D2D_BANNER;
+      });
 
       /* ?opt=A|B|C shows a single frame (screenshots) */
       var opt = new URLSearchParams(location.search).get("opt");
