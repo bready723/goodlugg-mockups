@@ -1,0 +1,1272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KD Price &amp; Operation Hours: 3 layout options</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --purple: #512772;
+        --purple-deep: #3c245a;
+        --purple-050: #f6f1fa;
+        --purple-100: #ece3f2;
+        --lime: #c7c22e;
+        --text: #333;
+        --soft: #666;
+        --meta: #999;
+        --border: #ddd;
+        --th: #808080;
+        --bg-section: #f7f8fc;
+        --orange: #ff7f3e;
+        --red: #d84141;
+      }
+      html,
+      body {
+        background: #e9e7ee;
+        color: var(--text);
+        font-family:
+          "Pretendard",
+          "Noto Sans KR",
+          -apple-system,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Reviewer chrome ── */
+      .top {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 28px 20px 8px;
+      }
+      .top h1 {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--purple);
+        letter-spacing: -0.3px;
+      }
+      .top .legend {
+        font-size: 13px;
+        color: var(--soft);
+        margin-top: 6px;
+        line-height: 1.6;
+      }
+      .flags {
+        margin-top: 14px;
+        background: #fff;
+        border: 1px solid #f1c9b6;
+        border-left: 4px solid var(--orange);
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+      .flags strong {
+        color: var(--orange);
+      }
+      .flags ol {
+        margin: 6px 0 0 18px;
+      }
+      .flags li {
+        margin-top: 3px;
+      }
+
+      .compare {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 16px 20px 60px;
+        display: grid;
+        grid-template-columns: repeat(3, 390px);
+        justify-content: center;
+        gap: 28px;
+      }
+      @media (max-width: 1300px) {
+        .compare {
+          grid-template-columns: 390px;
+        }
+      }
+      @media (max-width: 430px) {
+        .compare {
+          grid-template-columns: 1fr;
+          padding: 12px 8px 40px;
+        }
+      }
+      body.single .compare {
+        grid-template-columns: 390px;
+      }
+      body.single .device {
+        display: none;
+      }
+      body.single .device.show {
+        display: block;
+      }
+
+      .opt-head {
+        margin-bottom: 10px;
+        min-height: 148px;
+      }
+      @media (max-width: 1300px) {
+        .opt-head {
+          min-height: 0;
+        }
+      }
+      .chip {
+        display: inline-block;
+        background: var(--purple);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        padding: 3px 9px;
+        border-radius: 999px;
+      }
+      .chip.rec {
+        background: var(--lime);
+        color: #2b1640;
+      }
+      .opt-head h2 {
+        font-size: 17px;
+        font-weight: 800;
+        margin-top: 8px;
+      }
+      .opt-head .why {
+        font-size: 12.5px;
+        color: var(--soft);
+        line-height: 1.55;
+        margin-top: 4px;
+      }
+      .opt-head .why b {
+        color: var(--text);
+      }
+
+      /* ── Phone frame ── */
+      .phone {
+        width: 100%;
+        max-width: 390px;
+        height: 780px;
+        background: #fff;
+        border: 1px solid #cfcad6;
+        border-radius: 22px;
+        box-shadow: 0 10px 40px rgba(60, 36, 90, 0.12);
+        overflow: hidden;
+        position: relative;
+      }
+      .screen {
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 76px;
+        scrollbar-width: thin;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-bottom: 1px solid #f0f0f0;
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 5;
+      }
+      .nav .lang {
+        font-size: 12px;
+        color: var(--soft);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 3px 8px;
+      }
+      .logo {
+        font-size: 21px;
+        font-weight: 800;
+        color: var(--purple);
+        letter-spacing: -0.5px;
+      }
+      .logo span {
+        color: var(--lime);
+      }
+      .burger {
+        width: 20px;
+        height: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .burger i {
+        display: block;
+        height: 2px;
+        background: var(--purple);
+        border-radius: 2px;
+      }
+      .sticky {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 14px 14px;
+        background: #fff;
+        border-top: 1px solid #f0f0f0;
+      }
+      .book {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        background: var(--purple);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 10px;
+        border: 0;
+        font-family: inherit;
+      }
+
+      /* ── KD page slice ── */
+      .sec {
+        padding: 24px 16px;
+      }
+      .sec.tint {
+        background: var(--bg-section);
+      }
+      .sec-title {
+        font-size: 21px;
+        font-weight: 700;
+        margin-bottom: 14px;
+        letter-spacing: -0.2px;
+      }
+      .visa {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--purple-050);
+        border: 1px solid var(--purple-100);
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 12px;
+        color: var(--purple);
+        font-weight: 600;
+        margin-bottom: 14px;
+        line-height: 1.4;
+      }
+      .visa .vtag {
+        background: var(--purple);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 4px;
+        letter-spacing: 0.4px;
+        flex-shrink: 0;
+      }
+
+      .info-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--purple);
+        font-size: 16px;
+        font-weight: 700;
+        margin: 18px 0 10px;
+      }
+      .info-head:first-child {
+        margin-top: 0;
+      }
+      .info-head svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+      table.gl {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+        font-size: 13px;
+        word-break: keep-all;
+        background: #fff;
+      }
+      table.gl th,
+      table.gl td {
+        border: 1px solid var(--border);
+        padding: 9px 6px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 1.35;
+      }
+      table.gl th {
+        background: var(--th);
+        color: #fff;
+        font-weight: 500;
+      }
+      table.gl td.rt {
+        text-align: center;
+        font-weight: 500;
+      }
+      table.gl td.rt small {
+        display: block;
+        color: var(--soft);
+        font-weight: 400;
+        font-size: 11px;
+        margin-top: 2px;
+      }
+      table.gl .tbd {
+        color: var(--meta);
+        letter-spacing: 1px;
+      }
+      table.gl col.c1 {
+        width: 38%;
+      }
+      table.gl.hours col.c1 {
+        width: 40%;
+      }
+      .foot {
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--soft);
+        line-height: 1.6;
+      }
+      .foot p::before {
+        content: "· ";
+      }
+      .foot p.warn {
+        color: var(--red);
+      }
+      .rule {
+        border: 0;
+        border-top: 1px solid #e6e6e6;
+        margin: 18px 0 0;
+      }
+
+      /* ── Option A: tabs ── */
+      .tabs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .tab {
+        flex: 1;
+        padding: 9px 0;
+        border-radius: 999px;
+        border: 1.5px solid var(--purple);
+        background: #fff;
+        color: var(--purple);
+        font-size: 13.5px;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .tab[aria-selected="true"] {
+        background: var(--purple);
+        color: #fff;
+      }
+      .panel {
+        display: none;
+      }
+      .panel.on {
+        display: block;
+      }
+
+      /* ── Option B: dropdowns ── */
+      .routes-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .r-row {
+        display: flex;
+        align-items: center;
+      }
+      .r-side {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+      }
+      .r-ic {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .r-ic svg {
+        width: 18px;
+        height: 18px;
+        fill: #2b1640;
+      }
+      .ic-air {
+        background: #bbe22f;
+      }
+      .ic-sel {
+        background: #ffd1fa;
+      }
+      .ic-pus {
+        background: #93e6cb;
+      }
+      .ic-gj {
+        background: #ffe3a3;
+      }
+      .ic-st {
+        background: #e4d6f5;
+      }
+      .r-name {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.25;
+      }
+      .r-arrow {
+        width: 22px;
+        text-align: center;
+        color: var(--soft);
+        font-size: 16px;
+        margin: 0 8px;
+        flex-shrink: 0;
+      }
+      .r-grp {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--purple);
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        margin: 14px 0 6px;
+      }
+      .r-grp:first-child {
+        margin-top: 0;
+      }
+      .notice {
+        margin-top: 14px;
+        border: 1px solid var(--orange);
+        color: var(--orange);
+        border-radius: 10px;
+        padding: 8px 10px;
+        font-size: 12.5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+      }
+      .notice em {
+        font-style: normal;
+        font-weight: 700;
+      }
+      .picker {
+        display: grid;
+        grid-template-columns: 1fr 36px 1fr;
+        gap: 6px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .picker label {
+        font-size: 11px;
+        color: var(--soft);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 4px;
+      }
+      .picker select {
+        width: 100%;
+        appearance: none;
+        -webkit-appearance: none;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 28px 10px 10px;
+        font-size: 13.5px;
+        font-weight: 600;
+        font-family: inherit;
+        color: var(--text);
+        background: #fff
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23512772' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")
+          no-repeat right 9px center;
+      }
+      .picker select:focus {
+        outline: none;
+        border-color: var(--purple);
+      }
+      .swap {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1.5px solid var(--purple);
+        background: #fff;
+        color: var(--purple);
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 17px;
+        font-family: inherit;
+      }
+      .empty {
+        border: 1.5px dashed var(--border);
+        border-radius: 10px;
+        padding: 26px 14px;
+        text-align: center;
+        color: var(--meta);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .empty.bad {
+        border-color: var(--orange);
+        color: var(--orange);
+        border-style: solid;
+      }
+
+      /* ── Option C: accordion ── */
+      .acc {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #fff;
+        overflow: hidden;
+      }
+      .acc + .acc {
+        margin-top: 8px;
+      }
+      .acc-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 10px 10px 10px 12px;
+        background: #fff;
+        border: 0;
+        font-family: inherit;
+        cursor: pointer;
+        text-align: left;
+        color: var(--text);
+      }
+      .acc-btn .r-row {
+        flex: 1;
+      }
+      .chev {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        margin-left: 6px;
+        transition: transform 0.2s;
+        color: var(--purple);
+      }
+      .acc.open .chev {
+        transform: rotate(180deg);
+      }
+      .acc-body {
+        display: none;
+        padding: 4px 12px 14px;
+        border-top: 1px solid #f0f0f0;
+        background: #fcfbfd;
+      }
+      .acc.open .acc-body {
+        display: block;
+      }
+      .acc-body .info-head {
+        font-size: 14px;
+        margin: 12px 0 8px;
+      }
+      .acc-body .info-head svg {
+        width: 17px;
+        height: 17px;
+      }
+      .acc-body table.gl {
+        font-size: 12.5px;
+      }
+      .hint {
+        font-size: 12px;
+        color: var(--meta);
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <h1>KD Price &amp; Operation Hours: 3 layout options</h1>
+      <p class="legend">
+        goodlugg.com/luggage-delivery/korea, English. Price and Operation Hours
+        stay in two separate tables in every option. Scroll inside each phone.
+        Prices and hours are the current values in the route table; Busan-local
+        routes are placeholders.
+      </p>
+      <div class="flags">
+        <strong
+          >Check before launch (from the route table and the dev note)</strong
+        >
+        <ol>
+          <li>
+            Seoul ⇄ Busan is set to <b>minimum 2 bags</b> per booking. Visa
+            promo is "one bag free"; dev note says minimum 1 bag. One of them
+            has to change.
+          </li>
+          <li>
+            Dev note lists 6 routes and leaves out the 3 <b>Gyeongju</b> routes
+            printed on the Visa leaflet. They exist in the route table today.
+          </li>
+          <li>
+            <b>Gimhae Airport</b> and <b>Busan Station</b> routes are not in the
+            route table yet; their hours are blanks in the dev note. Shown here
+            as <span style="letter-spacing: 1px">__:__</span>.
+          </li>
+        </ol>
+      </div>
+    </header>
+
+    <main class="compare">
+      <!-- ───────── OPTION A ───────── -->
+      <section class="device" id="devA">
+        <div class="opt-head">
+          <span class="chip rec">Option A · Recommended</span>
+          <h2>City tabs + two tables</h2>
+          <p class="why">
+            Seoul / Busan / Intercity tabs match the Visa leaflet.
+            <b>One tap</b> to any route, every price stays on the page for
+            Google and AI search, nothing looks like a booking form.
+          </p>
+        </div>
+        <div class="phone">
+          <div class="screen">
+            <div class="nav">
+              <span class="lang">🌐 English ▾</span>
+              <span class="logo">Good<span>lugg</span></span>
+              <span class="burger"><i></i><i></i><i></i></span>
+            </div>
+
+            <section class="sec tint">
+              <h3 class="sec-title">Routes, Price &amp; Hours</h3>
+              <div class="visa">
+                <span class="vtag">VISA</span>
+                <span
+                  >One bag delivered free, one way, with your Visa card.
+                  2026.10.01 ~ 2027.03.31</span
+                >
+              </div>
+              <div class="tabs" role="tablist">
+                <button
+                  type="button"
+                  class="tab"
+                  role="tab"
+                  aria-selected="true"
+                  data-tab="seoul"
+                >
+                  Seoul
+                </button>
+                <button
+                  type="button"
+                  class="tab"
+                  role="tab"
+                  aria-selected="false"
+                  data-tab="busan"
+                >
+                  Busan
+                </button>
+                <button
+                  type="button"
+                  class="tab"
+                  role="tab"
+                  aria-selected="false"
+                  data-tab="intercity"
+                >
+                  Intercity
+                </button>
+              </div>
+              <div class="panel on" data-panel="seoul"></div>
+              <div class="panel" data-panel="busan"></div>
+              <div class="panel" data-panel="intercity"></div>
+            </section>
+
+            <section class="sec">
+              <h3 class="sec-title">How it works</h3>
+              <p class="hint">(existing section continues below)</p>
+            </section>
+          </div>
+          <div class="sticky">
+            <button type="button" class="book">📅 Book Now</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ───────── OPTION B ───────── -->
+      <section class="device" id="devB">
+        <div class="opt-head">
+          <span class="chip">Option B</span>
+          <h2>From / To dropdowns</h2>
+          <p class="why">
+            Pick departure and arrival, tables appear below. Exact match to how
+            a customer thinks, but
+            <b>two taps</b>, hidden from search until clicked, and it reads like
+            the booking widget. Try an unsupported pair (Incheon → Gimpo).
+          </p>
+        </div>
+        <div class="phone">
+          <div class="screen">
+            <div class="nav">
+              <span class="lang">🌐 English ▾</span>
+              <span class="logo">Good<span>lugg</span></span>
+              <span class="burger"><i></i><i></i><i></i></span>
+            </div>
+
+            <section class="sec tint">
+              <h3 class="sec-title">Available Routes</h3>
+              <div class="routes-list" id="listB"></div>
+              <div class="notice">
+                <span>✱</span>
+                <span
+                  >Staying somewhere other than a hotel? Use a
+                  <em>Goodlugg Station</em>.</span
+                >
+                <span>〉</span>
+              </div>
+            </section>
+
+            <section class="sec">
+              <h3 class="sec-title">Check Price &amp; Hours</h3>
+              <div class="visa">
+                <span class="vtag">VISA</span>
+                <span
+                  >One bag delivered free, one way, with your Visa card.
+                  2026.10.01 ~ 2027.03.31</span
+                >
+              </div>
+              <div class="picker">
+                <div>
+                  <label for="fromB">From</label>
+                  <select id="fromB"></select>
+                </div>
+                <button
+                  type="button"
+                  class="swap"
+                  id="swapB"
+                  title="Swap"
+                  aria-label="Swap From and To"
+                >
+                  ⇄
+                </button>
+                <div>
+                  <label for="toB">To</label>
+                  <select id="toB"></select>
+                </div>
+              </div>
+              <div id="resultB"></div>
+            </section>
+
+            <section class="sec tint">
+              <h3 class="sec-title">How it works</h3>
+              <p class="hint">(existing section continues below)</p>
+            </section>
+          </div>
+          <div class="sticky">
+            <button type="button" class="book">📅 Book Now</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ───────── OPTION C ───────── -->
+      <section class="device" id="devC">
+        <div class="opt-head">
+          <span class="chip">Option C</span>
+          <h2>Expandable route rows</h2>
+          <p class="why">
+            The existing Available Routes list, extended to all 9 routes; tap a
+            route to open its tables. <b>Smallest change</b> to the page, but
+            comparing routes takes many taps and details are collapsed by
+            default. The first route is shown open here so you can see the
+            expanded state without tapping.
+          </p>
+        </div>
+        <div class="phone">
+          <div class="screen">
+            <div class="nav">
+              <span class="lang">🌐 English ▾</span>
+              <span class="logo">Good<span>lugg</span></span>
+              <span class="burger"><i></i><i></i><i></i></span>
+            </div>
+
+            <section class="sec tint">
+              <h3 class="sec-title">Available Routes</h3>
+              <div class="visa">
+                <span class="vtag">VISA</span>
+                <span
+                  >One bag delivered free, one way, with your Visa card.
+                  2026.10.01 ~ 2027.03.31</span
+                >
+              </div>
+              <p class="hint">Tap a route to see price and operation hours.</p>
+              <div id="listC"></div>
+              <div class="notice">
+                <span>✱</span>
+                <span
+                  >Staying somewhere other than a hotel? Use a
+                  <em>Goodlugg Station</em>.</span
+                >
+                <span>〉</span>
+              </div>
+            </section>
+
+            <section class="sec">
+              <h3 class="sec-title">How it works</h3>
+              <p class="hint">(existing section continues below)</p>
+            </section>
+          </div>
+          <div class="sticky">
+            <button type="button" class="book">📅 Book Now</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      /* ───────── DATA (KD route table, EN labels, 2026-09-03) ───────── */
+      var BAGS = ["Carry-on", "Checked-in", "Oversize"];
+      var LOC = {
+        ICN: { name: "Incheon Airport", ic: "air" },
+        GMP: { name: "Gimpo Airport", ic: "air" },
+        SEL: { name: "Seoul Hotel", ic: "sel" },
+        PUS: { name: "Busan Hotel", ic: "pus" },
+        PUSAP: { name: "Gimhae Airport", ic: "air" },
+        PUSST: { name: "Busan Station", ic: "st" },
+        GJ: { name: "Gyeongju Hotel", ic: "gj" },
+      };
+      var TBD = null;
+      /* hours: ab = a→b rows, ba = b→a rows; each row = [drop-off, arrival] */
+      var ROUTES = [
+        {
+          id: "icn-sel",
+          group: "seoul",
+          a: "ICN",
+          b: "SEL",
+          price: [29700, 35200, 35200],
+          hours: {
+            ab: [["08:00 ~ 15:00", "After 20:00"]],
+            ba: [["Before 11:00", "16:00 ~ 21:00"]],
+          },
+        },
+        {
+          id: "gmp-sel",
+          group: "seoul",
+          a: "GMP",
+          b: "SEL",
+          price: [29700, 35200, 35200],
+          hours: {
+            ab: [
+              ["07:00 ~ 15:00", "After 20:00"],
+              ["15:00 ~ 17:00", "After 22:00"],
+            ],
+            ba: [["Before 11:00", "15:00 ~ 19:00"]],
+          },
+        },
+        {
+          id: "sel-sel",
+          group: "seoul",
+          a: "SEL",
+          b: "SEL",
+          price: [24500, 29700, 29700],
+          hours: { ab: [["Before 11:00", "After 20:00"]] },
+        },
+        {
+          id: "pusap-pus",
+          group: "busan",
+          a: "PUSAP",
+          b: "PUS",
+          price: TBD,
+          hours: {
+            ab: [["__:__ ~ __:__", "After __:__"]],
+            ba: [["Before __:__", "__:__ ~ __:__"]],
+          },
+        },
+        {
+          id: "pusst-pus",
+          group: "busan",
+          a: "PUSST",
+          b: "PUS",
+          price: TBD,
+          hours: {
+            ab: [["__:__ ~ __:__", "After __:__"]],
+            ba: [["Before 11:00", "14:00 ~ __:__"]],
+          },
+        },
+        {
+          id: "pus-pus",
+          group: "busan",
+          a: "PUS",
+          b: "PUS",
+          price: TBD,
+          hours: { ab: [["Before __:__", "After __:__"]] },
+        },
+        {
+          id: "sel-pus",
+          group: "intercity",
+          a: "SEL",
+          b: "PUS",
+          price: [49000, 52000, 55000],
+          minQty: 2,
+          hours: {
+            ab: [["Before 10:00", "After 22:00"]],
+            ba: [["Before 10:00", "After 22:00"]],
+          },
+        },
+        {
+          id: "sel-gj",
+          group: "intercity",
+          a: "SEL",
+          b: "GJ",
+          price: [49000, 52000, 55000],
+          hours: {
+            ab: [["Before 09:00", "After 19:00"]],
+            ba: [["Before 11:00", "After 21:00"]],
+          },
+        },
+        {
+          id: "pus-gj",
+          group: "intercity",
+          a: "PUS",
+          b: "GJ",
+          price: [49000, 52000, 55000],
+          hours: {
+            ab: [["Before 11:00", "After 19:00"]],
+            ba: [["Before 11:00", "After 19:00"]],
+          },
+        },
+      ];
+      var GROUPS = [
+        { key: "seoul", label: "Seoul" },
+        { key: "busan", label: "Busan" },
+        { key: "intercity", label: "Intercity" },
+      ];
+      /* Option A price rows: Incheon & Gimpo share one price row */
+      var PRICE_ROWS = {
+        seoul: [
+          { label: "Incheon / Gimpo Airport ⇄ Seoul Hotel", ref: "icn-sel" },
+          { label: "Seoul Hotel ⇄ Seoul Hotel", ref: "sel-sel" },
+        ],
+        busan: [
+          { label: "Gimhae Airport ⇄ Busan Hotel", ref: "pusap-pus" },
+          { label: "Busan Station ⇄ Busan Hotel", ref: "pusst-pus" },
+          { label: "Busan Hotel ⇄ Busan Hotel", ref: "pus-pus" },
+        ],
+        intercity: [
+          { label: "Seoul Hotel ⇄ Busan Hotel", ref: "sel-pus" },
+          { label: "Seoul Hotel ⇄ Gyeongju Hotel", ref: "sel-gj" },
+          { label: "Busan Hotel ⇄ Gyeongju Hotel", ref: "pus-gj" },
+        ],
+      };
+
+      /* ───────── helpers ───────── */
+      var ICON_PRICE =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>';
+      var ICON_CLOCK =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+      var ICON_CHEV =
+        '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+      var PIC = {
+        air: '<svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>',
+        sel: '<svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16H4zm4-13h3V6H8v2zm5 0h3V6h-3v2zM8 12h3v-2H8v2zm5 0h3v-2h-3v2zM8 16h3v-2H8v2zm5 0h3v-2h-3v2zm-3 5h4v-3h-4v3z"/></svg>',
+        pus: '<svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16H4zm4-13h3V6H8v2zm5 0h3V6h-3v2zM8 12h3v-2H8v2zm5 0h3v-2h-3v2zM8 16h3v-2H8v2zm5 0h3v-2h-3v2zm-3 5h4v-3h-4v3z"/></svg>',
+        gj: '<svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16H4zm4-13h3V6H8v2zm5 0h3V6h-3v2zM8 12h3v-2H8v2zm5 0h3v-2h-3v2zM8 16h3v-2H8v2zm5 0h3v-2h-3v2zm-3 5h4v-3h-4v3z"/></svg>',
+        st: '<svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 2.5 4 6v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5V21h2l2-2h4l2 2h2v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.6-4-8-4zm-4.5 15a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3.5-7H6V6h5v4zm5.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1.5-7h-5V6h5v4z"/></svg>',
+      };
+      function won(n) {
+        return "₩" + n.toLocaleString("en-US");
+      }
+      function byId(id) {
+        for (var i = 0; i < ROUTES.length; i++)
+          if (ROUTES[i].id === id) return ROUTES[i];
+        return null;
+      }
+      function priceCells(r) {
+        if (!r.price)
+          return BAGS.map(() => '<td class="tbd">TBD</td>').join("");
+        return r.price.map((p) => "<td>" + won(p) + "</td>").join("");
+      }
+      function priceHead() {
+        return (
+          '<colgroup><col class="c1" /><col /><col /><col /></colgroup><tr><th></th>' +
+          BAGS.map((b) => "<th>" + b + "</th>").join("") +
+          "</tr>"
+        );
+      }
+      function priceFoot(rows) {
+        var minQty = rows.some((r) => r.minQty === 2);
+        return (
+          '<div class="foot">' +
+          "<p>The price listed is for one-way service per piece of luggage.</p>" +
+          "<p>Carry-on: bag ≤ 22″. Checked-in: 22″ &lt; bag ≤ 30″, golf bag. Oversize: 30″ &lt; bag ≤ 32″, stroller.</p>" +
+          "<p>Storage: ₩5,000 per bag per extra day.</p>" +
+          (minQty
+            ? '<p class="warn">Seoul ⇄ Busan: minimum 2 bags per booking (current setting, see note 1).</p>'
+            : "") +
+          "</div>"
+        );
+      }
+      function hoursFoot() {
+        return '<div class="foot"><p>Local time (KST). Cut-off times apply and vary by route.</p></div>';
+      }
+      /* direction rows for a route: [{label, rows:[[drop,arr],...]}] */
+      function directions(r) {
+        var out = [
+          { label: LOC[r.a].name + " → " + LOC[r.b].name, rows: r.hours.ab },
+        ];
+        if (r.hours.ba)
+          out.push({
+            label: LOC[r.b].name + " → " + LOC[r.a].name,
+            rows: r.hours.ba,
+          });
+        return out;
+      }
+      function hoursTable(dirs) {
+        var body = "";
+        dirs.forEach(function (d) {
+          d.rows.forEach(function (row, i) {
+            body +=
+              "<tr>" +
+              (i === 0
+                ? '<td class="rt" rowspan="' +
+                  d.rows.length +
+                  '">' +
+                  d.label +
+                  "</td>"
+                : "") +
+              "<td>" +
+              row[0] +
+              "</td><td>" +
+              row[1] +
+              "</td></tr>";
+          });
+        });
+        return (
+          '<table class="gl hours"><colgroup><col class="c1" /><col /><col /></colgroup>' +
+          "<tr><th></th><th>Drop-off</th><th>Arrival</th></tr>" +
+          body +
+          "</table>"
+        );
+      }
+      function routeRow(r, arrow) {
+        var A = LOC[r.a],
+          B = LOC[r.b];
+        return (
+          '<div class="r-row"><div class="r-side"><span class="r-ic ic-' +
+          A.ic +
+          '">' +
+          PIC[A.ic] +
+          '</span><span class="r-name">' +
+          A.name +
+          '</span></div><span class="r-arrow">' +
+          (arrow || "⇄") +
+          '</span><div class="r-side"><span class="r-ic ic-' +
+          B.ic +
+          '">' +
+          PIC[B.ic] +
+          '</span><span class="r-name">' +
+          B.name +
+          "</span></div></div>"
+        );
+      }
+
+      /* ───────── OPTION A ───────── */
+      GROUPS.forEach(function (g) {
+        var rows = PRICE_ROWS[g.key];
+        var refs = rows.map((x) => byId(x.ref));
+        var html =
+          '<div class="info-head">' +
+          ICON_PRICE +
+          "Price</div>" +
+          '<table class="gl">' +
+          priceHead() +
+          rows
+            .map(function (x, i) {
+              return (
+                '<tr><td class="rt">' +
+                x.label +
+                "</td>" +
+                priceCells(refs[i]) +
+                "</tr>"
+              );
+            })
+            .join("") +
+          "</table>" +
+          priceFoot(refs) +
+          '<hr class="rule" />' +
+          '<div class="info-head">' +
+          ICON_CLOCK +
+          "Operation Hours <span style='font-weight:500;font-size:13px'>(*local time)</span></div>";
+        var dirs = [];
+        ROUTES.filter((r) => r.group === g.key).forEach(function (r) {
+          dirs = dirs.concat(directions(r));
+        });
+        html += hoursTable(dirs) + hoursFoot();
+        document.querySelector('#devA [data-panel="' + g.key + '"]').innerHTML =
+          html;
+      });
+      document.querySelectorAll("#devA .tab").forEach(function (t) {
+        t.addEventListener("click", function () {
+          document
+            .querySelectorAll("#devA .tab")
+            .forEach((x) => x.setAttribute("aria-selected", "false"));
+          t.setAttribute("aria-selected", "true");
+          document
+            .querySelectorAll("#devA .panel")
+            .forEach((p) => p.classList.remove("on"));
+          document
+            .querySelector('#devA [data-panel="' + t.dataset.tab + '"]')
+            .classList.add("on");
+        });
+      });
+
+      /* ───────── OPTION B ───────── */
+      (function () {
+        var list = document.getElementById("listB");
+        var h = "";
+        GROUPS.forEach(function (g) {
+          h += '<div class="r-grp">' + g.label + "</div>";
+          ROUTES.filter((r) => r.group === g.key).forEach(
+            (r) => (h += routeRow(r)),
+          );
+        });
+        list.innerHTML = h;
+
+        var from = document.getElementById("fromB"),
+          to = document.getElementById("toB"),
+          out = document.getElementById("resultB");
+        var opts =
+          '<option value="">Select</option>' +
+          Object.keys(LOC)
+            .map(
+              (k) => '<option value="' + k + '">' + LOC[k].name + "</option>",
+            )
+            .join("");
+        from.innerHTML = opts;
+        to.innerHTML = opts;
+        from.value = "ICN";
+        to.value = "SEL";
+
+        function find(a, b) {
+          for (var i = 0; i < ROUTES.length; i++) {
+            var r = ROUTES[i];
+            if (r.a === a && r.b === b) return { r: r, rows: r.hours.ab };
+            if (r.a === b && r.b === a && r.hours.ba)
+              return { r: r, rows: r.hours.ba };
+            if (r.a === b && r.b === a && r.a === r.b)
+              return { r: r, rows: r.hours.ab };
+          }
+          return null;
+        }
+        function render() {
+          var a = from.value,
+            b = to.value;
+          if (!a || !b) {
+            out.innerHTML =
+              '<div class="empty">Select From and To to see the price and operation hours.</div>';
+            return;
+          }
+          var hit = find(a, b);
+          if (!hit) {
+            out.innerHTML =
+              '<div class="empty bad">This route is not available.<br />' +
+              LOC[a].name +
+              " → " +
+              LOC[b].name +
+              "</div>";
+            return;
+          }
+          var label = LOC[a].name + " → " + LOC[b].name;
+          out.innerHTML =
+            '<div class="info-head">' +
+            ICON_PRICE +
+            "Price</div>" +
+            '<table class="gl">' +
+            priceHead() +
+            '<tr><td class="rt">' +
+            label +
+            "</td>" +
+            priceCells(hit.r) +
+            "</tr></table>" +
+            priceFoot([hit.r]) +
+            '<hr class="rule" />' +
+            '<div class="info-head">' +
+            ICON_CLOCK +
+            "Operation Hours <span style='font-weight:500;font-size:13px'>(*local time)</span></div>" +
+            hoursTable([{ label: label, rows: hit.rows }]) +
+            hoursFoot();
+        }
+        from.addEventListener("change", render);
+        to.addEventListener("change", render);
+        document.getElementById("swapB").addEventListener("click", function () {
+          var t = from.value;
+          from.value = to.value;
+          to.value = t;
+          render();
+        });
+        render();
+      })();
+
+      /* ───────── OPTION C ───────── */
+      (function () {
+        var list = document.getElementById("listC");
+        var h = "";
+        GROUPS.forEach(function (g) {
+          h += '<div class="r-grp">' + g.label + "</div>";
+          ROUTES.filter((r) => r.group === g.key).forEach(function (r) {
+            var pair = LOC[r.a].name + " ⇄ " + LOC[r.b].name;
+            h +=
+              '<div class="acc" data-id="' +
+              r.id +
+              '"><button type="button" class="acc-btn" aria-expanded="false">' +
+              routeRow(r) +
+              ICON_CHEV +
+              "</button>" +
+              '<div class="acc-body">' +
+              '<div class="info-head">' +
+              ICON_PRICE +
+              "Price</div>" +
+              '<table class="gl">' +
+              priceHead() +
+              '<tr><td class="rt">' +
+              pair +
+              "</td>" +
+              priceCells(r) +
+              "</tr></table>" +
+              priceFoot([r]) +
+              '<div class="info-head">' +
+              ICON_CLOCK +
+              "Operation Hours <span style='font-weight:500;font-size:12px'>(*local time)</span></div>" +
+              hoursTable(directions(r)) +
+              hoursFoot() +
+              "</div></div>";
+          });
+        });
+        list.innerHTML = h;
+        list.querySelectorAll(".acc-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var acc = btn.parentElement;
+            var open = acc.classList.contains("open");
+            list.querySelectorAll(".acc").forEach(function (x) {
+              x.classList.remove("open");
+              x.querySelector(".acc-btn").setAttribute(
+                "aria-expanded",
+                "false",
+              );
+            });
+            if (!open) {
+              acc.classList.add("open");
+              btn.setAttribute("aria-expanded", "true");
+            }
+          });
+        });
+        /* open the first route so the reviewer sees the expanded state without tapping */
+        list.querySelector(".acc-btn").click();
+      })();
+
+      /* ?opt=A|B|C shows a single frame (screenshots) */
+      var opt = new URLSearchParams(location.search).get("opt");
+      if (opt && /^[ABC]$/i.test(opt)) {
+        document.body.classList.add("single");
+        document
+          .getElementById("dev" + opt.toUpperCase())
+          .classList.add("show");
+      }
+    </script>
+  </body>
+</html>
