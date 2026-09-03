@@ -20,12 +20,12 @@
         --purple-050: #f6f1fa;
         --purple-100: #ece3f2;
         --lime: #c7c22e;
-        --text: #333;
+        --text: #1a1420;
         --soft: #666;
         --meta: #999;
-        --border: #ddd;
-        --th: #808080;
-        --bg-section: #f7f8fc;
+        --line: #e7e3ef;
+        --line-soft: #f0edf5;
+        --panel: #f6f7fb;
         --orange: #ff7f3e;
         --red: #d84141;
       }
@@ -181,7 +181,7 @@
       .nav .lang {
         font-size: 12px;
         color: var(--soft);
-        border: 1px solid var(--border);
+        border: 1px solid var(--line);
         border-radius: 6px;
         padding: 3px 8px;
       }
@@ -235,7 +235,7 @@
         padding: 24px 16px;
       }
       .sec.tint {
-        background: var(--bg-section);
+        background: var(--panel);
       }
       .sec-title {
         font-size: 21px;
@@ -243,47 +243,62 @@
         margin-bottom: 14px;
         letter-spacing: -0.2px;
       }
+
+      /* ── Visa strip: always directly under the price table ── */
       .visa {
         display: flex;
         align-items: center;
         gap: 8px;
         background: var(--purple-050);
         border: 1px solid var(--purple-100);
-        border-radius: 8px;
-        padding: 8px 10px;
+        border-radius: 10px;
+        padding: 10px 12px;
         font-size: 12px;
         color: var(--purple);
         font-weight: 600;
-        margin-bottom: 14px;
-        line-height: 1.4;
+        margin-top: 10px;
+        line-height: 1.45;
       }
       .visa .vtag {
         background: var(--purple);
         color: #fff;
         font-size: 10px;
         font-weight: 800;
-        padding: 2px 6px;
-        border-radius: 4px;
+        padding: 3px 7px;
+        border-radius: 5px;
         letter-spacing: 0.4px;
         flex-shrink: 0;
       }
 
+      /* ── D2D-style table card ── */
       .info-head {
         display: flex;
         align-items: center;
-        gap: 8px;
-        color: var(--purple);
-        font-size: 16px;
+        gap: 7px;
+        color: var(--text);
+        font-size: 15px;
         font-weight: 700;
-        margin: 18px 0 10px;
+        margin: 20px 0 9px;
       }
       .info-head:first-child {
         margin-top: 0;
       }
       .info-head svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         flex-shrink: 0;
+        color: var(--purple);
+      }
+      .info-head .sub {
+        font-weight: 500;
+        font-size: 12px;
+        color: var(--meta);
+      }
+      .tbl {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
       }
       table.gl {
         width: 100%;
@@ -291,34 +306,42 @@
         border-collapse: collapse;
         font-size: 13px;
         word-break: keep-all;
-        background: #fff;
       }
-      table.gl th,
+      table.gl th {
+        background: #f4f1f9;
+        color: var(--purple);
+        font-weight: 700;
+        font-size: 12px;
+        padding: 10px 6px;
+        text-align: center;
+        border-bottom: 1px solid var(--line);
+      }
       table.gl td {
-        border: 1px solid var(--border);
-        padding: 9px 6px;
+        padding: 11px 6px;
         text-align: center;
         vertical-align: middle;
         line-height: 1.35;
+        border-top: 1px solid var(--line-soft);
+        font-weight: 600;
       }
-      table.gl th {
-        background: var(--th);
-        color: #fff;
-        font-weight: 500;
+      table.gl tr:first-child td {
+        border-top: 0;
+      }
+      table.gl th + th,
+      table.gl td + td {
+        border-left: 1px solid var(--line-soft);
       }
       table.gl td.rt {
-        text-align: center;
-        font-weight: 500;
+        font-weight: 600;
+        color: var(--text);
+        background: #fbfafd;
       }
-      table.gl td.rt small {
-        display: block;
-        color: var(--soft);
-        font-weight: 400;
-        font-size: 11px;
-        margin-top: 2px;
+      table.gl td.val {
+        font-weight: 700;
       }
       table.gl .tbd {
         color: var(--meta);
+        font-weight: 500;
         letter-spacing: 1px;
       }
       table.gl col.c1 {
@@ -341,27 +364,34 @@
       }
       .rule {
         border: 0;
-        border-top: 1px solid #e6e6e6;
-        margin: 18px 0 0;
+        border-top: 1px solid var(--line);
+        margin: 20px 0 0;
       }
 
-      /* ── Option A: tabs ── */
+      /* ── Option A: tabs (D2D segmented control) ── */
       .tabs {
         display: flex;
-        gap: 6px;
-        margin-bottom: 14px;
+        gap: 0;
+        margin-bottom: 16px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
       }
       .tab {
         flex: 1;
-        padding: 9px 0;
-        border-radius: 999px;
-        border: 1.5px solid var(--purple);
+        padding: 11px 0;
+        border: 0;
+        border-left: 1px solid var(--line);
         background: #fff;
-        color: var(--purple);
+        color: var(--soft);
         font-size: 13.5px;
         font-weight: 700;
         font-family: inherit;
         cursor: pointer;
+      }
+      .tab:first-child {
+        border-left: 0;
       }
       .tab[aria-selected="true"] {
         background: var(--purple);
@@ -374,7 +404,7 @@
         display: block;
       }
 
-      /* ── Option B: dropdowns ── */
+      /* ── route list ── */
       .routes-list {
         display: flex;
         flex-direction: column;
@@ -439,7 +469,7 @@
         color: var(--purple);
         letter-spacing: 0.8px;
         text-transform: uppercase;
-        margin: 14px 0 6px;
+        margin: 16px 0 8px;
       }
       .r-grp:first-child {
         margin-top: 0;
@@ -460,27 +490,29 @@
         font-style: normal;
         font-weight: 700;
       }
+
+      /* ── Option B picker (D2D calculator look) ── */
       .picker {
         display: grid;
         grid-template-columns: 1fr 36px 1fr;
         gap: 6px;
         align-items: center;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
       }
       .picker label {
         font-size: 11px;
         color: var(--soft);
-        font-weight: 600;
+        font-weight: 700;
         display: block;
-        margin-bottom: 4px;
+        margin-bottom: 5px;
       }
       .picker select {
         width: 100%;
         appearance: none;
         -webkit-appearance: none;
-        border: 1.5px solid var(--border);
-        border-radius: 8px;
-        padding: 10px 28px 10px 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 11px 28px 11px 11px;
         font-size: 13.5px;
         font-weight: 600;
         font-family: inherit;
@@ -497,22 +529,23 @@
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        border: 1.5px solid var(--purple);
+        border: 1px solid var(--line);
         background: #fff;
         color: var(--purple);
         font-size: 16px;
         cursor: pointer;
-        margin-top: 17px;
+        margin-top: 18px;
         font-family: inherit;
       }
       .empty {
-        border: 1.5px dashed var(--border);
-        border-radius: 10px;
+        border: 1px dashed var(--line);
+        border-radius: 12px;
         padding: 26px 14px;
         text-align: center;
         color: var(--meta);
         font-size: 13px;
         line-height: 1.5;
+        background: #fff;
       }
       .empty.bad {
         border-color: var(--orange);
@@ -522,7 +555,7 @@
 
       /* ── Option C: accordion ── */
       .acc {
-        border: 1px solid var(--border);
+        border: 1px solid var(--line);
         border-radius: 12px;
         background: #fff;
         overflow: hidden;
@@ -559,7 +592,7 @@
       .acc-body {
         display: none;
         padding: 4px 12px 14px;
-        border-top: 1px solid #f0f0f0;
+        border-top: 1px solid var(--line-soft);
         background: #fcfbfd;
       }
       .acc.open .acc-body {
@@ -567,11 +600,7 @@
       }
       .acc-body .info-head {
         font-size: 14px;
-        margin: 12px 0 8px;
-      }
-      .acc-body .info-head svg {
-        width: 17px;
-        height: 17px;
+        margin: 14px 0 8px;
       }
       .acc-body table.gl {
         font-size: 12.5px;
@@ -587,10 +616,10 @@
     <header class="top">
       <h1>KD Price &amp; Operation Hours: 3 layout options</h1>
       <p class="legend">
-        goodlugg.com/luggage-delivery/korea, English. Price and Operation Hours
-        stay in two separate tables in every option. Scroll inside each phone.
-        Prices and hours are the current values in the route table; Busan-local
-        routes are placeholders.
+        goodlugg.com/luggage-delivery/korea, English. Operation Hours first,
+        then Price, then the Visa strip: same order in every option. Scroll
+        inside each phone. Prices and hours are the current values in the route
+        table; Busan-local routes are placeholders.
       </p>
       <div class="flags">
         <strong
@@ -636,14 +665,7 @@
             </div>
 
             <section class="sec tint">
-              <h3 class="sec-title">Routes, Price &amp; Hours</h3>
-              <div class="visa">
-                <span class="vtag">VISA</span>
-                <span
-                  >One bag delivered free, one way, with your Visa card.
-                  2026.10.01 ~ 2027.03.31</span
-                >
-              </div>
+              <h3 class="sec-title">Routes, Hours &amp; Price</h3>
               <div class="tabs" role="tablist">
                 <button
                   type="button"
@@ -723,14 +745,7 @@
             </section>
 
             <section class="sec">
-              <h3 class="sec-title">Check Price &amp; Hours</h3>
-              <div class="visa">
-                <span class="vtag">VISA</span>
-                <span
-                  >One bag delivered free, one way, with your Visa card.
-                  2026.10.01 ~ 2027.03.31</span
-                >
-              </div>
+              <h3 class="sec-title">Check Hours &amp; Price</h3>
               <div class="picker">
                 <div>
                   <label for="fromB">From</label>
@@ -770,11 +785,11 @@
           <span class="chip">Option C</span>
           <h2>Expandable route rows</h2>
           <p class="why">
-            The existing Available Routes list, extended to all 9 routes; tap a
-            route to open its tables. <b>Smallest change</b> to the page, but
-            comparing routes takes many taps and details are collapsed by
-            default. The first route is shown open here so you can see the
-            expanded state without tapping.
+            The existing Available Routes list, with every route; tap one to
+            open its tables.
+            <b>Smallest change</b> to the page, but comparing routes takes many
+            taps and details are collapsed by default. The first route is shown
+            open here so you can see the expanded state without tapping.
           </p>
         </div>
         <div class="phone">
@@ -787,14 +802,7 @@
 
             <section class="sec tint">
               <h3 class="sec-title">Available Routes</h3>
-              <div class="visa">
-                <span class="vtag">VISA</span>
-                <span
-                  >One bag delivered free, one way, with your Visa card.
-                  2026.10.01 ~ 2027.03.31</span
-                >
-              </div>
-              <p class="hint">Tap a route to see price and operation hours.</p>
+              <p class="hint">Tap a route to see operation hours and price.</p>
               <div id="listC"></div>
               <div class="notice">
                 <span>✱</span>
@@ -936,23 +944,67 @@
         { key: "busan", label: "Busan" },
         { key: "intercity", label: "Intercity" },
       ];
-      /* Option A price rows: Incheon & Gimpo share one price row */
-      var PRICE_ROWS = {
-        seoul: [
-          { label: "Incheon / Gimpo Airport ⇄ Seoul Hotel", ref: "icn-sel" },
-          { label: "Seoul Hotel ⇄ Seoul Hotel", ref: "sel-sel" },
-        ],
-        busan: [
-          { label: "Gimhae Airport ⇄ Busan Hotel", ref: "pusap-pus" },
-          { label: "Busan Station ⇄ Busan Hotel", ref: "pusst-pus" },
-          { label: "Busan Hotel ⇄ Busan Hotel", ref: "pus-pus" },
-        ],
-        intercity: [
-          { label: "Seoul Hotel ⇄ Busan Hotel", ref: "sel-pus" },
-          { label: "Seoul Hotel ⇄ Gyeongju Hotel", ref: "sel-gj" },
-          { label: "Busan Hotel ⇄ Gyeongju Hotel", ref: "pus-gj" },
-        ],
-      };
+
+      /* Display cards: routes that share one price are shown as ONE row.
+         Incheon and Gimpo are merged (identical price); their hours stay separate rows. */
+      var CARDS = [
+        {
+          id: "air-sel",
+          group: "seoul",
+          left: { name: "Incheon / Gimpo Airport", ic: "air" },
+          right: { name: "Seoul Hotel", ic: "sel" },
+          routes: ["icn-sel", "gmp-sel"],
+        },
+        {
+          id: "sel-sel",
+          group: "seoul",
+          left: { name: "Seoul Hotel", ic: "sel" },
+          right: { name: "Seoul Hotel", ic: "sel" },
+          routes: ["sel-sel"],
+        },
+        {
+          id: "pusap-pus",
+          group: "busan",
+          left: { name: "Gimhae Airport", ic: "air" },
+          right: { name: "Busan Hotel", ic: "pus" },
+          routes: ["pusap-pus"],
+        },
+        {
+          id: "pusst-pus",
+          group: "busan",
+          left: { name: "Busan Station", ic: "st" },
+          right: { name: "Busan Hotel", ic: "pus" },
+          routes: ["pusst-pus"],
+        },
+        {
+          id: "pus-pus",
+          group: "busan",
+          left: { name: "Busan Hotel", ic: "pus" },
+          right: { name: "Busan Hotel", ic: "pus" },
+          routes: ["pus-pus"],
+        },
+        {
+          id: "sel-pus",
+          group: "intercity",
+          left: { name: "Seoul Hotel", ic: "sel" },
+          right: { name: "Busan Hotel", ic: "pus" },
+          routes: ["sel-pus"],
+        },
+        {
+          id: "sel-gj",
+          group: "intercity",
+          left: { name: "Seoul Hotel", ic: "sel" },
+          right: { name: "Gyeongju Hotel", ic: "gj" },
+          routes: ["sel-gj"],
+        },
+        {
+          id: "pus-gj",
+          group: "intercity",
+          left: { name: "Busan Hotel", ic: "pus" },
+          right: { name: "Gyeongju Hotel", ic: "gj" },
+          routes: ["pus-gj"],
+        },
+      ];
 
       /* ───────── helpers ───────── */
       var ICON_PRICE =
@@ -968,6 +1020,9 @@
         gj: '<svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16H4zm4-13h3V6H8v2zm5 0h3V6h-3v2zM8 12h3v-2H8v2zm5 0h3v-2h-3v2zM8 16h3v-2H8v2zm5 0h3v-2h-3v2zm-3 5h4v-3h-4v3z"/></svg>',
         st: '<svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 2.5 4 6v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5V21h2l2-2h4l2 2h2v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.6-4-8-4zm-4.5 15a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3.5-7H6V6h5v4zm5.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1.5-7h-5V6h5v4z"/></svg>',
       };
+      var VISA =
+        '<div class="visa"><span class="vtag">VISA</span><span>One bag delivered free, one way, with your Visa card. 2026.10.01 ~ 2027.03.31</span></div>';
+
       function won(n) {
         return "₩" + n.toLocaleString("en-US");
       }
@@ -976,10 +1031,15 @@
           if (ROUTES[i].id === id) return ROUTES[i];
         return null;
       }
+      function cardLabel(c) {
+        return c.left.name + " ⇄ " + c.right.name;
+      }
       function priceCells(r) {
-        if (!r.price)
+        if (!r || !r.price)
           return BAGS.map(() => '<td class="tbd">TBD</td>').join("");
-        return r.price.map((p) => "<td>" + won(p) + "</td>").join("");
+        return r.price
+          .map((p) => '<td class="val">' + won(p) + "</td>")
+          .join("");
       }
       function priceHead() {
         return (
@@ -989,7 +1049,7 @@
         );
       }
       function priceFoot(rows) {
-        var minQty = rows.some((r) => r.minQty === 2);
+        var minQty = rows.some((r) => r && r.minQty === 2);
         return (
           '<div class="foot">' +
           "<p>The price listed is for one-way service per piece of luggage.</p>" +
@@ -1001,10 +1061,7 @@
           "</div>"
         );
       }
-      function hoursFoot() {
-        return '<div class="foot"><p>Local time (KST). Cut-off times apply and vary by route.</p></div>';
-      }
-      /* direction rows for a route: [{label, rows:[[drop,arr],...]}] */
+      /* direction rows for a route id: [{label, rows:[[drop,arr],...]}] */
       function directions(r) {
         var out = [
           { label: LOC[r.a].name + " → " + LOC[r.b].name, rows: r.hours.ab },
@@ -1014,6 +1071,13 @@
             label: LOC[r.b].name + " → " + LOC[r.a].name,
             rows: r.hours.ba,
           });
+        return out;
+      }
+      function cardDirections(c) {
+        var out = [];
+        c.routes.forEach(function (id) {
+          out = out.concat(directions(byId(id)));
+        });
         return out;
       }
       function hoursTable(dirs) {
@@ -1037,66 +1101,71 @@
           });
         });
         return (
-          '<table class="gl hours"><colgroup><col class="c1" /><col /><col /></colgroup>' +
+          '<div class="tbl"><table class="gl hours"><colgroup><col class="c1" /><col /><col /></colgroup>' +
           "<tr><th></th><th>Drop-off</th><th>Arrival</th></tr>" +
           body +
-          "</table>"
+          "</table></div>"
         );
       }
-      function routeRow(r, arrow) {
-        var A = LOC[r.a],
-          B = LOC[r.b];
+      function headHours() {
+        return (
+          '<div class="info-head">' +
+          ICON_CLOCK +
+          'Operation Hours <span class="sub">*local time</span></div>'
+        );
+      }
+      function headPrice() {
+        return '<div class="info-head">' + ICON_PRICE + "Price</div>";
+      }
+      function routeRowHtml(left, right, arrow) {
         return (
           '<div class="r-row"><div class="r-side"><span class="r-ic ic-' +
-          A.ic +
+          left.ic +
           '">' +
-          PIC[A.ic] +
+          PIC[left.ic] +
           '</span><span class="r-name">' +
-          A.name +
+          left.name +
           '</span></div><span class="r-arrow">' +
           (arrow || "⇄") +
           '</span><div class="r-side"><span class="r-ic ic-' +
-          B.ic +
+          right.ic +
           '">' +
-          PIC[B.ic] +
+          PIC[right.ic] +
           '</span><span class="r-name">' +
-          B.name +
+          right.name +
           "</span></div></div>"
         );
       }
 
       /* ───────── OPTION A ───────── */
       GROUPS.forEach(function (g) {
-        var rows = PRICE_ROWS[g.key];
-        var refs = rows.map((x) => byId(x.ref));
+        var cards = CARDS.filter((c) => c.group === g.key);
+        var dirs = [];
+        cards.forEach(function (c) {
+          dirs = dirs.concat(cardDirections(c));
+        });
+        var refs = cards.map((c) => byId(c.routes[0]));
         var html =
-          '<div class="info-head">' +
-          ICON_PRICE +
-          "Price</div>" +
-          '<table class="gl">' +
+          headHours() +
+          hoursTable(dirs) +
+          '<hr class="rule" />' +
+          headPrice() +
+          '<div class="tbl"><table class="gl">' +
           priceHead() +
-          rows
-            .map(function (x, i) {
+          cards
+            .map(function (c, i) {
               return (
                 '<tr><td class="rt">' +
-                x.label +
+                cardLabel(c) +
                 "</td>" +
                 priceCells(refs[i]) +
                 "</tr>"
               );
             })
             .join("") +
-          "</table>" +
-          priceFoot(refs) +
-          '<hr class="rule" />' +
-          '<div class="info-head">' +
-          ICON_CLOCK +
-          "Operation Hours <span style='font-weight:500;font-size:13px'>(*local time)</span></div>";
-        var dirs = [];
-        ROUTES.filter((r) => r.group === g.key).forEach(function (r) {
-          dirs = dirs.concat(directions(r));
-        });
-        html += hoursTable(dirs) + hoursFoot();
+          "</table></div>" +
+          VISA +
+          priceFoot(refs);
         document.querySelector('#devA [data-panel="' + g.key + '"]').innerHTML =
           html;
       });
@@ -1121,9 +1190,9 @@
         var h = "";
         GROUPS.forEach(function (g) {
           h += '<div class="r-grp">' + g.label + "</div>";
-          ROUTES.filter((r) => r.group === g.key).forEach(
-            (r) => (h += routeRow(r)),
-          );
+          CARDS.filter((c) => c.group === g.key).forEach(function (c) {
+            h += routeRowHtml(c.left, c.right);
+          });
         });
         list.innerHTML = h;
 
@@ -1148,8 +1217,6 @@
             if (r.a === a && r.b === b) return { r: r, rows: r.hours.ab };
             if (r.a === b && r.b === a && r.hours.ba)
               return { r: r, rows: r.hours.ba };
-            if (r.a === b && r.b === a && r.a === r.b)
-              return { r: r, rows: r.hours.ab };
           }
           return null;
         }
@@ -1158,7 +1225,7 @@
             b = to.value;
           if (!a || !b) {
             out.innerHTML =
-              '<div class="empty">Select From and To to see the price and operation hours.</div>';
+              '<div class="empty">Select From and To to see the operation hours and price.</div>';
             return;
           }
           var hit = find(a, b);
@@ -1173,23 +1240,19 @@
           }
           var label = LOC[a].name + " → " + LOC[b].name;
           out.innerHTML =
-            '<div class="info-head">' +
-            ICON_PRICE +
-            "Price</div>" +
-            '<table class="gl">' +
+            headHours() +
+            hoursTable([{ label: label, rows: hit.rows }]) +
+            '<hr class="rule" />' +
+            headPrice() +
+            '<div class="tbl"><table class="gl">' +
             priceHead() +
             '<tr><td class="rt">' +
             label +
             "</td>" +
             priceCells(hit.r) +
-            "</tr></table>" +
-            priceFoot([hit.r]) +
-            '<hr class="rule" />' +
-            '<div class="info-head">' +
-            ICON_CLOCK +
-            "Operation Hours <span style='font-weight:500;font-size:13px'>(*local time)</span></div>" +
-            hoursTable([{ label: label, rows: hit.rows }]) +
-            hoursFoot();
+            "</tr></table></div>" +
+            VISA +
+            priceFoot([hit.r]);
         }
         from.addEventListener("change", render);
         to.addEventListener("change", render);
@@ -1208,32 +1271,28 @@
         var h = "";
         GROUPS.forEach(function (g) {
           h += '<div class="r-grp">' + g.label + "</div>";
-          ROUTES.filter((r) => r.group === g.key).forEach(function (r) {
-            var pair = LOC[r.a].name + " ⇄ " + LOC[r.b].name;
+          CARDS.filter((c) => c.group === g.key).forEach(function (c) {
+            var ref = byId(c.routes[0]);
             h +=
               '<div class="acc" data-id="' +
-              r.id +
+              c.id +
               '"><button type="button" class="acc-btn" aria-expanded="false">' +
-              routeRow(r) +
+              routeRowHtml(c.left, c.right) +
               ICON_CHEV +
               "</button>" +
               '<div class="acc-body">' +
-              '<div class="info-head">' +
-              ICON_PRICE +
-              "Price</div>" +
-              '<table class="gl">' +
+              headHours() +
+              hoursTable(cardDirections(c)) +
+              headPrice() +
+              '<div class="tbl"><table class="gl">' +
               priceHead() +
               '<tr><td class="rt">' +
-              pair +
+              cardLabel(c) +
               "</td>" +
-              priceCells(r) +
-              "</tr></table>" +
-              priceFoot([r]) +
-              '<div class="info-head">' +
-              ICON_CLOCK +
-              "Operation Hours <span style='font-weight:500;font-size:12px'>(*local time)</span></div>" +
-              hoursTable(directions(r)) +
-              hoursFoot() +
+              priceCells(ref) +
+              "</tr></table></div>" +
+              VISA +
+              priceFoot([ref]) +
               "</div></div>";
           });
         });
