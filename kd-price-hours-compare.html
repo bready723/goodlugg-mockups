@@ -168,9 +168,9 @@
         scrollbar-width: thin;
       }
       .nav {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
         align-items: center;
-        justify-content: space-between;
         padding: 12px 16px;
         border-bottom: 1px solid #f0f0f0;
         position: sticky;
@@ -179,6 +179,7 @@
         z-index: 5;
       }
       .nav .lang {
+        justify-self: start;
         font-size: 12px;
         color: var(--soft);
         border: 1px solid var(--line);
@@ -186,6 +187,7 @@
         padding: 3px 8px;
       }
       .logo {
+        justify-self: center;
         font-size: 21px;
         font-weight: 800;
         color: var(--purple);
@@ -195,6 +197,7 @@
         color: var(--lime);
       }
       .burger {
+        justify-self: end;
         width: 20px;
         height: 14px;
         display: flex;
@@ -807,7 +810,7 @@
             </section>
           </div>
           <div class="sticky">
-            <button type="button" class="book">📅 Book Now</button>
+            <button type="button" class="book">Book Now</button>
           </div>
         </div>
       </section>
@@ -877,7 +880,7 @@
             </section>
           </div>
           <div class="sticky">
-            <button type="button" class="book">📅 Book Now</button>
+            <button type="button" class="book">Book Now</button>
           </div>
         </div>
       </section>
@@ -925,7 +928,7 @@
             </section>
           </div>
           <div class="sticky">
-            <button type="button" class="book">📅 Book Now</button>
+            <button type="button" class="book">Book Now</button>
           </div>
         </div>
       </section>
