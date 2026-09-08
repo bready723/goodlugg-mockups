@@ -500,6 +500,9 @@
         gap: 8px;
         background: #fff;
       }
+      .notice.in-list {
+        margin: 10px 0 0;
+      }
       .notice em {
         font-style: normal;
         font-weight: 700;
@@ -721,7 +724,7 @@
         goodlugg.com/luggage-delivery/korea, English. Operation Hours first,
         then Price, then the Visa strip: same order in every option. Scroll
         inside each phone. Prices and hours are the current values in the route
-        table; Busan-local routes are placeholders.
+        table.
       </p>
       <div class="flags">
         <strong
@@ -738,9 +741,9 @@
             printed on the Visa leaflet. They exist in the route table today.
           </li>
           <li>
-            <b>Gimhae Airport</b> and <b>Busan Station</b> routes are not in the
-            route table yet; their hours are blanks in the dev note. Shown here
-            as <span style="letter-spacing: 1px">__:__</span>.
+            Busan-local routes (<b>Gimhae Airport</b>, <b>Busan Station</b>,
+            Busan Hotel &#8644; Busan Hotel) are off this page by CEO decision.
+            Busan now appears only in the Intercity routes.
           </li>
         </ol>
       </div>
@@ -753,7 +756,7 @@
           <span class="chip rec">Option A · Recommended</span>
           <h2>City tabs + two tables</h2>
           <p class="why">
-            Seoul / Busan / Intercity tabs match the Visa leaflet.
+            Seoul / Intercity tabs match the Visa leaflet.
             <b>One tap</b> to any route, every price stays on the page for
             Google and AI search, nothing looks like a booking form.
           </p>
@@ -783,22 +786,12 @@
                   class="tab"
                   role="tab"
                   aria-selected="false"
-                  data-tab="busan"
-                >
-                  Busan
-                </button>
-                <button
-                  type="button"
-                  class="tab"
-                  role="tab"
-                  aria-selected="false"
                   data-tab="intercity"
                 >
                   Intercity
                 </button>
               </div>
               <div class="panel on" data-panel="seoul"></div>
-              <div class="panel" data-panel="busan"></div>
               <div class="panel" data-panel="intercity"></div>
             </section>
 
@@ -838,14 +831,6 @@
             <section class="sec tint">
               <h3 class="sec-title">Available Routes</h3>
               <div class="routes-list" id="listB"></div>
-              <div class="notice">
-                <span>✱</span>
-                <span
-                  >Staying somewhere other than a hotel? Use a
-                  <em>Goodlugg Station</em>.</span
-                >
-                <span>〉</span>
-              </div>
             </section>
 
             <section class="sec">
@@ -910,14 +895,6 @@
               <h3 class="sec-title">Available Routes</h3>
               <p class="hint">Tap a route to see operation hours and price.</p>
               <div id="listC"></div>
-              <div class="notice">
-                <span>✱</span>
-                <span
-                  >Staying somewhere other than a hotel? Use a
-                  <em>Goodlugg Station</em>.</span
-                >
-                <span>〉</span>
-              </div>
             </section>
 
             <div class="d2d-slot"></div>
@@ -942,11 +919,8 @@
         GMP: { name: "Gimpo Airport", ic: "air" },
         SEL: { name: "Seoul Hotel", ic: "sel" },
         PUS: { name: "Busan Hotel", ic: "pus" },
-        PUSAP: { name: "Gimhae Airport", ic: "air" },
-        PUSST: { name: "Busan Station", ic: "st" },
         GJ: { name: "Gyeongju Hotel", ic: "gj" },
       };
-      var TBD = null;
       /* hours: ab = a→b rows, ba = b→a rows; each row = [drop-off, arrival] */
       var ROUTES = [
         {
@@ -981,36 +955,6 @@
           b: "SEL",
           price: [24500, 29700, 29700],
           hours: { ab: [["Before 11:00", "By 20:00"]] },
-        },
-        {
-          id: "pusap-pus",
-          group: "busan",
-          a: "PUSAP",
-          b: "PUS",
-          price: TBD,
-          hours: {
-            ab: [["__:__ ~ __:__", "By __:__"]],
-            ba: [["Before __:__", "By __:__"]],
-          },
-        },
-        {
-          id: "pusst-pus",
-          group: "busan",
-          a: "PUSST",
-          b: "PUS",
-          price: TBD,
-          hours: {
-            ab: [["__:__ ~ __:__", "By __:__"]],
-            ba: [["Before 11:00", "By __:__"]],
-          },
-        },
-        {
-          id: "pus-pus",
-          group: "busan",
-          a: "PUS",
-          b: "PUS",
-          price: TBD,
-          hours: { ab: [["Before __:__", "By __:__"]] },
         },
         {
           id: "sel-pus",
@@ -1049,7 +993,6 @@
       ];
       var GROUPS = [
         { key: "seoul", label: "Seoul" },
-        { key: "busan", label: "Busan" },
         { key: "intercity", label: "Intercity" },
       ];
 
@@ -1069,27 +1012,6 @@
           left: { name: "Seoul Hotel", ic: "sel" },
           right: { name: "Seoul Hotel", ic: "sel" },
           routes: ["sel-sel"],
-        },
-        {
-          id: "pusap-pus",
-          group: "busan",
-          left: { name: "Gimhae Airport", ic: "air" },
-          right: { name: "Busan Hotel", ic: "pus" },
-          routes: ["pusap-pus"],
-        },
-        {
-          id: "pusst-pus",
-          group: "busan",
-          left: { name: "Busan Station", ic: "st" },
-          right: { name: "Busan Hotel", ic: "pus" },
-          routes: ["pusst-pus"],
-        },
-        {
-          id: "pus-pus",
-          group: "busan",
-          left: { name: "Busan Hotel", ic: "pus" },
-          right: { name: "Busan Hotel", ic: "pus" },
-          routes: ["pus-pus"],
         },
         {
           id: "sel-pus",
@@ -1128,6 +1050,11 @@
         gj: '<svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16H4zm4-13h3V6H8v2zm5 0h3V6h-3v2zM8 12h3v-2H8v2zm5 0h3v-2h-3v2zM8 16h3v-2H8v2zm5 0h3v-2h-3v2zm-3 5h4v-3h-4v3z"/></svg>',
         st: '<svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 2.5 4 6v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5V21h2l2-2h4l2 2h2v-.5L16.5 19a3.5 3.5 0 0 0 3.5-3.5V6c0-3.5-3.6-4-8-4zm-4.5 15a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3.5-7H6V6h5v4zm5.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1.5-7h-5V6h5v4z"/></svg>',
       };
+      var NOTICE =
+        '<div class="notice in-list"><span>\u2731</span>' +
+        "<span>Staying somewhere other than a hotel? Use a " +
+        "<em>Goodlugg Station</em>.</span>" +
+        "<span>\u3009</span></div>";
       var VISA =
         '<div class="visa"><span class="vtag">VISA</span><span class="vtxt">' +
         "<span>One bag delivered free, one way, with your Visa card.</span>" +
@@ -1315,6 +1242,8 @@
           CARDS.filter((c) => c.group === g.key).forEach(function (c) {
             h += routeRowHtml(c.left, c.right);
           });
+          /* Goodlugg Station is in Seoul: the note sits under the Seoul routes */
+          if (g.key === "seoul") h += NOTICE;
         });
         list.innerHTML = h;
 
@@ -1417,6 +1346,7 @@
               priceFoot([ref]) +
               "</div></div>";
           });
+          if (g.key === "seoul") h += NOTICE;
         });
         list.innerHTML = h;
         list.querySelectorAll(".acc-btn").forEach(function (btn) {
