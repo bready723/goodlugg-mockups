@@ -876,11 +876,11 @@
           <span class="chip">Option C</span>
           <h2>Expandable route rows</h2>
           <p class="why">
-            The existing Available Routes list, with every route; tap one to
-            open its tables.
-            <b>Smallest change</b> to the page, but comparing routes takes many
-            taps and details are collapsed by default. The first route is shown
-            open here so you can see the expanded state without tapping.
+            The existing Available Routes list, with every route. The page opens
+            as a plain route list; tap the arrow on a route to reveal its
+            operation hours and price. <b>Smallest change</b> to the page and
+            the shortest first screen, but comparing routes takes many taps and
+            every detail is hidden from search until tapped.
           </p>
         </div>
         <div class="phone">
@@ -1366,8 +1366,6 @@
             }
           });
         });
-        /* open the first route so the reviewer sees the expanded state without tapping */
-        list.querySelector(".acc-btn").click();
       })();
 
       /* ───────── D2D banner (markup mirrors the live KD page) ───────── */
