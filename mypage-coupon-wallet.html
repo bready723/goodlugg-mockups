@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goodlugg — My Page 쿠폰함 (Coupon Wallet)</title>
+    <link
+      rel="stylesheet"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <style>
+      :root {
+        --purple: #512a72;
+        --purple-deep: #3c1f55;
+        --lime: #c7c22e;
+        --text: #333333;
+        --text-2: #666666;
+        --text-3: #999999;
+        --border: #e0e0e0;
+        --bg: #f5f5f5;
+        --white: #ffffff;
+        --ok: #1a7f4b;
+        --warn: #c0392b;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          "Pretendard",
+          -apple-system,
+          BlinkMacSystemFont,
+          system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        padding: 24px 12px 64px;
+      }
+
+      .page-note {
+        max-width: 420px;
+        margin: 0 auto 16px;
+        font-size: 12px;
+        color: var(--text-3);
+        text-align: center;
+      }
+
+      .phone {
+        max-width: 420px;
+        margin: 0 auto;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      /* ---------- Nav ---------- */
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 16px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .logo {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .logo .g {
+        color: var(--purple);
+      }
+      .logo .l {
+        color: var(--lime);
+      }
+      .nav-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--text-2);
+        font-family: inherit;
+        min-height: 44px;
+        padding: 0 4px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .nav-icons {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+
+      /* ---------- My Page tabs ---------- */
+      .mypage-tabs {
+        display: flex;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--border);
+        scrollbar-width: none;
+      }
+      .mypage-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .mypage-tabs a {
+        flex: 0 0 auto;
+        padding: 13px 14px;
+        font-size: 14px;
+        color: var(--text-2);
+        text-decoration: none;
+        white-space: nowrap;
+        border-bottom: 2px solid transparent;
+      }
+      .mypage-tabs a.active {
+        color: var(--purple);
+        font-weight: 700;
+        border-bottom-color: var(--purple);
+      }
+
+      /* ---------- Wallet head ---------- */
+      .wallet-head {
+        padding: 22px 16px 0;
+      }
+      .wallet-head h1 {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .wallet-head h1 .en {
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--text-3);
+        letter-spacing: 0;
+      }
+      .wallet-head .sub {
+        font-size: 13px;
+        color: var(--text-2);
+        margin-top: 6px;
+      }
+
+      /* ---------- Register box ---------- */
+      .register {
+        margin: 16px;
+        padding: 14px;
+        background: #faf8fc;
+        border: 1px solid #e6dcef;
+        border-radius: 8px;
+      }
+      .register label {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .register-row {
+        display: flex;
+        gap: 8px;
+      }
+      .register input {
+        flex: 1;
+        min-width: 0;
+        min-height: 44px;
+        padding: 11px 12px;
+        font-size: 14px;
+        font-family: inherit;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--white);
+      }
+      .register input:focus {
+        outline: 2px solid var(--purple);
+        outline-offset: -1px;
+      }
+      .register button {
+        flex: 0 0 auto;
+        min-height: 44px;
+        padding: 11px 20px;
+        background: var(--purple);
+        color: var(--white);
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .register button:hover {
+        background: var(--purple-deep);
+      }
+      .register .hint {
+        font-size: 12px;
+        color: var(--text-3);
+        margin-top: 8px;
+      }
+      .msg {
+        margin-top: 10px;
+        padding: 9px 11px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .msg.ok {
+        background: #eaf6ef;
+        color: var(--ok);
+      }
+      .msg.err {
+        background: #fdecea;
+        color: var(--warn);
+      }
+
+      /* ---------- Filter tabs ---------- */
+      .filters {
+        display: flex;
+        gap: 8px;
+        padding: 0 16px 14px;
+      }
+      .filters button {
+        min-height: 40px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--white);
+        color: var(--text-2);
+        font-size: 13px;
+        font-family: inherit;
+        font-weight: 500;
+        cursor: pointer;
+      }
+      .filters button.active {
+        background: var(--purple);
+        border-color: var(--purple);
+        color: var(--white);
+        font-weight: 700;
+      }
+
+      /* ---------- Coupon cards ---------- */
+      .list {
+        padding: 0 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        position: relative;
+        background: var(--white);
+      }
+      .card.spent {
+        background: #fbfbfb;
+      }
+      .card.spent .card-name,
+      .card.spent .amount,
+      .card.spent .row dd {
+        color: var(--text-3);
+      }
+      .card.spent .amount {
+        color: var(--text-2);
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .card-name {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .card-kind {
+        font-size: 11px;
+        color: var(--text-3);
+        margin-top: 3px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .kind-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--lime);
+        display: inline-block;
+      }
+      .kind-dot.code {
+        background: var(--purple);
+      }
+
+      .badge {
+        flex: 0 0 auto;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 9px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+      .badge.avail {
+        background: #eef3ee;
+        color: var(--ok);
+      }
+      .badge.used {
+        background: #eeeeee;
+        color: var(--text-2);
+      }
+      .badge.exp {
+        background: #f6eceb;
+        color: var(--warn);
+      }
+
+      .amount {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--purple);
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+      }
+      .amount .cap {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-2);
+        margin-left: 6px;
+      }
+
+      .rows {
+        border-top: 1px dashed var(--border);
+        padding-top: 11px;
+        margin: 0;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        font-size: 13px;
+        padding: 3px 0;
+      }
+      .row dt {
+        flex: 0 0 74px;
+        color: var(--text-3);
+      }
+      .row dd {
+        flex: 1;
+        color: var(--text);
+      }
+
+      .codeline {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 11px;
+        padding-top: 11px;
+        border-top: 1px dashed var(--border);
+      }
+      .codeval {
+        flex: 1;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        background: var(--bg);
+        padding: 8px 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .copy {
+        flex: 0 0 auto;
+        min-height: 44px;
+        padding: 8px 15px;
+        border: 1px solid var(--purple);
+        background: var(--white);
+        color: var(--purple);
+        border-radius: 5px;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .copy:hover {
+        background: var(--purple);
+        color: var(--white);
+      }
+      .copy.done {
+        background: var(--purple);
+        color: var(--white);
+      }
+
+      .giftnote {
+        margin-top: 8px;
+        font-size: 11px;
+        color: var(--text-3);
+      }
+
+      .expiring {
+        display: inline-block;
+        margin-left: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--warn);
+      }
+
+      .card-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 8px;
+      }
+      .card-foot .giftnote {
+        margin-top: 0;
+        flex: 1;
+      }
+      .del {
+        flex: 0 0 auto;
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: var(--text-3);
+        font-size: 12px;
+        font-family: inherit;
+        text-decoration: underline;
+        padding: 10px 2px;
+      }
+      .del:hover {
+        color: var(--warn);
+      }
+
+      /* ---------- Empty ---------- */
+      .empty {
+        padding: 48px 20px;
+        text-align: center;
+        color: var(--text-3);
+        font-size: 14px;
+      }
+      .empty strong {
+        display: block;
+        color: var(--text-2);
+        font-size: 15px;
+        margin-bottom: 6px;
+      }
+
+      /* ---------- Dev notes ---------- */
+      .notes {
+        max-width: 420px;
+        margin: 20px auto 0;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px;
+      }
+      .notes h2 {
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        color: var(--purple);
+      }
+      .notes ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .notes li {
+        font-size: 12.5px;
+        color: var(--text-2);
+        margin-bottom: 7px;
+        line-height: 1.55;
+      }
+      .notes code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 11.5px;
+        background: var(--bg);
+        padding: 1px 4px;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="page-note">목업 · 실제 데이터 아님 · 샘플 쿠폰번호는 임의값</p>
+
+    <div class="phone">
+      <div class="nav">
+        <button class="nav-btn" id="langBtn" type="button">
+          🌐 <span id="langLabel">한국어</span> ▾
+        </button>
+        <div class="logo">
+          <span class="g">Good</span><span class="l">lugg</span>
+        </div>
+        <div class="nav-icons">
+          <button class="nav-btn" type="button">☰</button>
+        </div>
+      </div>
+
+      <nav class="mypage-tabs">
+        <a href="#" data-i18n="tab.bookings">예약내역</a>
+        <a href="#" data-i18n="tab.rewards">포인트</a>
+        <a href="#" class="active" data-i18n="tab.coupons">쿠폰함</a>
+        <a href="#" data-i18n="tab.referral">친구초대</a>
+        <a href="#" data-i18n="tab.profile">회원정보</a>
+      </nav>
+
+      <div class="wallet-head">
+        <h1>
+          <span data-i18n="wallet.title">내 쿠폰함</span>
+          <span class="en" data-i18n="wallet.titleEn">Coupon Wallet</span>
+        </h1>
+        <p class="sub" data-i18n="wallet.sub">
+          받으신 쿠폰번호나 할인코드를 등록해 두면 예약할 때 찾기 쉽습니다.
+        </p>
+      </div>
+
+      <div class="register">
+        <label for="codeInput" data-i18n="reg.label"
+          >쿠폰번호 또는 할인코드 등록</label
+        >
+        <div class="register-row">
+          <input
+            id="codeInput"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            data-i18n-ph="reg.ph"
+            placeholder="예: A1B2C3D4E5 또는 WelcomeGoodlugg10"
+          />
+          <button id="regBtn" type="button" data-i18n="reg.btn">등록</button>
+        </div>
+        <p class="hint" data-i18n="reg.hint">
+          대소문자는 구분하지 않습니다. 쿠폰번호와 할인코드 모두 이 칸에
+          넣으시면 됩니다.
+        </p>
+        <div id="regMsg"></div>
+      </div>
+
+      <div class="filters">
+        <button type="button" class="active" data-filter="avail">
+          <span data-i18n="filter.avail">사용 가능</span>
+          <span id="cntAvail">3</span>
+        </button>
+        <button type="button" data-filter="done">
+          <span data-i18n="filter.done">사용완료·만료</span>
+          <span id="cntDone">2</span>
+        </button>
+      </div>
+
+      <div class="list" id="list"></div>
+    </div>
+
+    <div class="notes">
+      <h2>개발 노트 (dev handoff)</h2>
+      <ul>
+        <li>
+          목록 = <code>USER_COUPON_WALLET</code> 에 담은 것 <b>+</b>
+          <code>tbl_coupon.customer_sn</code> 가 본인인 기발급분. 두 소스를 합쳐
+          정렬.
+        </li>
+        <li>
+          등록 입력은 <code>CouponService.findByCouponNo()</code> → 없으면
+          <code>DiscountCodeService.findByDiscountCode()</code> 순으로 조회.
+          입력값은 <code>trim()</code> + 대문자 정규화 후 비교.
+        </li>
+        <li>
+          <b>결제 검증 로직은 변경하지 않는다.</b> 쿠폰함은 보관 전용이며 사용
+          가능 여부를 막지 않는다.
+        </li>
+        <li>
+          양도: 쿠폰번호를 알려주면 그대로 사용 가능. <code>[복사]</code> 버튼이
+          양도 경로. 받은 사람도 자기 쿠폰함에 등록 가능.
+        </li>
+        <li>
+          남이 먼저 사용한 경우 → <code>is_use=1</code> 이므로
+          <b>사용완료</b> 로 표시. 사용자 정보는 노출하지 않는다.
+        </li>
+        <li>
+          적용 서비스 표기: 쿠폰은 <code>tbl_coupon_group.service1..10</code>,
+          할인코드는 <code>EVENT_DISCOUNT_CODE.SERVICES</code> 비트마스크 — 두
+          방식을 공통 라벨로 정규화 필요.
+        </li>
+        <li>
+          할인코드는 기간이 2종(<code>START_AT/END_AT</code> = 코드 유효기간,
+          <code>DELIVERED_FROM/BY</code> = 배송일 조건). 둘 다 표기.
+        </li>
+        <li>
+          <b>쿠폰함에서 빼기</b>는 고객이 직접 등록한 건에만 노출. 계정으로 이미
+          발급된 건은 뺄 수 없다 (뺄 대상이 <code>tbl_coupon</code> 원본이
+          되어버리므로).
+        </li>
+        <li>
+          빼기는 <code>USER_COUPON_WALLET</code> 행 삭제일 뿐, 쿠폰 자체는
+          그대로 살아 있다.
+        </li>
+        <li>정렬: 사용 가능 = 만료 임박순, 사용완료·만료 = 최근순.</li>
+        <li>
+          만료 <b>14일 이내</b>면 사용기한 옆에 남은 일수를 붉게 표기. 일수
+          계산은 <b>KST 자정 기준</b> — 고객 기기 시간대로 계산하면 하루
+          어긋난다.
+        </li>
+        <li>모든 날짜는 <b>KST</b> 기준으로 표기.</li>
+      </ul>
+    </div>
+
+    <script>
+      var I18N = {
+        ko: {
+          "tab.bookings": "예약내역",
+          "tab.rewards": "포인트",
+          "tab.coupons": "쿠폰함",
+          "tab.referral": "친구초대",
+          "tab.profile": "회원정보",
+          "wallet.title": "내 쿠폰함",
+          "wallet.titleEn": "Coupon Wallet",
+          "wallet.sub":
+            "받으신 쿠폰번호나 할인코드를 등록해 두면 예약할 때 찾기 쉽습니다.",
+          "reg.label": "쿠폰번호 또는 할인코드 등록",
+          "reg.ph": "예: A1B2C3D4E5",
+          "reg.btn": "등록",
+          "reg.hint":
+            "대소문자는 구분하지 않습니다. 쿠폰번호와 할인코드 모두 이 칸에 넣으시면 됩니다.",
+          "filter.avail": "사용 가능",
+          "filter.done": "사용완료·만료",
+          "lbl.expire": "사용기한",
+          "lbl.services": "적용 서비스",
+          "lbl.service_window": "배송일 조건",
+          "lbl.code": "쿠폰번호",
+          "lbl.codeD": "할인코드",
+          "lbl.used": "사용일",
+          "lbl.booking": "예약번호",
+          "badge.avail": "사용 가능",
+          "badge.used": "사용완료",
+          "badge.exp": "기간만료",
+          "kind.coupon": "쿠폰",
+          "kind.code": "할인코드",
+          copy: "복사",
+          copied: "복사됨",
+          gift: "번호를 알려주시면 다른 분께 양도하실 수 있습니다.",
+          "gift.code": "누구나 사용할 수 있는 공개 할인코드입니다.",
+          del: "쿠폰함에서 빼기",
+          expiring: "{n}일 남음",
+          "empty.avail": "사용 가능한 쿠폰이 없습니다.",
+          "empty.done": "사용했거나 기간이 지난 쿠폰이 없습니다.",
+          "empty.sub": "받으신 쿠폰번호를 위에서 등록해 보세요.",
+          "err.dup": "이미 쿠폰함에 있습니다.",
+          "err.used": "이미 사용된 쿠폰입니다.",
+          "err.exp": "사용기한이 지났습니다.",
+          "err.none": "없는 코드입니다. 다시 확인해 주세요.",
+          "err.blank": "쿠폰번호 또는 할인코드를 입력해 주세요.",
+          "ok.added": "쿠폰함에 담았습니다.",
+          "ok.removed": "쿠폰함에서 뺐습니다.",
+          cap: "최대 {n}",
+        },
+        en: {
+          "tab.bookings": "Bookings",
+          "tab.rewards": "Rewards",
+          "tab.coupons": "Coupons",
+          "tab.referral": "Referral",
+          "tab.profile": "Personal Info",
+          "wallet.title": "Coupon Wallet",
+          "wallet.titleEn": "내 쿠폰함",
+          "wallet.sub":
+            "Save any coupon number or discount code here so it is ready at checkout.",
+          "reg.label": "Add a coupon number or discount code",
+          "reg.ph": "e.g. A1B2C3D4E5",
+          "reg.btn": "Add",
+          "reg.hint":
+            "Not case-sensitive. Both coupon numbers and discount codes go in this field.",
+          "filter.avail": "Available",
+          "filter.done": "Used / Expired",
+          "lbl.expire": "Valid until",
+          "lbl.services": "Valid for",
+          "lbl.service_window": "Service dates",
+          "lbl.code": "Coupon no.",
+          "lbl.codeD": "Discount code",
+          "lbl.used": "Used on",
+          "lbl.booking": "Booking no.",
+          "badge.avail": "Available",
+          "badge.used": "Used",
+          "badge.exp": "Expired",
+          "kind.coupon": "Coupon",
+          "kind.code": "Discount code",
+          copy: "Copy",
+          copied: "Copied",
+          gift: "Share this number to pass the coupon to someone else.",
+          "gift.code": "This is a public code anyone can use.",
+          del: "Remove from wallet",
+          expiring: "{n} days left",
+          "empty.avail": "No available coupons.",
+          "empty.done": "No used or expired coupons.",
+          "empty.sub": "Add a coupon number above to get started.",
+          "err.dup": "Already in your wallet.",
+          "err.used": "This coupon has already been used.",
+          "err.exp": "This coupon has expired.",
+          "err.none": "Code not found. Please check and try again.",
+          "err.blank": "Please enter a coupon number or discount code.",
+          "ok.added": "Added to your wallet.",
+          "ok.removed": "Removed from your wallet.",
+          cap: "max {n}",
+        },
+      };
+
+      var lang = "ko";
+      function t(k) {
+        return (I18N[lang] && I18N[lang][k]) || k;
+      }
+
+      /* source: 'wallet' = 고객이 직접 등록 (뺄 수 있음) · 'issued' = 계정으로 이미 발급됨 (뺄 수 없음) */
+      var DATA = [
+        {
+          id: 1,
+          kind: "coupon",
+          state: "avail",
+          source: "wallet",
+          name: { ko: "디즈니크루즈 무료체험", en: "Disney Cruise free trial" },
+          amount: { ko: "100% 할인", en: "100% off" },
+          cap: null,
+          expire: "2027.06.30",
+          services: {
+            ko: "국내 짐배송 · 도어투도어",
+            en: "Korea Delivery · Door-to-Door",
+          },
+          code: "A1B2C3D4E5",
+        },
+        {
+          id: 2,
+          kind: "code",
+          state: "avail",
+          source: "wallet",
+          name: { ko: "웰컴 10% 할인", en: "Welcome 10% off" },
+          amount: { ko: "10% 할인", en: "10% off" },
+          cap: { ko: "50,000원", en: "₩50,000" },
+          expire: "2026.12.31",
+          services: { ko: "전 서비스", en: "All services" },
+          window: { ko: "제한 없음", en: "No restriction" },
+          code: "WelcomeGoodlugg10",
+        },
+        {
+          id: 3,
+          kind: "coupon",
+          state: "avail",
+          source: "issued",
+          name: {
+            ko: "롯데면세점 5천원 할인",
+            en: "Lotte Duty Free ₩5,000 off",
+          },
+          amount: { ko: "5,000원 할인", en: "₩5,000 off" },
+          cap: null,
+          expire: "2026.09.25",
+          services: {
+            ko: "호텔-공항 · 짐보관 · 도시간 · 배기지프리",
+            en: "Hotel-Airport · Storage · Inter-City · Baggage Free",
+          },
+          code: "K7M2P9Q4X1",
+        },
+        {
+          id: 4,
+          kind: "coupon",
+          state: "used",
+          source: "issued",
+          name: { ko: "ISIC 제휴쿠폰", en: "ISIC partner coupon" },
+          amount: { ko: "10% 할인", en: "10% off" },
+          cap: { ko: "50,000원", en: "₩50,000" },
+          expire: "2027.03.31",
+          services: { ko: "전 서비스", en: "All services" },
+          code: "R3T8W5Y2Z6",
+          used: "2026.08.02",
+          booking: "KD26080200123",
+        },
+        {
+          id: 5,
+          kind: "coupon",
+          state: "exp",
+          source: "wallet",
+          name: { ko: "코엑스 현장고객 쿠폰", en: "COEX on-site coupon" },
+          amount: { ko: "100% 할인", en: "100% off" },
+          cap: { ko: "100,000원", en: "₩100,000" },
+          expire: "2026.08.15",
+          services: { ko: "짐보관", en: "Storage" },
+          code: "N4V6B8H1J3",
+        },
+      ];
+
+      var filter = "avail";
+
+      /* Days until expiry, counted in KST (the service timezone), not the viewer's. */
+      function daysLeft(dateStr) {
+        var p = dateStr.split(".");
+        if (p.length !== 3) {
+          return null;
+        }
+        var expiryKst = Date.UTC(+p[0], +p[1] - 1, +p[2]) - 9 * 3600 * 1000;
+        var nowKst = Date.now();
+        var d = Math.ceil((expiryKst - nowKst) / 86400000);
+        return d < 0 ? null : d;
+      }
+
+      function esc(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          }[c];
+        });
+      }
+
+      function cardHtml(c) {
+        var badgeCls =
+          c.state === "avail" ? "avail" : c.state === "used" ? "used" : "exp";
+        var badgeTxt =
+          c.state === "avail"
+            ? t("badge.avail")
+            : c.state === "used"
+              ? t("badge.used")
+              : t("badge.exp");
+        var capHtml = c.cap
+          ? '<span class="cap">' +
+            esc(t("cap").replace("{n}", c.cap[lang])) +
+            "</span>"
+          : "";
+
+        var warn = "";
+        if (c.state === "avail") {
+          var left = daysLeft(c.expire);
+          if (left !== null && left <= 14) {
+            warn =
+              '<span class="expiring">' +
+              esc(t("expiring").replace("{n}", left)) +
+              "</span>";
+          }
+        }
+
+        var rows = "";
+        rows +=
+          '<div class="row"><dt>' +
+          esc(t("lbl.expire")) +
+          "</dt><dd>~ " +
+          esc(c.expire) +
+          " (KST)" +
+          warn +
+          "</dd></div>";
+        rows +=
+          '<div class="row"><dt>' +
+          esc(t("lbl.services")) +
+          "</dt><dd>" +
+          esc(c.services[lang]) +
+          "</dd></div>";
+        if (c.window) {
+          rows +=
+            '<div class="row"><dt>' +
+            esc(t("lbl.service_window")) +
+            "</dt><dd>" +
+            esc(c.window[lang]) +
+            "</dd></div>";
+        }
+        if (c.used) {
+          rows +=
+            '<div class="row"><dt>' +
+            esc(t("lbl.used")) +
+            "</dt><dd>" +
+            esc(c.used) +
+            "</dd></div>";
+          rows +=
+            '<div class="row"><dt>' +
+            esc(t("lbl.booking")) +
+            "</dt><dd>" +
+            esc(c.booking) +
+            "</dd></div>";
+        }
+
+        var foot =
+          '<p class="giftnote">' +
+          esc(c.kind === "code" ? t("gift.code") : t("gift")) +
+          "</p>" +
+          (c.source === "wallet"
+            ? '<button class="del" type="button" data-del="' +
+              c.id +
+              '">' +
+              esc(t("del")) +
+              "</button>"
+            : "");
+
+        var codeBlock = "";
+        if (c.state === "avail") {
+          codeBlock =
+            '<div class="codeline">' +
+            '<span class="codeval">' +
+            esc(c.code) +
+            "</span>" +
+            '<button class="copy" type="button" data-copy="' +
+            esc(c.code) +
+            '">' +
+            esc(t("copy")) +
+            "</button>" +
+            "</div>" +
+            '<div class="card-foot">' +
+            foot +
+            "</div>";
+        } else if (c.source === "wallet") {
+          codeBlock =
+            '<div class="card-foot"><span class="giftnote"></span>' +
+            '<button class="del" type="button" data-del="' +
+            c.id +
+            '">' +
+            esc(t("del")) +
+            "</button></div>";
+        }
+
+        return (
+          "" +
+          '<div class="card' +
+          (c.state === "avail" ? "" : " spent") +
+          '">' +
+          '<div class="card-top">' +
+          "<div>" +
+          '<div class="card-name">' +
+          esc(c.name[lang]) +
+          "</div>" +
+          '<div class="card-kind"><span class="kind-dot' +
+          (c.kind === "code" ? " code" : "") +
+          '"></span>' +
+          esc(c.kind === "code" ? t("kind.code") : t("kind.coupon")) +
+          "</div>" +
+          "</div>" +
+          '<span class="badge ' +
+          badgeCls +
+          '">' +
+          esc(badgeTxt) +
+          "</span>" +
+          "</div>" +
+          '<div class="amount">' +
+          esc(c.amount[lang]) +
+          capHtml +
+          "</div>" +
+          '<dl class="rows">' +
+          rows +
+          "</dl>" +
+          codeBlock +
+          "</div>"
+        );
+      }
+
+      function render() {
+        var avail = DATA.filter(function (c) {
+          return c.state === "avail";
+        });
+        var done = DATA.filter(function (c) {
+          return c.state !== "avail";
+        });
+        document.getElementById("cntAvail").textContent = avail.length;
+        document.getElementById("cntDone").textContent = done.length;
+
+        var items = filter === "avail" ? avail : done;
+        var list = document.getElementById("list");
+
+        if (!items.length) {
+          list.innerHTML =
+            '<div class="empty"><strong>' +
+            esc(filter === "avail" ? t("empty.avail") : t("empty.done")) +
+            "</strong>" +
+            esc(t("empty.sub")) +
+            "</div>";
+          return;
+        }
+        list.innerHTML = items.map(cardHtml).join("");
+      }
+
+      function applyLang() {
+        document.documentElement.lang = lang;
+        document.getElementById("langLabel").textContent =
+          lang === "ko" ? "한국어" : "English";
+        var nodes = document.querySelectorAll("[data-i18n]");
+        for (var i = 0; i < nodes.length; i++) {
+          nodes[i].textContent = t(nodes[i].getAttribute("data-i18n"));
+        }
+        var phs = document.querySelectorAll("[data-i18n-ph]");
+        for (var j = 0; j < phs.length; j++) {
+          phs[j].setAttribute(
+            "placeholder",
+            t(phs[j].getAttribute("data-i18n-ph")),
+          );
+        }
+        render();
+      }
+
+      function showMsg(cls, key) {
+        document.getElementById("regMsg").innerHTML =
+          '<div class="msg ' + cls + '">' + esc(t(key)) + "</div>";
+      }
+
+      document.getElementById("langBtn").addEventListener("click", function () {
+        lang = lang === "ko" ? "en" : "ko";
+        document.getElementById("regMsg").innerHTML = "";
+        applyLang();
+      });
+
+      var filterBtns = document.querySelectorAll(".filters button");
+      for (var i = 0; i < filterBtns.length; i++) {
+        filterBtns[i].addEventListener("click", function () {
+          for (var k = 0; k < filterBtns.length; k++) {
+            filterBtns[k].classList.remove("active");
+          }
+          this.classList.add("active");
+          filter = this.getAttribute("data-filter");
+          render();
+        });
+      }
+
+      document.getElementById("list").addEventListener("click", function (e) {
+        var delBtn = e.target.closest(".del");
+        if (delBtn) {
+          var id = Number(delBtn.getAttribute("data-del"));
+          DATA = DATA.filter(function (c) {
+            return c.id !== id;
+          });
+          showMsg("ok", "ok.removed");
+          render();
+          return;
+        }
+
+        var btn = e.target.closest(".copy");
+        if (!btn) {
+          return;
+        }
+        var val = btn.getAttribute("data-copy");
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(val);
+        }
+        btn.textContent = t("copied");
+        btn.classList.add("done");
+        setTimeout(function () {
+          btn.textContent = t("copy");
+          btn.classList.remove("done");
+        }, 1400);
+      });
+
+      /* Demo only: fake lookup so reviewers can see each message state. */
+      document.getElementById("regBtn").addEventListener("click", function () {
+        var raw = document.getElementById("codeInput").value.trim();
+        if (!raw) {
+          showMsg("err", "err.blank");
+          return;
+        }
+        var v = raw.toUpperCase();
+
+        var exists = DATA.some(function (c) {
+          return c.code.toUpperCase() === v;
+        });
+        if (exists) {
+          showMsg("err", "err.dup");
+          return;
+        }
+        if (v === "USED") {
+          showMsg("err", "err.used");
+          return;
+        }
+        if (v === "EXPIRED") {
+          showMsg("err", "err.exp");
+          return;
+        }
+        if (v !== "DEMO") {
+          showMsg("err", "err.none");
+          return;
+        }
+
+        DATA.unshift({
+          id: Date.now(),
+          kind: "coupon",
+          state: "avail",
+          source: "wallet",
+          name: { ko: "신규 등록 쿠폰", en: "Newly added coupon" },
+          amount: { ko: "₩5,000 할인", en: "₩5,000 off" },
+          cap: null,
+          expire: "2026.12.31",
+          services: { ko: "전 서비스", en: "All services" },
+          code: "DEMO",
+        });
+        document.getElementById("codeInput").value = "";
+        showMsg("ok", "ok.added");
+        filter = "avail";
+        for (var k = 0; k < filterBtns.length; k++) {
+          filterBtns[k].classList.remove("active");
+        }
+        filterBtns[0].classList.add("active");
+        render();
+      });
+
+      applyLang();
+    </script>
+  </body>
+</html>
