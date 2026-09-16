@@ -347,6 +347,11 @@
         color: var(--warn);
         font-weight: 700;
       }
+      /* 사용완료·만료 탭에서는 칸 이름 강조 없이 같은 회색 */
+      .list.is-done .group-where strong {
+        color: inherit;
+        font-weight: inherit;
+      }
       .group-empty {
         font-size: 13px;
         color: var(--text-3);
@@ -973,6 +978,7 @@
 
         var items = filter === "avail" ? avail : done;
         var list = document.getElementById("list");
+        list.classList.toggle("is-done", filter !== "avail");
 
         if (!items.length) {
           list.innerHTML =
