@@ -139,6 +139,9 @@
         align-items: center;
         gap: 8px;
       }
+      .wallet-head h1 .en:empty {
+        display: none;
+      }
       .wallet-head h1 .en {
         font-size: 12px;
         font-weight: 400;
@@ -155,8 +158,8 @@
       .register {
         margin: 12px 16px 16px;
         padding: 12px;
-        background: #faf8fc;
-        border: 1px solid #e6dcef;
+        background: var(--white);
+        border: 1px solid #ddd3e8;
         border-radius: 8px;
       }
       .register label {
@@ -221,13 +224,12 @@
         color: var(--warn);
       }
 
-      /* 등록 영역 ↔ 내 쿠폰 목록 구분: 화면 끝까지 닿는 회색 띠.
-         쿠폰 ↔ 할인코드 구분(보라 선)과 모양을 달리해 두 단계를 구별한다. */
-      .band {
-        height: 12px;
-        background: #ebe8ef;
-        border-top: 1px solid #e6e2eb;
-        border-bottom: 1px solid #e6e2eb;
+      /* 등록 영역 ↔ 내 쿠폰 목록 구분: 위쪽 전체를 다른 배경색으로 칠하고 짙은 선으로 끊는다.
+         쿠폰 ↔ 할인코드 구분(연한 점선)과 모양을 달리해 두 단계를 구별한다. */
+      .top-area {
+        background: #f3f0f7;
+        border-bottom: 2px solid #333333;
+        padding-bottom: 2px;
       }
 
       /* ---------- Filter tabs ---------- */
@@ -264,13 +266,14 @@
       }
 
       .card {
-        border: 1px solid var(--border);
+        border: 1px solid #bfaad3;
         border-radius: 8px;
         padding: 12px 14px;
         position: relative;
         background: var(--white);
       }
       .card.spent {
+        border-color: var(--border);
         background: #fbfbfb;
       }
       .card.spent .card-name,
@@ -294,7 +297,7 @@
         min-width: 0;
       }
       .card-name {
-        font-size: 13.5px;
+        font-size: 12.5px;
         font-weight: 600;
         line-height: 1.35;
         letter-spacing: -0.01em;
@@ -310,7 +313,7 @@
       .group + .group {
         margin-top: 18px;
         padding-top: 14px;
-        border-top: 6px solid var(--purple);
+        border-top: 1px dashed #b9a3cf;
         margin-left: -16px;
         margin-right: -16px;
         padding-left: 16px;
@@ -339,6 +342,10 @@
         font-size: 12px;
         color: var(--text-2);
         margin-top: -6px;
+      }
+      .group-where strong {
+        color: var(--warn);
+        font-weight: 700;
       }
       .group-empty {
         font-size: 13px;
@@ -519,36 +526,36 @@
         <a href="#" data-i18n="tab.profile">회원정보</a>
       </nav>
 
-      <div class="wallet-head">
-        <h1>
-          <span data-i18n="wallet.title">내 쿠폰함</span>
-          <span class="en" data-i18n="wallet.titleEn">Coupon Wallet</span>
-        </h1>
-        <p class="sub" data-i18n="wallet.sub">
-          받으신 쿠폰번호나 할인코드를 등록해 두면 예약할 때 찾기 쉽습니다.
-        </p>
-      </div>
-
-      <div class="register">
-        <label for="codeInput" data-i18n="reg.label"
-          >쿠폰번호 또는 할인코드 등록</label
-        >
-        <div class="register-row">
-          <input
-            id="codeInput"
-            type="text"
-            autocomplete="off"
-            spellcheck="false"
-            data-i18n-ph="reg.ph"
-            placeholder="예: A1B2C3D4E5 또는 WelcomeGoodlugg10"
-          />
-          <button id="regBtn" type="button" data-i18n="reg.btn">등록</button>
+      <div class="top-area">
+        <div class="wallet-head">
+          <h1>
+            <span data-i18n="wallet.title">내 쿠폰함</span>
+            <span class="en" data-i18n="wallet.titleEn">Coupon Wallet</span>
+          </h1>
+          <p class="sub" data-i18n="wallet.sub">
+            쿠폰번호나 할인코드를 여기에 저장해 두세요.
+          </p>
         </div>
-        <p class="hint" data-i18n="reg.hint">대소문자는 구분하지 않아요.</p>
-        <div id="regMsg"></div>
-      </div>
 
-      <div class="band" aria-hidden="true"></div>
+        <div class="register">
+          <label for="codeInput" data-i18n="reg.label"
+            >쿠폰번호·할인코드 붙여넣기</label
+          >
+          <div class="register-row">
+            <input
+              id="codeInput"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              data-i18n-ph="reg.ph"
+              placeholder="예: A1B2C3D4E5 또는 WelcomeGoodlugg10"
+            />
+            <button id="regBtn" type="button" data-i18n="reg.btn">저장</button>
+          </div>
+          <p class="hint" data-i18n="reg.hint">대소문자는 구분하지 않아요.</p>
+          <div id="regMsg"></div>
+        </div>
+      </div>
 
       <div class="filters">
         <button type="button" class="active" data-filter="avail">
@@ -574,11 +581,10 @@
           "tab.profile": "회원정보",
           "wallet.title": "내 쿠폰함",
           "wallet.titleEn": "Coupon Wallet",
-          "wallet.sub":
-            "받으신 쿠폰번호나 할인코드를 등록해 두면 예약할 때 찾기 쉽습니다.",
-          "reg.label": "쿠폰번호 또는 할인코드 등록",
+          "wallet.sub": "쿠폰번호나 할인코드를 여기에 저장해 두세요.",
+          "reg.label": "쿠폰번호·할인코드 붙여넣기",
           "reg.ph": "예: A1B2C3D4E5",
-          "reg.btn": "등록",
+          "reg.btn": "저장",
           "reg.hint": "대소문자는 구분하지 않아요.",
           "filter.avail": "사용 가능",
           "filter.done": "사용완료·만료",
@@ -595,8 +601,9 @@
           "badge.exp": "기간만료",
           "group.coupon": "쿠폰",
           "group.code": "할인코드/파트너코드",
-          "group.coupon.where": "결제할 때 쿠폰 칸에 입력하세요.",
-          "group.code.where": "로그인 후, 결제할 때 할인코드 칸에 입력하세요.",
+          "group.coupon.where": "결제할 때 [쿠폰] 칸에 입력하세요.",
+          "group.code.where":
+            "로그인 후, 결제할 때 [할인코드] 칸에 입력하세요.",
           "group.empty": "해당 쿠폰 없음",
           "kind.coupon": "쿠폰",
           "kind.code": "할인코드",
@@ -612,7 +619,7 @@
           "err.exp": "사용기한이 지났습니다.",
           "err.none": "없는 코드입니다. 다시 확인해 주세요.",
           "err.blank": "쿠폰번호 또는 할인코드를 입력해 주세요.",
-          "ok.added": "쿠폰함에 담았습니다.",
+          "ok.added": "쿠폰함에 저장했습니다.",
           "ok.removed": "쿠폰함에서 뺐습니다.",
           cap: "최대 {n}",
         },
@@ -623,12 +630,11 @@
           "tab.referral": "Referral",
           "tab.profile": "Personal Info",
           "wallet.title": "Coupon Wallet",
-          "wallet.titleEn": "내 쿠폰함",
-          "wallet.sub":
-            "Save any coupon number or discount code here so it is ready at checkout.",
-          "reg.label": "Add a coupon number or discount code",
+          "wallet.titleEn": "",
+          "wallet.sub": "Save any coupon or discount code here.",
+          "reg.label": "Paste a coupon or discount code",
           "reg.ph": "e.g. A1B2C3D4E5",
-          "reg.btn": "Add",
+          "reg.btn": "Save",
           "reg.hint": "Not case-sensitive.",
           "filter.avail": "Available",
           "filter.done": "Used / Expired",
@@ -645,9 +651,9 @@
           "badge.exp": "Expired",
           "group.coupon": "Coupon",
           "group.code": "Discount / Partner code",
-          "group.coupon.where": "Enter it in the Coupon field at checkout.",
+          "group.coupon.where": "Enter it in the [Coupon] field at checkout.",
           "group.code.where":
-            "Log in first, then enter it in the Discount code field at checkout.",
+            "Log in first, then enter it in the [Discount code] field at checkout.",
           "group.empty": "None in this section",
           "kind.coupon": "Coupon",
           "kind.code": "Discount code",
@@ -663,7 +669,7 @@
           "err.exp": "This coupon has expired.",
           "err.none": "Code not found. Please check and try again.",
           "err.blank": "Please enter a coupon number or discount code.",
-          "ok.added": "Added to your wallet.",
+          "ok.added": "Saved to your wallet.",
           "ok.removed": "Removed from your wallet.",
           cap: "max {n}",
         },
@@ -671,7 +677,8 @@
 
       var lang = "ko";
       function t(k) {
-        return (I18N[lang] && I18N[lang][k]) || k;
+        var v = I18N[lang] && I18N[lang][k];
+        return v === undefined ? k : v;
       }
 
       /* source: 'wallet' = 고객이 직접 등록 (뺄 수 있음) · 'issued' = 계정으로 이미 발급됨 (뺄 수 없음) */
@@ -995,7 +1002,8 @@
             "</span>" +
             "</div>" +
             '<p class="group-where">' +
-            esc(t(whereKey)) +
+            /* [ ] 안의 결제화면 칸 이름은 굵은 빨강 */
+            esc(t(whereKey)).replace(/\[(.+?)\]/g, "<strong>$1</strong>") +
             "</p>" +
             (rows.length
               ? rows.map(cardHtml).join("")
