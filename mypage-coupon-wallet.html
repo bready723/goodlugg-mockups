@@ -53,10 +53,47 @@
         overflow: hidden;
       }
       /* 폰에서는 실제 사이트처럼 화면 전체를 쓴다 */
+      .preview-bar {
+        max-width: 420px;
+        margin: 0 auto 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 8px;
+        background: #2b2b2b;
+        border-radius: 8px;
+        font-size: 12px;
+        color: #bbbbbb;
+      }
+      .preview-bar span {
+        margin-right: auto;
+        padding-left: 4px;
+      }
+      .preview-bar button {
+        min-height: 32px;
+        padding: 0 12px;
+        border: 1px solid #555555;
+        border-radius: 999px;
+        background: none;
+        color: #dddddd;
+        font-family: inherit;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .preview-bar button.on {
+        background: var(--lime);
+        border-color: var(--lime);
+        color: #1a1a1a;
+        font-weight: 700;
+      }
       @media (max-width: 480px) {
         body {
           padding: 0;
           background: var(--white);
+        }
+        .preview-bar {
+          margin: 0;
+          border-radius: 0;
         }
         .phone {
           border: none;
@@ -579,6 +616,13 @@
     </style>
   </head>
   <body>
+    <!-- 목업 확인용 전환 막대. 실제 페이지에는 없음 -->
+    <div class="preview-bar" role="group" aria-label="Preview">
+      <span>Preview</span>
+      <button type="button" data-preview="empty">Empty wallet</button>
+      <button type="button" data-preview="full">With coupons</button>
+    </div>
+
     <div class="phone">
       <div class="nav">
         <button class="nav-btn" id="langBtn" type="button">
@@ -1293,10 +1337,48 @@
         }
       });
 
-      /* 목업 확인용: 주소 끝에 ?empty=1 을 붙이면 빈 화면 */
+      /* 목업 확인용: 상단 Preview 막대로 빈 쿠폰함 / 쿠폰 있음 전환. ?empty=1 로 바로 열 수도 있음 */
       var CATALOG = JSON.parse(JSON.stringify(DATA));
+      var previewBtns = document.querySelectorAll("[data-preview]");
+      function setPreview(mode) {
+        DATA =
+          mode === "empty"
+            ? []
+            : CATALOG.map(function (c) {
+                return JSON.parse(JSON.stringify(c));
+              });
+        for (var n = 0; n < previewBtns.length; n++) {
+          previewBtns[n].classList.toggle(
+            "on",
+            previewBtns[n].getAttribute("data-preview") === mode,
+          );
+        }
+        filter = "avail";
+        for (var k = 0; k < filterBtns.length; k++) {
+          filterBtns[k].classList.toggle("active", k === 0);
+        }
+        document.getElementById("regMsg").innerHTML = "";
+        document.getElementById("toast").hidden = true;
+        document.getElementById("codeInput").value = "";
+        if (history.replaceState) {
+          history.replaceState(
+            null,
+            "",
+            location.pathname + (mode === "empty" ? "?empty=1" : ""),
+          );
+        }
+        render();
+      }
+      for (var pb = 0; pb < previewBtns.length; pb++) {
+        previewBtns[pb].addEventListener("click", function () {
+          setPreview(this.getAttribute("data-preview"));
+        });
+      }
       if (/[?&]empty=1/.test(location.search)) {
         DATA = [];
+        previewBtns[0].classList.add("on");
+      } else {
+        previewBtns[1].classList.add("on");
       }
       document
         .getElementById("codeInput")
