@@ -395,9 +395,22 @@
         font-weight: inherit;
       }
       .group-empty {
-        font-size: 13px;
-        color: var(--text-3);
-        padding: 14px 0 4px;
+        padding: 22px 8px 18px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-2);
+      }
+      .group-empty .empty-icon {
+        display: block;
+        width: 52px;
+        height: 52px;
+        margin: 0 auto 6px;
+        color: #bfaad3;
+      }
+      .group-empty .code-icon {
+        width: 56px;
+        height: 42px;
       }
 
       .badge {
@@ -534,50 +547,6 @@
       .card-top .del svg {
         width: 15px;
         height: 15px;
-      }
-
-      /* ---------- Empty ---------- */
-      .empty {
-        padding: 36px 8px 28px;
-        text-align: center;
-        color: var(--text-2);
-        font-size: 13px;
-      }
-      .empty-icon {
-        width: 40px;
-        height: 40px;
-        color: #bfaad3;
-        margin-bottom: 8px;
-      }
-      .empty strong {
-        display: block;
-        color: var(--text);
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 6px;
-      }
-      .empty-src {
-        list-style: none;
-        margin: 14px auto 0;
-        padding: 12px 14px;
-        max-width: 300px;
-        text-align: left;
-        background: #f7f5fa;
-        border-radius: 8px;
-      }
-      .empty-src li {
-        position: relative;
-        padding: 3px 0 3px 14px;
-      }
-      .empty-src li::before {
-        content: "";
-        position: absolute;
-        left: 2px;
-        top: 11px;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: var(--purple);
       }
 
       /* ---------- Undo toast ---------- */
@@ -725,20 +694,16 @@
           "group.coupon.where": "결제할 때 [쿠폰] 칸에 입력하세요.",
           "group.code.where":
             "로그인 후, 결제할 때 [할인코드] 칸에 입력하세요.",
-          "group.empty": "해당 쿠폰 없음",
           "kind.coupon": "쿠폰",
           "kind.code": "할인코드",
           copy: "복사",
           copied: "복사됨",
           del: "쿠폰함에서 빼기",
           expiring: "{n}일 남음",
-          "empty.avail": "아직 저장한 쿠폰이 없어요",
-          "empty.done": "사용했거나 기간이 지난 쿠폰이 없어요",
-          "empty.sub":
-            "받으신 코드를 위 칸에 붙여넣어 주세요. 이런 곳에서 받으셨을 수 있어요.",
-          "empty.src1": "예약 후 받은 감사 메일",
-          "empty.src2": "Visa·ISIC 같은 제휴 카드 혜택",
-          "empty.src3": "네이버·SNS 굿럭 이벤트",
+          "empty.coupon.avail": "아직 저장한 쿠폰이 없어요",
+          "empty.code.avail": "아직 저장한 할인코드가 없어요",
+          "empty.coupon.done": "사용했거나 기간이 지난 쿠폰이 없어요",
+          "empty.code.done": "사용했거나 기간이 지난 할인코드가 없어요",
           "toast.removed": "쿠폰함에서 뺐어요.",
           undo: "되돌리기",
           "err.dup": "이미 쿠폰함에 있습니다.",
@@ -780,19 +745,16 @@
           "group.coupon.where": "Enter it in the [Coupon] field at checkout.",
           "group.code.where":
             "Log in first, then enter it in the [Discount code] field at checkout.",
-          "group.empty": "None in this section",
           "kind.coupon": "Coupon",
           "kind.code": "Discount code",
           copy: "Copy",
           copied: "Copied",
           del: "Remove from wallet",
           expiring: "{n} days left",
-          "empty.avail": "No coupons saved yet",
-          "empty.done": "No used or expired coupons",
-          "empty.sub": "Paste a code above. You may have received one from:",
-          "empty.src1": "Your thank-you email after booking",
-          "empty.src2": "Partner card benefits, like Visa or ISIC",
-          "empty.src3": "Goodlugg events on Naver and social media",
+          "empty.coupon.avail": "No coupons saved yet",
+          "empty.code.avail": "No discount codes saved yet",
+          "empty.coupon.done": "No used or expired coupons",
+          "empty.code.done": "No used or expired discount codes",
           "toast.removed": "Removed from your wallet.",
           undo: "Undo",
           "err.dup": "Already in your wallet.",
@@ -953,6 +915,13 @@
       var TICKET_SVG =
         '<svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
         '<path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>';
+
+      var CODE_SVG =
+        '<svg class="empty-icon code-icon" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<rect x="1.5" y="1.5" width="29" height="21" rx="4"/>' +
+        '<circle cx="6.8" cy="6.2" r="1.3"/><circle cx="11.6" cy="11" r="1.3"/><path d="M11.8 5.4 6.6 11.8"/>' +
+        '<path d="M16 8.6h9"/><path d="M4.5 15h23" stroke-dasharray="1.6 1.8"/>' +
+        '<rect x="5.5" y="17.3" width="11" height="3" rx="1.5"/></svg>';
 
       function esc(s) {
         return String(s).replace(/[&<>"']/g, function (c) {
@@ -1124,30 +1093,6 @@
         var list = document.getElementById("list");
         list.classList.toggle("is-done", filter !== "avail");
 
-        if (!items.length) {
-          list.innerHTML =
-            filter === "avail"
-              ? '<div class="empty">' +
-                TICKET_SVG +
-                "<strong>" +
-                esc(t("empty.avail")) +
-                "</strong>" +
-                "<p>" +
-                esc(t("empty.sub")) +
-                "</p>" +
-                '<ul class="empty-src">' +
-                ["empty.src1", "empty.src2", "empty.src3"]
-                  .map(function (k) {
-                    return "<li>" + esc(t(k)) + "</li>";
-                  })
-                  .join("") +
-                "</ul></div>"
-              : '<div class="empty"><strong>' +
-                esc(t("empty.done")) +
-                "</strong></div>";
-          return;
-        }
-
         /* 결제화면이 "쿠폰" / "할인코드" 두 칸으로 나뉘어 있으므로
            쿠폰함도 같은 이름, 같은 순서로 나눠 보여준다. */
         function group(kind, titleKey, whereKey) {
@@ -1170,7 +1115,12 @@
             "</p>" +
             (rows.length
               ? rows.map(cardHtml).join("")
-              : '<p class="group-empty">' + esc(t("group.empty")) + "</p>") +
+              : /* 빈 구획: 종류별 아이콘 + 한 줄 */
+                '<div class="group-empty">' +
+                (kind === "coupon" ? TICKET_SVG : CODE_SVG) +
+                "<p>" +
+                esc(t("empty." + kind + "." + filter)) +
+                "</p></div>") +
             "</div>"
           );
         }
