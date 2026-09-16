@@ -44,14 +44,6 @@
         padding: 24px 12px 64px;
       }
 
-      .page-note {
-        max-width: 420px;
-        margin: 0 auto 16px;
-        font-size: 12px;
-        color: var(--text-3);
-        text-align: center;
-      }
-
       .phone {
         max-width: 420px;
         margin: 0 auto;
@@ -59,6 +51,17 @@
         border: 1px solid var(--border);
         border-radius: 12px;
         overflow: hidden;
+      }
+      /* 폰에서는 실제 사이트처럼 화면 전체를 쓴다 */
+      @media (max-width: 480px) {
+        body {
+          padding: 0;
+          background: var(--white);
+        }
+        .phone {
+          border: none;
+          border-radius: 0;
+        }
       }
 
       /* ---------- Nav ---------- */
@@ -126,7 +129,7 @@
 
       /* ---------- Wallet head ---------- */
       .wallet-head {
-        padding: 22px 16px 0;
+        padding: 16px 16px 0;
       }
       .wallet-head h1 {
         font-size: 20px;
@@ -145,13 +148,13 @@
       .wallet-head .sub {
         font-size: 13px;
         color: var(--text-2);
-        margin-top: 6px;
+        margin-top: 4px;
       }
 
       /* ---------- Register box ---------- */
       .register {
-        margin: 16px;
-        padding: 14px;
+        margin: 12px 16px 16px;
+        padding: 12px;
         background: #faf8fc;
         border: 1px solid #e6dcef;
         border-radius: 8px;
@@ -160,7 +163,7 @@
         display: block;
         font-size: 13px;
         font-weight: 700;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
       }
       .register-row {
         display: flex;
@@ -200,7 +203,7 @@
       .register .hint {
         font-size: 12px;
         color: var(--text-3);
-        margin-top: 8px;
+        margin-top: 6px;
       }
       .msg {
         margin-top: 10px;
@@ -218,15 +221,24 @@
         color: var(--warn);
       }
 
+      /* 등록 영역 ↔ 내 쿠폰 목록 구분: 화면 끝까지 닿는 회색 띠.
+         쿠폰 ↔ 할인코드 구분(보라 선)과 모양을 달리해 두 단계를 구별한다. */
+      .band {
+        height: 12px;
+        background: #ebe8ef;
+        border-top: 1px solid #e6e2eb;
+        border-bottom: 1px solid #e6e2eb;
+      }
+
       /* ---------- Filter tabs ---------- */
       .filters {
         display: flex;
         gap: 8px;
-        padding: 0 16px 14px;
+        padding: 14px 16px 12px;
       }
       .filters button {
-        min-height: 40px;
-        padding: 8px 16px;
+        min-height: 34px;
+        padding: 6px 14px;
         border-radius: 999px;
         border: 1px solid var(--border);
         background: var(--white);
@@ -248,13 +260,13 @@
         padding: 0 16px 20px;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
       }
 
       .card {
         border: 1px solid var(--border);
         border-radius: 8px;
-        padding: 16px;
+        padding: 12px 14px;
         position: relative;
         background: var(--white);
       }
@@ -273,26 +285,31 @@
       .card-top {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
-        gap: 10px;
-        margin-bottom: 10px;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 2px;
+      }
+      .card-top > div:first-child {
+        flex: 1;
+        min-width: 0;
       }
       .card-name {
-        font-size: 15px;
-        font-weight: 700;
+        font-size: 13.5px;
+        font-weight: 600;
+        line-height: 1.35;
         letter-spacing: -0.01em;
       }
       /* ---------- Groups (결제화면의 두 입력칸과 1:1로 맞춘 구획) ---------- */
       .group {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
       }
       /* 위=쿠폰 / 아래=할인코드. 두꺼운 가로 띠로 확실히 끊는다.
          .list 의 좌우 여백(16px)을 상쇄해 화면 끝까지 닿게 함. */
       .group + .group {
-        margin-top: 30px;
-        padding-top: 26px;
+        margin-top: 18px;
+        padding-top: 14px;
         border-top: 6px solid var(--purple);
         margin-left: -16px;
         margin-right: -16px;
@@ -305,7 +322,7 @@
         gap: 8px;
       }
       .group-title {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 800;
         color: var(--purple);
         letter-spacing: -0.01em;
@@ -321,7 +338,7 @@
       .group-where {
         font-size: 12px;
         color: var(--text-2);
-        margin-top: -4px;
+        margin-top: -6px;
       }
       .group-empty {
         font-size: 13px;
@@ -331,9 +348,9 @@
 
       .badge {
         flex: 0 0 auto;
-        font-size: 11px;
+        font-size: 10.5px;
         font-weight: 700;
-        padding: 4px 9px;
+        padding: 2px 7px;
         border-radius: 4px;
         white-space: nowrap;
       }
@@ -351,11 +368,12 @@
       }
 
       .amount {
-        font-size: 22px;
+        font-size: 18px;
         font-weight: 800;
         color: var(--purple);
         letter-spacing: -0.02em;
-        margin-bottom: 12px;
+        line-height: 1.3;
+        margin-bottom: 4px;
       }
       .amount .cap {
         font-size: 12px;
@@ -365,18 +383,17 @@
       }
 
       .rows {
-        border-top: 1px dashed var(--border);
-        padding-top: 11px;
         margin: 0;
       }
       .row {
         display: flex;
-        gap: 10px;
-        font-size: 13px;
-        padding: 3px 0;
+        gap: 6px;
+        font-size: 12.5px;
+        line-height: 1.4;
+        padding: 1px 0;
       }
       .row dt {
-        flex: 0 0 74px;
+        flex: 0 0 52px;
         color: var(--text-3);
       }
       .row dd {
@@ -387,19 +404,18 @@
       .codeline {
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin-top: 11px;
-        padding-top: 11px;
-        border-top: 1px dashed var(--border);
+        gap: 6px;
+        margin-top: 8px;
       }
       .codeval {
         flex: 1;
         font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 700;
         letter-spacing: 0.06em;
         background: var(--bg);
-        padding: 8px 10px;
+        line-height: 24px;
+        padding: 6px 10px;
         border-radius: 5px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -407,8 +423,8 @@
       }
       .copy {
         flex: 0 0 auto;
-        min-height: 44px;
-        padding: 8px 15px;
+        height: 36px;
+        padding: 0 14px;
         border: 1px solid var(--purple);
         background: var(--white);
         color: var(--purple);
@@ -435,24 +451,35 @@
         color: var(--warn);
       }
 
-      .card-foot {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 6px;
-      }
+      /* 쿠폰함에서 빼기: 복사 버튼 옆 회색 휴지통 */
       .del {
         flex: 0 0 auto;
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         border: none;
-        background: none;
-        cursor: pointer;
+        border-radius: 5px;
+        background: #f2f2f2;
         color: var(--text-3);
-        font-size: 12px;
-        font-family: inherit;
-        text-decoration: underline;
-        padding: 10px 2px;
+        cursor: pointer;
+      }
+      .del svg {
+        width: 18px;
+        height: 18px;
       }
       .del:hover {
+        background: #fdecea;
         color: var(--warn);
+      }
+      .card-top .del {
+        width: 28px;
+        height: 28px;
+      }
+      .card-top .del svg {
+        width: 15px;
+        height: 15px;
       }
 
       /* ---------- Empty ---------- */
@@ -468,44 +495,9 @@
         font-size: 15px;
         margin-bottom: 6px;
       }
-
-      /* ---------- Dev notes ---------- */
-      .notes {
-        max-width: 420px;
-        margin: 20px auto 0;
-        background: var(--white);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 16px;
-      }
-      .notes h2 {
-        font-size: 14px;
-        font-weight: 800;
-        margin-bottom: 10px;
-        color: var(--purple);
-      }
-      .notes ul {
-        margin: 0;
-        padding-left: 18px;
-      }
-      .notes li {
-        font-size: 12.5px;
-        color: var(--text-2);
-        margin-bottom: 7px;
-        line-height: 1.55;
-      }
-      .notes code {
-        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-        font-size: 11.5px;
-        background: var(--bg);
-        padding: 1px 4px;
-        border-radius: 3px;
-      }
     </style>
   </head>
   <body>
-    <p class="page-note">목업 · 실제 데이터 아님 · 샘플 쿠폰번호는 임의값</p>
-
     <div class="phone">
       <div class="nav">
         <button class="nav-btn" id="langBtn" type="button">
@@ -552,12 +544,11 @@
           />
           <button id="regBtn" type="button" data-i18n="reg.btn">등록</button>
         </div>
-        <p class="hint" data-i18n="reg.hint">
-          쿠폰번호든 할인코드든 이 칸에 넣으시면 아래 알맞은 구획으로
-          들어갑니다.
-        </p>
+        <p class="hint" data-i18n="reg.hint">대소문자는 구분하지 않아요.</p>
         <div id="regMsg"></div>
       </div>
+
+      <div class="band" aria-hidden="true"></div>
 
       <div class="filters">
         <button type="button" class="active" data-filter="avail">
@@ -571,76 +562,6 @@
       </div>
 
       <div class="list" id="list"></div>
-    </div>
-
-    <div class="notes">
-      <h2>개발 노트 (dev handoff)</h2>
-      <ul>
-        <li>
-          목록 = <code>USER_COUPON_WALLET</code> 에 담은 것 <b>+</b>
-          <code>tbl_coupon.customer_sn</code> 가 본인인 기발급분. 두 소스를 합쳐
-          정렬.
-        </li>
-        <li>
-          등록 입력은 <code>CouponService.findByCouponNo()</code> → 없으면
-          <code>DiscountCodeService.findByDiscountCode()</code> 순으로 조회.
-          입력값은 <code>trim()</code> + 대문자 정규화 후 비교.
-        </li>
-        <li>
-          <b>결제 검증 로직은 변경하지 않는다.</b> 쿠폰함은 보관 전용이며 사용
-          가능 여부를 막지 않는다.
-        </li>
-        <li>
-          양도: 쿠폰번호를 알려주면 그대로 사용 가능. <code>[복사]</code> 버튼이
-          양도 경로. 받은 사람도 자기 쿠폰함에 등록 가능.
-        </li>
-        <li>
-          남이 먼저 사용한 경우 → <code>is_use=1</code> 이므로
-          <b>사용완료</b> 로 표시. 사용자 정보는 노출하지 않는다.
-        </li>
-        <li>
-          적용 서비스 표기: 쿠폰은 <code>tbl_coupon_group.service1..10</code>,
-          할인코드는 <code>EVENT_DISCOUNT_CODE.SERVICES</code> 비트마스크 — 두
-          방식을 공통 라벨로 정규화 필요.
-        </li>
-        <li>
-          할인코드는 기간이 2종(<code>START_AT/END_AT</code> = 코드 유효기간,
-          <code>DELIVERED_FROM/BY</code> = 배송일 조건). 둘 다 표기.
-        </li>
-        <li>
-          <b>쿠폰함에서 빼기</b>는 고객이 직접 등록한 건에만 노출. 계정으로 이미
-          발급된 건은 뺄 수 없다 (뺄 대상이 <code>tbl_coupon</code> 원본이
-          되어버리므로).
-        </li>
-        <li>
-          빼기는 <code>USER_COUPON_WALLET</code> 행 삭제일 뿐, 쿠폰 자체는
-          그대로 살아 있다.
-        </li>
-        <li>정렬: 사용 가능 = 만료 임박순, 사용완료·만료 = 최근순.</li>
-        <li>
-          만료 <b>14일 이내</b>면 사용기한 옆에 남은 일수를 붉게 표기. 일수
-          계산은 <b>KST 자정 기준</b> — 고객 기기 시간대로 계산하면 하루
-          어긋난다.
-        </li>
-        <li>모든 날짜는 <b>KST</b> 기준으로 표기.</li>
-        <li>
-          <b>구획은 결제화면과 1:1로 맞춘다.</b> 결제화면 입력칸이
-          <code>#{discount.coupon}</code>(쿠폰) 과
-          <code>#{discount.partner.code}</code>(할인코드/파트너코드) 두 개이므로
-          쿠폰함도 같은 이름, 같은 순서로 나눈다. 결제화면 라벨이 바뀌면 여기도
-          같이 바꿔야 함.
-        </li>
-        <li>
-          표본 쿠폰의 이름과 조건은 2026-09-15 CS Live Reference 시트 실측값.
-          <b>쿠폰번호만 가짜</b> (이 저장소는 공개).
-        </li>
-        <li>
-          ⚠ 시트는 <code>service1~5</code>(SDD·RS·USD·ICD·GCD)만 미러링하므로
-          표본의 적용 서비스는 일부만 검증됨.
-          <code>service6~10</code>(DDD·BF·ISS·KD·D2D)과 할인코드의 할인율은 DB
-          직접 확인 필요함.
-        </li>
-      </ul>
     </div>
 
     <script>
@@ -658,14 +579,13 @@
           "reg.label": "쿠폰번호 또는 할인코드 등록",
           "reg.ph": "예: A1B2C3D4E5",
           "reg.btn": "등록",
-          "reg.hint":
-            "쿠폰번호든 할인코드든 이 칸에 넣으시면 아래 알맞은 구획으로 들어갑니다. 대소문자는 구분하지 않습니다.",
+          "reg.hint": "대소문자는 구분하지 않아요.",
           "filter.avail": "사용 가능",
           "filter.done": "사용완료·만료",
           "lbl.expire": "사용기한",
-          "lbl.services": "적용 서비스",
+          "lbl.services": "서비스",
           "lbl.service_window": "배송일 조건",
-          "lbl.limit": "사용 횟수",
+          "lbl.limit": "횟수",
           "lbl.code": "쿠폰번호",
           "lbl.codeD": "할인코드",
           "lbl.used": "사용일",
@@ -709,18 +629,17 @@
           "reg.label": "Add a coupon number or discount code",
           "reg.ph": "e.g. A1B2C3D4E5",
           "reg.btn": "Add",
-          "reg.hint":
-            "Paste either kind here and it lands in the right section below. Not case-sensitive.",
+          "reg.hint": "Not case-sensitive.",
           "filter.avail": "Available",
           "filter.done": "Used / Expired",
-          "lbl.expire": "Valid until",
-          "lbl.services": "Valid for",
+          "lbl.expire": "Expires",
+          "lbl.services": "Services",
           "lbl.service_window": "Service dates",
-          "lbl.limit": "Usage limit",
+          "lbl.limit": "Uses",
           "lbl.code": "Coupon no.",
           "lbl.codeD": "Discount code",
-          "lbl.used": "Used on",
-          "lbl.booking": "Booking no.",
+          "lbl.used": "Used",
+          "lbl.booking": "Booking",
           "badge.avail": "Available",
           "badge.used": "Used",
           "badge.exp": "Expired",
@@ -889,6 +808,10 @@
         return d < 0 ? null : d;
       }
 
+      var TRASH_SVG =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>';
+
       function esc(s) {
         return String(s).replace(/[&<>"']/g, function (c) {
           return {
@@ -975,11 +898,15 @@
 
         var delBtn =
           c.source === "wallet"
-            ? '<div class="card-foot"><button class="del" type="button" data-del="' +
+            ? '<button class="del" type="button" data-del="' +
               c.id +
-              '">' +
+              '" aria-label="' +
               esc(t("del")) +
-              "</button></div>"
+              '" title="' +
+              esc(t("del")) +
+              '">' +
+              TRASH_SVG +
+              "</button>"
             : "";
 
         var codeBlock = "";
@@ -994,10 +921,8 @@
             '">' +
             esc(t("copy")) +
             "</button>" +
-            "</div>" +
-            delBtn;
-        } else {
-          codeBlock = delBtn;
+            delBtn +
+            "</div>";
         }
 
         return (
@@ -1016,6 +941,7 @@
           '">' +
           esc(badgeTxt) +
           "</span>" +
+          (c.state === "avail" ? "" : delBtn) +
           "</div>" +
           '<div class="amount">' +
           esc(c.amount[lang]) +
