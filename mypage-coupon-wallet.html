@@ -272,6 +272,10 @@
         position: relative;
         background: var(--white);
       }
+      .card.just-added {
+        box-shadow: 0 0 0 3px rgba(81, 42, 114, 0.35);
+        transition: box-shadow 0.3s;
+      }
       .card.spent {
         border-color: var(--border);
         background: #fbfbfb;
@@ -497,16 +501,80 @@
 
       /* ---------- Empty ---------- */
       .empty {
-        padding: 48px 20px;
+        padding: 36px 8px 28px;
         text-align: center;
-        color: var(--text-3);
-        font-size: 14px;
+        color: var(--text-2);
+        font-size: 13px;
+      }
+      .empty-icon {
+        width: 40px;
+        height: 40px;
+        color: #bfaad3;
+        margin-bottom: 8px;
       }
       .empty strong {
         display: block;
-        color: var(--text-2);
-        font-size: 15px;
+        color: var(--text);
+        font-size: 16px;
+        font-weight: 700;
         margin-bottom: 6px;
+      }
+      .empty-src {
+        list-style: none;
+        margin: 14px auto 0;
+        padding: 12px 14px;
+        max-width: 300px;
+        text-align: left;
+        background: #f7f5fa;
+        border-radius: 8px;
+      }
+      .empty-src li {
+        position: relative;
+        padding: 3px 0 3px 14px;
+      }
+      .empty-src li::before {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 11px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--purple);
+      }
+
+      /* ---------- Undo toast ---------- */
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        width: calc(100% - 32px);
+        max-width: 388px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 6px 6px 6px 16px;
+        background: #2b2b2b;
+        color: var(--white);
+        border-radius: 8px;
+        font-size: 13px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+      .toast[hidden] {
+        display: none;
+      }
+      .toast button {
+        min-height: 36px;
+        padding: 0 12px;
+        border: none;
+        background: none;
+        color: var(--lime);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -558,7 +626,6 @@
             />
             <button id="regBtn" type="button" data-i18n="reg.btn">저장</button>
           </div>
-          <p class="hint" data-i18n="reg.hint">대소문자는 구분하지 않아요.</p>
           <div id="regMsg"></div>
         </div>
       </div>
@@ -577,6 +644,11 @@
       <div class="list" id="list"></div>
     </div>
 
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+      <span id="toastMsg"></span>
+      <button type="button" id="undoBtn">Undo</button>
+    </div>
+
     <script>
       var I18N = {
         ko: {
@@ -591,7 +663,6 @@
           "reg.label": "쿠폰번호·할인코드 붙여넣기",
           "reg.ph": "예: A1B2C3D4E5",
           "reg.btn": "저장",
-          "reg.hint": "대소문자는 구분하지 않아요.",
           "filter.avail": "사용 가능",
           "filter.done": "사용완료·만료",
           "lbl.expire": "사용기한",
@@ -606,7 +677,7 @@
           "badge.used": "사용완료",
           "badge.exp": "기간만료",
           "group.coupon": "쿠폰",
-          "group.code": "할인코드/파트너코드",
+          "group.code": "할인코드",
           "group.coupon.where": "결제할 때 [쿠폰] 칸에 입력하세요.",
           "group.code.where":
             "로그인 후, 결제할 때 [할인코드] 칸에 입력하세요.",
@@ -617,9 +688,15 @@
           copied: "복사됨",
           del: "쿠폰함에서 빼기",
           expiring: "{n}일 남음",
-          "empty.avail": "사용 가능한 쿠폰이 없습니다.",
-          "empty.done": "사용했거나 기간이 지난 쿠폰이 없습니다.",
-          "empty.sub": "받으신 쿠폰번호를 위에서 등록해 보세요.",
+          "empty.avail": "아직 저장한 쿠폰이 없어요",
+          "empty.done": "사용했거나 기간이 지난 쿠폰이 없어요",
+          "empty.sub":
+            "받으신 코드를 위 칸에 붙여넣어 주세요. 이런 곳에서 받으셨을 수 있어요.",
+          "empty.src1": "예약 후 받은 감사 메일",
+          "empty.src2": "Visa·ISIC 같은 제휴 카드 혜택",
+          "empty.src3": "네이버·SNS 굿럭 이벤트",
+          "toast.removed": "쿠폰함에서 뺐어요.",
+          undo: "되돌리기",
           "err.dup": "이미 쿠폰함에 있습니다.",
           "err.used": "이미 사용된 쿠폰입니다.",
           "err.exp": "사용기한이 지났습니다.",
@@ -641,7 +718,6 @@
           "reg.label": "Paste a coupon or discount code",
           "reg.ph": "e.g. A1B2C3D4E5",
           "reg.btn": "Save",
-          "reg.hint": "Not case-sensitive.",
           "filter.avail": "Active",
           "filter.done": "Used / Expired",
           "lbl.expire": "Expires",
@@ -656,7 +732,7 @@
           "badge.used": "Used",
           "badge.exp": "Expired",
           "group.coupon": "Coupon",
-          "group.code": "Discount / Partner code",
+          "group.code": "Discount code",
           "group.coupon.where": "Enter it in the [Coupon] field at checkout.",
           "group.code.where":
             "Log in first, then enter it in the [Discount code] field at checkout.",
@@ -667,9 +743,14 @@
           copied: "Copied",
           del: "Remove from wallet",
           expiring: "{n} days left",
-          "empty.avail": "No active coupons.",
-          "empty.done": "No used or expired coupons.",
-          "empty.sub": "Add a coupon number above to get started.",
+          "empty.avail": "No coupons saved yet",
+          "empty.done": "No used or expired coupons",
+          "empty.sub": "Paste a code above. You may have received one from:",
+          "empty.src1": "Your thank-you email after booking",
+          "empty.src2": "Partner card benefits, like Visa or ISIC",
+          "empty.src3": "Goodlugg events on Naver and social media",
+          "toast.removed": "Removed from your wallet.",
+          undo: "Undo",
           "err.dup": "Already in your wallet.",
           "err.used": "This coupon has already been used.",
           "err.exp": "This coupon has expired.",
@@ -677,7 +758,7 @@
           "err.blank": "Please enter a coupon number or discount code.",
           "ok.added": "Saved to your wallet.",
           "ok.removed": "Removed from your wallet.",
-          cap: "max {n}",
+          cap: "up to {n}",
         },
       };
 
@@ -825,6 +906,10 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
         '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>';
 
+      var TICKET_SVG =
+        '<svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>';
+
       function esc(s) {
         return String(s).replace(/[&<>"']/g, function (c) {
           return {
@@ -941,6 +1026,8 @@
           "" +
           '<div class="card' +
           (c.state === "avail" ? "" : " spent") +
+          '" data-id="' +
+          c.id +
           '">' +
           '<div class="card-top">' +
           "<div>" +
@@ -948,12 +1035,15 @@
           esc(c.name[lang]) +
           "</div>" +
           "</div>" +
-          '<span class="badge ' +
-          badgeCls +
-          '">' +
-          esc(badgeTxt) +
-          "</span>" +
-          (c.state === "avail" ? "" : delBtn) +
+          /* 사용 가능 탭은 탭 이름이 곧 상태라 배지를 달지 않는다 */
+          (c.state === "avail"
+            ? ""
+            : '<span class="badge ' +
+              badgeCls +
+              '">' +
+              esc(badgeTxt) +
+              "</span>" +
+              delBtn) +
           "</div>" +
           '<div class="amount">' +
           esc(c.amount[lang]) +
@@ -974,6 +1064,15 @@
         var done = DATA.filter(function (c) {
           return c.state !== "avail";
         });
+        /* 정렬: 사용 가능 = 만료 임박순, 사용완료·만료 = 최근순 (날짜가 YYYY.MM.DD 라 문자열 비교로 충분) */
+        avail.sort(function (a, b) {
+          return a.expire < b.expire ? -1 : a.expire > b.expire ? 1 : 0;
+        });
+        done.sort(function (a, b) {
+          var x = a.used || a.expire;
+          var y = b.used || b.expire;
+          return x < y ? 1 : x > y ? -1 : 0;
+        });
         document.getElementById("cntAvail").textContent = avail.length;
         document.getElementById("cntDone").textContent = done.length;
 
@@ -983,15 +1082,29 @@
 
         if (!items.length) {
           list.innerHTML =
-            '<div class="empty"><strong>' +
-            esc(filter === "avail" ? t("empty.avail") : t("empty.done")) +
-            "</strong>" +
-            esc(t("empty.sub")) +
-            "</div>";
+            filter === "avail"
+              ? '<div class="empty">' +
+                TICKET_SVG +
+                "<strong>" +
+                esc(t("empty.avail")) +
+                "</strong>" +
+                "<p>" +
+                esc(t("empty.sub")) +
+                "</p>" +
+                '<ul class="empty-src">' +
+                ["empty.src1", "empty.src2", "empty.src3"]
+                  .map(function (k) {
+                    return "<li>" + esc(t(k)) + "</li>";
+                  })
+                  .join("") +
+                "</ul></div>"
+              : '<div class="empty"><strong>' +
+                esc(t("empty.done")) +
+                "</strong></div>";
           return;
         }
 
-        /* 결제화면이 "쿠폰" / "할인코드/파트너코드" 두 칸으로 나뉘어 있으므로
+        /* 결제화면이 "쿠폰" / "할인코드" 두 칸으로 나뉘어 있으므로
            쿠폰함도 같은 이름, 같은 순서로 나눠 보여준다. */
         function group(kind, titleKey, whereKey) {
           var rows = items.filter(function (c) {
@@ -1041,6 +1154,30 @@
         render();
       }
 
+      /* 빼기 직후 몇 초간 되돌리기 제공 (확인 팝업 대신) */
+      var lastRemoved = null;
+      var toastTimer = null;
+      function showToast() {
+        var el = document.getElementById("toast");
+        document.getElementById("toastMsg").textContent = t("toast.removed");
+        document.getElementById("undoBtn").textContent = t("undo");
+        el.hidden = false;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          el.hidden = true;
+          lastRemoved = null;
+        }, 5000);
+      }
+      document.getElementById("undoBtn").addEventListener("click", function () {
+        if (lastRemoved) {
+          DATA.splice(lastRemoved.index, 0, lastRemoved.item);
+          lastRemoved = null;
+          render();
+        }
+        clearTimeout(toastTimer);
+        document.getElementById("toast").hidden = true;
+      });
+
       function showMsg(cls, key) {
         document.getElementById("regMsg").innerHTML =
           '<div class="msg ' + cls + '">' + esc(t(key)) + "</div>";
@@ -1068,11 +1205,16 @@
         var delBtn = e.target.closest(".del");
         if (delBtn) {
           var id = Number(delBtn.getAttribute("data-del"));
-          DATA = DATA.filter(function (c) {
-            return c.id !== id;
-          });
-          showMsg("ok", "ok.removed");
+          for (var n = 0; n < DATA.length; n++) {
+            if (DATA[n].id === id) {
+              lastRemoved = { item: DATA[n], index: n };
+              DATA.splice(n, 1);
+              break;
+            }
+          }
+          document.getElementById("regMsg").innerHTML = "";
           render();
+          showToast();
           return;
         }
 
@@ -1092,9 +1234,11 @@
         }, 1400);
       });
 
-      /* Demo only: fake lookup so reviewers can see each message state. */
+      /* 목업용 조회: 표본 쿠폰(CATALOG)에서 코드를 찾는다. 실제로는 서버 조회.
+         빈 쿠폰함(?empty=1)에서 A1B2C3D4E5, WelcomeGoodlugg10 등을 붙여넣으면 카드가 생긴다. */
       document.getElementById("regBtn").addEventListener("click", function () {
-        var raw = document.getElementById("codeInput").value.trim();
+        var input = document.getElementById("codeInput");
+        var raw = input.value.trim();
         if (!raw) {
           showMsg("err", "err.blank");
           return;
@@ -1108,32 +1252,29 @@
           showMsg("err", "err.dup");
           return;
         }
-        if (v === "USED") {
-          showMsg("err", "err.used");
-          return;
+        var found = null;
+        for (var n = 0; n < CATALOG.length; n++) {
+          if (CATALOG[n].code.toUpperCase() === v) {
+            found = CATALOG[n];
+          }
         }
-        if (v === "EXPIRED") {
-          showMsg("err", "err.exp");
-          return;
-        }
-        if (v !== "DEMO") {
+        if (!found) {
           showMsg("err", "err.none");
           return;
         }
+        if (found.state === "used") {
+          showMsg("err", "err.used");
+          return;
+        }
+        if (found.state === "exp") {
+          showMsg("err", "err.exp");
+          return;
+        }
 
-        DATA.unshift({
-          id: Date.now(),
-          kind: "coupon",
-          state: "avail",
-          source: "wallet",
-          name: { ko: "신규 등록 쿠폰", en: "Newly added coupon" },
-          amount: { ko: "₩5,000 할인", en: "₩5,000 off" },
-          cap: null,
-          expire: "2026.12.31",
-          services: { ko: "전 서비스", en: "All services" },
-          code: "DEMO",
-        });
-        document.getElementById("codeInput").value = "";
+        var added = JSON.parse(JSON.stringify(found));
+        added.source = "wallet";
+        DATA.push(added);
+        input.value = "";
         showMsg("ok", "ok.added");
         filter = "avail";
         for (var k = 0; k < filterBtns.length; k++) {
@@ -1141,8 +1282,29 @@
         }
         filterBtns[0].classList.add("active");
         render();
+        /* 방금 저장한 카드로 스크롤하고 잠깐 강조 */
+        var card = document.querySelector('[data-id="' + added.id + '"]');
+        if (card) {
+          card.classList.add("just-added");
+          card.scrollIntoView({ behavior: "smooth", block: "center" });
+          setTimeout(function () {
+            card.classList.remove("just-added");
+          }, 1600);
+        }
       });
 
+      /* 목업 확인용: 주소 끝에 ?empty=1 을 붙이면 빈 화면 */
+      var CATALOG = JSON.parse(JSON.stringify(DATA));
+      if (/[?&]empty=1/.test(location.search)) {
+        DATA = [];
+      }
+      document
+        .getElementById("codeInput")
+        .addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            document.getElementById("regBtn").click();
+          }
+        });
       applyLang();
     </script>
   </body>
