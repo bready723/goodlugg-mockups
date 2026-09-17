@@ -684,6 +684,7 @@
           "filter.done": "사용완료·만료",
           "lbl.expire": "사용기한",
           "lbl.services": "서비스",
+          "lbl.used_on": "사용 서비스",
           "lbl.service_window": "배송일 조건",
           "lbl.limit": "횟수",
           "lbl.code": "쿠폰번호",
@@ -735,11 +736,12 @@
           "filter.done": "Used / Expired",
           "lbl.expire": "Expires",
           "lbl.services": "Services",
+          "lbl.used_on": "Used for",
           "lbl.service_window": "Service dates",
           "lbl.limit": "Uses",
           "lbl.code": "Coupon no.",
           "lbl.codeD": "Discount code",
-          "lbl.used": "Used",
+          "lbl.used": "Used on",
           "lbl.booking": "Booking",
           "badge.avail": "Active",
           "badge.used": "Used",
@@ -877,6 +879,7 @@
             ko: "호텔-공항 짐배송 · 도시간 짐배송",
             en: "Hotel-Airport · Inter-City",
           },
+          usedService: { ko: "호텔-공항 짐배송", en: "Hotel-Airport" },
           code: "N4V6B8H1J3",
           used: "2026.08.02",
           booking: "GL26080200123",
@@ -979,11 +982,22 @@
           " (KST)" +
           warn +
           "</dd></div>";
+        /* 사용완료 카드는 적용 가능 서비스 목록 대신 실제로 쓴 서비스 한 개만 */
         rows +=
           '<div class="row"><dt>' +
-          esc(t("lbl.services")) +
+          esc(
+            t(
+              c.state === "used" && c.usedService
+                ? "lbl.used_on"
+                : "lbl.services",
+            ),
+          ) +
           "</dt><dd>" +
-          esc(c.services[lang]) +
+          esc(
+            c.state === "used" && c.usedService
+              ? c.usedService[lang]
+              : c.services[lang],
+          ) +
           "</dd></div>";
         if (c.limit) {
           rows +=
@@ -1118,10 +1132,13 @@
             rows.length +
             "</span>" +
             "</div>" +
-            '<p class="group-where">' +
-            /* [ ] 안의 결제화면 칸 이름은 굵은 빨강 */
-            esc(t(whereKey)).replace(/\[(.+?)\]/g, "<strong>$1</strong>") +
-            "</p>" +
+            /* 안내 문구는 사용 가능 탭에만. 이미 쓴 쿠폰에는 넣을 곳 안내가 필요 없다 */
+            (filter === "avail"
+              ? '<p class="group-where">' +
+                /* [ ] 안의 결제화면 칸 이름은 굵은 빨강 */
+                esc(t(whereKey)).replace(/\[(.+?)\]/g, "<strong>$1</strong>") +
+                "</p>"
+              : "") +
             (rows.length
               ? rows.map(cardHtml).join("")
               : /* 빈 구획: 종류별 아이콘 + 한 줄 */
