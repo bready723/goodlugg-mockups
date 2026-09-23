@@ -460,36 +460,6 @@
         margin-top: 8px;
       }
 
-      /* ===== Dev notes (mockup only) ===== */
-      .dev-notes {
-        margin: 32px 16px 0;
-        padding: 12px 14px;
-        border: 1px dashed #999;
-        border-radius: 10px;
-        font-size: 13px;
-        color: #333;
-        background: #fffdf3;
-      }
-
-      .dev-notes summary {
-        cursor: pointer;
-        font-weight: 700;
-      }
-
-      .dev-notes ul {
-        margin: 8px 0 0 18px;
-        display: grid;
-        gap: 6px;
-      }
-
-      .dev-notes code {
-        font-size: 12px;
-        background: #f1f1f1;
-        padding: 0 3px;
-        border-radius: 3px;
-        word-break: break-all;
-      }
-
       /* ===== Sticky Book Now bar (same as D2D .d2d-bottom-bar) ===== */
       .bottom-bar {
         position: sticky;
@@ -600,7 +570,6 @@
           After 18:00
         </button>
       </div>
-      <a href="#dev-notes">Dev notes</a>
     </section>
 
     <div class="page">
@@ -855,45 +824,6 @@
             What's Not Covered
           </button>
         </section>
-
-        <details class="dev-notes" id="dev-notes">
-          <summary>Notes for dev (mockup only, not on the real page)</summary>
-          <ul>
-            <li>
-              Route: <code>/qr/{code}</code> shows this page, and Book Now opens
-              <code>/qr/{code}/booking</code>. Both paths already map to
-              <code>D2dController.viewQrPlaceBooking</code>. UTM redirect stays
-              as it is.
-            </li>
-            <li>
-              This reverses the 8/21 "form first, no landing" decision. CEO
-              sign-off needed.
-            </li>
-            <li>
-              Copy goes into <code>M17N_MESSAGE</code> (KO / EN / JA / ZH_CN /
-              ZH_TW). Render times and price in the server HTML, not by JS.
-            </li>
-            <li>
-              Button by KST time: before 10:30 "Bookings open at 10:30", after
-              18:00 "Closed for today". Use the review bar at the top to see
-              each state.
-            </li>
-            <li>
-              Mismatch to fix: the booking form's shopping bag option says
-              "₩2,000 per extra kg", but this page says "Larger items: book as
-              carry-on" (CEO email to The Hyundai, 09-21).
-            </li>
-            <li>
-              Other Inquiries box and "What's Not Covered" popup: reuse the D2D
-              ones as is (<code>d2d.notice.inquiries.*</code> keys and
-              <code>popups/compensationExemptionsPolicy</code>).
-            </li>
-            <li>
-              Floating WhatsApp / Ask AI buttons must sit above the Book Now bar
-              (D2D uses <code>bottom: 64px</code>).
-            </li>
-          </ul>
-        </details>
       </main>
 
       <div class="bottom-bar">
@@ -994,12 +924,6 @@
         dlg.addEventListener("click", function (e) {
           if (e.target === dlg) dlg.close();
         });
-
-        document
-          .querySelector('.mock-bar a[href="#dev-notes"]')
-          .addEventListener("click", function () {
-            document.getElementById("dev-notes").open = true;
-          });
 
         var q = new URLSearchParams(location.search).get("state");
         setState(STATES[q] ? q : "open");
