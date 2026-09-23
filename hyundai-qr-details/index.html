@@ -293,14 +293,14 @@
         list-style: none;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
       }
 
       .musts li {
         display: flex;
         gap: 4px;
-        font-size: var(--fs-small);
-        line-height: 1.6;
+        font-size: var(--fs-body);
+        line-height: 1.5;
         letter-spacing: -0.01em;
       }
 
@@ -477,8 +477,7 @@
 
       /* Below 393 px the second copy line breaks after "accommodation" */
       @media (max-width: 392px) {
-        .l-sm,
-        .l-xs {
+        .l-sm {
           display: block;
         }
       }
@@ -498,7 +497,7 @@
         }
 
         .musts li {
-          font-size: 12px;
+          font-size: 13px;
         }
       }
 
@@ -717,7 +716,8 @@
             <li>
               <span class="ast" aria-hidden="true">✱</span
               ><span
-                ><span class="l">Seal your bag with the sticker provided.</span
+                ><span class="l">Seal your bag</span
+                ><span class="l">with the sticker provided.</span
                 ><span class="l"
                   ><b>Items inside are not covered.</b></span
                 ></span
@@ -736,20 +736,15 @@
               ><span
                 ><span class="l">Your shopping bags are delivered</span
                 ><span class="l">to your hotel's front desk.</span
-                ><span class="l"
-                  ><b
-                    >Hotel booking number and voucher
-                    <span class="l-xs">required.</span></b
-                  ></span
-                ></span
+                ><span class="l"><b>Hotel booking number</b></span
+                ><span class="l"><b>and voucher required.</b></span></span
               >
             </li>
             <li>
               <span class="ast" aria-hidden="true">✱</span
               ><span
-                ><span class="l"
-                  ><b>Same-day bookings are non-refundable.</b></span
-                ></span
+                ><span class="l"><b>Same-day bookings</b></span
+                ><span class="l"><b>are non-refundable.</b></span></span
               >
             </li>
           </ul>
