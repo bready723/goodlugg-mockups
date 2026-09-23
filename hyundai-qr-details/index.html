@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Hyundai Seoul: Shopping Bag Same-Day Delivery</title>
+    <link
+      rel="stylesheet"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <style>
+      :root {
+        --purple: #512a72;
+        --lime: #c7c22e;
+        --ink: #121212;
+        --sub: #555555;
+        --card: #f7f8fc;
+        --lavender: #f1ecf7;
+        --line: #e4e1ea;
+        --page-bg: #f2f2f2;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        font-family:
+          "Pretendard",
+          -apple-system,
+          BlinkMacSystemFont,
+          system-ui,
+          sans-serif;
+        color: var(--ink);
+        background: var(--page-bg);
+        line-height: 1.5;
+        word-break: keep-all;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* A phrase that must stay on one line */
+      .l {
+        display: block;
+        white-space: nowrap;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+
+      /* ===== Mockup review bar (not part of the real page) ===== */
+      .mock-bar {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 8px 12px;
+        background: #2b2b2b;
+        color: #fff;
+        font-size: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px 10px;
+      }
+
+      .mock-bar strong {
+        font-weight: 700;
+        color: var(--lime);
+      }
+
+      .mock-bar .states {
+        display: flex;
+        gap: 4px;
+      }
+
+      .mock-bar button {
+        font: inherit;
+        font-size: 12px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        border: 1px solid #777;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .mock-bar button[aria-pressed="true"] {
+        background: #fff;
+        color: #2b2b2b;
+        border-color: #fff;
+      }
+
+      .mock-bar a {
+        color: #fff;
+        margin-left: auto;
+      }
+
+      /* ===== Page shell (same width rule as the live site) ===== */
+      .page {
+        max-width: 480px;
+        margin: 0 auto;
+        background: #fff;
+        min-height: 100vh;
+        padding-bottom: 96px;
+      }
+
+      .gnb {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        height: 56px;
+        padding: 0 16px;
+        background: #fff;
+      }
+
+      .gnb .logo {
+        display: block;
+        height: 28px;
+        width: auto;
+      }
+
+      .gnb .icons {
+        justify-self: end;
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .gnb svg {
+        display: block;
+      }
+
+      .banner {
+        aspect-ratio: 2 / 1;
+        overflow: hidden;
+      }
+
+      .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ===== Intro ===== */
+      .intro {
+        padding: 28px 24px 8px;
+        text-align: center;
+      }
+
+      .intro h1 {
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 1.3;
+        letter-spacing: 0.01em;
+        color: var(--purple);
+      }
+
+      .intro .lead {
+        margin-top: 12px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      .intro .also {
+        margin-top: 10px;
+        font-size: 14px;
+        color: var(--sub);
+        line-height: 1.5;
+      }
+
+      /* ===== Cards ===== */
+      .card {
+        margin: 20px 16px 0;
+        padding: 18px 16px 18px;
+        border-radius: 12px;
+        background: var(--card);
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 12px;
+      }
+
+      /* Operating hours table: D2D calculator tone (lavender head, purple text) */
+      .hours {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .hours th {
+        background: var(--lavender);
+        color: var(--purple);
+        font-size: 14px;
+        font-weight: 700;
+        padding: 10px 6px 8px;
+        line-height: 1.3;
+      }
+
+      .hours th small {
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 2px;
+      }
+
+      .hours td {
+        font-size: 17px;
+        padding: 11px 6px;
+        border-top: 1px solid var(--line);
+      }
+
+      .hours td b {
+        font-weight: 700;
+      }
+
+      .hours .arr {
+        color: var(--sub);
+        width: 36px;
+        font-size: 16px;
+      }
+
+      .facts {
+        margin-top: 14px;
+        display: grid;
+        gap: 6px;
+      }
+
+      .facts div {
+        display: grid;
+        grid-template-columns: 76px 1fr;
+        font-size: 14px;
+      }
+
+      .facts dt {
+        color: var(--sub);
+      }
+
+      .facts dd {
+        font-weight: 600;
+      }
+
+      /* Price */
+      .price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+
+      .price-num {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--purple);
+        letter-spacing: -0.01em;
+      }
+
+      .price-unit {
+        font-size: 15px;
+        color: var(--sub);
+      }
+
+      .price-sub {
+        margin-top: 2px;
+        font-size: 14px;
+        color: var(--sub);
+      }
+
+      /* ===== How it works (same pattern as D2D .process-section) ===== */
+      .process {
+        padding: 32px 20px 8px;
+      }
+
+      .section-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 18px;
+      }
+
+      .process-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .process-step {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .step-icon {
+        width: 46px;
+        height: 46px;
+        flex-shrink: 0;
+      }
+
+      .step-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--purple);
+        letter-spacing: 0.04em;
+      }
+
+      .step-description {
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      /* ===== Must-Knows (same pattern as D2D Frame 29 gray card) ===== */
+      .musts {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+      }
+
+      .musts li {
+        display: flex;
+        gap: 6px;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .musts .ast {
+        flex-shrink: 0;
+        width: 14px;
+        text-align: center;
+        color: var(--purple);
+      }
+
+      .musts b {
+        font-weight: 700;
+      }
+
+      /* ===== Dev notes (mockup only) ===== */
+      .dev-notes {
+        margin: 32px 16px 0;
+        padding: 12px 14px;
+        border: 1px dashed #999;
+        border-radius: 10px;
+        font-size: 13px;
+        color: #333;
+        background: #fffdf3;
+      }
+
+      .dev-notes summary {
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .dev-notes ul {
+        margin: 8px 0 0 18px;
+        display: grid;
+        gap: 6px;
+      }
+
+      .dev-notes code {
+        font-size: 12px;
+        background: #f1f1f1;
+        padding: 0 3px;
+        border-radius: 3px;
+        word-break: break-all;
+      }
+
+      /* ===== Sticky Book Now bar (same as D2D .d2d-bottom-bar) ===== */
+      .bottom-bar {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        width: 100%;
+        max-width: 480px;
+        padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid #eee;
+        z-index: 100;
+      }
+
+      .book-btn {
+        width: 100%;
+        min-height: 48px;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        background: var(--purple);
+        color: #fff;
+        font: inherit;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .book-btn:focus-visible {
+        outline: 3px solid var(--lime);
+        outline-offset: 2px;
+      }
+
+      .book-btn:disabled {
+        background: #d9d6de;
+        color: #5b5566;
+        cursor: not-allowed;
+      }
+
+      .bar-note {
+        margin-top: 6px;
+        font-size: 12px;
+        text-align: center;
+        color: var(--sub);
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 88px;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+        max-width: 440px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        background: #2b2b2b;
+        color: #fff;
+        font-size: 13px;
+        text-align: center;
+        z-index: 101;
+      }
+
+      /* Small phones (320 to 359 px): keep every hand-set line inside its card */
+      @media (max-width: 359px) {
+        .card {
+          margin-left: 12px;
+          margin-right: 12px;
+          padding-left: 12px;
+          padding-right: 12px;
+        }
+
+        .musts li {
+          font-size: 13px;
+        }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .book-btn {
+          transition: opacity 0.2s;
+        }
+
+        .book-btn:hover:not(:disabled) {
+          opacity: 0.9;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="mock-bar" aria-label="Mockup controls">
+      <strong>Mockup</strong>
+      <span>Button state:</span>
+      <div class="states">
+        <button type="button" data-state="open" aria-pressed="true">
+          Open
+        </button>
+        <button type="button" data-state="before" aria-pressed="false">
+          Before 10:30
+        </button>
+        <button type="button" data-state="after" aria-pressed="false">
+          After 18:00
+        </button>
+      </div>
+      <a href="#dev-notes">Dev notes</a>
+    </section>
+
+    <div class="page">
+      <header class="gnb">
+        <span></span>
+        <img
+          class="logo"
+          src="goodlugg-logo.png"
+          alt="Goodlugg"
+          width="109"
+          height="28"
+        />
+        <div class="icons" aria-hidden="true">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#222"
+            stroke-width="1.6"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path
+              d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"
+            />
+          </svg>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#222"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </div>
+      </header>
+
+      <div class="banner">
+        <img
+          src="hyundai-banner.jpg"
+          alt="The Hyundai Seoul atrium"
+          width="712"
+          height="354"
+        />
+      </div>
+
+      <main>
+        <section class="intro">
+          <h1>
+            <span class="l">SHOPPING BAG</span>
+            <span class="l">SAME-DAY DELIVERY</span>
+          </h1>
+          <p class="lead">
+            <span class="l">We deliver your shopping bags</span>
+            <span class="l">to your Seoul hotel the same day.</span>
+          </p>
+          <p class="also">
+            <span class="l">We also deliver to airports</span>
+            <span class="l">and any accommodation across Korea.</span>
+          </p>
+        </section>
+
+        <section class="card" aria-labelledby="hours-title">
+          <h2 class="card-title" id="hours-title">Operating Hours</h2>
+          <table class="hours">
+            <caption class="sr-only">
+              Drop-off and arrival times
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Drop off<small>at The Hyundai</small></th>
+                <th scope="col" class="arr"><span class="sr-only">to</span></th>
+                <th scope="col">Arrives<small>at your Seoul hotel</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>by <b>15:00</b></td>
+                <td class="arr" aria-hidden="true">→</td>
+                <td>by <b>19:00</b></td>
+              </tr>
+              <tr>
+                <td>by <b>18:00</b></td>
+                <td class="arr" aria-hidden="true">→</td>
+                <td>by <b>22:00</b></td>
+              </tr>
+            </tbody>
+          </table>
+          <dl class="facts">
+            <div>
+              <dt>Open</dt>
+              <dd>10:30 to 18:00, every day</dd>
+            </div>
+            <div>
+              <dt>Location</dt>
+              <dd>1F Global Lounge</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="card" aria-labelledby="price-title">
+          <h2 class="card-title" id="price-title">Price</h2>
+          <p class="price-row">
+            <span class="price-num">₩16,900</span>
+            <span class="price-unit">per bag</span>
+          </p>
+          <p class="price-sub">Shopping bags to any Seoul hotel</p>
+        </section>
+
+        <section class="process" aria-labelledby="how-title">
+          <h2 class="section-title" id="how-title">How It Works</h2>
+          <ol class="process-list">
+            <li class="process-step">
+              <img
+                class="step-icon"
+                src="step1_icon.png"
+                alt=""
+                width="46"
+                height="46"
+              />
+              <div>
+                <h3 class="step-title">STEP 1</h3>
+                <p class="step-description">
+                  <span class="l">Scan the QR</span>
+                  <span class="l">and book by 18:00</span>
+                </p>
+              </div>
+            </li>
+            <li class="process-step">
+              <img
+                class="step-icon"
+                src="step2_icon.png"
+                alt=""
+                width="46"
+                height="46"
+              />
+              <div>
+                <h3 class="step-title">STEP 2</h3>
+                <p class="step-description">
+                  <span class="l">Seal the bag, attach the tag</span>
+                  <span class="l">and upload a photo</span>
+                </p>
+              </div>
+            </li>
+            <li class="process-step">
+              <img
+                class="step-icon"
+                src="step3_icon.png"
+                alt=""
+                width="46"
+                height="46"
+              />
+              <div>
+                <h3 class="step-title">STEP 3</h3>
+                <p class="step-description">
+                  <span class="l">Track pickup and delivery</span>
+                  <span class="l">in real time</span>
+                </p>
+              </div>
+            </li>
+            <li class="process-step">
+              <img
+                class="step-icon"
+                src="step4_icon.png"
+                alt=""
+                width="46"
+                height="46"
+              />
+              <div>
+                <h3 class="step-title">STEP 4</h3>
+                <p class="step-description">
+                  <span class="l">Collect your bags</span>
+                  <span class="l">at your hotel front desk</span>
+                </p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="card" aria-labelledby="musts-title">
+          <h2 class="card-title" id="musts-title">Must-Knows</h2>
+          <ul class="musts">
+            <li>
+              <span class="ast" aria-hidden="true">✱</span
+              ><span
+                ><span class="l"><b>Max per bag:</b> L+W+H 100 cm, 7 kg.</span
+                ><span class="l">Larger items: book as carry-on.</span></span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">✱</span
+              ><span
+                ><span class="l">Seal your bag with the sticker provided.</span
+                ><span class="l"
+                  ><b>Items inside are not covered.</b></span
+                ></span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">✱</span
+              ><span
+                ><span class="l"
+                  >No valuables, cash or fragile items.</span
+                ></span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">✱</span
+              ><span
+                ><span class="l">Your hotel needs a staffed front desk.</span
+                ><span class="l"
+                  >Have your hotel booking name ready.</span
+                ></span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">✱</span
+              ><span
+                ><span class="l"
+                  ><b>Same-day bookings are non-refundable.</b></span
+                ></span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">✱</span
+              ><span
+                ><span class="l">24/7 live chat: KakaoTalk (goodlugg)</span
+                ><span class="l">and WhatsApp.</span></span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">✱</span
+              ><span
+                ><span class="l">Report any issue within 6 hours</span
+                ><span class="l">of delivery.</span></span
+              >
+            </li>
+          </ul>
+        </section>
+
+        <details class="dev-notes" id="dev-notes">
+          <summary>Notes for dev (mockup only, not on the real page)</summary>
+          <ul>
+            <li>
+              Route: <code>/qr/{code}</code> shows this page, and Book Now opens
+              <code>/qr/{code}/booking</code>. Both paths already map to
+              <code>D2dController.viewQrPlaceBooking</code>. UTM redirect stays
+              as it is.
+            </li>
+            <li>
+              This reverses the 8/21 "form first, no landing" decision. CEO
+              sign-off needed.
+            </li>
+            <li>
+              Copy goes into <code>M17N_MESSAGE</code> (KO / EN / JA / ZH_CN /
+              ZH_TW). Render times and price in the server HTML, not by JS.
+            </li>
+            <li>
+              Button by KST time: before 10:30 "Bookings open at 10:30", after
+              18:00 "Closed for today". Use the review bar at the top to see
+              each state.
+            </li>
+            <li>
+              Mismatch to fix: the booking form's shopping bag option says
+              "₩2,000 per extra kg", but this page says "Larger items: book as
+              carry-on" (CEO email to The Hyundai, 09-21).
+            </li>
+            <li>
+              Floating WhatsApp / Ask AI buttons must sit above the Book Now bar
+              (D2D uses <code>bottom: 64px</code>).
+            </li>
+          </ul>
+        </details>
+      </main>
+    </div>
+
+    <div class="bottom-bar">
+      <button type="button" class="book-btn" id="bookBtn">Book Now</button>
+      <p class="bar-note" id="barNote" hidden></p>
+    </div>
+
+    <div class="toast" id="toast" role="status" hidden></div>
+
+    <script>
+      (function () {
+        var btn = document.getElementById("bookBtn");
+        var note = document.getElementById("barNote");
+        var toast = document.getElementById("toast");
+        var stateButtons = document.querySelectorAll(".mock-bar [data-state]");
+        var timer;
+
+        var STATES = {
+          open: { label: "Book Now", disabled: false, note: "" },
+          before: {
+            label: "Bookings open at 10:30",
+            disabled: true,
+            note: "Same-day delivery: book and drop off 10:30 to 18:00",
+          },
+          after: {
+            label: "Closed for today",
+            disabled: true,
+            note: "Bookings open again tomorrow at 10:30",
+          },
+        };
+
+        function setState(name) {
+          var s = STATES[name] || STATES.open;
+          btn.textContent = s.label;
+          btn.disabled = s.disabled;
+          note.textContent = s.note;
+          note.hidden = !s.note;
+          stateButtons.forEach(function (b) {
+            b.setAttribute("aria-pressed", String(b.dataset.state === name));
+          });
+          document.body.dataset.state = name;
+        }
+
+        stateButtons.forEach(function (b) {
+          b.addEventListener("click", function () {
+            setState(b.dataset.state);
+          });
+        });
+
+        btn.addEventListener("click", function () {
+          toast.textContent =
+            "Mockup: the real button opens the booking form (/qr/hyundai-seoul/booking).";
+          toast.hidden = false;
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            toast.hidden = true;
+          }, 2600);
+        });
+
+        var q = new URLSearchParams(location.search).get("state");
+        setState(STATES[q] ? q : "open");
+      })();
+    </script>
+  </body>
+</html>
