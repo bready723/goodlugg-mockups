@@ -169,6 +169,10 @@
         color: var(--ink);
       }
 
+      .intro strong {
+        font-weight: 700;
+      }
+
       .intro .lead {
         margin-top: 14px;
       }
@@ -518,8 +522,8 @@
         z-index: 101;
       }
 
-      /* Below 375 px the second copy line breaks after "accommodation" */
-      @media (max-width: 374px) {
+      /* Below 393 px the second copy line breaks after "accommodation" */
+      @media (max-width: 392px) {
         .l-sm {
           display: block;
         }
@@ -627,13 +631,18 @@
           </h1>
           <p class="lead">
             <span class="l">We deliver your shopping bags</span>
-            <span class="l">to your Seoul hotel the same day.</span>
+            <span class="l"
+              ><strong>to your Seoul hotel the same day.</strong></span
+            >
           </p>
           <p class="also">
             <span class="l">We also deliver to airports</span>
             <span class="l"
-              >and any accommodation
-              <span class="l-sm">across Korea.</span></span
+              >and
+              <strong
+                >any accommodation
+                <span class="l-sm">across Korea.</span></strong
+              ></span
             >
           </p>
         </section>
