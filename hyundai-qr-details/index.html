@@ -250,6 +250,14 @@
         padding: 32px 20px 8px;
       }
 
+      /* Must-Knows: no box, aligned with How It Works */
+      .card.plain {
+        background: none;
+        border-radius: 0;
+        margin: 16px 0 0;
+        padding: 12px 20px 0;
+      }
+
       .section-title {
         font-size: var(--fs-sub);
         font-weight: 700;
@@ -707,7 +715,7 @@
           </ol>
         </section>
 
-        <section class="card" aria-labelledby="musts-title">
+        <section class="card plain" aria-labelledby="musts-title">
           <h2 class="card-title" id="musts-title">Must-Knows</h2>
           <ul class="musts">
             <li>
