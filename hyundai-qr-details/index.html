@@ -103,13 +103,49 @@
         margin-left: auto;
       }
 
-      /* ===== Page shell (same width rule as the live site) ===== */
+      /* ===== Page shell ===== */
       .page {
         max-width: 480px;
         margin: 0 auto;
         background: #fff;
         min-height: 100vh;
-        padding-bottom: 96px;
+      }
+
+      /* Computer screens: show the page inside a phone-sized frame (393 x 852) */
+      @media (min-width: 600px) {
+        body {
+          padding: 20px 0 40px;
+        }
+
+        .mock-bar {
+          max-width: 413px;
+          border-radius: 12px;
+          margin-bottom: 14px;
+        }
+
+        .frame {
+          width: 413px;
+          height: 872px;
+          max-height: calc(100vh - 110px);
+          min-height: 560px;
+          margin: 0 auto;
+          border: 10px solid #1b1b1b;
+          border-radius: 46px;
+          overflow: hidden;
+          background: #fff;
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .frame .page {
+          height: 100%;
+          min-height: 0;
+          overflow-y: auto;
+          scrollbar-width: none;
+        }
+
+        .frame .page::-webkit-scrollbar {
+          display: none;
+        }
       }
 
       .gnb {
@@ -157,25 +193,28 @@
       }
 
       .intro h1 {
-        font-size: 22px;
-        font-weight: 800;
-        line-height: 1.3;
-        letter-spacing: 0.01em;
-        color: var(--purple);
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--ink);
+      }
+
+      /* Both copy lines: same style as D2D .d2d-about-description */
+      .intro .lead,
+      .intro .also {
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: 0.02em;
+        color: var(--ink);
       }
 
       .intro .lead {
-        margin-top: 12px;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 1.5;
+        margin-top: 14px;
       }
 
       .intro .also {
-        margin-top: 10px;
-        font-size: 14px;
-        color: var(--sub);
-        line-height: 1.5;
+        margin-top: 12px;
       }
 
       /* ===== Cards ===== */
@@ -350,6 +389,115 @@
         font-weight: 700;
       }
 
+      /* ===== Other Inquiries (same as D2D .d2d-frame29 "Other Inquiries" card) ===== */
+      .inq {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .inq-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .inq-head .card-title {
+        margin-bottom: 0;
+      }
+
+      .q-icon {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 1.5px solid var(--ink);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 21px;
+        text-align: center;
+      }
+
+      .inq-bold {
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+
+      .inq-text {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .btn-small {
+        align-self: flex-start;
+        padding: 4px 9px;
+        border: none;
+        border-radius: 3px;
+        background: var(--purple);
+        color: #fff;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .btn-small:focus-visible {
+        outline: 3px solid var(--lime);
+        outline-offset: 2px;
+      }
+
+      /* "What's Not Covered" popup (same content as D2D compensationExemptionsPolicy) */
+      .policy {
+        width: min(360px, calc(100% - 32px));
+        margin: auto;
+        padding: 0 14px 14px;
+        border: none;
+        border-radius: 16px;
+        text-align: center;
+        word-break: keep-all;
+      }
+
+      .policy::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .policy-close {
+        display: block;
+        margin: 10px 0 0 auto;
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: none;
+        font-size: 24px;
+        line-height: 1;
+        color: #555;
+        cursor: pointer;
+      }
+
+      .policy h2 {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+
+      .policy p {
+        margin-top: 11px;
+        padding: 10px 8px;
+        border-top: 1px solid #f6f4f8;
+        border-bottom: 1px solid #f6f4f8;
+        font-size: 14px;
+        color: #6d6d6d;
+        text-align: left;
+      }
+
+      .policy img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-top: 8px;
+      }
+
       /* ===== Dev notes (mockup only) ===== */
       .dev-notes {
         margin: 32px 16px 0;
@@ -382,12 +530,9 @@
 
       /* ===== Sticky Book Now bar (same as D2D .d2d-bottom-bar) ===== */
       .bottom-bar {
-        position: fixed;
-        left: 50%;
-        transform: translateX(-50%);
+        position: sticky;
         bottom: 0;
-        width: 100%;
-        max-width: 480px;
+        margin-top: 32px;
         padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
         background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(10px);
@@ -428,12 +573,10 @@
       }
 
       .toast {
-        position: fixed;
-        left: 50%;
-        bottom: 88px;
-        transform: translateX(-50%);
-        width: calc(100% - 40px);
-        max-width: 440px;
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: calc(100% + 8px);
         padding: 10px 14px;
         border-radius: 8px;
         background: #2b2b2b;
@@ -445,6 +588,11 @@
 
       /* Small phones (320 to 359 px): keep every hand-set line inside its card */
       @media (max-width: 359px) {
+        .intro {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+
         .card {
           margin-left: 12px;
           margin-right: 12px;
@@ -486,289 +634,332 @@
       <a href="#dev-notes">Dev notes</a>
     </section>
 
-    <div class="page">
-      <header class="gnb">
-        <span></span>
-        <img
-          class="logo"
-          src="goodlugg-logo.png"
-          alt="Goodlugg"
-          width="109"
-          height="28"
-        />
-        <div class="icons" aria-hidden="true">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#222"
-            stroke-width="1.6"
-          >
-            <circle cx="12" cy="12" r="9" />
-            <path
-              d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"
-            />
-          </svg>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#222"
-            stroke-width="1.8"
-            stroke-linecap="round"
-          >
-            <path d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+    <div class="frame">
+      <div class="page">
+        <header class="gnb">
+          <span></span>
+          <img
+            class="logo"
+            src="goodlugg-logo.png"
+            alt="Goodlugg"
+            width="109"
+            height="28"
+          />
+          <div class="icons" aria-hidden="true">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#222"
+              stroke-width="1.6"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path
+                d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"
+              />
+            </svg>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#222"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </div>
+        </header>
+
+        <div class="banner">
+          <img
+            src="hyundai-banner.jpg"
+            alt="The Hyundai Seoul atrium"
+            width="712"
+            height="354"
+          />
         </div>
-      </header>
 
-      <div class="banner">
-        <img
-          src="hyundai-banner.jpg"
-          alt="The Hyundai Seoul atrium"
-          width="712"
-          height="354"
-        />
+        <main>
+          <section class="intro">
+            <h1>
+              <span class="l">SHOPPING BAG</span>
+              <span class="l">SAME-DAY DELIVERY</span>
+            </h1>
+            <p class="lead">
+              <span class="l">We deliver your shopping bags</span>
+              <span class="l">to your Seoul hotel the same day.</span>
+            </p>
+            <p class="also">
+              <span class="l">We also deliver to airports</span>
+              <span class="l">and any accommodation across Korea.</span>
+            </p>
+          </section>
+
+          <section class="card" aria-labelledby="hours-title">
+            <h2 class="card-title" id="hours-title">Operating Hours</h2>
+            <table class="hours">
+              <caption class="sr-only">
+                Drop-off and arrival times
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Drop off<small>at The Hyundai</small></th>
+                  <th scope="col" class="arr">
+                    <span class="sr-only">to</span>
+                  </th>
+                  <th scope="col">Arrives<small>at your Seoul hotel</small></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>by <b>15:00</b></td>
+                  <td class="arr" aria-hidden="true">→</td>
+                  <td>by <b>19:00</b></td>
+                </tr>
+                <tr>
+                  <td>by <b>18:00</b></td>
+                  <td class="arr" aria-hidden="true">→</td>
+                  <td>by <b>22:00</b></td>
+                </tr>
+              </tbody>
+            </table>
+            <dl class="facts">
+              <div>
+                <dt>Open</dt>
+                <dd>10:30 to 18:00, every day</dd>
+              </div>
+              <div>
+                <dt>Location</dt>
+                <dd>1F Global Lounge</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="card" aria-labelledby="price-title">
+            <h2 class="card-title" id="price-title">Price</h2>
+            <p class="price-row">
+              <span class="price-num">₩16,900</span>
+              <span class="price-unit">per bag</span>
+            </p>
+            <p class="price-sub">Shopping bags to any Seoul hotel</p>
+          </section>
+
+          <section class="process" aria-labelledby="how-title">
+            <h2 class="section-title" id="how-title">How It Works</h2>
+            <ol class="process-list">
+              <li class="process-step">
+                <img
+                  class="step-icon"
+                  src="step1_icon.png"
+                  alt=""
+                  width="46"
+                  height="46"
+                />
+                <div>
+                  <h3 class="step-title">STEP 1</h3>
+                  <p class="step-description">
+                    <span class="l">Scan the QR</span>
+                    <span class="l">and book by 18:00</span>
+                  </p>
+                </div>
+              </li>
+              <li class="process-step">
+                <img
+                  class="step-icon"
+                  src="step2_icon.png"
+                  alt=""
+                  width="46"
+                  height="46"
+                />
+                <div>
+                  <h3 class="step-title">STEP 2</h3>
+                  <p class="step-description">
+                    <span class="l">Seal the bag, attach the tag</span>
+                    <span class="l">and upload a photo</span>
+                  </p>
+                </div>
+              </li>
+              <li class="process-step">
+                <img
+                  class="step-icon"
+                  src="step3_icon.png"
+                  alt=""
+                  width="46"
+                  height="46"
+                />
+                <div>
+                  <h3 class="step-title">STEP 3</h3>
+                  <p class="step-description">
+                    <span class="l">Track pickup and delivery</span>
+                    <span class="l">in real time</span>
+                  </p>
+                </div>
+              </li>
+              <li class="process-step">
+                <img
+                  class="step-icon"
+                  src="step4_icon.png"
+                  alt=""
+                  width="46"
+                  height="46"
+                />
+                <div>
+                  <h3 class="step-title">STEP 4</h3>
+                  <p class="step-description">
+                    <span class="l">Collect your bags</span>
+                    <span class="l">at your hotel front desk</span>
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <section class="card" aria-labelledby="musts-title">
+            <h2 class="card-title" id="musts-title">Must-Knows</h2>
+            <ul class="musts">
+              <li>
+                <span class="ast" aria-hidden="true">✱</span
+                ><span
+                  ><span class="l"><b>Max per bag:</b> L+W+H 100 cm, 7 kg.</span
+                  ><span class="l">Larger items: book as carry-on.</span></span
+                >
+              </li>
+              <li>
+                <span class="ast" aria-hidden="true">✱</span
+                ><span
+                  ><span class="l"
+                    >Seal your bag with the sticker provided.</span
+                  ><span class="l"
+                    ><b>Items inside are not covered.</b></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span class="ast" aria-hidden="true">✱</span
+                ><span
+                  ><span class="l"
+                    >No valuables, cash or fragile items.</span
+                  ></span
+                >
+              </li>
+              <li>
+                <span class="ast" aria-hidden="true">✱</span
+                ><span
+                  ><span class="l">Your hotel needs a staffed front desk.</span
+                  ><span class="l"
+                    >Have your hotel booking name ready.</span
+                  ></span
+                >
+              </li>
+              <li>
+                <span class="ast" aria-hidden="true">✱</span
+                ><span
+                  ><span class="l"
+                    ><b>Same-day bookings are non-refundable.</b></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </section>
+
+          <section class="card inq" aria-labelledby="inq-title">
+            <div class="inq-head">
+              <span class="q-icon" aria-hidden="true">?</span>
+              <h2 class="card-title" id="inq-title">Other Inquiries</h2>
+            </div>
+            <p class="inq-bold">
+              To report damaged/lost luggage, please contact us via the chat
+              bubble within 6 hours of delivery.
+            </p>
+            <p class="inq-text">
+              For external damage or loss of luggage during delivery,
+              compensation is up to KRW 300,000(*Handles and wheels are excluded
+              from compensation). Compensation for items inside the luggage is
+              not available. We recommend not placing fragile items, valuables,
+              or cash in your luggage.
+            </p>
+            <button type="button" class="btn-small" id="notCoveredBtn">
+              What's Not Covered
+            </button>
+          </section>
+
+          <details class="dev-notes" id="dev-notes">
+            <summary>Notes for dev (mockup only, not on the real page)</summary>
+            <ul>
+              <li>
+                Route: <code>/qr/{code}</code> shows this page, and Book Now
+                opens <code>/qr/{code}/booking</code>. Both paths already map to
+                <code>D2dController.viewQrPlaceBooking</code>. UTM redirect
+                stays as it is.
+              </li>
+              <li>
+                This reverses the 8/21 "form first, no landing" decision. CEO
+                sign-off needed.
+              </li>
+              <li>
+                Copy goes into <code>M17N_MESSAGE</code> (KO / EN / JA / ZH_CN /
+                ZH_TW). Render times and price in the server HTML, not by JS.
+              </li>
+              <li>
+                Button by KST time: before 10:30 "Bookings open at 10:30", after
+                18:00 "Closed for today". Use the review bar at the top to see
+                each state.
+              </li>
+              <li>
+                Mismatch to fix: the booking form's shopping bag option says
+                "₩2,000 per extra kg", but this page says "Larger items: book as
+                carry-on" (CEO email to The Hyundai, 09-21).
+              </li>
+              <li>
+                Other Inquiries box and "What's Not Covered" popup: reuse the
+                D2D ones as is (<code>d2d.notice.inquiries.*</code> keys and
+                <code>popups/compensationExemptionsPolicy</code>).
+              </li>
+              <li>
+                Floating WhatsApp / Ask AI buttons must sit above the Book Now
+                bar (D2D uses <code>bottom: 64px</code>).
+              </li>
+            </ul>
+          </details>
+        </main>
+
+        <div class="bottom-bar">
+          <div class="toast" id="toast" role="status" hidden></div>
+          <button type="button" class="book-btn" id="bookBtn">Book Now</button>
+          <p class="bar-note" id="barNote" hidden></p>
+        </div>
       </div>
-
-      <main>
-        <section class="intro">
-          <h1>
-            <span class="l">SHOPPING BAG</span>
-            <span class="l">SAME-DAY DELIVERY</span>
-          </h1>
-          <p class="lead">
-            <span class="l">We deliver your shopping bags</span>
-            <span class="l">to your Seoul hotel the same day.</span>
-          </p>
-          <p class="also">
-            <span class="l">We also deliver to airports</span>
-            <span class="l">and any accommodation across Korea.</span>
-          </p>
-        </section>
-
-        <section class="card" aria-labelledby="hours-title">
-          <h2 class="card-title" id="hours-title">Operating Hours</h2>
-          <table class="hours">
-            <caption class="sr-only">
-              Drop-off and arrival times
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Drop off<small>at The Hyundai</small></th>
-                <th scope="col" class="arr"><span class="sr-only">to</span></th>
-                <th scope="col">Arrives<small>at your Seoul hotel</small></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>by <b>15:00</b></td>
-                <td class="arr" aria-hidden="true">→</td>
-                <td>by <b>19:00</b></td>
-              </tr>
-              <tr>
-                <td>by <b>18:00</b></td>
-                <td class="arr" aria-hidden="true">→</td>
-                <td>by <b>22:00</b></td>
-              </tr>
-            </tbody>
-          </table>
-          <dl class="facts">
-            <div>
-              <dt>Open</dt>
-              <dd>10:30 to 18:00, every day</dd>
-            </div>
-            <div>
-              <dt>Location</dt>
-              <dd>1F Global Lounge</dd>
-            </div>
-          </dl>
-        </section>
-
-        <section class="card" aria-labelledby="price-title">
-          <h2 class="card-title" id="price-title">Price</h2>
-          <p class="price-row">
-            <span class="price-num">₩16,900</span>
-            <span class="price-unit">per bag</span>
-          </p>
-          <p class="price-sub">Shopping bags to any Seoul hotel</p>
-        </section>
-
-        <section class="process" aria-labelledby="how-title">
-          <h2 class="section-title" id="how-title">How It Works</h2>
-          <ol class="process-list">
-            <li class="process-step">
-              <img
-                class="step-icon"
-                src="step1_icon.png"
-                alt=""
-                width="46"
-                height="46"
-              />
-              <div>
-                <h3 class="step-title">STEP 1</h3>
-                <p class="step-description">
-                  <span class="l">Scan the QR</span>
-                  <span class="l">and book by 18:00</span>
-                </p>
-              </div>
-            </li>
-            <li class="process-step">
-              <img
-                class="step-icon"
-                src="step2_icon.png"
-                alt=""
-                width="46"
-                height="46"
-              />
-              <div>
-                <h3 class="step-title">STEP 2</h3>
-                <p class="step-description">
-                  <span class="l">Seal the bag, attach the tag</span>
-                  <span class="l">and upload a photo</span>
-                </p>
-              </div>
-            </li>
-            <li class="process-step">
-              <img
-                class="step-icon"
-                src="step3_icon.png"
-                alt=""
-                width="46"
-                height="46"
-              />
-              <div>
-                <h3 class="step-title">STEP 3</h3>
-                <p class="step-description">
-                  <span class="l">Track pickup and delivery</span>
-                  <span class="l">in real time</span>
-                </p>
-              </div>
-            </li>
-            <li class="process-step">
-              <img
-                class="step-icon"
-                src="step4_icon.png"
-                alt=""
-                width="46"
-                height="46"
-              />
-              <div>
-                <h3 class="step-title">STEP 4</h3>
-                <p class="step-description">
-                  <span class="l">Collect your bags</span>
-                  <span class="l">at your hotel front desk</span>
-                </p>
-              </div>
-            </li>
-          </ol>
-        </section>
-
-        <section class="card" aria-labelledby="musts-title">
-          <h2 class="card-title" id="musts-title">Must-Knows</h2>
-          <ul class="musts">
-            <li>
-              <span class="ast" aria-hidden="true">✱</span
-              ><span
-                ><span class="l"><b>Max per bag:</b> L+W+H 100 cm, 7 kg.</span
-                ><span class="l">Larger items: book as carry-on.</span></span
-              >
-            </li>
-            <li>
-              <span class="ast" aria-hidden="true">✱</span
-              ><span
-                ><span class="l">Seal your bag with the sticker provided.</span
-                ><span class="l"
-                  ><b>Items inside are not covered.</b></span
-                ></span
-              >
-            </li>
-            <li>
-              <span class="ast" aria-hidden="true">✱</span
-              ><span
-                ><span class="l"
-                  >No valuables, cash or fragile items.</span
-                ></span
-              >
-            </li>
-            <li>
-              <span class="ast" aria-hidden="true">✱</span
-              ><span
-                ><span class="l">Your hotel needs a staffed front desk.</span
-                ><span class="l"
-                  >Have your hotel booking name ready.</span
-                ></span
-              >
-            </li>
-            <li>
-              <span class="ast" aria-hidden="true">✱</span
-              ><span
-                ><span class="l"
-                  ><b>Same-day bookings are non-refundable.</b></span
-                ></span
-              >
-            </li>
-            <li>
-              <span class="ast" aria-hidden="true">✱</span
-              ><span
-                ><span class="l">24/7 live chat: KakaoTalk (goodlugg)</span
-                ><span class="l">and WhatsApp.</span></span
-              >
-            </li>
-            <li>
-              <span class="ast" aria-hidden="true">✱</span
-              ><span
-                ><span class="l">Report any issue within 6 hours</span
-                ><span class="l">of delivery.</span></span
-              >
-            </li>
-          </ul>
-        </section>
-
-        <details class="dev-notes" id="dev-notes">
-          <summary>Notes for dev (mockup only, not on the real page)</summary>
-          <ul>
-            <li>
-              Route: <code>/qr/{code}</code> shows this page, and Book Now opens
-              <code>/qr/{code}/booking</code>. Both paths already map to
-              <code>D2dController.viewQrPlaceBooking</code>. UTM redirect stays
-              as it is.
-            </li>
-            <li>
-              This reverses the 8/21 "form first, no landing" decision. CEO
-              sign-off needed.
-            </li>
-            <li>
-              Copy goes into <code>M17N_MESSAGE</code> (KO / EN / JA / ZH_CN /
-              ZH_TW). Render times and price in the server HTML, not by JS.
-            </li>
-            <li>
-              Button by KST time: before 10:30 "Bookings open at 10:30", after
-              18:00 "Closed for today". Use the review bar at the top to see
-              each state.
-            </li>
-            <li>
-              Mismatch to fix: the booking form's shopping bag option says
-              "₩2,000 per extra kg", but this page says "Larger items: book as
-              carry-on" (CEO email to The Hyundai, 09-21).
-            </li>
-            <li>
-              Floating WhatsApp / Ask AI buttons must sit above the Book Now bar
-              (D2D uses <code>bottom: 64px</code>).
-            </li>
-          </ul>
-        </details>
-      </main>
     </div>
 
-    <div class="bottom-bar">
-      <button type="button" class="book-btn" id="bookBtn">Book Now</button>
-      <p class="bar-note" id="barNote" hidden></p>
-    </div>
-
-    <div class="toast" id="toast" role="status" hidden></div>
+    <dialog class="policy" id="policyDialog" aria-labelledby="policy-title">
+      <button
+        type="button"
+        class="policy-close"
+        id="policyClose"
+        aria-label="Close"
+      >
+        ×
+      </button>
+      <h2 id="policy-title">Compensation Exceptions for Damage</h2>
+      <p>
+        Goodlugg takes every measure to ensure the safe handling of your
+        luggage, including using designated vehicles for luggage delivery.
+        However, Goodlugg is not liable for age-related deterioration, such as
+        damage to <b>handles and wheels</b> caused by normal wear and tear or
+        repeated use. Additionally, <b>minor scratches, dents, or stains</b>
+        commonly occurring during standard luggage handling are not covered.
+      </p>
+      <img
+        src="https://emc-resources.s3.ap-northeast-2.amazonaws.com/compensation_exemption_policy_en.png"
+        alt="Examples of damage that is not covered"
+        width="430"
+        height="869"
+        loading="lazy"
+      />
+    </dialog>
 
     <script>
       (function () {
@@ -819,6 +1010,27 @@
             toast.hidden = true;
           }, 2600);
         });
+
+        var dlg = document.getElementById("policyDialog");
+        document
+          .getElementById("notCoveredBtn")
+          .addEventListener("click", function () {
+            dlg.showModal();
+          });
+        document
+          .getElementById("policyClose")
+          .addEventListener("click", function () {
+            dlg.close();
+          });
+        dlg.addEventListener("click", function (e) {
+          if (e.target === dlg) dlg.close();
+        });
+
+        document
+          .querySelector('.mock-bar a[href="#dev-notes"]')
+          .addEventListener("click", function () {
+            document.getElementById("dev-notes").open = true;
+          });
 
         var q = new URLSearchParams(location.search).get("state");
         setState(STATES[q] ? q : "open");
