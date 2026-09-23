@@ -54,52 +54,6 @@
         white-space: nowrap;
       }
 
-      /* ===== Mockup review bar (not part of the real page) ===== */
-      .mock-bar {
-        max-width: 480px;
-        margin: 0 auto;
-        padding: 8px 12px;
-        background: #2b2b2b;
-        color: #fff;
-        font-size: 12px;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 6px 10px;
-      }
-
-      .mock-bar strong {
-        font-weight: 700;
-        color: var(--lime);
-      }
-
-      .mock-bar .states {
-        display: flex;
-        gap: 4px;
-      }
-
-      .mock-bar button {
-        font: inherit;
-        font-size: 12px;
-        padding: 3px 8px;
-        border-radius: 999px;
-        border: 1px solid #777;
-        background: transparent;
-        color: #fff;
-        cursor: pointer;
-      }
-
-      .mock-bar button[aria-pressed="true"] {
-        background: #fff;
-        color: #2b2b2b;
-        border-color: #fff;
-      }
-
-      .mock-bar a {
-        color: #fff;
-        margin-left: auto;
-      }
-
       /* ===== Page shell ===== */
       .page {
         max-width: 480px;
@@ -501,13 +455,6 @@
         cursor: not-allowed;
       }
 
-      .bar-note {
-        margin-top: 6px;
-        font-size: 12px;
-        text-align: center;
-        color: var(--sub);
-      }
-
       .toast {
         position: absolute;
         left: 20px;
@@ -564,22 +511,6 @@
     </style>
   </head>
   <body>
-    <section class="mock-bar" aria-label="Mockup controls">
-      <strong>Mockup</strong>
-      <span>Button state:</span>
-      <div class="states">
-        <button type="button" data-state="open" aria-pressed="true">
-          Open
-        </button>
-        <button type="button" data-state="before" aria-pressed="false">
-          Before 10:30
-        </button>
-        <button type="button" data-state="after" aria-pressed="false">
-          After 18:00
-        </button>
-      </div>
-    </section>
-
     <div class="page">
       <header class="gnb">
         <span></span>
@@ -846,7 +777,6 @@
       <div class="bottom-bar">
         <div class="toast" id="toast" role="status" hidden></div>
         <button type="button" class="book-btn" id="bookBtn">Book Now</button>
-        <p class="bar-note" id="barNote" hidden></p>
       </div>
     </div>
 
@@ -880,42 +810,8 @@
     <script>
       (function () {
         var btn = document.getElementById("bookBtn");
-        var note = document.getElementById("barNote");
         var toast = document.getElementById("toast");
-        var stateButtons = document.querySelectorAll(".mock-bar [data-state]");
         var timer;
-
-        var STATES = {
-          open: { label: "Book Now", disabled: false, note: "" },
-          before: {
-            label: "Bookings open at 10:30",
-            disabled: true,
-            note: "Same-day delivery: book and drop off 10:30 to 18:00",
-          },
-          after: {
-            label: "Closed for today",
-            disabled: true,
-            note: "Bookings open again tomorrow at 10:30",
-          },
-        };
-
-        function setState(name) {
-          var s = STATES[name] || STATES.open;
-          btn.textContent = s.label;
-          btn.disabled = s.disabled;
-          note.textContent = s.note;
-          note.hidden = !s.note;
-          stateButtons.forEach(function (b) {
-            b.setAttribute("aria-pressed", String(b.dataset.state === name));
-          });
-          document.body.dataset.state = name;
-        }
-
-        stateButtons.forEach(function (b) {
-          b.addEventListener("click", function () {
-            setState(b.dataset.state);
-          });
-        });
 
         btn.addEventListener("click", function () {
           toast.textContent =
@@ -941,9 +837,6 @@
         dlg.addEventListener("click", function (e) {
           if (e.target === dlg) dlg.close();
         });
-
-        var q = new URLSearchParams(location.search).get("state");
-        setState(STATES[q] ? q : "open");
       })();
     </script>
   </body>
