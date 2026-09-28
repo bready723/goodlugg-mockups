@@ -122,7 +122,8 @@
       /* Both copy lines: same style as D2D .d2d-about-description */
       .intro .lead,
       .intro .also {
-        font-size: var(--fs-body);
+        /* Keeps "We deliver to your hotel, Airbnb, and beyond" on one line on phones */
+        font-size: min(var(--fs-body), calc((100vw - 52px) / 23.8));
         font-weight: 300;
         line-height: 1.5;
         letter-spacing: 0.02em;
@@ -569,6 +570,11 @@
           padding-right: 10px;
         }
 
+        .intro .lead,
+        .intro .also {
+          font-size: calc((100vw - 24px) / 23.8);
+        }
+
         .card {
           margin-left: 12px;
           margin-right: 12px;
@@ -655,10 +661,8 @@
             <span class="l"><strong>at The Hyundai Seoul.</strong></span>
           </p>
           <p class="also">
-            <span class="l">We deliver to your hotel, Airbnb,</span>
-            <span class="l"
-              >and beyond <strong>anywhere in Korea.</strong></span
-            >
+            <span class="l">We deliver to your hotel, Airbnb, and beyond</span>
+            <span class="l"><strong>anywhere in Korea.</strong></span>
           </p>
         </section>
 
@@ -771,8 +775,8 @@
                 <h3 class="step-title">STEP 2</h3>
                 <p class="step-description">
                   <span class="l">Drop off your bags</span>
-                  <span class="l">To Seoul: by 18:00</span>
-                  <span class="l">To other cities: by 12:00</span>
+                  <span class="l">- to Seoul: by 18:00</span>
+                  <span class="l">- to other cities: by 12:00</span>
                   <span class="l">Upload bag photos</span>
                 </p>
               </div>
