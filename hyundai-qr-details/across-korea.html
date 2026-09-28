@@ -264,6 +264,17 @@
         gap: 12px;
       }
 
+      /* Sits on the price line; drops to the next line only on narrow phones */
+      .price-list .price-row {
+        flex-wrap: wrap;
+      }
+
+      .price-note {
+        font-size: var(--fs-small);
+        color: var(--sub);
+        white-space: nowrap;
+      }
+
       .price-label {
         font-size: var(--fs-body);
         font-weight: 600;
@@ -723,8 +734,8 @@
                 <span class="price-unit">from</span>
                 <span class="price-num">₩24,500</span>
                 <span class="price-unit">per bag</span>
+                <span class="price-note">(varies by route)</span>
               </p>
-              <p class="price-sub">Varies by route</p>
             </div>
           </div>
         </section>
@@ -833,6 +844,23 @@
               ><span
                 >No valuables, cash, fragile items or luxury designer
                 bags.</span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">✱</span
+              ><span
+                >Your shopping bags are delivered to your Seoul hotel's front
+                desk.
+                <b>Hotel booking number and voucher required.</b></span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">✱</span
+              ><span
+                ><b
+                  >Same-day bookings are
+                  <span class="nw">non-refundable.</span></b
+                ></span
               >
             </li>
             <li>
