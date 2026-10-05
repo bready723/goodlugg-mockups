@@ -1,0 +1,1157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Incheon Cruise Terminal: Same-Day Luggage Delivery across Korea</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    />
+    <style>
+      :root {
+        --purple: #512a72;
+        --lime: #c7c22e;
+        --ink: #121212;
+        --sub: #555555;
+        --card: #f7f8fc;
+        --lavender: #f1ecf7;
+        --line: #e4e1ea;
+        --page-bg: #f2f2f2;
+        /* Type scale: title / subtitle / body / small */
+        --fs-title: 24px;
+        --fs-sub: 20px;
+        --fs-body: 15px;
+        --fs-small: 13px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        font-family:
+          "Poppins", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+        color: var(--ink);
+        background: var(--page-bg);
+        line-height: 1.5;
+        word-break: keep-all;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* A phrase that must stay on one line */
+      .l {
+        display: block;
+        white-space: nowrap;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+
+      /* ===== Page shell ===== */
+      .page {
+        max-width: 480px;
+        margin: 0 auto;
+        background: #fff;
+        min-height: 100vh;
+      }
+
+      .gnb {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        height: 56px;
+        padding: 0 16px;
+        background: #fff;
+      }
+
+      .gnb .logo {
+        display: block;
+        height: 28px;
+        width: auto;
+      }
+
+      .gnb .icons {
+        justify-self: end;
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .gnb svg {
+        display: block;
+      }
+
+      .banner {
+        aspect-ratio: 2 / 1;
+        overflow: hidden;
+      }
+
+      .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ===== Intro ===== */
+      .intro {
+        padding: 28px 24px 8px;
+        text-align: center;
+      }
+
+      .intro h1 {
+        /* One line for "SAME-DAY LUGGAGE DELIVERY" down to 320 px */
+        font-size: min(var(--fs-title), calc((100vw - 52px) / 16));
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--ink);
+      }
+
+      /* Both copy lines: same style as D2D .d2d-about-description */
+      .intro .lead,
+      .intro .also {
+        /* Keeps "We deliver to your hotel, airport, and beyond" on one line on phones */
+        font-size: min(var(--fs-body), calc((100vw - 52px) / 23.8));
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: 0.02em;
+        color: var(--ink);
+      }
+
+      .intro strong {
+        font-weight: 700;
+      }
+
+      .intro .lead {
+        margin-top: 14px;
+      }
+
+      .intro .also {
+        margin-top: 12px;
+      }
+
+      /* ===== Cards ===== */
+      .card {
+        margin: 20px 16px 0;
+        padding: 18px 16px 18px;
+        border-radius: 12px;
+        background: var(--card);
+      }
+
+      .card-title {
+        font-size: var(--fs-sub);
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 14px;
+      }
+
+      /* Operating hours table: D2D calculator tone (lavender head, purple text) */
+      .hours {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: center;
+        table-layout: fixed;
+      }
+
+      .hours th {
+        background: var(--lavender);
+        color: var(--purple);
+        font-size: var(--fs-body);
+        font-weight: 700;
+        padding: 10px 6px 8px;
+        line-height: 1.3;
+      }
+
+      .hours th small {
+        display: block;
+        font-size: var(--fs-small);
+        font-weight: 500;
+        margin-top: 2px;
+      }
+
+      .hours td {
+        font-size: var(--fs-body);
+        padding: 11px 6px;
+        border-top: 1px solid var(--line);
+      }
+
+      .hours td b {
+        font-weight: 700;
+        font-size: var(--fs-sub);
+      }
+
+      .hours td small {
+        display: block;
+        font-size: var(--fs-small);
+        line-height: 1.2;
+        color: var(--sub);
+      }
+
+      .hours td b {
+        white-space: nowrap;
+      }
+
+      .hours .to td {
+        background: #faf8fc;
+        color: var(--purple);
+        font-weight: 700;
+        padding: 8px 6px;
+      }
+
+      .hours .arr {
+        color: var(--sub);
+        width: 36px;
+        font-size: var(--fs-body);
+      }
+
+      .facts {
+        margin-top: 14px;
+        display: grid;
+        gap: 6px;
+      }
+
+      .facts div {
+        display: grid;
+        grid-template-columns: 76px 1fr;
+        font-size: var(--fs-body);
+      }
+
+      .facts dt {
+        color: var(--sub);
+      }
+
+      .facts dd {
+        font-weight: 600;
+      }
+
+      /* Price */
+      .price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+
+      .price-num {
+        font-size: var(--fs-sub);
+        font-weight: 800;
+        color: var(--purple);
+        letter-spacing: -0.01em;
+      }
+
+      .price-unit {
+        font-size: var(--fs-body);
+        color: var(--sub);
+      }
+
+      .price-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      /* Sits on the price line; drops to the next line only on narrow phones */
+      .price-list .price-row {
+        flex-wrap: wrap;
+      }
+
+      .price-note {
+        font-size: var(--fs-small);
+        color: var(--sub);
+        white-space: nowrap;
+      }
+
+      .price-label {
+        font-size: var(--fs-body);
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .price-sub {
+        margin-top: 2px;
+        font-size: var(--fs-body);
+        color: var(--sub);
+      }
+
+      /* ===== How it works (same pattern as D2D .process-section) ===== */
+      .process {
+        padding: 32px 20px 8px;
+      }
+
+      /* Must-Knows: no box, aligned with How It Works */
+      .card.plain {
+        background: none;
+        border-radius: 0;
+        margin: 16px 0 0;
+        padding: 12px 20px 0;
+      }
+
+      .section-title {
+        font-size: var(--fs-sub);
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 14px;
+      }
+
+      .process-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .process-step {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .step-icon {
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+      }
+
+      .step-title {
+        font-size: var(--fs-body);
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1.4;
+      }
+
+      .step-description {
+        font-size: var(--fs-body);
+        line-height: 1.5;
+        color: #333;
+      }
+
+      /* ===== Must-Knows (same pattern as D2D Frame 29 gray card) ===== */
+      .musts {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .musts li {
+        display: flex;
+        gap: 4px;
+        font-size: var(--fs-body);
+        line-height: 1.5;
+        letter-spacing: -0.01em;
+      }
+
+      .musts .ast {
+        flex-shrink: 0;
+        width: 14px;
+        text-align: center;
+        color: var(--ink);
+      }
+
+      .nw {
+        white-space: nowrap;
+      }
+
+      .musts b {
+        font-weight: 700;
+      }
+
+      /* Same gap below Must-Knows as above it (36px) */
+      .card.inq {
+        margin-top: 36px;
+      }
+
+      /* ===== Other Inquiries (same as D2D .d2d-frame29 "Other Inquiries" card) ===== */
+      .inq {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .inq-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .inq-head .card-title {
+        margin-bottom: 0;
+      }
+
+      .q-icon {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 1.5px solid var(--ink);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 21px;
+        text-align: center;
+      }
+
+      .inq-bold {
+        font-size: var(--fs-body);
+        font-weight: 700;
+        line-height: 1.6;
+      }
+
+      .inq-text {
+        font-size: var(--fs-body);
+        line-height: 1.5;
+      }
+
+      .btn-small {
+        align-self: flex-start;
+        padding: 4px 9px;
+        border: none;
+        border-radius: 3px;
+        background: var(--purple);
+        color: #fff;
+        font: inherit;
+        font-size: var(--fs-small);
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .btn-small:focus-visible {
+        outline: 3px solid var(--lime);
+        outline-offset: 2px;
+      }
+
+      /* "What's Not Covered" popup (same content as D2D compensationExemptionsPolicy) */
+      .policy {
+        width: min(360px, calc(100% - 32px));
+        margin: auto;
+        padding: 0 14px 14px;
+        border: none;
+        border-radius: 16px;
+        text-align: center;
+        word-break: keep-all;
+      }
+
+      .policy::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .policy-close {
+        display: block;
+        margin: 10px 0 0 auto;
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: none;
+        font-size: 24px;
+        line-height: 1;
+        color: #555;
+        cursor: pointer;
+      }
+
+      .policy h2 {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+
+      .policy p {
+        margin-top: 11px;
+        padding: 10px 8px;
+        border-top: 1px solid #f6f4f8;
+        border-bottom: 1px solid #f6f4f8;
+        font-size: 14px;
+        color: #6d6d6d;
+        text-align: left;
+      }
+
+      .policy img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-top: 8px;
+      }
+
+      /* ===== Sticky Book Now bar (same as D2D .d2d-bottom-bar) ===== */
+      .bottom-bar {
+        position: sticky;
+        bottom: 0;
+        margin-top: 32px;
+        padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid #eee;
+        z-index: 100;
+      }
+
+      .book-btn {
+        width: 100%;
+        min-height: 48px;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        background: var(--purple);
+        color: #fff;
+        font: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .book-btn:focus-visible {
+        outline: 3px solid var(--lime);
+        outline-offset: 2px;
+      }
+
+      .book-btn:disabled {
+        background: #d9d6de;
+        color: #5b5566;
+        cursor: not-allowed;
+      }
+
+      .toast {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: calc(100% + 8px);
+        padding: 10px 14px;
+        border-radius: 8px;
+        background: #2b2b2b;
+        color: #fff;
+        font-size: 13px;
+        text-align: center;
+        z-index: 101;
+      }
+
+      /* Below 393 px the second copy line breaks after "accommodation" */
+      @media (max-width: 392px) {
+        .l-sm {
+          display: block;
+        }
+      }
+
+      /* Phones: keep the two-group hours table inside its card */
+      @media (max-width: 430px) {
+        .hours .arr {
+          width: 28px;
+        }
+
+        .hours th small {
+          font-size: 12px;
+        }
+
+        .hours td b {
+          font-size: 18px;
+        }
+
+        .hours td {
+          padding-left: 2px;
+          padding-right: 2px;
+        }
+      }
+
+      /* Small phones (320 to 359 px): keep every hand-set line inside its card */
+      @media (max-width: 359px) {
+        .intro {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+
+        .intro .lead,
+        .intro .also {
+          font-size: calc((100vw - 24px) / 23.8);
+        }
+
+        .card {
+          margin-left: 12px;
+          margin-right: 12px;
+          padding-left: 12px;
+          padding-right: 12px;
+        }
+
+        .musts li {
+          font-size: 13px;
+        }
+
+        .hours td b {
+          font-size: 17px;
+        }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .book-btn {
+          transition: opacity 0.2s;
+        }
+
+        .book-btn:hover:not(:disabled) {
+          opacity: 0.9;
+        }
+      }
+
+      /* ===== Drop-off location ===== */
+      .loc-lead {
+        font-size: var(--fs-body);
+        line-height: 1.6;
+      }
+
+      .loc-lead + .loc-lead {
+        margin-top: 8px;
+      }
+
+      .loc-hours {
+        margin-top: 8px;
+        font-size: var(--fs-small);
+        color: var(--sub);
+      }
+
+      .loc-fig {
+        margin-top: 14px;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .loc-fig img,
+      .loc-fig svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .loc-fig figcaption {
+        padding: 9px 12px 11px;
+        font-size: var(--fs-small);
+        line-height: 1.5;
+        color: var(--sub);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="gnb">
+        <span></span>
+        <img
+          class="logo"
+          src="goodlugg-logo.png"
+          alt="Goodlugg"
+          width="109"
+          height="28"
+        />
+        <div class="icons" aria-hidden="true">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#222"
+            stroke-width="1.6"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path
+              d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"
+            />
+          </svg>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#222"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </div>
+      </header>
+
+      <div class="banner">
+        <img
+          src="cruise-banner.jpg"
+          alt="Incheon Port Cruise Terminal"
+          width="840"
+          height="349"
+        />
+      </div>
+
+      <main>
+        <section class="intro">
+          <h1>
+            <span class="l">SAME-DAY LUGGAGE DELIVERY</span>
+            <span class="l">ACROSS KOREA</span>
+          </h1>
+          <p class="lead">
+            <span class="l">Drop your bags</span>
+            <span class="l"
+              ><strong>at Incheon Port Cruise Terminal.</strong></span
+            >
+          </p>
+          <p class="also">
+            <span class="l">We deliver to your hotel, airport, and beyond</span>
+            <span class="l"><strong>anywhere in Korea.</strong></span>
+          </p>
+        </section>
+
+        <section class="card" aria-labelledby="hours-title">
+          <h2 class="card-title" id="hours-title">Operating Hours (KST)</h2>
+          <table class="hours">
+            <caption class="sr-only">
+              Drop-off and arrival times
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">
+                  Drop off<small>at Incheon Port Cruise Terminal</small>
+                </th>
+                <th scope="col" class="arr">
+                  <span class="sr-only">to</span>
+                </th>
+                <th scope="col">Arrives<small>at your destination</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="to">
+                <td colspan="3">To Incheon</td>
+              </tr>
+              <tr>
+                <td>by <b>13:00</b></td>
+                <td class="arr" aria-hidden="true">&rarr;</td>
+                <td>after <b>20:00</b></td>
+              </tr>
+              <tr class="to">
+                <td colspan="3">To Seoul and other cities</td>
+              </tr>
+              <tr>
+                <td>by <b>13:00</b></td>
+                <td class="arr" aria-hidden="true">&rarr;</td>
+                <td>after <b>22:00</b></td>
+              </tr>
+            </tbody>
+          </table>
+          <dl class="facts">
+            <div>
+              <dt>Location</dt>
+              <dd>Goodlugg Zone, terminal parking lot</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="card" aria-labelledby="loc-title">
+          <h2 class="card-title" id="loc-title">
+            Drop-off Location at the Incheon Cruise Terminal
+          </h2>
+          <p class="loc-lead">
+            <b>Terminal parking lot</b>, right outside the Arrival Hall.
+          </p>
+          <p class="loc-lead">
+            After immigration and customs, walk out of the
+            <b>Arrival Hall</b> and continue straight into the
+            <b>parking lot</b>. The <b>Goodlugg Zone</b> is under the white
+            tents.
+          </p>
+          <p class="loc-hours">(open: from disembarkation until 13:00)</p>
+
+          <figure class="loc-fig">
+          <svg viewBox="0 0 760 580" role="img" aria-labelledby="locMapTitle">
+            <title id="locMapTitle">
+              Walking route from the cruise ship through the terminal to the
+              Goodlugg Zone in the parking lot
+            </title>
+            <rect width="760" height="580" fill="#fff" />
+
+            <text x="28" y="34" font-size="19" font-weight="700" fill="#1a1a1a">
+              Terminal &amp; Parking Lot
+            </text>
+
+            <!-- cruise ship -->
+            <rect
+              x="28"
+              y="56"
+              width="704"
+              height="62"
+              rx="10"
+              fill="#dfe6ee"
+            />
+            <text
+              x="380"
+              y="94"
+              font-size="19"
+              font-weight="700"
+              fill="#5b6672"
+              text-anchor="middle"
+            >
+              CRUISE SHIP
+            </text>
+
+            <!-- gangway -->
+            <rect x="600" y="118" width="56" height="34" fill="#eef1f5" />
+            <text
+              x="588"
+              y="141"
+              font-size="14"
+              fill="#8b8b93"
+              text-anchor="end"
+            >
+              Gangway
+            </text>
+
+            <!-- terminal building -->
+            <rect
+              x="28"
+              y="152"
+              width="704"
+              height="212"
+              rx="8"
+              fill="#f0eff3"
+            />
+            <text x="46" y="180" font-size="16" font-weight="700" fill="#555">
+              TERMINAL
+            </text>
+
+            <!-- immigration bar -->
+            <rect x="196" y="200" width="484" height="15" fill="#1a1a1a" />
+            <text
+              x="380"
+              y="238"
+              font-size="17"
+              font-weight="700"
+              fill="#1a1a1a"
+              text-anchor="middle"
+            >
+              Immigration &amp; Customs
+            </text>
+
+            <text
+              x="380"
+              y="286"
+              font-size="17"
+              font-weight="700"
+              fill="#555"
+              text-anchor="middle"
+            >
+              Arrival Hall
+            </text>
+
+            <!-- exit glass doors -->
+            <line
+              x1="28"
+              y1="352"
+              x2="300"
+              y2="352"
+              stroke="#4a90d9"
+              stroke-width="3"
+            />
+            <line
+              x1="460"
+              y1="352"
+              x2="732"
+              y2="352"
+              stroke="#4a90d9"
+              stroke-width="3"
+            />
+            <text
+              x="380"
+              y="347"
+              font-size="15"
+              font-weight="700"
+              fill="#4a90d9"
+              text-anchor="middle"
+            >
+              EXIT
+            </text>
+
+            <!-- parking lot -->
+            <rect
+              x="28"
+              y="392"
+              width="704"
+              height="160"
+              rx="8"
+              fill="#f0eff3"
+            />
+            <text x="590" y="452" font-size="16" font-weight="700" fill="#888">
+              PARKING LOT
+            </text>
+            <g stroke="#dcdae2" stroke-width="3">
+              <line x1="470" y1="468" x2="470" y2="540" />
+              <line x1="530" y1="468" x2="530" y2="540" />
+              <line x1="590" y1="468" x2="590" y2="540" />
+              <line x1="650" y1="468" x2="650" y2="540" />
+              <line x1="710" y1="468" x2="710" y2="540" />
+            </g>
+
+            <!-- goodlugg zone -->
+            <rect x="92" y="432" width="250" height="96" rx="6" fill="#512a72" />
+            <polygon points="217,408 150,446 284,446" fill="#512a72" />
+            <text
+              x="217"
+              y="472"
+              font-size="19"
+              font-weight="800"
+              fill="#fff"
+              text-anchor="middle"
+            >
+              GOODLUGG
+            </text>
+            <text
+              x="217"
+              y="500"
+              font-size="19"
+              font-weight="800"
+              fill="#c7c22e"
+              text-anchor="middle"
+            >
+              ZONE
+            </text>
+
+            <!-- walking route -->
+            <path
+              d="M628 152 L628 330"
+              stroke="#e8352a"
+              stroke-width="5"
+              fill="none"
+            />
+            <path
+              d="M628 352 C628 394, 470 404, 352 410"
+              stroke="#e8352a"
+              stroke-width="5"
+              fill="none"
+            />
+            <polygon points="300,412 342,398 340,428" fill="#e8352a" />
+          </svg>
+
+          </figure>
+
+          <figure class="loc-fig">
+            <img
+              src="goodlugg-zone.jpg"
+              alt="White tents in the Incheon Port Cruise Terminal parking lot, with a cruise ship behind and guests queuing with their luggage"
+              width="807"
+              height="460"
+            />
+            <figcaption>
+              Look for the white tents in the parking lot, facing the ship. Our
+              staff are there throughout disembarkation.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="process" aria-labelledby="how-title">
+          <h2 class="section-title" id="how-title">How It Works</h2>
+          <ol class="process-list">
+            <li class="process-step">
+              <img
+                class="step-icon"
+                src="step1_icon.png"
+                alt=""
+                width="46"
+                height="46"
+              />
+              <div>
+                <h3 class="step-title">STEP 1</h3>
+                <p class="step-description">
+                  <span class="l">Scan the QR and book</span>
+                  <span class="l">by drop-off deadline</span>
+                </p>
+              </div>
+            </li>
+            <li class="process-step">
+              <img
+                class="step-icon"
+                src="step2_icon.png"
+                alt=""
+                width="46"
+                height="46"
+              />
+              <div>
+                <h3 class="step-title">STEP 2</h3>
+                <p class="step-description">
+                  <span class="l">Drop off your bags by 13:00</span>
+                  <span class="l">after disembarking</span>
+                  <span class="l">Upload bag photos</span>
+                </p>
+              </div>
+            </li>
+            <li class="process-step">
+              <img
+                class="step-icon"
+                src="step3_icon.png"
+                alt=""
+                width="46"
+                height="46"
+              />
+              <div>
+                <h3 class="step-title">STEP 3</h3>
+                <p class="step-description">
+                  <span class="l">Follow your delivery live</span>
+                  <span class="l">on your tracking link</span>
+                </p>
+              </div>
+            </li>
+            <li class="process-step">
+              <img
+                class="step-icon"
+                src="step4_icon.png"
+                alt=""
+                width="46"
+                height="46"
+              />
+              <div>
+                <h3 class="step-title">STEP 4</h3>
+                <p class="step-description">
+                  <span class="l">Collect your bags</span>
+                  <span class="l">at your destination</span>
+                </p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="card plain" aria-labelledby="musts-title">
+          <h2 class="card-title" id="musts-title">Must-Knows</h2>
+          <ul class="musts">
+            <li>
+              <span class="ast" aria-hidden="true">&#10033;</span
+              ><span
+                >No valuables, cash, fragile items or luxury designer bags.</span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">&#10033;</span
+              ><span
+                >Following rules are applied for bag counts:
+                <b>- For luggage sets, please book 2 bags.</b> - Unbooked items
+                such as shopping bags, backpacks, and ready bags will not be
+                picked up.
+                <b
+                  >- Neck pillows not placed inside luggage will not be picked
+                  up</b
+                >
+                due to concerns about loss/contamination.</span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">&#10033;</span
+              ><span
+                >Always carry your passport, travel documents, and valuables with
+                you.</span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">&#10033;</span
+              ><span
+                ><b
+                  >Same-day bookings are
+                  <span class="nw">non-refundable.</span></b
+                ></span
+              >
+            </li>
+            <li>
+              <span class="ast" aria-hidden="true">&#10033;</span
+              ><span>24/7 live chat: KakaoTalk (goodlugg) and WhatsApp</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="card inq" aria-labelledby="inq-title">
+          <div class="inq-head">
+            <span class="q-icon" aria-hidden="true">?</span>
+            <h2 class="card-title" id="inq-title">Other Inquiries</h2>
+          </div>
+          <p class="inq-bold">
+            To report damaged/lost luggage, please contact us via the chat bubble
+            within 6 hours of delivery.
+          </p>
+          <p class="inq-text">
+            For external damage or loss of luggage during delivery, compensation
+            is up to KRW 300,000(*Handles and wheels are excluded from
+            compensation). Compensation for items inside the luggage is not
+            available. We recommend not placing fragile items, valuables, or cash
+            in your luggage.
+          </p>
+          <button type="button" class="btn-small" id="notCoveredBtn">
+            What's Not Covered
+          </button>
+        </section>
+      </main>
+
+      <div class="bottom-bar">
+        <div class="toast" id="toast" role="status" hidden></div>
+        <button type="button" class="book-btn" id="bookBtn">Book Now</button>
+      </div>
+    </div>
+
+    <dialog class="policy" id="policyDialog" aria-labelledby="policy-title">
+      <button
+        type="button"
+        class="policy-close"
+        id="policyClose"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <h2 id="policy-title">Compensation Exceptions for Damage</h2>
+      <p>
+        Goodlugg takes every measure to ensure the safe handling of your luggage,
+        including using designated vehicles for luggage delivery. However,
+        Goodlugg is not liable for age-related deterioration, such as damage to
+        <b>handles and wheels</b> caused by normal wear and tear or repeated use.
+        Additionally, <b>minor scratches, dents, or stains</b> commonly occurring
+        during standard luggage handling are not covered.
+      </p>
+      <img
+        src="https://emc-resources.s3.ap-northeast-2.amazonaws.com/compensation_exemption_policy_en.png"
+        alt="Examples of damage that is not covered"
+        width="430"
+        height="869"
+        loading="lazy"
+      />
+    </dialog>
+
+    <script>
+      (function () {
+        var btn = document.getElementById("bookBtn");
+        var toast = document.getElementById("toast");
+        var timer;
+
+        btn.addEventListener("click", function () {
+          toast.textContent =
+            "Mockup: the real button opens the booking form (/qr/incheon-cruise/booking).";
+          toast.hidden = false;
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            toast.hidden = true;
+          }, 2600);
+        });
+
+        var dlg = document.getElementById("policyDialog");
+        document
+          .getElementById("notCoveredBtn")
+          .addEventListener("click", function () {
+            dlg.showModal();
+          });
+        document
+          .getElementById("policyClose")
+          .addEventListener("click", function () {
+            dlg.close();
+          });
+        dlg.addEventListener("click", function (e) {
+          if (e.target === dlg) dlg.close();
+        });
+      })();
+    </script>
+  </body>
+</html>
