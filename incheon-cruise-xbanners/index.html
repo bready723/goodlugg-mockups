@@ -462,10 +462,23 @@
         color: var(--lime);
         line-height: 0.9;
       }
-      .b2b .band .pill {
+      .b2b .band .time {
         background: #fff;
         color: var(--purple);
-        font-size: 52px;
+        border-radius: 30px;
+        padding: 36px 30px 32px;
+        text-align: center;
+        width: 500px;
+      }
+      .b2b .band .time .l1 {
+        font-size: 50px;
+        font-weight: 700;
+      }
+      .b2b .band .time .l2 {
+        font-size: 150px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        margin-top: 8px;
       }
 
       /* ===== 2C: tiger sits on top of the band ===== */
@@ -873,7 +886,10 @@
               <h1 class="head h120">Luggage<br />storage</h1>
               <div class="band">
                 <div class="free">FREE</div>
-                <span class="pill">until 3:00 PM</span>
+                <div class="time">
+                  <div class="l1">until</div>
+                  <div class="l2">3:00 PM</div>
+                </div>
                 <p class="sub">Drop your bags,<br />enjoy the day</p>
               </div>
               <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
