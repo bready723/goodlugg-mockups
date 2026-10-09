@@ -4,7 +4,7 @@ Live: `https://bready723.github.io/goodlugg-mockups/incheon-cruise-xbanners/`
 
 44 combinations for CEO review (v4): 3 kinds x copy options x 4 backgrounds. Every copy version is shown as its own row of 4 backgrounds. Earlier versions are kept as `v0.html` (12 banners), `v1.html` (55, boxed QR/time), `v2.html` (70, lime copy card), `v3.html` (65, five backgrounds) and linked from the top of the page.
 
-- Kind 1 Booking (moving tiger beside the logo, QR "Book in 5 min."): copies A, B, C, E (1B = Travel bagless in Korea!, 1D deleted)
+- Kind 1 Booking (moving tiger beside the logo, QR "Book in 5 min."): copies A, B, C, E (1B = Travel bagless in Korea! + Nationwide / Same-day / Luggage delivery, no list; 1D deleted)
 - Kind 2 Free storage (sitting tiger on the left beside the logo, no QR): copies A, B, C
 - Kind 3 Staff booking desk (no tiger, small QR "Self booking"): copies A, B, C, E (3D deleted)
 
