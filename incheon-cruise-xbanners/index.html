@@ -722,7 +722,7 @@
             {
               id: "A",
               label: "Free luggage storage · until 3:00 PM",
-              head: "<em>Free</em><br>luggage<br>storage",
+              head: "<em>FREE</em><br>luggage<br>storage",
               band: ["time"],
             },
             {
@@ -836,7 +836,7 @@
               .join("") +
             "</ul>";
         (copy.parts || []).forEach(function (item) {
-          if (item === "free") c += '<p class="free">Free</p>';
+          if (item === "free") c += '<p class="free">FREE</p>';
           else if (item.indexOf("lbl:") === 0)
             c += '<p class="lbl2">' + item.slice(4) + "</p>";
         });
