@@ -166,7 +166,7 @@
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: -0.02em;
-        line-height: 0.96;
+        line-height: 1.1;
         margin: 0;
         white-space: nowrap;
         font-size: 140px;
@@ -189,8 +189,8 @@
         font-size: 70px;
       }
       .sub {
-        font-size: 44px;
-        font-weight: 600;
+        font-size: 52px;
+        font-weight: 700;
         line-height: 1.22;
         margin: 0;
         letter-spacing: -0.01em;
@@ -220,18 +220,21 @@
         margin: 0;
       }
       .k2 .head {
-        line-height: 1.12;
+        line-height: 1.45;
       }
       .checks {
         display: flex;
         flex-direction: column;
-        gap: 22px;
+        gap: 30px;
         margin: 0;
         padding: 0;
         list-style: none;
-        font-size: 46px;
+        font-size: 50px;
         font-weight: 700;
         color: var(--fg);
+      }
+      .checks li.plain {
+        padding-left: 64px;
       }
       .checks li {
         display: flex;
@@ -301,7 +304,6 @@
         flex-direction: column;
         gap: 34px;
         width: 100%;
-        padding-left: 30px;
       }
       .list div {
         display: flex;
@@ -376,8 +378,8 @@
         color: var(--band-fg);
       }
       .time .l1 {
-        font-size: 44px;
-        font-weight: 700;
+        font-size: 64px;
+        font-weight: 800;
       }
       .time .l2 {
         font-size: 104px;
@@ -394,13 +396,13 @@
       .foot {
         margin-left: -40px;
         margin-right: -40px;
-        height: 76px;
+        height: 96px;
         flex: none;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 26px;
-        font-weight: 700;
+        font-size: 40px;
+        font-weight: 800;
         background: var(--foot-bg);
         color: var(--foot-fg);
       }
@@ -452,13 +454,16 @@
         transform: scaleY(-1);
       }
       .t2 .foot {
-        height: 72px;
+        height: 90px;
       }
       .t2 .head em,
       .t2 .mid em {
+        display: inline-block;
+        line-height: 1;
         background: var(--purple);
         color: var(--yellow);
-        padding: 0 14px;
+        padding: 6px 16px 12px;
+        margin: 6px 0;
         border-radius: 18px;
       }
 
@@ -523,9 +528,12 @@
       }
       .t5 .head em,
       .t5 .mid em {
+        display: inline-block;
+        line-height: 1;
         background: var(--lime);
         color: var(--purple);
-        padding: 0 14px;
+        padding: 6px 16px 12px;
+        margin: 6px 0;
         border-radius: 18px;
       }
 
@@ -574,8 +582,9 @@
       <p class="versions">
         Earlier versions: <a href="v0.html">v0 · 12 banners (morning)</a> ·
         <a href="v1.html">v1 · 55 (boxed QR and time)</a> ·
-        <a href="v2.html">v2 · 70 (no boxes, lime copy card)</a> · this page =
-        v3
+        <a href="v2.html">v2 · 70 (no boxes, lime copy card)</a> ·
+        <a href="v3.html">v3 · 65 (logo on top, 5 backgrounds)</a> · this page
+        = v4
       </p>
     </header>
 
@@ -588,7 +597,6 @@
         ["T1", "Purple · plain"],
         ["T2", "Yellow · traditional border"],
         ["T3", "Purple arch over white"],
-        ["T4", "Purple · lime bottom band"],
         ["T5", "Plain white"],
       ];
 
@@ -607,28 +615,21 @@
             },
             {
               id: "B",
-              label: "Drop your bags here & start bagless travel!",
-              head: "Drop your<br>bags here<br>&amp; start<br><em>bagless<br>travel!</em>",
-              sub: "Same-day delivery<br>to your hotel or Airbnb<br>anywhere in Korea",
-              checks: ["Nationwide", "Airbnb OK", "Instant quote", "Card / PayPal"],
+              label: "Travel bagless in Korea!",
+              head: "Travel<br><em>bagless</em><br>in Korea!",
+              sub: "Same-day luggage delivery",
+              checks: ["Nationwide", "Airport", "Hotel", "Airbnb"],
             },
             {
               id: "C",
               label: "Your bags, delivered today",
               head: "Your bags,<br><em>delivered<br>today</em>",
-              checks: ["Airport", "Hotel", "Airbnb", "and beyond"],
-            },
-            {
-              id: "D",
-              label: "Travel light.",
-              head: "Travel<br><em>light.</em>",
-              mid: "Same-day<br>luggage<br>delivery",
-              sub: "Across Korea:<br>hotel, airport &amp; beyond",
+              checks: ["Airport", "Hotel", "Airbnb", "-and beyond"],
             },
             {
               id: "E",
-              label: "Send your bags.",
-              head: "Send<br>your<br><em>bags.</em>",
+              label: "Send your bags",
+              head: "Send<br>your<br><em>bags</em>",
               mid: "Same-day<br>across Korea",
               sub: "Hotel, airport<br>&amp; beyond",
             },
@@ -670,7 +671,7 @@
               id: "A",
               label: "Booking desk · Card · Cash",
               head: "Booking<br>desk",
-              sub: "Our staff will<br>book it for you",
+              sub: "Staff helps<br>your booking",
               extra: "pills",
             },
             {
@@ -686,13 +687,6 @@
               head: "Help<br>desk",
               sub: "Ask our staff",
               extra: "list",
-            },
-            {
-              id: "D",
-              label: "Need a hand?",
-              head: "Need<br>a hand?",
-              sub: "Our staff books it<br>for you, right here",
-              extra: "pill1",
             },
             {
               id: "E",
@@ -741,6 +735,8 @@
             '<ul class="checks">' +
             copy.checks
               .map(function (x) {
+                if (x.charAt(0) === "-")
+                  return '<li class="plain">' + x.slice(1) + "</li>";
                 return (
                   '<li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 26l11 11L40 12"></path></svg>' +
                   x +
@@ -863,7 +859,22 @@
           fs -= 2;
           head.style.fontSize = fs + "px";
         }
-        Array.prototype.forEach.call(b.querySelectorAll(".free, .lbl2, .sub, .bul, .bsub, .checks li, .list div"), function (el) {
+        var items = b.querySelectorAll(".list div");
+        if (items.length) {
+          var lf = parseFloat(getComputedStyle(items[0]).fontSize), lg = 0;
+          var wide = function () {
+            return Array.prototype.some.call(items, function (d) {
+              return d.scrollWidth > d.clientWidth + 1;
+            });
+          };
+          while (wide() && lf > 40 && lg++ < 60) {
+            lf -= 2;
+            Array.prototype.forEach.call(items, function (d) {
+              d.style.fontSize = lf + "px";
+            });
+          }
+        }
+        Array.prototype.forEach.call(b.querySelectorAll(".free, .lbl2, .sub, .bul, .bsub, .checks li"), function (el) {
           var f = parseFloat(getComputedStyle(el).fontSize), g = 0;
           while (el.scrollWidth > el.clientWidth + 1 && f > 40 && g++ < 80) {
             f -= 2;
