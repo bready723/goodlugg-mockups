@@ -15,7 +15,7 @@
         --lime: #c7c22e;
         --yellow: #efee5d;
         --ink: #1a1a1a;
-        --scale: 0.36;
+        --scale: 0.3;
       }
       * {
         box-sizing: border-box;
@@ -52,8 +52,8 @@
         padding: 26px 40px 10px;
       }
       section.kind h2 {
-        margin: 0 0 12px;
-        font-size: 20px;
+        margin: 0 0 6px;
+        font-size: 22px;
         font-weight: 800;
         color: var(--purple);
       }
@@ -63,39 +63,24 @@
         font-size: 14px;
         margin-left: 10px;
       }
-      .tabs {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 0 0 16px;
+      h3.copyname {
+        margin: 22px 0 10px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #333;
       }
-      .tabs button {
-        font: inherit;
-        font-size: 14px;
-        font-weight: 600;
-        border: 1.5px solid #c9c4d2;
-        background: #fff;
-        color: var(--purple);
-        border-radius: 999px;
-        padding: 8px 16px;
-        cursor: pointer;
-        max-width: 420px;
-        text-align: left;
-        line-height: 1.3;
-      }
-      .tabs button b {
-        font-weight: 900;
-        margin-right: 6px;
-      }
-      .tabs button.on {
-        background: var(--purple);
-        border-color: var(--purple);
+      h3.copyname b {
         color: #fff;
+        background: var(--purple);
+        border-radius: 8px;
+        padding: 3px 9px;
+        margin-right: 8px;
+        font-weight: 900;
       }
       .row {
         display: flex;
         flex-wrap: wrap;
-        gap: 22px;
+        gap: 18px;
       }
       .slot {
         width: calc(600px * var(--scale));
@@ -112,14 +97,12 @@
         transform-origin: top left;
       }
       .cap {
-        margin: 10px 0 0;
-        font-size: 13px;
+        margin: 8px 0 0;
+        font-size: 12px;
         color: #444;
         line-height: 1.4;
       }
-      .cap b {
-        color: var(--purple);
-      }
+      .cap b,
       .cap a {
         color: var(--purple);
       }
@@ -144,7 +127,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        height: 340px;
+        height: 330px;
         flex: none;
       }
       .top .logo {
@@ -153,7 +136,7 @@
         margin-bottom: 6px;
       }
       .top img.t {
-        height: 340px;
+        height: 330px;
         width: auto;
         margin-bottom: -4px;
       }
@@ -167,48 +150,82 @@
         height: auto;
         justify-content: center;
       }
+
+      /* copy area grows: the message gets most of the banner */
       .copy {
-        flex: none;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding: 10px 0;
       }
       .head {
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: -0.02em;
         line-height: 0.96;
-        margin: 34px 0 0;
+        margin: 0;
         white-space: nowrap;
-        font-size: 130px;
+        font-size: 140px;
       }
-      .head em {
+      .head em,
+      .mid em {
         font-style: normal;
         color: var(--accent);
         -webkit-box-decoration-break: clone;
         box-decoration-break: clone;
       }
+      .mid {
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        line-height: 1;
+        margin: 0;
+        white-space: nowrap;
+        color: var(--accent);
+        font-size: 70px;
+      }
       .sub {
-        font-size: 42px;
+        font-size: 44px;
         font-weight: 600;
         line-height: 1.22;
-        margin: 28px 0 0;
+        margin: 0;
         letter-spacing: -0.01em;
         color: var(--sub);
+        white-space: nowrap;
       }
       .bul {
-        margin: 26px 0 0;
-        font-size: 30px;
+        margin: 0;
+        font-size: 32px;
         font-weight: 700;
         line-height: 1.3;
         color: var(--accent);
       }
+      .free {
+        font-size: 230px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 0.9;
+        margin: 0;
+        color: var(--accent);
+      }
+      .lbl2 {
+        font-size: 60px;
+        font-weight: 800;
+        line-height: 1.05;
+        text-transform: uppercase;
+        margin: 0;
+      }
       .k3 .head,
+      .k3 .mid,
       .k3 .sub,
-      .k3 .bul {
+      .k3 .bul,
+      .k3 .lbl2 {
         text-align: center;
       }
       .pills {
         display: flex;
         gap: 20px;
-        margin-top: 44px;
         justify-content: center;
       }
       .pill {
@@ -222,7 +239,7 @@
         color: var(--chip-fg);
       }
       .arrow {
-        margin: 30px auto 0;
+        margin: 0 auto;
         width: 220px;
         height: 200px;
       }
@@ -235,7 +252,6 @@
         fill: var(--chip-bg);
       }
       .desk {
-        margin-top: 30px;
         border-radius: 32px;
         text-align: center;
         font-size: 72px;
@@ -246,7 +262,6 @@
         color: var(--chip-fg);
       }
       .list {
-        margin-top: 50px;
         display: flex;
         flex-direction: column;
         gap: 26px;
@@ -275,107 +290,65 @@
         font-weight: 900;
       }
 
-      /* band: grows to fill whatever height is left, so no empty space */
+      /* band: fixed to its content, no box around QR or time */
       .band {
-        flex: 1;
-        margin: 40px -40px 0;
-        padding: 36px 40px;
+        flex: none;
+        margin: 0 -40px;
+        padding: 30px 40px 34px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-evenly;
+        gap: 26px;
         text-align: center;
         color: var(--band-fg);
         background: var(--band-bg);
       }
-      .band .scan {
-        font-size: 54px;
-        font-weight: 900;
-        line-height: 1.1;
-        text-transform: uppercase;
-        letter-spacing: 0.01em;
-      }
-      .qrcard {
-        background: #fff;
-        border-radius: 28px;
-        padding: 26px 26px 20px;
+      .qr {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 14px;
-        color: var(--purple);
-        border: var(--card-border);
+        gap: 18px;
       }
-      .qrcard img {
+      .qr img {
         width: 380px;
         height: 380px;
+        border-radius: 22px;
       }
-      .qrcard .lbl {
-        font-size: 34px;
+      .qr .lbl {
+        font-size: 40px;
         font-weight: 900;
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
+        letter-spacing: 0.01em;
       }
-      .band .free {
-        font-size: 230px;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-        line-height: 0.9;
-        color: var(--free);
+      .k3 .qr img {
+        width: 340px;
+        height: 340px;
       }
-      .band .lbl2 {
-        font-size: 56px;
+      .k3 .qr .lbl {
+        font-size: 38px;
         font-weight: 800;
-        line-height: 1.1;
-        text-transform: uppercase;
       }
-      .band .time {
-        border-radius: 30px;
-        padding: 30px 40px 28px;
-        width: 100%;
-        background: var(--time-bg);
-        color: var(--time-fg);
+      .time {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         white-space: nowrap;
+        color: var(--band-fg);
       }
-      .band .time .l1 {
-        font-size: 40px;
+      .time .l1 {
+        font-size: 44px;
         font-weight: 700;
       }
-      .band .time .l2 {
-        font-size: 96px;
+      .time .l2 {
+        font-size: 104px;
         font-weight: 900;
         letter-spacing: -0.03em;
       }
-      .band .bsub {
+      .bsub {
         font-size: 40px;
         font-weight: 600;
         line-height: 1.22;
         margin: 0;
-        white-space: nowrap;
-      }
-      .mini {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 22px;
-        background: #fff;
-        border-radius: 28px;
-        padding: 24px 30px;
-        color: var(--purple);
-        border: var(--card-border);
-      }
-      .mini img {
-        width: 380px;
-        height: 380px;
-      }
-      .mini .t {
-        font-size: 40px;
-        font-weight: 800;
-        line-height: 1.2;
         white-space: nowrap;
       }
       .foot {
@@ -392,30 +365,42 @@
         color: var(--foot-fg);
       }
 
-      /* ---------- T1: purple + lime rounded card panel (Starfield Luggage Center) ---------- */
+      /* ---------- T1: purple, copy inside a lime rounded card (Starfield Luggage Center) ---------- */
       .t1 {
         background: var(--purple);
         --fg: #fff;
-        --accent: var(--lime);
-        --sub: rgba(255, 255, 255, 0.92);
-        --chip-bg: var(--lime);
-        --chip-fg: var(--purple);
-        --band-bg: var(--lime);
-        --band-fg: var(--purple);
-        --free: var(--purple);
-        --time-bg: #fff;
-        --time-fg: var(--purple);
-        --card-border: 0;
+        --accent: var(--purple);
+        --sub: var(--purple);
+        --chip-bg: var(--purple);
+        --chip-fg: #fff;
+        --band-bg: transparent;
+        --band-fg: #fff;
         --foot-bg: var(--purple);
         --foot-fg: #fff;
       }
-      .t1 .band {
-        margin: 40px 0 0;
-        border-radius: 34px;
-        padding: 36px 20px;
+      .t1 .copy {
+        background: var(--lime);
+        color: var(--purple);
+        border-radius: 38px;
+        padding: 40px 30px;
+        margin-top: 30px;
       }
-      .t1 .foot {
+      .t1 .head em,
+      .t1 .mid,
+      .t1 .free,
+      .t1 .bul {
+        color: var(--purple);
+      }
+      .t1 .band {
+        padding-top: 40px;
+      }
+      .t1 .list div {
+        font-size: 36px;
+      }
+      .t1 .list i {
+        width: 84px;
         height: 84px;
+        font-size: 46px;
       }
 
       /* ---------- T2: yellow with traditional pattern border (K-Luggage Hunter / InterCon) ---------- */
@@ -428,12 +413,8 @@
         --sub: var(--purple);
         --chip-bg: var(--purple);
         --chip-fg: #fff;
-        --band-bg: var(--purple);
-        --band-fg: #fff;
-        --free: var(--lime);
-        --time-bg: #fff;
-        --time-fg: var(--purple);
-        --card-border: 0;
+        --band-bg: transparent;
+        --band-fg: var(--purple);
         --foot-bg: transparent;
         --foot-fg: var(--purple);
       }
@@ -454,11 +435,6 @@
         bottom: 0;
         transform: scaleY(-1);
       }
-      .t2 .band {
-        margin: 40px 0 0;
-        border-radius: 34px;
-        padding: 36px 20px;
-      }
       .t2 .foot {
         height: 72px;
       }
@@ -467,37 +443,31 @@
       .t3 {
         background: #fff;
         padding-top: 0;
-        --fg: var(--purple);
+        --fg: #fff;
         --accent: var(--lime);
         --sub: rgba(255, 255, 255, 0.92);
         --chip-bg: var(--lime);
         --chip-fg: var(--purple);
         --band-bg: transparent;
         --band-fg: var(--purple);
-        --free: var(--purple);
-        --time-bg: var(--purple);
-        --time-fg: #fff;
-        --card-border: 6px solid var(--purple);
         --foot-bg: transparent;
         --foot-fg: var(--purple);
       }
       .t3 .arch {
-        flex: none;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         margin: 0 -40px;
-        padding: 44px 40px 60px;
+        padding: 44px 40px 50px;
         background: var(--purple);
         color: #fff;
         border-radius: 0 0 150px 150px;
       }
       .t3 .band {
-        margin-top: 20px;
-      }
-      .t3 .mini,
-      .t3 .qrcard {
-        border-radius: 34px;
+        padding-top: 44px;
       }
 
-      /* ---------- T4: purple + lime bottom band (current) ---------- */
+      /* ---------- T4: purple + lime bottom band (previous gallery) ---------- */
       .t4 {
         background: var(--purple);
         --fg: #fff;
@@ -507,12 +477,12 @@
         --chip-fg: var(--purple);
         --band-bg: var(--lime);
         --band-fg: var(--purple);
-        --free: var(--purple);
-        --time-bg: #fff;
-        --time-fg: var(--purple);
-        --card-border: 0;
         --foot-bg: var(--purple-deep);
         --foot-fg: #fff;
+      }
+      .t4 .band {
+        margin-top: 30px;
+        padding: 40px 40px 44px;
       }
 
       /* ---------- T5: plain white ---------- */
@@ -525,28 +495,21 @@
         --chip-fg: #fff;
         --band-bg: transparent;
         --band-fg: var(--purple);
-        --free: var(--purple);
-        --time-bg: var(--lime);
-        --time-fg: var(--purple);
-        --card-border: 6px solid var(--purple);
         --foot-bg: transparent;
         --foot-fg: var(--purple);
       }
-      .t5 .head em {
+      .t5 .head em,
+      .t5 .mid em {
         background: var(--lime);
         color: var(--purple);
         padding: 0 14px;
         border-radius: 18px;
       }
-      .t5 .band {
-        border-top: 6px solid var(--lime);
-        margin-top: 44px;
-      }
 
       /* ---------- single-banner (full size) mode ---------- */
       body.only header.page,
       body.only section.kind h2,
-      body.only .tabs,
+      body.only h3.copyname,
       body.only .cap,
       body.only .slot:not(.show) {
         display: none;
@@ -566,9 +529,6 @@
       body.only .slot.show .b {
         transform: none;
       }
-      body.qa .slot {
-        display: block !important;
-      }
       #qa {
         font: 12px/1.4 monospace;
         white-space: pre;
@@ -584,10 +544,9 @@
     <header class="page">
       <h1>Incheon Cruise Terminal · Goodlugg Zone X-Banners</h1>
       <p>
-        3 kinds of banner, each with several copy options and 5 backgrounds.
-        Pick a copy option with the buttons to see it on all 5 backgrounds.
-        Each banner is drawn at 600 × 1800 (1 : 3). “Full size” opens one
-        banner alone at 100% for close review or printing.
+        3 kinds of banner. Every copy version is shown on all 5 backgrounds
+        (one row per copy). Each banner is drawn at 600 × 1800 (1 : 3). “Full
+        size” opens one banner alone at 100% for close review or printing.
       </p>
     </header>
 
@@ -597,10 +556,10 @@
     <script>
       /* ---------------- data ---------------- */
       var THEMES = [
-        ["T1", "Purple · lime card panel (Starfield Luggage Center)"],
-        ["T2", "Yellow · traditional border (K-Luggage Hunter / InterCon)"],
-        ["T3", "Purple arch over white (Starfield Storage Delivery)"],
-        ["T4", "Purple · lime bottom band (current)"],
+        ["T1", "Purple · lime copy card"],
+        ["T2", "Yellow · traditional border"],
+        ["T3", "Purple arch over white"],
+        ["T4", "Purple · lime bottom band"],
         ["T5", "Plain white"],
       ];
 
@@ -613,21 +572,36 @@
             {
               id: "A",
               label: "Same-day luggage delivery across Korea",
-              head: "Same-day<br>luggage<br>delivery<br><em>across<br>Korea</em>",
+              head: "Same-day<br>luggage<br>delivery",
+              mid: "<em>Across Korea</em>",
               sub: "to your hotel, airport,<br>and beyond",
             },
             {
               id: "B",
               label: "Drop your bags here & start bagless travel!",
               head: "Drop your<br>bags here<br>&amp; start<br><em>bagless<br>travel!</em>",
-              sub: "Same-day delivery to your<br>hotel or Airbnb<br>anywhere in Korea",
+              sub: "Same-day delivery<br>to your hotel or Airbnb<br>anywhere in Korea",
               bul: "Nationwide · Airbnb OK<br>Card / PayPal",
             },
             {
               id: "C",
-              label: "Your bags, delivered today (new, concise)",
+              label: "Your bags, delivered today",
               head: "Your bags,<br><em>delivered<br>today</em>",
-              sub: "Same-day luggage delivery<br>anywhere in Korea:<br>hotel, airport &amp; beyond",
+              sub: "Same-day luggage delivery<br>anywhere in Korea",
+            },
+            {
+              id: "D",
+              label: "Travel light.",
+              head: "Travel<br><em>light.</em>",
+              mid: "Same-day<br>luggage<br>delivery",
+              sub: "Across Korea:<br>hotel, airport &amp; beyond",
+            },
+            {
+              id: "E",
+              label: "Send your bags.",
+              head: "Send<br>your<br><em>bags.</em>",
+              mid: "Same-day<br>across Korea",
+              sub: "Hotel, airport<br>&amp; beyond",
             },
           ],
         },
@@ -638,7 +612,7 @@
           copies: [
             {
               id: "A",
-              label: "Free luggage storage until 3:00 PM",
+              label: "Free luggage storage · until 3:00 PM",
               head: "<em>Free</em><br>luggage<br>storage",
               band: ["time", "sub:Leave your bags with us<br>and explore bagless"],
             },
@@ -646,19 +620,22 @@
               id: "B",
               label: "Luggage storage · FREE · until 3:00 PM",
               head: "Luggage<br>storage",
-              band: ["free", "time", "sub:Drop your bags,<br>enjoy the day"],
+              parts: ["free"],
+              band: ["time", "sub:Drop your bags,<br>enjoy the day"],
             },
             {
               id: "C",
               label: "Store your bags here · FREE · until 3:00 PM",
               head: "Store<br>your bags<br><em>here</em>",
-              band: ["free", "time"],
+              parts: ["free"],
+              band: ["time"],
             },
             {
               id: "D",
-              label: "Drop. Explore. Pick up. (new, concise)",
+              label: "Drop. Explore. Pick up.",
               head: "Drop.<br><em>Explore.</em><br>Pick up.",
-              band: ["free", "lbl:Luggage storage", "time"],
+              parts: ["free", "lbl:Luggage<br>storage"],
+              band: ["time"],
             },
           ],
         },
@@ -690,9 +667,16 @@
             },
             {
               id: "D",
-              label: "Need a hand? (new, concise)",
+              label: "Need a hand?",
               head: "Need<br>a hand?",
-              sub: "Our staff books it for you,<br>right here",
+              sub: "Our staff books it<br>for you, right here",
+              extra: "pill1",
+            },
+            {
+              id: "E",
+              label: "Book with our team",
+              head: "Book<br>with<br>our team",
+              mid: "Luggage<br>delivery",
               extra: "pill1",
             },
           ],
@@ -700,9 +684,6 @@
       ];
 
       /* ---------------- render ---------------- */
-      function esc(s) {
-        return s;
-      }
       function bannerHTML(kind, copy, theme) {
         var k = kind.id,
           t = theme.toLowerCase();
@@ -712,7 +693,7 @@
           : t === "t2"
             ? "logo_purple_solid.png"
             : "logo_purple.png";
-        var top = "";
+        var top;
         if (k === "1") {
           top =
             '<div class="top"><img class="logo" src="' +
@@ -730,8 +711,14 @@
             '" alt="Goodlugg"></div>';
         }
         var c = '<div class="copy"><h1 class="head">' + copy.head + "</h1>";
+        if (copy.mid) c += '<p class="mid">' + copy.mid + "</p>";
         if (copy.sub) c += '<p class="sub">' + copy.sub + "</p>";
         if (copy.bul) c += '<p class="bul">' + copy.bul + "</p>";
+        (copy.parts || []).forEach(function (item) {
+          if (item === "free") c += '<p class="free">FREE</p>';
+          else if (item.indexOf("lbl:") === 0)
+            c += '<p class="lbl2">' + item.slice(4) + "</p>";
+        });
         if (copy.extra === "pills")
           c +=
             '<div class="pills"><span class="pill">Card</span><span class="pill">Cash</span></div>';
@@ -748,21 +735,18 @@
         var band = '<div class="band">';
         if (k === "1") {
           band +=
-            '<div class="scan">Scan to book</div><div class="qrcard"><img src="qr.png" alt="Booking QR"><div class="lbl">Book in 5 min.</div></div>';
+            '<div class="qr"><img src="qr.png" alt="Booking QR"><div class="lbl">Book in 5 min.</div></div>';
         } else if (k === "2") {
           copy.band.forEach(function (item) {
-            if (item === "free") band += '<div class="free">FREE</div>';
-            else if (item === "time")
+            if (item === "time")
               band +=
                 '<div class="time"><span class="l1">until</span><span class="l2">3:00 PM</span></div>';
             else if (item.indexOf("sub:") === 0)
               band += '<p class="bsub">' + item.slice(4) + "</p>";
-            else if (item.indexOf("lbl:") === 0)
-              band += '<div class="lbl2">' + item.slice(4) + "</div>";
           });
         } else {
           band +=
-            '<div class="mini"><img src="qr.png" alt="Booking QR"><div class="t">Self booking with QR</div></div>';
+            '<div class="qr"><img src="qr.png" alt="Booking QR"><div class="lbl">Self booking with QR</div></div>';
         }
         band += "</div>";
 
@@ -792,28 +776,15 @@
           " <small>" +
           kind.note +
           "</small></h2>";
-        html += '<div class="tabs">';
-        kind.copies.forEach(function (copy, i) {
+        kind.copies.forEach(function (copy) {
           html +=
-            '<button type="button" data-copy="' +
-            copy.id +
-            '"' +
-            (i === 0 ? ' class="on"' : "") +
-            "><b>" +
+            '<h3 class="copyname"><b>' +
             kind.id +
             copy.id +
             "</b>" +
             copy.label +
-            "</button>";
-        });
-        html += "</div>";
-        kind.copies.forEach(function (copy, i) {
-          html +=
-            '<div class="row" data-copy="' +
-            copy.id +
-            '"' +
-            (i === 0 ? "" : ' style="display:none"') +
-            ">";
+            "</h3>";
+          html += '<div class="row" data-copy="' + copy.id + '">';
           THEMES.forEach(function (th) {
             var id = kind.id + copy.id + "-" + th[0];
             html +=
@@ -835,55 +806,21 @@
       });
       app.innerHTML = html;
 
-      /* tabs */
-      Array.prototype.forEach.call(
-        document.querySelectorAll(".tabs button"),
-        function (btn) {
-          btn.addEventListener("click", function () {
-            var sec = btn.closest("section");
-            Array.prototype.forEach.call(
-              sec.querySelectorAll(".tabs button"),
-              function (b) {
-                b.classList.toggle("on", b === btn);
-              },
-            );
-            Array.prototype.forEach.call(
-              sec.querySelectorAll(".row"),
-              function (r) {
-                r.style.display =
-                  r.getAttribute("data-copy") === btn.getAttribute("data-copy")
-                    ? ""
-                    : "none";
-              },
-            );
-          });
-        },
-      );
-
       /* single banner mode */
       if (only) {
         var slot = document.getElementById("s" + only);
         if (slot) {
           document.body.classList.add("only");
           slot.classList.add("show");
-          slot.closest(".row").style.display = "";
           document.title = "X-Banner " + only;
         }
       }
-      if (qa) {
-        document.body.classList.add("qa");
-        Array.prototype.forEach.call(
-          document.querySelectorAll(".row"),
-          function (r) {
-            r.style.display = "";
-          },
-        );
-      }
 
       /* fit: shrink the headline until every line fits the width, then shrink
-         headline + sub until the whole banner fits 1800 px tall */
+         headline, mid line, sub and QR until the whole banner fits 1800 px */
       function fit(b) {
         var head = b.querySelector(".head");
+        var mid = b.querySelector(".mid");
         var sub = b.querySelector(".sub");
         var fs = parseFloat(getComputedStyle(head).fontSize);
         var guard = 0;
@@ -891,20 +828,41 @@
           fs -= 2;
           head.style.fontSize = fs + "px";
         }
+        Array.prototype.forEach.call(b.querySelectorAll(".free, .lbl2, .sub, .bul, .bsub"), function (el) {
+          var f = parseFloat(getComputedStyle(el).fontSize), g = 0;
+          while (el.scrollWidth > el.clientWidth + 1 && f > 40 && g++ < 80) {
+            f -= 2;
+            el.style.fontSize = f + "px";
+          }
+        });
+        var ms = mid ? parseFloat(getComputedStyle(mid).fontSize) : 0;
+        guard = 0;
+        while (mid && mid.scrollWidth > mid.clientWidth + 1 && ms > 30 && guard++ < 80) {
+          ms -= 2;
+          mid.style.fontSize = ms + "px";
+        }
         guard = 0;
         var ss = sub ? parseFloat(getComputedStyle(sub).fontSize) : 0;
-        var qr = b.querySelector(".qrcard img, .mini img");
+        var qr = b.querySelector(".qr img");
         var qs = qr ? qr.width : 0;
-        while (b.scrollHeight > b.clientHeight && guard++ < 120) {
+        while (b.scrollHeight > b.clientHeight && guard++ < 140) {
           if (fs > 90) {
             fs -= 2;
             head.style.fontSize = fs + "px";
+            if (mid && ms > 50) {
+              ms -= 1;
+              mid.style.fontSize = ms + "px";
+            }
           } else if (qr && qs > 300) {
             qs -= 10;
             qr.style.width = qr.style.height = qs + "px";
           } else {
             fs -= 2;
             head.style.fontSize = fs + "px";
+            if (mid && ms > 40) {
+              ms -= 1;
+              mid.style.fontSize = ms + "px";
+            }
             if (sub && ss > 32) {
               ss -= 1;
               sub.style.fontSize = ss + "px";
@@ -923,9 +881,7 @@
           var b = s.querySelector(".b");
           var id = s.id.slice(1);
           var over = b.scrollHeight - b.clientHeight;
-          var band = b.querySelector(".band");
           var foot = b.querySelector(".foot");
-          var bh = band.offsetHeight;
           var footBottom = foot.offsetTop + foot.offsetHeight;
           var head = b.querySelector(".head");
           var wide = head.scrollWidth - head.clientWidth;
@@ -937,8 +893,8 @@
               over +
               " wide=" +
               wide +
-              " band=" +
-              bh +
+              " copyH=" +
+              b.querySelector(".copy").offsetHeight +
               " footBottom=" +
               footBottom,
           );

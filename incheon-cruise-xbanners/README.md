@@ -2,13 +2,13 @@
 
 Live: `https://bready723.github.io/goodlugg-mockups/incheon-cruise-xbanners/`
 
-55 combinations for CEO review: 3 kinds x copy options x 5 backgrounds. The buttons under each kind switch the copy; all 5 backgrounds update together.
+70 combinations for CEO review: 3 kinds x copy options x 5 backgrounds. Every copy version is shown as its own row of 5 backgrounds.
 
-- Kind 1 Booking (moving tiger beside the logo, QR "Book in 5 min."): copies A, B, C
+- Kind 1 Booking (moving tiger beside the logo, QR "Book in 5 min."): copies A, B, C, D, E
 - Kind 2 Free storage (sitting tiger on the left beside the logo, no QR): copies A, B, C, D
-- Kind 3 Staff booking desk (no tiger, small QR "Self booking with QR"): copies A, B, C, D
+- Kind 3 Staff booking desk (no tiger, small QR "Self booking with QR"): copies A, B, C, D, E
 
-Backgrounds: T1 purple with lime rounded card panel (Starfield Luggage Center), T2 yellow #efee5d with traditional pattern border top and bottom (K-Luggage Hunter / InterCon), T3 purple arch over white (Starfield Storage Delivery), T4 purple with lime bottom band (previous gallery), T5 plain white. Footer is "goodlugg.com" only. The bottom band grows to fill the banner so there is no empty space.
+Backgrounds: T1 purple with lime rounded card panel (Starfield Luggage Center), T2 yellow #efee5d with traditional pattern border top and bottom (K-Luggage Hunter / InterCon), T3 purple arch over white (Starfield Storage Delivery), T4 purple with lime bottom band (previous gallery), T5 plain white. Footer is "goodlugg.com" only. The copy area grows to fill the banner; QR and time sit directly on the background with no box, no "Scan to book", no divider line.
 
 Full size (600 x 1800, printable at 600 x 1800 mm): `?only=1A-T1`. Also accepted: `?only=1A&theme=T1`; `?only=1A` alone shows T4.
 
