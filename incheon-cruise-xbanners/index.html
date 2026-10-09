@@ -169,6 +169,40 @@
       .list div {
         text-transform: capitalize;
       }
+      .lc {
+        text-transform: none;
+      }
+      body.caps .lc,
+      body.caps .head,
+      body.caps .mid,
+      body.caps .desk,
+      body.caps .list div,
+      body.caps .free {
+        text-transform: uppercase;
+      }
+      .case {
+        margin: 14px 0 0;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 14px;
+        color: #555;
+      }
+      .case button {
+        font: inherit;
+        font-weight: 700;
+        border: 1.5px solid #c9c4d2;
+        background: #fff;
+        color: var(--purple);
+        border-radius: 999px;
+        padding: 7px 16px;
+        cursor: pointer;
+      }
+      .case button.on {
+        background: var(--purple);
+        border-color: var(--purple);
+        color: #fff;
+      }
       .head {
         font-weight: 900;
         letter-spacing: -0.02em;
@@ -388,8 +422,8 @@
         gap: 18px;
       }
       .qr img {
-        width: 380px;
-        height: 380px;
+        width: 340px;
+        height: 340px;
         border-radius: 22px;
       }
       .qr .lbl {
@@ -398,8 +432,8 @@
         letter-spacing: 0.01em;
       }
       .k3 .qr img {
-        width: 340px;
-        height: 340px;
+        width: 305px;
+        height: 305px;
       }
       .k3 .qr .lbl {
         font-size: 38px;
@@ -577,6 +611,7 @@
       }
 
       /* ---------- single-banner (full size) mode ---------- */
+      body.only .case,
       body.only header.page,
       body.only section.kind h2,
       body.only h3.copyname,
@@ -625,6 +660,11 @@
         <a href="v3.html">v3 · 65 (logo on top, 5 backgrounds)</a> · this page
         = v4
       </p>
+      <div class="case">
+        Main copy:
+        <button type="button" data-case="title" class="on">Title Case</button>
+        <button type="button" data-case="caps">ALL CAPS</button>
+      </div>
     </header>
 
     <div id="app"></div>
@@ -649,7 +689,7 @@
               id: "A",
               label: "Same-day luggage delivery across Korea",
               head: "Same-Day<br>luggage<br>delivery",
-              mid: "<em>Across Korea</em>",
+              mid: "<em><span class=\"lc\">across</span> Korea</em>",
               sub: "to your hotel, airport,<br>and beyond",
             },
             {
@@ -670,7 +710,7 @@
               label: "Send your bags",
               head: "Send<br>your<br><em>bags</em>",
               headSize: 118,
-              mid: "Same-Day<br>across Korea",
+              mid: "Same-Day<br><span class=\"lc\">across</span> Korea",
             },
           ],
         },
@@ -716,7 +756,7 @@
             {
               id: "B",
               label: "Book here with our staff · arrow · Booking desk",
-              head: "Book here<br>with<br>our staff",
+              head: "Book here<br><span class=\"lc\">with</span><br>our staff",
               sub: "Card or Cash",
               extra: "arrow",
             },
@@ -730,7 +770,7 @@
             {
               id: "E",
               label: "Book with our team",
-              head: "Book<small>with</small>our team",
+              head: "Book<small class=\"lc\">with</small>our team",
               mid: "Same-Day<br>luggage<br>delivery",
               extra: "pill1",
             },
@@ -843,6 +883,8 @@
       var params = new URLSearchParams(location.search);
       var only = params.get("only");
       var qa = params.get("qa");
+      var caps = params.get("case") === "caps";
+      if (caps) document.body.classList.add("caps");
       /* also accept ?only=1A&theme=T1 and legacy ?only=1A (= T4) */
       if (only && only.indexOf("-") < 0) {
         only = only + "-" + (params.get("theme") || "T4");
@@ -877,7 +919,7 @@
               id +
               "</b> " +
               th[1] +
-              ' · <a href="?only=' +
+              ' · <a class="full" href="?only=' +
               id +
               '">Full size</a></p></div>';
           });
@@ -886,6 +928,24 @@
         html += "</section>";
       });
       app.innerHTML = html;
+
+      /* title case / all caps switch */
+      function setCase(c) {
+        document.body.classList.toggle("caps", c === "caps");
+        Array.prototype.forEach.call(document.querySelectorAll(".case button"), function (b) {
+          b.classList.toggle("on", b.getAttribute("data-case") === c);
+        });
+        Array.prototype.forEach.call(document.querySelectorAll("a.full"), function (a) {
+          var base = a.getAttribute("href").split("&")[0];
+          a.setAttribute("href", c === "caps" ? base + "&case=caps" : base);
+        });
+      }
+      Array.prototype.forEach.call(document.querySelectorAll(".case button"), function (b) {
+        b.addEventListener("click", function () {
+          setCase(b.getAttribute("data-case"));
+        });
+      });
+      if (caps) setCase("caps");
 
       /* single banner mode */
       if (only) {
