@@ -258,6 +258,14 @@
       .checks li.plain {
         padding-left: 0;
       }
+      .checks.tight {
+        gap: 10px;
+        font-size: 42px;
+      }
+      .checks.tight svg {
+        width: 38px;
+        height: 38px;
+      }
       .checks li {
         display: flex;
         align-items: center;
@@ -646,8 +654,10 @@
               id: "B",
               label: "Travel bagless in Korea!",
               head: "Travel<br><em>bagless</em><br>in Korea!",
-              sub: "Same-day luggage delivery",
+              mid: "Same-day<br>luggage delivery",
+              midSize: 62,
               checks: ["Nationwide", "Airport", "Hotel", "Airbnb"],
+              checksTight: true,
             },
             {
               id: "C",
@@ -761,12 +771,18 @@
           ">" +
           copy.head +
           "</h1>";
-        if (copy.mid) c += '<p class="mid">' + copy.mid + "</p>";
+        if (copy.mid)
+          c +=
+            '<p class="mid"' +
+            (copy.midSize ? ' style="font-size:' + copy.midSize + 'px"' : "") +
+            ">" +
+            copy.mid +
+            "</p>";
         if (copy.sub) c += '<p class="sub">' + copy.sub + "</p>";
         if (copy.bul) c += '<p class="bul">' + copy.bul + "</p>";
         if (copy.checks)
           c +=
-            '<ul class="checks">' +
+            '<ul class="checks' + (copy.checksTight ? " tight" : "") + '">' +
             copy.checks
               .map(function (x) {
                 if (x.charAt(0) === "-")
