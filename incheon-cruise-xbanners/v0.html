@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Incheon Cruise X-Banners v0</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <style>
+      :root {
+        --purple: #512a72;
+        --purple-deep: #3f1f5a;
+        --lime: #c7c22e;
+        --ink: #1a1a1a;
+        --scale: 0.42;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #ececef;
+        color: var(--ink);
+        font-family:
+          Pretendard,
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      header.page {
+        padding: 36px 40px 10px;
+      }
+      header.page h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--purple);
+      }
+      header.page p {
+        margin: 8px 0 0;
+        font-size: 15px;
+        color: #555;
+        max-width: 900px;
+        line-height: 1.5;
+      }
+      section.kind {
+        padding: 22px 40px 10px;
+      }
+      section.kind h2 {
+        margin: 0 0 14px;
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--purple);
+      }
+      section.kind h2 small {
+        font-weight: 500;
+        color: #666;
+        font-size: 14px;
+        margin-left: 10px;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 26px;
+      }
+      .slot {
+        width: calc(600px * var(--scale));
+      }
+      .frame {
+        width: calc(600px * var(--scale));
+        height: calc(1800px * var(--scale));
+        overflow: hidden;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+        background: #fff;
+      }
+      .frame .b {
+        transform: scale(var(--scale));
+        transform-origin: top left;
+      }
+      .cap {
+        margin: 10px 2px 0;
+        font-size: 13px;
+        line-height: 1.45;
+        color: #444;
+      }
+      .cap b {
+        color: var(--purple);
+      }
+      .cap a {
+        color: var(--purple);
+        font-weight: 600;
+      }
+
+      /* ---------- banner canvas: 600 x 1800 (= 600 x 1800 mm at print) ---------- */
+      .b {
+        width: 600px;
+        height: 1800px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 44px 40px 0;
+        font-family: Pretendard, sans-serif;
+        line-height: 1;
+      }
+      .b img {
+        display: block;
+      }
+      .k1 {
+        background: var(--purple);
+        color: #fff;
+      }
+      .k2 {
+        background: var(--lime);
+        color: var(--purple);
+      }
+      .k3 {
+        background: #fff;
+        color: var(--purple);
+      }
+      .logo {
+        height: 64px;
+        width: auto;
+        align-self: flex-start;
+      }
+      .logo.mx {
+        align-self: center;
+      }
+      .head {
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        line-height: 0.96;
+        margin: 0;
+      }
+      .h104 {
+        font-size: 104px;
+      }
+      .h120 {
+        font-size: 120px;
+      }
+      .h130 {
+        font-size: 130px;
+      }
+      .lime {
+        color: var(--lime);
+      }
+      .sub {
+        font-size: 42px;
+        font-weight: 600;
+        line-height: 1.22;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      .center {
+        text-align: center;
+      }
+      .mx {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* the bottom band grows to fill whatever height is left: no empty space */
+      .band {
+        flex: 1;
+        min-height: 380px;
+        margin: 44px -40px 0;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 0;
+      }
+      .k1 .band {
+        background: var(--lime);
+        color: var(--purple);
+      }
+      .k2 .band {
+        background: var(--purple);
+        color: #fff;
+      }
+      .k3 .band {
+        background: var(--lime);
+        color: var(--purple);
+      }
+      .foot {
+        margin-left: -40px;
+        margin-right: -40px;
+        height: 76px;
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        font-size: 24px;
+        font-weight: 700;
+        background: var(--purple-deep);
+        color: #fff;
+      }
+      .foot span {
+        opacity: 0.85;
+        font-weight: 500;
+      }
+      .qrcard {
+        background: #fff;
+        border-radius: 28px;
+        padding: 28px 28px 22px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        color: var(--purple);
+      }
+      .qrcard img {
+        width: 400px;
+        height: 400px;
+      }
+      .qrcard .lbl {
+        font-size: 34px;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .band .scan {
+        font-size: 54px;
+        font-weight: 900;
+        text-align: center;
+        line-height: 1.1;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+      }
+      .pill {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 18px 40px;
+        font-size: 44px;
+        font-weight: 800;
+      }
+      .tiger {
+        position: absolute;
+        pointer-events: none;
+      }
+
+      /* ===== 1A: logo companion ===== */
+      .b1a .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        height: 360px;
+      }
+      .b1a .top img.t {
+        height: 360px;
+        width: auto;
+        margin-right: -20px;
+        margin-bottom: -4px;
+      }
+      .b1a .head {
+        margin-top: 36px;
+      }
+      .b1a .sub {
+        margin-top: 28px;
+      }
+
+      /* ===== 1B: tiger on the headline box (InterCon look) ===== */
+      .b1b .pairwrap {
+        position: relative;
+        margin-top: 250px;
+      }
+      .b1b .pairwrap img.t {
+        position: absolute;
+        right: -30px;
+        bottom: 100%;
+        margin-bottom: -110px;
+        height: 420px;
+        width: auto;
+      }
+      .b1b .box {
+        background: var(--lime);
+        color: var(--purple);
+        border-radius: 24px;
+        padding: 120px 28px 30px;
+        font-size: 62px;
+        font-weight: 900;
+        line-height: 0.98;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        padding-right: 120px;
+        white-space: nowrap;
+      }
+      .b1b .h130 {
+        margin-top: 28px;
+      }
+      .b1b .sub {
+        margin-top: 26px;
+      }
+
+      /* ===== 1C: copy box with tiger (Starfield look) ===== */
+      .b1c .head {
+        margin-top: 50px;
+      }
+      .b1c .boxwrap {
+        position: relative;
+        margin-top: 60px;
+        height: 460px;
+      }
+      .b1c .box {
+        position: absolute;
+        left: 230px;
+        right: 0;
+        top: 30px;
+        bottom: 0;
+        background: var(--lime);
+        color: var(--purple);
+        border-radius: 26px;
+        padding: 30px 24px 30px 34px;
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 1.18;
+        display: flex;
+        align-items: center;
+      }
+      .b1c .boxwrap img.t {
+        position: absolute;
+        left: -40px;
+        bottom: -6px;
+        height: 460px;
+        width: auto;
+      }
+
+      /* ===== 1D: tiger presents the QR inside the band ===== */
+      .b1d .cities {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .b1d .cities span {
+        font-size: 150px;
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+      }
+      .b1d .cities span:nth-child(even) {
+        color: var(--lime);
+      }
+      .b1d .sub {
+        margin-top: 40px;
+      }
+      .b1d .band {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+        padding: 40px 30px 0 0;
+        gap: 0;
+        position: relative;
+      }
+      .b1d .band .scan {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 44px;
+      }
+      .b1d .band img.t {
+        position: absolute;
+        left: -80px;
+        bottom: -6px;
+        height: 540px;
+        width: auto;
+      }
+      .b1d .band .qrcard {
+        width: 290px;
+        padding: 20px 18px 16px;
+        margin-bottom: 70px;
+        position: relative;
+        z-index: 2;
+      }
+      .b1d .band .qrcard img {
+        width: 250px;
+        height: 250px;
+      }
+      .b1d .band .qrcard .lbl {
+        font-size: 28px;
+        text-align: center;
+        line-height: 1.05;
+      }
+
+      /* ===== 2A: tiger beside the headline ===== */
+      .b2a .top {
+        position: relative;
+        height: 110px;
+      }
+      .b2a .top img.t {
+        position: absolute;
+        right: -20px;
+        top: -16px;
+        height: 330px;
+        width: auto;
+      }
+      .b2a .head {
+        margin-top: 60px;
+        font-size: 116px;
+      }
+      .b2a .sub {
+        margin-top: 30px;
+      }
+      .b2a .time {
+        background: #fff;
+        color: var(--purple);
+        border-radius: 30px;
+        padding: 44px 30px 40px;
+        text-align: center;
+        width: 500px;
+      }
+      .b2a .time .l1 {
+        font-size: 56px;
+        font-weight: 700;
+      }
+      .b2a .band .sub {
+        color: #fff;
+        text-align: center;
+        margin-top: 10px;
+      }
+      .b2a .time .l2 {
+        font-size: 200px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        margin-top: 10px;
+      }
+
+      /* ===== 2B: tiger beside the logo, FREE as hero ===== */
+      .b2b .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        height: 420px;
+      }
+      .b2b .band .sub {
+        color: #fff;
+        text-align: center;
+      }
+      .b2b .top img.t {
+        height: 420px;
+        width: auto;
+        margin-right: -16px;
+        margin-bottom: -4px;
+      }
+      .b2b .head {
+        margin-top: 40px;
+      }
+      .b2b .sub {
+        margin-top: 30px;
+      }
+      .b2b .band .free {
+        font-size: 230px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        color: var(--lime);
+        line-height: 0.9;
+      }
+      .b2b .band .time {
+        background: #fff;
+        color: var(--purple);
+        border-radius: 30px;
+        padding: 36px 30px 32px;
+        text-align: center;
+        width: 500px;
+      }
+      .b2b .band .time .l1 {
+        font-size: 50px;
+        font-weight: 700;
+      }
+      .b2b .band .time .l2 {
+        font-size: 150px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        margin-top: 8px;
+      }
+
+      /* ===== 2C: tiger sits on top of the band ===== */
+      .b2c .head {
+        margin-top: 50px;
+      }
+      .b2c .tigerrow {
+        height: 440px;
+        margin-top: 40px;
+        position: relative;
+      }
+      .b2c .tigerrow img.t {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -80px;
+        height: 520px;
+        width: auto;
+        z-index: 2;
+      }
+      .b2c .band {
+        margin-top: 0;
+        padding-top: 90px;
+        padding-bottom: 50px;
+      }
+      .b2c .band .l1 {
+        font-size: 200px;
+        font-weight: 900;
+        color: var(--lime);
+        letter-spacing: -0.02em;
+        line-height: 0.9;
+      }
+      .b2c .band .l2 {
+        font-size: 56px;
+        font-weight: 700;
+        line-height: 1.25;
+        text-align: center;
+      }
+
+      /* ===== 2D: FREE disc + tiger in the corner of the band ===== */
+      .b2d .head {
+        margin-top: 50px;
+      }
+      .b2d .sub {
+        margin-top: 34px;
+      }
+      .b2d .band {
+        position: relative;
+        padding: 0;
+        display: block;
+      }
+      .b2d .disc {
+        position: absolute;
+        right: 30px;
+        top: 50px;
+        width: 460px;
+        height: 460px;
+        border-radius: 50%;
+        background: var(--lime);
+        color: var(--purple);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .b2d .disc .l1 {
+        font-size: 140px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 0.9;
+      }
+      .b2d .disc .l2 {
+        font-size: 42px;
+        font-weight: 700;
+        margin-top: 14px;
+      }
+      .b2d .band img.t {
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        height: 520px;
+        width: auto;
+      }
+
+      /* ===== Kind 3 shared ===== */
+      .k3 .head {
+        text-align: center;
+      }
+      .k3 .sub {
+        text-align: center;
+        color: #333;
+      }
+      .k3 .band .mini {
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 26px;
+        background: #fff;
+        border-radius: 28px;
+        padding: 24px 26px;
+        color: var(--purple);
+      }
+      .k3 .band .mini img {
+        width: 320px;
+        height: 320px;
+      }
+      .k3 .band .mini .t {
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 1.2;
+        white-space: nowrap;
+      }
+      .k3 .pills {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .k3 .pills .pill {
+        background: var(--purple);
+        color: #fff;
+        text-align: center;
+        font-size: 60px;
+        padding: 30px 0;
+        border-radius: 36px;
+      }
+      .k3 .pills .pill.alt {
+        background: var(--lime);
+        color: var(--purple);
+      }
+      .b3a .head {
+        margin-top: 60px;
+      }
+      .b3a .sub {
+        margin-top: 30px;
+      }
+      .b3a .pills {
+        margin-top: 60px;
+      }
+      .b3b .head {
+        margin-top: 60px;
+      }
+      .b3b .sub {
+        margin-top: 30px;
+      }
+      .b3b .arrow {
+        margin: 30px auto 0;
+        width: 260px;
+        height: 240px;
+      }
+      .b3b .arrow svg {
+        display: block;
+        width: 260px;
+        height: 240px;
+      }
+      .b3b .desk {
+        margin-top: 30px;
+        background: var(--purple);
+        color: #fff;
+        border-radius: 32px;
+        text-align: center;
+        font-size: 74px;
+        font-weight: 900;
+        padding: 42px 0;
+        letter-spacing: 0.02em;
+      }
+      .b3c .head {
+        margin-top: 56px;
+      }
+      .b3c .sub {
+        margin-top: 30px;
+      }
+      .b3c .band .mini img {
+        width: 260px;
+        height: 260px;
+      }
+      .b3c .panel {
+        margin-top: 50px;
+        background: var(--purple);
+        color: #fff;
+        border-radius: 32px;
+        padding: 40px 30px;
+        text-align: center;
+      }
+      .b3c .panel .l1 {
+        font-size: 100px;
+        font-weight: 900;
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+        color: var(--lime);
+      }
+      .b3c .panel .l2 {
+        font-size: 44px;
+        font-weight: 700;
+        margin-top: 28px;
+      }
+      .b3d .head {
+        margin-top: 60px;
+      }
+      .b3d .sub {
+        margin-top: 30px;
+      }
+      .b3d .list {
+        margin-top: 70px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .b3d .list div {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        font-size: 52px;
+        font-weight: 800;
+        line-height: 1.05;
+      }
+      .b3d .list i {
+        flex: none;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: var(--purple);
+        color: var(--lime);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-style: normal;
+        font-size: 56px;
+        font-weight: 900;
+      }
+
+      /* ---------- single-banner (full size) mode ---------- */
+      body.only header.page,
+      body.only section.kind h2,
+      body.only .cap,
+      body.only .slot:not(.show) {
+        display: none;
+      }
+      body.only {
+        background: #fff;
+      }
+      body.only section.kind {
+        padding: 0;
+      }
+      body.only .slot.show,
+      body.only .slot.show .frame {
+        width: 600px;
+        height: 1800px;
+        box-shadow: none;
+      }
+      body.only .slot.show .b {
+        transform: none;
+      }
+      @page {
+        size: 600mm 1800mm;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page">
+      <h1>Incheon Cruise Terminal · Goodlugg Zone X-Banners</h1>
+      <p>
+        12 options for CEO review: 3 kinds × 4 versions. Each banner is drawn at
+        600 × 1800 (= 600 × 1800 mm X-banner, 1 : 3). Click “Full size” under a
+        banner to open it alone at 100% for printing or close review.
+      </p>
+    </header>
+
+    <!-- ================= KIND 1: BOOKING ================= -->
+    <section class="kind">
+      <h2>
+        1 · Booking QR banner <small>moving tiger · purple · QR → incheon-cruise booking page</small>
+      </h2>
+      <div class="row">
+        <div class="slot" id="s1A">
+          <div class="frame">
+            <div class="b k1 b1a">
+              <div class="top">
+                <img class="logo" src="logo_white.png" alt="Goodlugg" />
+                <img class="t" src="tiger_move.png" alt="" />
+              </div>
+              <h1 class="head" style="font-size: 94px">
+                Same-day<br />luggage<br />delivery<br /><span class="lime">across Korea</span>
+              </h1>
+              <p class="sub">to your hotel, airport,<br />and beyond</p>
+              <div class="band">
+                <div class="scan">Scan to book</div>
+                <div class="qrcard">
+                  <img src="qr.png" alt="Booking QR" />
+                  <div class="lbl">Book in 5 min.</div>
+                </div>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>1A</b> CEO copy as written · tiger beside logo · <a href="?only=1A">Full size</a></p>
+        </div>
+
+        <div class="slot" id="s1B">
+          <div class="frame">
+            <div class="b k1 b1b">
+              <img class="logo" src="logo_white.png" alt="Goodlugg" />
+              <div class="pairwrap">
+                <img class="t" src="tiger_move.png" alt="" />
+                <div class="box">Same-day<br />luggage<br />delivery</div>
+              </div>
+              <h1 class="head h130 lime">Across<br />Korea</h1>
+              <p class="sub">to your hotel, airport,<br />and beyond</p>
+              <div class="band">
+                <div class="scan">Scan to book</div>
+                <div class="qrcard">
+                  <img src="qr.png" alt="Booking QR" />
+                  <div class="lbl">Book in 5 min.</div>
+                </div>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>1B</b> CEO copy · tiger on the headline box (InterCon look) · <a href="?only=1B">Full size</a></p>
+        </div>
+
+        <div class="slot" id="s1C">
+          <div class="frame">
+            <div class="b k1 b1c">
+              <img class="logo mx" src="logo_white.png" alt="Goodlugg" />
+              <h1 class="head h104 center">Drop<br />your bags<br /><span class="lime">here</span></h1>
+              <div class="boxwrap">
+                <img class="t" src="tiger_move.png" alt="" />
+                <div class="box">Same-day delivery to your hotel, airport &amp; beyond</div>
+              </div>
+              <div class="band">
+                <div class="scan">Scan to book</div>
+                <div class="qrcard">
+                  <img src="qr.png" alt="Booking QR" />
+                  <div class="lbl">Book in 5 min.</div>
+                </div>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>1C</b> action-first · tiger beside the copy box · <a href="?only=1C">Full size</a></p>
+        </div>
+
+        <div class="slot" id="s1D">
+          <div class="frame">
+            <div class="b k1 b1d">
+              <img class="logo" src="logo_white.png" alt="Goodlugg" />
+              <div class="cities">
+                <span>Seoul</span><span>Busan</span><span>Jeju</span><span>Airport</span>
+              </div>
+              <p class="sub">Your bags delivered today,<br />anywhere in Korea</p>
+              <div class="band">
+                <div class="scan">Scan to book</div>
+                <img class="t" src="tiger_move.png" alt="" />
+                <div class="qrcard">
+                  <img src="qr.png" alt="Booking QR" />
+                  <div class="lbl">Book in<br />5 min.</div>
+                </div>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>1D</b> destination-first · tiger presents the QR · <a href="?only=1D">Full size</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= KIND 2: STORAGE ================= -->
+    <section class="kind">
+      <h2>2 · Luggage storage banner <small>sitting tiger · lime · no QR</small></h2>
+      <div class="row">
+        <div class="slot" id="s2A">
+          <div class="frame">
+            <div class="b k2 b2a">
+              <div class="top">
+                <img class="logo" src="logo_purple_solid.png" alt="Goodlugg" />
+                <img class="t" src="tiger_sit.png" alt="" />
+              </div>
+              <h1 class="head">Free<br />luggage<br />storage</h1>
+              <div class="band">
+                <div class="time">
+                  <div class="l1">until</div>
+                  <div class="l2">3:00<br />PM</div>
+                </div>
+                <p class="sub">Leave your bags with us<br />and explore bagless</p>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>2A</b> CEO copy · tiger beside the headline · <a href="?only=2A">Full size</a></p>
+        </div>
+
+        <div class="slot" id="s2B">
+          <div class="frame">
+            <div class="b k2 b2b">
+              <div class="top">
+                <img class="logo" src="logo_purple_solid.png" alt="Goodlugg" />
+                <img class="t" src="tiger_sit.png" alt="" />
+              </div>
+              <h1 class="head h120">Luggage<br />storage</h1>
+              <div class="band">
+                <div class="free">FREE</div>
+                <div class="time">
+                  <div class="l1">until</div>
+                  <div class="l2">3:00 PM</div>
+                </div>
+                <p class="sub">Drop your bags,<br />enjoy the day</p>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>2B</b> CEO copy · tiger beside logo · FREE as the hero word · <a href="?only=2B">Full size</a></p>
+        </div>
+
+        <div class="slot" id="s2C">
+          <div class="frame">
+            <div class="b k2 b2c">
+              <img class="logo mx" src="logo_purple_solid.png" alt="Goodlugg" />
+              <h1 class="head h104 center">Leave<br />your bags<br />here</h1>
+              <div class="tigerrow"><img class="t" src="tiger_sit.png" alt="" /></div>
+              <div class="band">
+                <div class="l1">FREE</div>
+                <div class="l2">Luggage storage<br />Pick up by 3:00 PM</div>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>2C</b> instruction · tiger sits on the copy block · <a href="?only=2C">Full size</a></p>
+        </div>
+
+        <div class="slot" id="s2D">
+          <div class="frame">
+            <div class="b k2 b2d">
+              <img class="logo mx" src="logo_purple_solid.png" alt="Goodlugg" />
+              <h1 class="head h104 center">Explore<br />Incheon<br />bagless</h1>
+              <p class="sub center">Free luggage storage<br />until 3:00 PM</p>
+              <div class="band">
+                <div class="disc">
+                  <div class="l1">FREE</div>
+                  <div class="l2">until 3:00 PM</div>
+                </div>
+                <img class="t" src="tiger_sit.png" alt="" />
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>2D</b> benefit-first · tiger in the corner beside the FREE disc · <a href="?only=2D">Full size</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= KIND 3: BOOKING HELP DESK ================= -->
+    <section class="kind">
+      <h2>3 · Staff-assisted booking desk <small>no tiger · white · small QR as the self-booking alternative</small></h2>
+      <div class="row">
+        <div class="slot" id="s3A">
+          <div class="frame">
+            <div class="b k3 b3a">
+              <img class="logo mx" src="logo_purple.png" alt="Goodlugg" />
+              <h1 class="head" style="font-size: 112px">Booking<br />desk</h1>
+              <p class="sub">Our staff will<br />book it for you</p>
+              <div class="pills">
+                <span class="pill">Card</span>
+                <span class="pill alt">Cash</span>
+                <span class="pill">QR</span>
+              </div>
+              <div class="band">
+                <div class="mini">
+                  <img src="qr.png" alt="Booking QR" />
+                  <div class="t">Prefer to book<br />yourself?<br />Scan · 5 min.</div>
+                </div>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>3A</b> desk label · Card / Cash / QR · <a href="?only=3A">Full size</a></p>
+        </div>
+
+        <div class="slot" id="s3B">
+          <div class="frame">
+            <div class="b k3 b3b">
+              <img class="logo mx" src="logo_purple.png" alt="Goodlugg" />
+              <h1 class="head" style="font-size: 86px">Book here<br />with<br />our staff</h1>
+              <p class="sub">Card and cash accepted</p>
+              <div class="arrow">
+                <svg viewBox="0 0 260 240" aria-hidden="true">
+                  <path d="M90 0h80v120h70L130 240 0 120h90z" fill="#c7c22e" />
+                </svg>
+              </div>
+              <div class="desk">BOOKING DESK</div>
+              <div class="band">
+                <div class="mini">
+                  <img src="qr.png" alt="Booking QR" />
+                  <div class="t">Or scan to<br />self-book<br />· 5 min.</div>
+                </div>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>3B</b> arrow points at the desk · <a href="?only=3B">Full size</a></p>
+        </div>
+
+        <div class="slot" id="s3C">
+          <div class="frame">
+            <div class="b k3 b3c">
+              <img class="logo mx" src="logo_purple.png" alt="Goodlugg" />
+              <h1 class="head h104">No phone?<br /><span style="color: #333">No problem.</span></h1>
+              <p class="sub">We'll book your<br />delivery for you</p>
+              <div class="panel">
+                <div class="l1">Card<br />or cash</div>
+                <div class="l2">Pay right here</div>
+              </div>
+              <div class="band">
+                <div class="mini">
+                  <img src="qr.png" alt="Booking QR" />
+                  <div class="t">Have a phone?<br />Scan to book<br />· 5 min.</div>
+                </div>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>3C</b> reassurance · <a href="?only=3C">Full size</a></p>
+        </div>
+
+        <div class="slot" id="s3D">
+          <div class="frame">
+            <div class="b k3 b3d">
+              <img class="logo mx" src="logo_purple.png" alt="Goodlugg" />
+              <h1 class="head h130">Help<br />desk</h1>
+              <p class="sub">Ask our staff</p>
+              <div class="list">
+                <div><i>1</i>Book your<br />delivery</div>
+                <div><i>2</i>Pay by card<br />or cash</div>
+                <div><i>3</i>Any questions</div>
+              </div>
+              <div class="band">
+                <div class="mini">
+                  <img src="qr.png" alt="Booking QR" />
+                  <div class="t">Self-booking?<br />Scan here<br />· 5 min.</div>
+                </div>
+              </div>
+              <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
+            </div>
+          </div>
+          <p class="cap"><b>3D</b> numbered help list · <a href="?only=3D">Full size</a></p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        var id = new URLSearchParams(location.search).get("only");
+        if (!id) return;
+        var slot = document.getElementById("s" + id);
+        if (!slot) return;
+        document.body.classList.add("only");
+        slot.classList.add("show");
+        document.title = "X-Banner " + id;
+      })();
+    </script>
+  </body>
+</html>

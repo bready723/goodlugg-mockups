@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Incheon Cruise X-Banners</title>
+    <title>Incheon Cruise X-Banners v2</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
@@ -47,10 +47,6 @@
         color: #555;
         max-width: 960px;
         line-height: 1.5;
-      }
-      header.page p.versions a {
-        color: var(--purple);
-        font-weight: 600;
       }
       section.kind {
         padding: 26px 40px 10px;
@@ -130,18 +126,19 @@
       .top {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: flex-end;
         height: 330px;
         flex: none;
       }
       .top .logo {
         height: 64px;
         width: auto;
-        margin-top: 10px;
+        margin-bottom: 6px;
       }
       .top img.t {
         height: 330px;
         width: auto;
+        margin-bottom: -4px;
       }
       .k1 .top img.t {
         margin-right: -22px;
@@ -219,38 +216,6 @@
         text-transform: uppercase;
         margin: 0;
       }
-      .k2 .head {
-        line-height: 1.12;
-      }
-      .checks {
-        display: flex;
-        flex-direction: column;
-        gap: 22px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        font-size: 46px;
-        font-weight: 700;
-        color: var(--fg);
-      }
-      .checks li {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        white-space: nowrap;
-      }
-      .checks svg {
-        width: 46px;
-        height: 46px;
-        flex: none;
-      }
-      .checks path {
-        fill: none;
-        stroke: var(--accent);
-        stroke-width: 9;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
       .k3 .head,
       .k3 .mid,
       .k3 .sub,
@@ -299,26 +264,21 @@
       .list {
         display: flex;
         flex-direction: column;
-        gap: 34px;
-        width: 100%;
-        padding-left: 30px;
+        gap: 26px;
       }
       .list div {
         display: flex;
         align-items: center;
-        gap: 30px;
-        font-size: 84px;
-        font-weight: 900;
-        line-height: 1;
+        gap: 24px;
+        font-size: 42px;
+        font-weight: 800;
+        line-height: 1.05;
         text-align: left;
-        white-space: nowrap;
-        text-transform: uppercase;
-        letter-spacing: -0.02em;
       }
       .list i {
         flex: none;
-        width: 120px;
-        height: 120px;
+        width: 92px;
+        height: 92px;
         border-radius: 50%;
         background: var(--chip-bg);
         color: var(--chip-fg);
@@ -326,7 +286,7 @@
         align-items: center;
         justify-content: center;
         font-style: normal;
-        font-size: 70px;
+        font-size: 52px;
         font-weight: 900;
       }
 
@@ -405,18 +365,42 @@
         color: var(--foot-fg);
       }
 
-      /* ---------- T1: plain purple, lime accents, no band ---------- */
+      /* ---------- T1: purple, copy inside a lime rounded card (Starfield Luggage Center) ---------- */
       .t1 {
         background: var(--purple);
         --fg: #fff;
-        --accent: var(--lime);
-        --sub: rgba(255, 255, 255, 0.92);
-        --chip-bg: var(--lime);
-        --chip-fg: var(--purple);
+        --accent: var(--purple);
+        --sub: var(--purple);
+        --chip-bg: var(--purple);
+        --chip-fg: #fff;
         --band-bg: transparent;
         --band-fg: #fff;
         --foot-bg: var(--purple);
         --foot-fg: #fff;
+      }
+      .t1 .copy {
+        background: var(--lime);
+        color: var(--purple);
+        border-radius: 38px;
+        padding: 40px 30px;
+        margin-top: 30px;
+      }
+      .t1 .head em,
+      .t1 .mid,
+      .t1 .free,
+      .t1 .bul {
+        color: var(--purple);
+      }
+      .t1 .band {
+        padding-top: 40px;
+      }
+      .t1 .list div {
+        font-size: 36px;
+      }
+      .t1 .list i {
+        width: 84px;
+        height: 84px;
+        font-size: 46px;
       }
 
       /* ---------- T2: yellow with traditional pattern border (K-Luggage Hunter / InterCon) ---------- */
@@ -453,13 +437,6 @@
       }
       .t2 .foot {
         height: 72px;
-      }
-      .t2 .head em,
-      .t2 .mid em {
-        background: var(--purple);
-        color: var(--yellow);
-        padding: 0 14px;
-        border-radius: 18px;
       }
 
       /* ---------- T3: purple arch over white (Starfield Storage Delivery) ---------- */
@@ -571,12 +548,6 @@
         (one row per copy). Each banner is drawn at 600 × 1800 (1 : 3). “Full
         size” opens one banner alone at 100% for close review or printing.
       </p>
-      <p class="versions">
-        Earlier versions: <a href="v0.html">v0 · 12 banners (morning)</a> ·
-        <a href="v1.html">v1 · 55 (boxed QR and time)</a> ·
-        <a href="v2.html">v2 · 70 (no boxes, lime copy card)</a> · this page =
-        v3
-      </p>
     </header>
 
     <div id="app"></div>
@@ -585,7 +556,7 @@
     <script>
       /* ---------------- data ---------------- */
       var THEMES = [
-        ["T1", "Purple · plain"],
+        ["T1", "Purple · lime copy card"],
         ["T2", "Yellow · traditional border"],
         ["T3", "Purple arch over white"],
         ["T4", "Purple · lime bottom band"],
@@ -610,13 +581,13 @@
               label: "Drop your bags here & start bagless travel!",
               head: "Drop your<br>bags here<br>&amp; start<br><em>bagless<br>travel!</em>",
               sub: "Same-day delivery<br>to your hotel or Airbnb<br>anywhere in Korea",
-              checks: ["Nationwide", "Airbnb OK", "Instant quote", "Card / PayPal"],
+              bul: "Nationwide · Airbnb OK<br>Card / PayPal",
             },
             {
               id: "C",
               label: "Your bags, delivered today",
               head: "Your bags,<br><em>delivered<br>today</em>",
-              checks: ["Airport", "Hotel", "Airbnb", "and beyond"],
+              sub: "Same-day luggage delivery<br>anywhere in Korea",
             },
             {
               id: "D",
@@ -643,20 +614,27 @@
               id: "A",
               label: "Free luggage storage · until 3:00 PM",
               head: "<em>Free</em><br>luggage<br>storage",
-              band: ["time"],
+              band: ["time", "sub:Leave your bags with us<br>and explore bagless"],
             },
             {
               id: "B",
               label: "Luggage storage · FREE · until 3:00 PM",
               head: "Luggage<br>storage",
               parts: ["free"],
-              band: ["time"],
+              band: ["time", "sub:Drop your bags,<br>enjoy the day"],
             },
             {
               id: "C",
               label: "Store your bags here · FREE · until 3:00 PM",
               head: "Store<br>your bags<br><em>here</em>",
               parts: ["free"],
+              band: ["time"],
+            },
+            {
+              id: "D",
+              label: "Drop. Explore. Pick up.",
+              head: "Drop.<br><em>Explore.</em><br>Pick up.",
+              parts: ["free", "lbl:Luggage<br>storage"],
               band: ["time"],
             },
           ],
@@ -682,7 +660,7 @@
             },
             {
               id: "C",
-              label: "Help desk · 1 Book 2 Pay 3 Questions",
+              label: "Help desk · Ask our staff · 1 2 3",
               head: "Help<br>desk",
               sub: "Ask our staff",
               extra: "list",
@@ -736,19 +714,6 @@
         if (copy.mid) c += '<p class="mid">' + copy.mid + "</p>";
         if (copy.sub) c += '<p class="sub">' + copy.sub + "</p>";
         if (copy.bul) c += '<p class="bul">' + copy.bul + "</p>";
-        if (copy.checks)
-          c +=
-            '<ul class="checks">' +
-            copy.checks
-              .map(function (x) {
-                return (
-                  '<li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 26l11 11L40 12"></path></svg>' +
-                  x +
-                  "</li>"
-                );
-              })
-              .join("") +
-            "</ul>";
         (copy.parts || []).forEach(function (item) {
           if (item === "free") c += '<p class="free">FREE</p>';
           else if (item.indexOf("lbl:") === 0)
@@ -764,7 +729,7 @@
             '<div class="arrow"><svg viewBox="0 0 220 200" aria-hidden="true"><path d="M75 0h70v100h60L110 200 0 100h75z"></path></svg></div><div class="desk">BOOKING DESK</div>';
         if (copy.extra === "list")
           c +=
-            '<div class="list"><div><i>1</i>Book</div><div><i>2</i>Pay</div><div><i>3</i>Questions</div></div>';
+            '<div class="list"><div><i>1</i>Book your delivery</div><div><i>2</i>Pay by card or cash</div><div><i>3</i>Any questions</div></div>';
         c += "</div>";
 
         var band = '<div class="band">';
@@ -781,7 +746,7 @@
           });
         } else {
           band +=
-            '<div class="qr"><img src="qr.png" alt="Booking QR"><div class="lbl">Self booking</div></div>';
+            '<div class="qr"><img src="qr.png" alt="Booking QR"><div class="lbl">Self booking with QR</div></div>';
         }
         band += "</div>";
 
@@ -863,7 +828,7 @@
           fs -= 2;
           head.style.fontSize = fs + "px";
         }
-        Array.prototype.forEach.call(b.querySelectorAll(".free, .lbl2, .sub, .bul, .bsub, .checks li, .list div"), function (el) {
+        Array.prototype.forEach.call(b.querySelectorAll(".free, .lbl2, .sub, .bul, .bsub"), function (el) {
           var f = parseFloat(getComputedStyle(el).fontSize), g = 0;
           while (el.scrollWidth > el.clientWidth + 1 && f > 40 && g++ < 80) {
             f -= 2;

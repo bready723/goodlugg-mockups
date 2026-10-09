@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Incheon Cruise X-Banners</title>
+    <title>Incheon Cruise X-Banners v1</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
@@ -15,7 +15,7 @@
         --lime: #c7c22e;
         --yellow: #efee5d;
         --ink: #1a1a1a;
-        --scale: 0.3;
+        --scale: 0.36;
       }
       * {
         box-sizing: border-box;
@@ -48,16 +48,12 @@
         max-width: 960px;
         line-height: 1.5;
       }
-      header.page p.versions a {
-        color: var(--purple);
-        font-weight: 600;
-      }
       section.kind {
         padding: 26px 40px 10px;
       }
       section.kind h2 {
-        margin: 0 0 6px;
-        font-size: 22px;
+        margin: 0 0 12px;
+        font-size: 20px;
         font-weight: 800;
         color: var(--purple);
       }
@@ -67,24 +63,39 @@
         font-size: 14px;
         margin-left: 10px;
       }
-      h3.copyname {
-        margin: 22px 0 10px;
-        font-size: 15px;
-        font-weight: 700;
-        color: #333;
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0 0 16px;
       }
-      h3.copyname b {
-        color: #fff;
-        background: var(--purple);
-        border-radius: 8px;
-        padding: 3px 9px;
-        margin-right: 8px;
+      .tabs button {
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1.5px solid #c9c4d2;
+        background: #fff;
+        color: var(--purple);
+        border-radius: 999px;
+        padding: 8px 16px;
+        cursor: pointer;
+        max-width: 420px;
+        text-align: left;
+        line-height: 1.3;
+      }
+      .tabs button b {
         font-weight: 900;
+        margin-right: 6px;
+      }
+      .tabs button.on {
+        background: var(--purple);
+        border-color: var(--purple);
+        color: #fff;
       }
       .row {
         display: flex;
         flex-wrap: wrap;
-        gap: 18px;
+        gap: 22px;
       }
       .slot {
         width: calc(600px * var(--scale));
@@ -101,12 +112,14 @@
         transform-origin: top left;
       }
       .cap {
-        margin: 8px 0 0;
-        font-size: 12px;
+        margin: 10px 0 0;
+        font-size: 13px;
         color: #444;
         line-height: 1.4;
       }
-      .cap b,
+      .cap b {
+        color: var(--purple);
+      }
       .cap a {
         color: var(--purple);
       }
@@ -130,18 +143,19 @@
       .top {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
-        height: 330px;
+        align-items: flex-end;
+        height: 340px;
         flex: none;
       }
       .top .logo {
         height: 64px;
         width: auto;
-        margin-top: 10px;
+        margin-bottom: 6px;
       }
       .top img.t {
-        height: 330px;
+        height: 340px;
         width: auto;
+        margin-bottom: -4px;
       }
       .k1 .top img.t {
         margin-right: -22px;
@@ -153,114 +167,48 @@
         height: auto;
         justify-content: center;
       }
-
-      /* copy area grows: the message gets most of the banner */
       .copy {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        padding: 10px 0;
+        flex: none;
       }
       .head {
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: -0.02em;
         line-height: 0.96;
-        margin: 0;
+        margin: 34px 0 0;
         white-space: nowrap;
-        font-size: 140px;
+        font-size: 130px;
       }
-      .head em,
-      .mid em {
+      .head em {
         font-style: normal;
         color: var(--accent);
         -webkit-box-decoration-break: clone;
         box-decoration-break: clone;
       }
-      .mid {
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: -0.01em;
-        line-height: 1;
-        margin: 0;
-        white-space: nowrap;
-        color: var(--accent);
-        font-size: 70px;
-      }
       .sub {
-        font-size: 44px;
+        font-size: 42px;
         font-weight: 600;
         line-height: 1.22;
-        margin: 0;
+        margin: 28px 0 0;
         letter-spacing: -0.01em;
         color: var(--sub);
-        white-space: nowrap;
       }
       .bul {
-        margin: 0;
-        font-size: 32px;
+        margin: 26px 0 0;
+        font-size: 30px;
         font-weight: 700;
         line-height: 1.3;
         color: var(--accent);
       }
-      .free {
-        font-size: 230px;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-        line-height: 0.9;
-        margin: 0;
-        color: var(--accent);
-      }
-      .lbl2 {
-        font-size: 60px;
-        font-weight: 800;
-        line-height: 1.05;
-        text-transform: uppercase;
-        margin: 0;
-      }
-      .k2 .head {
-        line-height: 1.12;
-      }
-      .checks {
-        display: flex;
-        flex-direction: column;
-        gap: 22px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        font-size: 46px;
-        font-weight: 700;
-        color: var(--fg);
-      }
-      .checks li {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        white-space: nowrap;
-      }
-      .checks svg {
-        width: 46px;
-        height: 46px;
-        flex: none;
-      }
-      .checks path {
-        fill: none;
-        stroke: var(--accent);
-        stroke-width: 9;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
       .k3 .head,
-      .k3 .mid,
       .k3 .sub,
-      .k3 .bul,
-      .k3 .lbl2 {
+      .k3 .bul {
         text-align: center;
       }
       .pills {
         display: flex;
         gap: 20px;
+        margin-top: 44px;
         justify-content: center;
       }
       .pill {
@@ -274,7 +222,7 @@
         color: var(--chip-fg);
       }
       .arrow {
-        margin: 0 auto;
+        margin: 30px auto 0;
         width: 220px;
         height: 200px;
       }
@@ -287,6 +235,7 @@
         fill: var(--chip-bg);
       }
       .desk {
+        margin-top: 30px;
         border-radius: 32px;
         text-align: center;
         font-size: 72px;
@@ -297,28 +246,24 @@
         color: var(--chip-fg);
       }
       .list {
+        margin-top: 50px;
         display: flex;
         flex-direction: column;
-        gap: 34px;
-        width: 100%;
-        padding-left: 30px;
+        gap: 26px;
       }
       .list div {
         display: flex;
         align-items: center;
-        gap: 30px;
-        font-size: 84px;
-        font-weight: 900;
-        line-height: 1;
+        gap: 24px;
+        font-size: 42px;
+        font-weight: 800;
+        line-height: 1.05;
         text-align: left;
-        white-space: nowrap;
-        text-transform: uppercase;
-        letter-spacing: -0.02em;
       }
       .list i {
         flex: none;
-        width: 120px;
-        height: 120px;
+        width: 92px;
+        height: 92px;
         border-radius: 50%;
         background: var(--chip-bg);
         color: var(--chip-fg);
@@ -326,69 +271,111 @@
         align-items: center;
         justify-content: center;
         font-style: normal;
-        font-size: 70px;
+        font-size: 52px;
         font-weight: 900;
       }
 
-      /* band: fixed to its content, no box around QR or time */
+      /* band: grows to fill whatever height is left, so no empty space */
       .band {
-        flex: none;
-        margin: 0 -40px;
-        padding: 30px 40px 34px;
+        flex: 1;
+        margin: 40px -40px 0;
+        padding: 36px 40px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 26px;
+        justify-content: space-evenly;
         text-align: center;
         color: var(--band-fg);
         background: var(--band-bg);
       }
-      .qr {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 18px;
-      }
-      .qr img {
-        width: 380px;
-        height: 380px;
-        border-radius: 22px;
-      }
-      .qr .lbl {
-        font-size: 40px;
+      .band .scan {
+        font-size: 54px;
         font-weight: 900;
+        line-height: 1.1;
+        text-transform: uppercase;
         letter-spacing: 0.01em;
       }
-      .k3 .qr img {
-        width: 340px;
-        height: 340px;
-      }
-      .k3 .qr .lbl {
-        font-size: 38px;
-        font-weight: 800;
-      }
-      .time {
+      .qrcard {
+        background: #fff;
+        border-radius: 28px;
+        padding: 26px 26px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 12px;
-        white-space: nowrap;
-        color: var(--band-fg);
+        gap: 14px;
+        color: var(--purple);
+        border: var(--card-border);
       }
-      .time .l1 {
-        font-size: 44px;
+      .qrcard img {
+        width: 380px;
+        height: 380px;
+      }
+      .qrcard .lbl {
+        font-size: 34px;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .band .free {
+        font-size: 230px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 0.9;
+        color: var(--free);
+      }
+      .band .lbl2 {
+        font-size: 56px;
+        font-weight: 800;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+      .band .time {
+        border-radius: 30px;
+        padding: 30px 40px 28px;
+        width: 100%;
+        background: var(--time-bg);
+        color: var(--time-fg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
+      }
+      .band .time .l1 {
+        font-size: 40px;
         font-weight: 700;
       }
-      .time .l2 {
-        font-size: 104px;
+      .band .time .l2 {
+        font-size: 96px;
         font-weight: 900;
         letter-spacing: -0.03em;
       }
-      .bsub {
+      .band .bsub {
         font-size: 40px;
         font-weight: 600;
         line-height: 1.22;
         margin: 0;
+        white-space: nowrap;
+      }
+      .mini {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        background: #fff;
+        border-radius: 28px;
+        padding: 24px 30px;
+        color: var(--purple);
+        border: var(--card-border);
+      }
+      .mini img {
+        width: 380px;
+        height: 380px;
+      }
+      .mini .t {
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 1.2;
         white-space: nowrap;
       }
       .foot {
@@ -405,7 +392,7 @@
         color: var(--foot-fg);
       }
 
-      /* ---------- T1: plain purple, lime accents, no band ---------- */
+      /* ---------- T1: purple + lime rounded card panel (Starfield Luggage Center) ---------- */
       .t1 {
         background: var(--purple);
         --fg: #fff;
@@ -413,10 +400,22 @@
         --sub: rgba(255, 255, 255, 0.92);
         --chip-bg: var(--lime);
         --chip-fg: var(--purple);
-        --band-bg: transparent;
-        --band-fg: #fff;
+        --band-bg: var(--lime);
+        --band-fg: var(--purple);
+        --free: var(--purple);
+        --time-bg: #fff;
+        --time-fg: var(--purple);
+        --card-border: 0;
         --foot-bg: var(--purple);
         --foot-fg: #fff;
+      }
+      .t1 .band {
+        margin: 40px 0 0;
+        border-radius: 34px;
+        padding: 36px 20px;
+      }
+      .t1 .foot {
+        height: 84px;
       }
 
       /* ---------- T2: yellow with traditional pattern border (K-Luggage Hunter / InterCon) ---------- */
@@ -429,8 +428,12 @@
         --sub: var(--purple);
         --chip-bg: var(--purple);
         --chip-fg: #fff;
-        --band-bg: transparent;
-        --band-fg: var(--purple);
+        --band-bg: var(--purple);
+        --band-fg: #fff;
+        --free: var(--lime);
+        --time-bg: #fff;
+        --time-fg: var(--purple);
+        --card-border: 0;
         --foot-bg: transparent;
         --foot-fg: var(--purple);
       }
@@ -451,46 +454,50 @@
         bottom: 0;
         transform: scaleY(-1);
       }
+      .t2 .band {
+        margin: 40px 0 0;
+        border-radius: 34px;
+        padding: 36px 20px;
+      }
       .t2 .foot {
         height: 72px;
-      }
-      .t2 .head em,
-      .t2 .mid em {
-        background: var(--purple);
-        color: var(--yellow);
-        padding: 0 14px;
-        border-radius: 18px;
       }
 
       /* ---------- T3: purple arch over white (Starfield Storage Delivery) ---------- */
       .t3 {
         background: #fff;
         padding-top: 0;
-        --fg: #fff;
+        --fg: var(--purple);
         --accent: var(--lime);
         --sub: rgba(255, 255, 255, 0.92);
         --chip-bg: var(--lime);
         --chip-fg: var(--purple);
         --band-bg: transparent;
         --band-fg: var(--purple);
+        --free: var(--purple);
+        --time-bg: var(--purple);
+        --time-fg: #fff;
+        --card-border: 6px solid var(--purple);
         --foot-bg: transparent;
         --foot-fg: var(--purple);
       }
       .t3 .arch {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
+        flex: none;
         margin: 0 -40px;
-        padding: 44px 40px 50px;
+        padding: 44px 40px 60px;
         background: var(--purple);
         color: #fff;
         border-radius: 0 0 150px 150px;
       }
       .t3 .band {
-        padding-top: 44px;
+        margin-top: 20px;
+      }
+      .t3 .mini,
+      .t3 .qrcard {
+        border-radius: 34px;
       }
 
-      /* ---------- T4: purple + lime bottom band (previous gallery) ---------- */
+      /* ---------- T4: purple + lime bottom band (current) ---------- */
       .t4 {
         background: var(--purple);
         --fg: #fff;
@@ -500,12 +507,12 @@
         --chip-fg: var(--purple);
         --band-bg: var(--lime);
         --band-fg: var(--purple);
+        --free: var(--purple);
+        --time-bg: #fff;
+        --time-fg: var(--purple);
+        --card-border: 0;
         --foot-bg: var(--purple-deep);
         --foot-fg: #fff;
-      }
-      .t4 .band {
-        margin-top: 30px;
-        padding: 40px 40px 44px;
       }
 
       /* ---------- T5: plain white ---------- */
@@ -518,21 +525,28 @@
         --chip-fg: #fff;
         --band-bg: transparent;
         --band-fg: var(--purple);
+        --free: var(--purple);
+        --time-bg: var(--lime);
+        --time-fg: var(--purple);
+        --card-border: 6px solid var(--purple);
         --foot-bg: transparent;
         --foot-fg: var(--purple);
       }
-      .t5 .head em,
-      .t5 .mid em {
+      .t5 .head em {
         background: var(--lime);
         color: var(--purple);
         padding: 0 14px;
         border-radius: 18px;
       }
+      .t5 .band {
+        border-top: 6px solid var(--lime);
+        margin-top: 44px;
+      }
 
       /* ---------- single-banner (full size) mode ---------- */
       body.only header.page,
       body.only section.kind h2,
-      body.only h3.copyname,
+      body.only .tabs,
       body.only .cap,
       body.only .slot:not(.show) {
         display: none;
@@ -552,6 +566,9 @@
       body.only .slot.show .b {
         transform: none;
       }
+      body.qa .slot {
+        display: block !important;
+      }
       #qa {
         font: 12px/1.4 monospace;
         white-space: pre;
@@ -567,15 +584,10 @@
     <header class="page">
       <h1>Incheon Cruise Terminal · Goodlugg Zone X-Banners</h1>
       <p>
-        3 kinds of banner. Every copy version is shown on all 5 backgrounds
-        (one row per copy). Each banner is drawn at 600 × 1800 (1 : 3). “Full
-        size” opens one banner alone at 100% for close review or printing.
-      </p>
-      <p class="versions">
-        Earlier versions: <a href="v0.html">v0 · 12 banners (morning)</a> ·
-        <a href="v1.html">v1 · 55 (boxed QR and time)</a> ·
-        <a href="v2.html">v2 · 70 (no boxes, lime copy card)</a> · this page =
-        v3
+        3 kinds of banner, each with several copy options and 5 backgrounds.
+        Pick a copy option with the buttons to see it on all 5 backgrounds.
+        Each banner is drawn at 600 × 1800 (1 : 3). “Full size” opens one
+        banner alone at 100% for close review or printing.
       </p>
     </header>
 
@@ -585,10 +597,10 @@
     <script>
       /* ---------------- data ---------------- */
       var THEMES = [
-        ["T1", "Purple · plain"],
-        ["T2", "Yellow · traditional border"],
-        ["T3", "Purple arch over white"],
-        ["T4", "Purple · lime bottom band"],
+        ["T1", "Purple · lime card panel (Starfield Luggage Center)"],
+        ["T2", "Yellow · traditional border (K-Luggage Hunter / InterCon)"],
+        ["T3", "Purple arch over white (Starfield Storage Delivery)"],
+        ["T4", "Purple · lime bottom band (current)"],
         ["T5", "Plain white"],
       ];
 
@@ -601,36 +613,21 @@
             {
               id: "A",
               label: "Same-day luggage delivery across Korea",
-              head: "Same-day<br>luggage<br>delivery",
-              mid: "<em>Across Korea</em>",
+              head: "Same-day<br>luggage<br>delivery<br><em>across<br>Korea</em>",
               sub: "to your hotel, airport,<br>and beyond",
             },
             {
               id: "B",
               label: "Drop your bags here & start bagless travel!",
               head: "Drop your<br>bags here<br>&amp; start<br><em>bagless<br>travel!</em>",
-              sub: "Same-day delivery<br>to your hotel or Airbnb<br>anywhere in Korea",
-              checks: ["Nationwide", "Airbnb OK", "Instant quote", "Card / PayPal"],
+              sub: "Same-day delivery to your<br>hotel or Airbnb<br>anywhere in Korea",
+              bul: "Nationwide · Airbnb OK<br>Card / PayPal",
             },
             {
               id: "C",
-              label: "Your bags, delivered today",
+              label: "Your bags, delivered today (new, concise)",
               head: "Your bags,<br><em>delivered<br>today</em>",
-              checks: ["Airport", "Hotel", "Airbnb", "and beyond"],
-            },
-            {
-              id: "D",
-              label: "Travel light.",
-              head: "Travel<br><em>light.</em>",
-              mid: "Same-day<br>luggage<br>delivery",
-              sub: "Across Korea:<br>hotel, airport &amp; beyond",
-            },
-            {
-              id: "E",
-              label: "Send your bags.",
-              head: "Send<br>your<br><em>bags.</em>",
-              mid: "Same-day<br>across Korea",
-              sub: "Hotel, airport<br>&amp; beyond",
+              sub: "Same-day luggage delivery<br>anywhere in Korea:<br>hotel, airport &amp; beyond",
             },
           ],
         },
@@ -641,23 +638,27 @@
           copies: [
             {
               id: "A",
-              label: "Free luggage storage · until 3:00 PM",
+              label: "Free luggage storage until 3:00 PM",
               head: "<em>Free</em><br>luggage<br>storage",
-              band: ["time"],
+              band: ["time", "sub:Leave your bags with us<br>and explore bagless"],
             },
             {
               id: "B",
               label: "Luggage storage · FREE · until 3:00 PM",
               head: "Luggage<br>storage",
-              parts: ["free"],
-              band: ["time"],
+              band: ["free", "time", "sub:Drop your bags,<br>enjoy the day"],
             },
             {
               id: "C",
               label: "Store your bags here · FREE · until 3:00 PM",
               head: "Store<br>your bags<br><em>here</em>",
-              parts: ["free"],
-              band: ["time"],
+              band: ["free", "time"],
+            },
+            {
+              id: "D",
+              label: "Drop. Explore. Pick up. (new, concise)",
+              head: "Drop.<br><em>Explore.</em><br>Pick up.",
+              band: ["free", "lbl:Luggage storage", "time"],
             },
           ],
         },
@@ -682,23 +683,16 @@
             },
             {
               id: "C",
-              label: "Help desk · 1 Book 2 Pay 3 Questions",
+              label: "Help desk · Ask our staff · 1 2 3",
               head: "Help<br>desk",
               sub: "Ask our staff",
               extra: "list",
             },
             {
               id: "D",
-              label: "Need a hand?",
+              label: "Need a hand? (new, concise)",
               head: "Need<br>a hand?",
-              sub: "Our staff books it<br>for you, right here",
-              extra: "pill1",
-            },
-            {
-              id: "E",
-              label: "Book with our team",
-              head: "Book<br>with<br>our team",
-              mid: "Luggage<br>delivery",
+              sub: "Our staff books it for you,<br>right here",
               extra: "pill1",
             },
           ],
@@ -706,6 +700,9 @@
       ];
 
       /* ---------------- render ---------------- */
+      function esc(s) {
+        return s;
+      }
       function bannerHTML(kind, copy, theme) {
         var k = kind.id,
           t = theme.toLowerCase();
@@ -715,7 +712,7 @@
           : t === "t2"
             ? "logo_purple_solid.png"
             : "logo_purple.png";
-        var top;
+        var top = "";
         if (k === "1") {
           top =
             '<div class="top"><img class="logo" src="' +
@@ -733,27 +730,8 @@
             '" alt="Goodlugg"></div>';
         }
         var c = '<div class="copy"><h1 class="head">' + copy.head + "</h1>";
-        if (copy.mid) c += '<p class="mid">' + copy.mid + "</p>";
         if (copy.sub) c += '<p class="sub">' + copy.sub + "</p>";
         if (copy.bul) c += '<p class="bul">' + copy.bul + "</p>";
-        if (copy.checks)
-          c +=
-            '<ul class="checks">' +
-            copy.checks
-              .map(function (x) {
-                return (
-                  '<li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 26l11 11L40 12"></path></svg>' +
-                  x +
-                  "</li>"
-                );
-              })
-              .join("") +
-            "</ul>";
-        (copy.parts || []).forEach(function (item) {
-          if (item === "free") c += '<p class="free">FREE</p>';
-          else if (item.indexOf("lbl:") === 0)
-            c += '<p class="lbl2">' + item.slice(4) + "</p>";
-        });
         if (copy.extra === "pills")
           c +=
             '<div class="pills"><span class="pill">Card</span><span class="pill">Cash</span></div>';
@@ -764,24 +742,27 @@
             '<div class="arrow"><svg viewBox="0 0 220 200" aria-hidden="true"><path d="M75 0h70v100h60L110 200 0 100h75z"></path></svg></div><div class="desk">BOOKING DESK</div>';
         if (copy.extra === "list")
           c +=
-            '<div class="list"><div><i>1</i>Book</div><div><i>2</i>Pay</div><div><i>3</i>Questions</div></div>';
+            '<div class="list"><div><i>1</i>Book your delivery</div><div><i>2</i>Pay by card or cash</div><div><i>3</i>Any questions</div></div>';
         c += "</div>";
 
         var band = '<div class="band">';
         if (k === "1") {
           band +=
-            '<div class="qr"><img src="qr.png" alt="Booking QR"><div class="lbl">Book in 5 min.</div></div>';
+            '<div class="scan">Scan to book</div><div class="qrcard"><img src="qr.png" alt="Booking QR"><div class="lbl">Book in 5 min.</div></div>';
         } else if (k === "2") {
           copy.band.forEach(function (item) {
-            if (item === "time")
+            if (item === "free") band += '<div class="free">FREE</div>';
+            else if (item === "time")
               band +=
                 '<div class="time"><span class="l1">until</span><span class="l2">3:00 PM</span></div>';
             else if (item.indexOf("sub:") === 0)
               band += '<p class="bsub">' + item.slice(4) + "</p>";
+            else if (item.indexOf("lbl:") === 0)
+              band += '<div class="lbl2">' + item.slice(4) + "</div>";
           });
         } else {
           band +=
-            '<div class="qr"><img src="qr.png" alt="Booking QR"><div class="lbl">Self booking</div></div>';
+            '<div class="mini"><img src="qr.png" alt="Booking QR"><div class="t">Self booking with QR</div></div>';
         }
         band += "</div>";
 
@@ -811,15 +792,28 @@
           " <small>" +
           kind.note +
           "</small></h2>";
-        kind.copies.forEach(function (copy) {
+        html += '<div class="tabs">';
+        kind.copies.forEach(function (copy, i) {
           html +=
-            '<h3 class="copyname"><b>' +
+            '<button type="button" data-copy="' +
+            copy.id +
+            '"' +
+            (i === 0 ? ' class="on"' : "") +
+            "><b>" +
             kind.id +
             copy.id +
             "</b>" +
             copy.label +
-            "</h3>";
-          html += '<div class="row" data-copy="' + copy.id + '">';
+            "</button>";
+        });
+        html += "</div>";
+        kind.copies.forEach(function (copy, i) {
+          html +=
+            '<div class="row" data-copy="' +
+            copy.id +
+            '"' +
+            (i === 0 ? "" : ' style="display:none"') +
+            ">";
           THEMES.forEach(function (th) {
             var id = kind.id + copy.id + "-" + th[0];
             html +=
@@ -841,21 +835,55 @@
       });
       app.innerHTML = html;
 
+      /* tabs */
+      Array.prototype.forEach.call(
+        document.querySelectorAll(".tabs button"),
+        function (btn) {
+          btn.addEventListener("click", function () {
+            var sec = btn.closest("section");
+            Array.prototype.forEach.call(
+              sec.querySelectorAll(".tabs button"),
+              function (b) {
+                b.classList.toggle("on", b === btn);
+              },
+            );
+            Array.prototype.forEach.call(
+              sec.querySelectorAll(".row"),
+              function (r) {
+                r.style.display =
+                  r.getAttribute("data-copy") === btn.getAttribute("data-copy")
+                    ? ""
+                    : "none";
+              },
+            );
+          });
+        },
+      );
+
       /* single banner mode */
       if (only) {
         var slot = document.getElementById("s" + only);
         if (slot) {
           document.body.classList.add("only");
           slot.classList.add("show");
+          slot.closest(".row").style.display = "";
           document.title = "X-Banner " + only;
         }
       }
+      if (qa) {
+        document.body.classList.add("qa");
+        Array.prototype.forEach.call(
+          document.querySelectorAll(".row"),
+          function (r) {
+            r.style.display = "";
+          },
+        );
+      }
 
       /* fit: shrink the headline until every line fits the width, then shrink
-         headline, mid line, sub and QR until the whole banner fits 1800 px */
+         headline + sub until the whole banner fits 1800 px tall */
       function fit(b) {
         var head = b.querySelector(".head");
-        var mid = b.querySelector(".mid");
         var sub = b.querySelector(".sub");
         var fs = parseFloat(getComputedStyle(head).fontSize);
         var guard = 0;
@@ -863,41 +891,20 @@
           fs -= 2;
           head.style.fontSize = fs + "px";
         }
-        Array.prototype.forEach.call(b.querySelectorAll(".free, .lbl2, .sub, .bul, .bsub, .checks li, .list div"), function (el) {
-          var f = parseFloat(getComputedStyle(el).fontSize), g = 0;
-          while (el.scrollWidth > el.clientWidth + 1 && f > 40 && g++ < 80) {
-            f -= 2;
-            el.style.fontSize = f + "px";
-          }
-        });
-        var ms = mid ? parseFloat(getComputedStyle(mid).fontSize) : 0;
-        guard = 0;
-        while (mid && mid.scrollWidth > mid.clientWidth + 1 && ms > 30 && guard++ < 80) {
-          ms -= 2;
-          mid.style.fontSize = ms + "px";
-        }
         guard = 0;
         var ss = sub ? parseFloat(getComputedStyle(sub).fontSize) : 0;
-        var qr = b.querySelector(".qr img");
+        var qr = b.querySelector(".qrcard img, .mini img");
         var qs = qr ? qr.width : 0;
-        while (b.scrollHeight > b.clientHeight && guard++ < 140) {
+        while (b.scrollHeight > b.clientHeight && guard++ < 120) {
           if (fs > 90) {
             fs -= 2;
             head.style.fontSize = fs + "px";
-            if (mid && ms > 50) {
-              ms -= 1;
-              mid.style.fontSize = ms + "px";
-            }
           } else if (qr && qs > 300) {
             qs -= 10;
             qr.style.width = qr.style.height = qs + "px";
           } else {
             fs -= 2;
             head.style.fontSize = fs + "px";
-            if (mid && ms > 40) {
-              ms -= 1;
-              mid.style.fontSize = ms + "px";
-            }
             if (sub && ss > 32) {
               ss -= 1;
               sub.style.fontSize = ss + "px";
@@ -916,7 +923,9 @@
           var b = s.querySelector(".b");
           var id = s.id.slice(1);
           var over = b.scrollHeight - b.clientHeight;
+          var band = b.querySelector(".band");
           var foot = b.querySelector(".foot");
+          var bh = band.offsetHeight;
           var footBottom = foot.offsetTop + foot.offsetHeight;
           var head = b.querySelector(".head");
           var wide = head.scrollWidth - head.clientWidth;
@@ -928,8 +937,8 @@
               over +
               " wide=" +
               wide +
-              " copyH=" +
-              b.querySelector(".copy").offsetHeight +
+              " band=" +
+              bh +
               " footBottom=" +
               footBottom,
           );
