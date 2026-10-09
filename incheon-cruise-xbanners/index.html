@@ -939,6 +939,9 @@
           var base = a.getAttribute("href").split("&")[0];
           a.setAttribute("href", c === "caps" ? base + "&case=caps" : base);
         });
+        if (window.__fitDone) {
+          Array.prototype.forEach.call(document.querySelectorAll(".b"), fit);
+        }
       }
       Array.prototype.forEach.call(document.querySelectorAll(".case button"), function (b) {
         b.addEventListener("click", function () {
@@ -959,7 +962,29 @@
 
       /* fit: shrink the headline until every line fits the width, then shrink
          headline, mid line, sub and QR until the whole banner fits 1800 px */
+      function resetFit(b) {
+        Array.prototype.forEach.call(
+          b.querySelectorAll("[data-fs]"),
+          function (el) {
+            el.style.fontSize = el.getAttribute("data-fs");
+          },
+        );
+        Array.prototype.forEach.call(b.querySelectorAll(".qr img"), function (im) {
+          im.style.width = im.style.height = "";
+        });
+      }
       function fit(b) {
+        if (!b.hasAttribute("data-fitted")) {
+          Array.prototype.forEach.call(
+            b.querySelectorAll(".head, .mid, .sub, .free, .lbl2, .bul, .bsub, .checks li, .list div"),
+            function (el) {
+              el.setAttribute("data-fs", el.style.fontSize || "");
+            },
+          );
+          b.setAttribute("data-fitted", "1");
+        } else {
+          resetFit(b);
+        }
         var head = b.querySelector(".head");
         var mid = b.querySelector(".mid");
         var sub = b.querySelector(".sub");
