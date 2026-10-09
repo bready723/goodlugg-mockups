@@ -173,8 +173,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 30px;
+        justify-content: space-evenly;
+        gap: 0;
       }
       .k1 .band {
         background: var(--lime);
@@ -217,8 +217,8 @@
         color: var(--purple);
       }
       .qrcard img {
-        width: 360px;
-        height: 360px;
+        width: 400px;
+        height: 400px;
       }
       .qrcard .lbl {
         font-size: 34px;
@@ -227,10 +227,12 @@
         text-transform: uppercase;
       }
       .band .scan {
-        font-size: 44px;
-        font-weight: 800;
+        font-size: 54px;
+        font-weight: 900;
         text-align: center;
-        line-height: 1.15;
+        line-height: 1.1;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
       }
       .pill {
         display: inline-block;
@@ -338,7 +340,7 @@
         gap: 14px;
       }
       .b1d .cities span {
-        font-size: 136px;
+        font-size: 150px;
         font-weight: 900;
         line-height: 0.95;
         letter-spacing: -0.02em;
@@ -357,11 +359,17 @@
         gap: 0;
         position: relative;
       }
+      .b1d .band .scan {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 44px;
+      }
       .b1d .band img.t {
         position: absolute;
         left: -80px;
         bottom: -6px;
-        height: 500px;
+        height: 540px;
         width: auto;
       }
       .b1d .band .qrcard {
@@ -388,9 +396,9 @@
       }
       .b2a .top img.t {
         position: absolute;
-        right: -14px;
-        top: -10px;
-        height: 290px;
+        right: -20px;
+        top: -16px;
+        height: 330px;
         width: auto;
       }
       .b2a .head {
@@ -404,9 +412,9 @@
         background: #fff;
         color: var(--purple);
         border-radius: 30px;
-        padding: 40px 30px 36px;
+        padding: 44px 30px 40px;
         text-align: center;
-        width: 460px;
+        width: 500px;
       }
       .b2a .time .l1 {
         font-size: 56px;
@@ -418,7 +426,7 @@
         margin-top: 10px;
       }
       .b2a .time .l2 {
-        font-size: 176px;
+        font-size: 200px;
         font-weight: 900;
         letter-spacing: -0.03em;
         margin-top: 10px;
@@ -429,10 +437,14 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        height: 360px;
+        height: 420px;
+      }
+      .b2b .band .sub {
+        color: #fff;
+        text-align: center;
       }
       .b2b .top img.t {
-        height: 360px;
+        height: 420px;
         width: auto;
         margin-right: -16px;
         margin-bottom: -4px;
@@ -461,7 +473,7 @@
         margin-top: 50px;
       }
       .b2c .tigerrow {
-        height: 380px;
+        height: 440px;
         margin-top: 40px;
         position: relative;
       }
@@ -469,24 +481,25 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: -70px;
-        height: 440px;
+        bottom: -80px;
+        height: 520px;
         width: auto;
         z-index: 2;
       }
       .b2c .band {
         margin-top: 0;
-        padding-top: 70px;
+        padding-top: 90px;
+        padding-bottom: 50px;
       }
       .b2c .band .l1 {
-        font-size: 170px;
+        font-size: 200px;
         font-weight: 900;
         color: var(--lime);
         letter-spacing: -0.02em;
         line-height: 0.9;
       }
       .b2c .band .l2 {
-        font-size: 50px;
+        font-size: 56px;
         font-weight: 700;
         line-height: 1.25;
         text-align: center;
@@ -548,19 +561,21 @@
       }
       .k3 .band .mini {
         width: 100%;
+        flex: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         text-align: center;
-        gap: 22px;
+        gap: 26px;
         background: #fff;
         border-radius: 28px;
         padding: 24px 26px;
         color: var(--purple);
       }
       .k3 .band .mini img {
-        width: 280px;
-        height: 280px;
+        width: 320px;
+        height: 320px;
       }
       .k3 .band .mini .t {
         font-size: 40px;
@@ -622,17 +637,21 @@
         letter-spacing: 0.02em;
       }
       .b3c .head {
-        margin-top: 70px;
+        margin-top: 56px;
       }
       .b3c .sub {
-        margin-top: 36px;
+        margin-top: 30px;
+      }
+      .b3c .band .mini img {
+        width: 260px;
+        height: 260px;
       }
       .b3c .panel {
-        margin-top: 70px;
+        margin-top: 50px;
         background: var(--purple);
         color: #fff;
         border-radius: 32px;
-        padding: 50px 30px;
+        padding: 40px 30px;
         text-align: center;
       }
       .b3c .panel .l1 {
@@ -738,6 +757,7 @@
               </h1>
               <p class="sub">to your hotel, airport,<br />and beyond</p>
               <div class="band">
+                <div class="scan">Scan to book</div>
                 <div class="qrcard">
                   <img src="qr.png" alt="Booking QR" />
                   <div class="lbl">Book in 5 min.</div>
@@ -760,6 +780,7 @@
               <h1 class="head h130 lime">Across<br />Korea</h1>
               <p class="sub">to your hotel, airport,<br />and beyond</p>
               <div class="band">
+                <div class="scan">Scan to book</div>
                 <div class="qrcard">
                   <img src="qr.png" alt="Booking QR" />
                   <div class="lbl">Book in 5 min.</div>
@@ -781,6 +802,7 @@
                 <div class="box">Same-day delivery to your hotel, airport &amp; beyond</div>
               </div>
               <div class="band">
+                <div class="scan">Scan to book</div>
                 <div class="qrcard">
                   <img src="qr.png" alt="Booking QR" />
                   <div class="lbl">Book in 5 min.</div>
@@ -801,6 +823,7 @@
               </div>
               <p class="sub">Your bags delivered today,<br />anywhere in Korea</p>
               <div class="band">
+                <div class="scan">Scan to book</div>
                 <img class="t" src="tiger_move.png" alt="" />
                 <div class="qrcard">
                   <img src="qr.png" alt="Booking QR" />
@@ -848,10 +871,10 @@
                 <img class="t" src="tiger_sit.png" alt="" />
               </div>
               <h1 class="head h120">Luggage<br />storage</h1>
-              <p class="sub">Drop your bags,<br />enjoy the day</p>
               <div class="band">
                 <div class="free">FREE</div>
                 <span class="pill">until 3:00 PM</span>
+                <p class="sub">Drop your bags,<br />enjoy the day</p>
               </div>
               <div class="foot">goodlugg.com <span>· Have a Goodlugg on Every Trip</span></div>
             </div>
