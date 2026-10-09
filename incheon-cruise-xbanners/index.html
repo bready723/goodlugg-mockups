@@ -165,7 +165,6 @@
       }
       .head {
         font-weight: 900;
-        text-transform: uppercase;
         letter-spacing: -0.02em;
         line-height: 1.1;
         margin: 0;
@@ -186,7 +185,6 @@
       }
       .mid {
         font-weight: 900;
-        text-transform: uppercase;
         letter-spacing: -0.01em;
         line-height: 1;
         margin: 0;
@@ -222,7 +220,6 @@
         font-size: 60px;
         font-weight: 800;
         line-height: 1.05;
-        text-transform: uppercase;
         margin: 0;
       }
       .k2 .head {
@@ -348,7 +345,6 @@
         line-height: 1;
         text-align: left;
         white-space: nowrap;
-        text-transform: uppercase;
         letter-spacing: -0.02em;
       }
       .list i {
@@ -794,7 +790,7 @@
               .join("") +
             "</ul>";
         (copy.parts || []).forEach(function (item) {
-          if (item === "free") c += '<p class="free">FREE</p>';
+          if (item === "free") c += '<p class="free">Free</p>';
           else if (item.indexOf("lbl:") === 0)
             c += '<p class="lbl2">' + item.slice(4) + "</p>";
         });
@@ -805,7 +801,7 @@
           c += '<div class="pills"><span class="pill">Card · Cash</span></div>';
         if (copy.extra === "arrow")
           c +=
-            '<div class="arrow"><svg viewBox="0 0 220 200" aria-hidden="true"><path d="M75 0h70v100h60L110 200 0 100h75z"></path></svg></div><div class="desk">BOOKING DESK</div>';
+            '<div class="arrow"><svg viewBox="0 0 220 200" aria-hidden="true"><path d="M75 0h70v100h60L110 200 0 100h75z"></path></svg></div><div class="desk">Booking desk</div>';
         if (copy.extra === "list")
           c +=
             '<div class="list"><div><i>1</i>Book</div><div><i>2</i>Pay</div><div><i>3</i>Questions</div></div>';
