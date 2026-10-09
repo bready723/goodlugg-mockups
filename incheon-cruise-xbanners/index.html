@@ -171,6 +171,11 @@
         white-space: nowrap;
         font-size: 140px;
       }
+      .head small {
+        display: block;
+        font-size: 0.62em;
+        line-height: 1.3;
+      }
       .head em,
       .mid em {
         font-style: normal;
@@ -221,6 +226,22 @@
       }
       .k2 .head {
         line-height: 1.45;
+      }
+      .k2 .top,
+      .k2 .top img.t {
+        height: 270px;
+      }
+      .k2 .copy {
+        flex: none;
+        padding: 30px 0 0;
+      }
+      .k2 .band {
+        flex: 1;
+        justify-content: center;
+      }
+      .t3.k2 .arch {
+        flex: none;
+        padding-bottom: 70px;
       }
       .checks {
         display: flex;
@@ -417,7 +438,7 @@
         --chip-fg: var(--purple);
         --band-bg: transparent;
         --band-fg: #fff;
-        --foot-bg: var(--purple);
+        --foot-bg: var(--purple-deep);
         --foot-fg: #fff;
       }
 
@@ -478,8 +499,8 @@
         --chip-fg: var(--purple);
         --band-bg: transparent;
         --band-fg: var(--purple);
-        --foot-bg: transparent;
-        --foot-fg: var(--purple);
+        --foot-bg: var(--purple);
+        --foot-fg: #fff;
       }
       .t3 .arch {
         flex: 1;
@@ -523,8 +544,8 @@
         --chip-fg: #fff;
         --band-bg: transparent;
         --band-fg: var(--purple);
-        --foot-bg: transparent;
-        --foot-fg: var(--purple);
+        --foot-bg: var(--purple);
+        --foot-fg: #fff;
       }
       .t5 .head em,
       .t5 .mid em {
@@ -630,8 +651,8 @@
               id: "E",
               label: "Send your bags",
               head: "Send<br>your<br><em>bags</em>",
+              headSize: 118,
               mid: "Same-day<br>across Korea",
-              sub: "Hotel, airport<br>&amp; beyond",
             },
           ],
         },
@@ -678,7 +699,7 @@
               id: "B",
               label: "Book here with our staff · arrow · Booking desk",
               head: "Book here<br>with<br>our staff",
-              sub: "Card and cash accepted",
+              sub: "Card or Cash",
               extra: "arrow",
             },
             {
@@ -691,7 +712,7 @@
             {
               id: "E",
               label: "Book with our team",
-              head: "Book<br>with<br>our team",
+              head: "Book<small>with</small>our team",
               mid: "Luggage<br>delivery",
               extra: "pill1",
             },
@@ -726,7 +747,12 @@
             logo +
             '" alt="Goodlugg"></div>';
         }
-        var c = '<div class="copy"><h1 class="head">' + copy.head + "</h1>";
+        var c =
+          '<div class="copy"><h1 class="head"' +
+          (copy.headSize ? ' style="font-size:' + copy.headSize + 'px"' : "") +
+          ">" +
+          copy.head +
+          "</h1>";
         if (copy.mid) c += '<p class="mid">' + copy.mid + "</p>";
         if (copy.sub) c += '<p class="sub">' + copy.sub + "</p>";
         if (copy.bul) c += '<p class="bul">' + copy.bul + "</p>";
