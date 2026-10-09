@@ -1,93 +1,966 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Incheon Cruise · Goodlugg X-banners</title>
-<style>
-@font-face{font-family:Pretendard;src:url(fonts/Pretendard-SemiBold.otf) format('opentype');font-weight:400 700;font-display:swap}
-@font-face{font-family:Pretendard;src:url(fonts/Pretendard-ExtraBold.otf) format('opentype');font-weight:800 950;font-display:swap}
-:root{--purple:#512a72;--lime:#c7c22e;--yellow:#efee5d;--scale:.32;--ink:#252424}
-*{box-sizing:border-box}body{margin:0;background:#efedf1;color:var(--ink);font-family:Pretendard,Arial,sans-serif}button,a,input{font:inherit}button,a{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--purple);outline-offset:4px}
-.page{padding:34px 34px 24px;border-bottom:1px solid #d6cfdd;display:flex;justify-content:space-between;align-items:end;gap:24px}.page h1{font-size:30px;letter-spacing:-.035em;color:var(--purple);margin:0 0 8px;font-weight:900}.page p{margin:0;font-size:15px;line-height:1.5;max-width:690px}.zoom{display:grid;gap:8px;font-size:14px;white-space:nowrap}.zoom input{accent-color:var(--purple);width:190px}.kind{padding:30px 34px 40px;border-bottom:1px solid #d6cfdd}.kind h2{font-size:23px;color:var(--purple);margin:0 0 14px;font-weight:900}.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.controls button{border:1px solid #b7a8c5;background:#fff;color:var(--purple);border-radius:8px;padding:10px 18px;cursor:pointer;font-weight:800}.controls button[aria-pressed=true]{background:var(--purple);color:#fff;border-color:var(--purple)}.copy-summary{max-width:1100px;min-height:44px;font-size:14px;line-height:1.5;color:#554960;margin:0 0 18px}.row{display:flex;gap:24px;overflow-x:auto;padding:2px 2px 22px}.slot{flex:none;width:calc(600px * var(--scale))}.frame{width:calc(600px * var(--scale));height:calc(1800px * var(--scale));overflow:hidden;box-shadow:0 3px 12px #30203f26;background:#fff}.frame .banner{transform:scale(var(--scale));transform-origin:top left}.caption{font-size:13px;line-height:1.5;margin:12px 0 0;color:#554960}.caption strong{display:block;color:var(--purple);font-size:14px}.caption a{color:var(--purple);display:inline-block;margin-top:5px;font-weight:700}.notes{padding:24px 34px 40px;font-size:13px;line-height:1.6;max-width:1000px;color:#66586d}.notes p{margin:0 0 7px}
-/* Every print canvas has the same 600 × 1800 coordinate system. */
-.banner{--surface:var(--purple);--fg:#fff;--accent:var(--lime);--panel:var(--purple);--panel-fg:#fff;--action:var(--lime);--action-fg:var(--purple);width:600px;height:1800px;display:flex;flex-direction:column;position:relative;isolation:isolate;overflow:hidden;background:var(--surface);color:var(--fg);font-family:Pretendard,Arial,sans-serif}
-.brand{height:280px;flex:none;position:relative;padding:52px 44px 0;display:flex;align-items:flex-start;z-index:2}.logo{width:265px;height:auto;display:block;position:absolute;top:68px;left:44px}.tiger{object-fit:contain;position:absolute;display:block}.booking .tiger{width:205px;height:250px;right:32px;top:27px}.storage .tiger{width:196px;height:245px;left:31px;top:20px}.storage .logo{left:264px;width:285px;top:83px}.desk .brand{height:205px}.desk .logo{left:144px;width:312px;top:65px}
-.content{position:relative;margin:0 44px;padding:30px 0 36px;display:flex;flex-direction:column;flex:1;min-height:0;justify-content:space-between;gap:34px;z-index:1}.booking .content{justify-content:space-evenly}.content>*{flex-shrink:0}.booking.copy-B .content{gap:20px}.booking.copy-B .support{font-size:38px}.booking.copy-B .benefits{font-size:26px}.headline{margin:0;line-height:.99;letter-spacing:-.04em;font-weight:900;text-transform:uppercase;flex:none}.line{display:block;white-space:nowrap;font-size:104px;line-height:1.15;margin-bottom:5px}.line:last-child{margin-bottom:0}.line.accent{color:var(--accent)}.support{font-size:42px;line-height:1.18;letter-spacing:-.022em;font-weight:600;margin:0}.benefits{font-size:27px;line-height:1.3;font-weight:700;margin:18px 0 0;letter-spacing:-.01em}.action{position:relative;flex:0 0 566px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 44px 36px;background:var(--action);color:var(--action-fg);z-index:1;gap:24px}.qrcard{background:#fff;color:var(--purple);padding:28px 32px 24px;border-radius:28px;display:flex;flex-direction:column;align-items:center;gap:18px}.qrcard img{width:330px;height:330px;display:block;object-fit:contain}.qr-caption{font-size:38px;font-weight:900;line-height:1.15;text-align:center;margin:0}.footer{height:64px;flex:none;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;background:var(--purple);color:#fff;font-size:27px;font-weight:700}
-/* Storage keeps the service and FREE dominant; the time is smaller. */
-.storage .content{padding-top:30px;justify-content:space-evenly;gap:38px}.storage .line{font-size:112px;line-height:1.16}.storage .line.free-line{font-size:174px;line-height:1.16;letter-spacing:-.04em}.storage .action{flex-basis:620px;padding:44px;gap:40px;justify-content:space-evenly}.storage .time{font-size:43px;line-height:1.2;font-weight:800;margin:0;text-align:center}.storage .tagline{font-size:54px;line-height:1.2;font-weight:700;letter-spacing:-.025em;text-align:center;margin:0}.storage .free-feature{font-size:180px;line-height:1.16;letter-spacing:-.04em;font-weight:900;margin:0;text-align:center}.storage.copy-C .action{flex-basis:730px}.storage .copy-D .support{font-size:50px;font-weight:800}
-/* The small desk QR is an alternative; staff booking is the main action. */
-.desk .content{justify-content:space-evenly;padding-top:32px;gap:36px}.desk .line{font-size:106px}.desk .support{font-size:47px}.payment{font-size:86px;line-height:1.18;font-weight:900;letter-spacing:-.02em;margin:0}.desk .action{flex-basis:370px;gap:22px;padding:25px 44px}.desk .qrcard{padding:20px 30px;flex-direction:row;gap:28px;border-radius:24px;width:100%;justify-content:center}.desk .qrcard img{width:192px;height:192px}.desk .qr-caption{font-size:32px;max-width:190px;text-align:left;font-weight:700}.desk-arrow{display:block;font-size:154px;line-height:.9;color:var(--accent);font-weight:900;text-align:center;height:154px}.desk-label{font-weight:900;font-size:72px;line-height:1.02;text-align:center;letter-spacing:-.025em}.steps{list-style:none;margin:0;padding:0;display:grid;gap:30px}.steps li{display:flex;align-items:center;gap:22px;font-size:46px;font-weight:800;line-height:1.14;letter-spacing:-.02em}.step-number{display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--surface);width:64px;height:64px;flex:none;font-size:40px}.desk.copy-D .line{font-size:125px}.desk.copy-C .support{font-size:44px}
-/* T1: purple + lime rounded card, directly referencing the luggage-center sign. */
-.T1{--panel:var(--lime);--panel-fg:var(--purple);--accent:var(--purple);--action:var(--purple);--action-fg:#fff}.T1 .content{background:var(--lime);color:var(--purple);border-radius:38px;padding:38px 30px;margin-top:12px;margin-bottom:25px}.T1 .action{padding-top:22px;flex-basis:500px}.T1.storage .action{flex-basis:560px}.T1.desk .action{flex-basis:335px}.T1 .payment{font-size:76px}.T1 .desk-arrow{color:var(--purple)}.T1 .step-number{background:var(--purple);color:var(--lime)}
-/* T2: original traditional-pattern bands, yellow body, purple typography. */
-.T2{--surface:var(--yellow);--fg:var(--purple);--accent:var(--purple);--action:var(--yellow);--action-fg:var(--purple)}.T2::before,.T2::after{content:'';position:absolute;left:0;right:0;height:38px;background-image:url(pattern-reference.png);background-size:600px auto;z-index:3;pointer-events:none}.T2::before{top:0;background-position:center top}.T2::after{bottom:0;background-position:center bottom}.T2 .brand{height:320px}.T2 .logo{top:100px}.T2.booking .tiger{top:65px}.T2.storage .logo{top:112px}.T2.storage .tiger{top:55px}.T2.desk .brand{height:237px}.T2 .footer{height:94px;padding-bottom:35px;background:var(--yellow);color:var(--purple)}.T2 .qrcard{box-shadow:0 0 0 2px #512a7226}.T2 .content{padding-top:24px}.T2 .step-number{background:var(--purple);color:var(--yellow)}
-.T2.booking.copy-B .action{flex-basis:520px}
-/* T3: a purple architectural arch meeting a white lower section. */
-.T3{--surface:#fff;--fg:var(--purple);--accent:var(--lime);--action:#fff;--action-fg:var(--purple)}.T3 .brand{background:var(--purple);color:#fff}.T3 .content{margin:0;background:var(--purple);color:#fff;border-radius:0 0 300px 300px/0 0 90px 90px;padding:30px 44px 110px}.T3 .action{padding-top:32px;flex-basis:580px}.T3.storage .action{flex-basis:690px}.T3.desk .action{flex-basis:425px}.T3 .qrcard{box-shadow:0 0 0 2px #512a7226}.T3 .footer{background:#fff;color:var(--purple)}.T3.booking.copy-B .support{font-size:36px}
-/* T4: current purple + lime bottom band. */
-.T4{--surface:var(--purple);--fg:#fff;--accent:var(--lime);--action:var(--lime);--action-fg:var(--purple)}
-/* T5: plain white, color carried by large type rather than background panels. */
-.T5{--surface:#fff;--fg:var(--purple);--accent:var(--purple);--action:#fff;--action-fg:var(--purple)}.T5 .footer{background:#fff;color:var(--purple)}.T5 .qrcard{box-shadow:0 0 0 2px #512a7226}.T5 .step-number{background:var(--purple);color:#fff}
-.only .page,.only .kind,.only .notes{display:none}.only{background:#fff}.only #single{display:block;margin:0;padding:0;width:600px}.only .banner{transform:none}.print-control{position:fixed;left:620px;top:22px;display:grid;gap:12px;max-width:260px;line-height:1.5}.print-control button,.print-control a{padding:12px 16px;border:1px solid #c4b8cf;border-radius:8px;background:#fff;color:var(--purple);font-weight:800;cursor:pointer;text-decoration:none}.print-control small{color:#685c72}#single{display:none}
-@media(max-width:700px){.page{padding:24px 18px;display:block}.page h1{font-size:25px}.zoom{margin-top:18px;display:flex;align-items:center;gap:12px}.kind{padding:25px 18px}.kind h2{font-size:21px}.controls button{padding:9px 14px}.notes{padding:22px 18px}.print-control{position:relative;left:auto;top:auto;margin:20px}.only{overflow-x:auto}}
-@page{size:600mm 1800mm;margin:0}
-@media print{html,body{width:600mm;background:#fff}.page,.kind,.notes,.print-control{display:none!important}#single{display:block!important;width:600mm!important}.banner{width:600px;height:1800px;zoom:3.779527559;break-after:page;print-color-adjust:exact;-webkit-print-color-adjust:exact}.banner:last-child{break-after:auto}}
-</style>
-</head>
-<body>
-<header class="page"><div><h1>Goodlugg Zone · Incheon Cruise</h1><p>Choose a copy for each service. Compare that same message on all five backgrounds.</p></div><label class="zoom">Preview size <input id="zoom" type="range" min="24" max="50" value="32" aria-label="Preview size"><output id="zoom-value">32%</output></label></header>
-<main id="gallery"></main><div id="single"></div>
-<aside class="notes"><p>55 combinations · 600 × 1800. Full-size views preserve the selected copy and background.</p><p>Before printing: confirm the real booking QR, storage cutoff meaning (3:00 PM, Korea time), printer finishing margins, and original tiger artwork.</p></aside>
-<script>
-const themes=[['T1','Purple + lime card'],['T2','Yellow + traditional border'],['T3','Purple arch + white'],['T4','Purple + lime band'],['T5','Plain white']];
-const copies={
- booking:{
- A:{name:'Same-day nationwide',lines:['SAME-DAY','LUGGAGE','DELIVERY','ACROSS','KOREA'],accent:[3,4],support:'to your hotel, airport, and beyond'},
- B:{name:'Drop your bags',lines:['DROP YOUR','BAGS HERE','& START','BAGLESS','TRAVEL!'],accent:[1],support:'Same-day delivery to your hotel or Airbnb anywhere in Korea',benefits:'Nationwide · Airbnb OK · Card/PayPal'},
- C:{name:'Delivered today',lines:['YOUR BAGS,','DELIVERED','TODAY.'],accent:[2],support:'Same-day luggage delivery across Korea',benefits:'Hotel · Airport · Airbnb'}},
- storage:{
- A:{name:'Free luggage storage',lines:['FREE','LUGGAGE','STORAGE'],accent:[0],time:'until 3:00 PM',tagline:'Leave your bags with us and explore bagless'},
- B:{name:'Storage for free',lines:['LUGGAGE','STORAGE'],feature:'FREE',time:'until 3:00 PM',support:'Drop your bags, enjoy the day'},
- C:{name:'Store bags here',lines:['STORE','YOUR BAGS','HERE'],feature:'FREE',time:'Until 3:00 PM'},
- D:{name:'Leave and explore',lines:['LEAVE YOUR','BAGS.','EXPLORE.'],accent:[2],support:'Luggage storage',feature:'FREE',time:'until 3:00 PM'}},
- desk:{
- A:{name:'Booking desk',lines:['BOOKING','DESK'],support:'Our staff will book it for you',payment:'Card · Cash'},
- B:{name:'Book with our staff',lines:['BOOK HERE','WITH','OUR STAFF'],support:'Card and cash accepted',arrow:true,label:'BOOKING<br>DESK'},
- C:{name:'Help desk',lines:['HELP','DESK'],support:'Ask our staff',steps:['Book your delivery','Pay by card or cash','Any questions?']},
- D:{name:'We book, you go',lines:['WE BOOK.','YOU GO.'],support:'Luggage delivery bookings',payment:'Card · Cash'}}};
-const kinds=[['booking','1','Delivery booking'],['storage','2','Free luggage storage'],['desk','3','Staff booking desk']];
-const params=new URLSearchParams(location.search);const state={booking:params.get('booking')||'A',storage:params.get('storage')||'A',desk:params.get('desk')||'A'};
-function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function bannerHTML(kind,key,theme){
- const c=copies[kind][key];const white=['T1','T3','T4'].includes(theme);const logo=white?'logo_white.png':'logo_purple_solid.png';
- const tiger=kind==='desk'?'':`<img class="tiger" src="${kind==='storage'?'tiger_sit.png':'tiger_move.png'}" alt="${kind==='storage'?'Sitting':'Moving'} Goodlugg tiger">`;
- const lines=c.lines.map((line,i)=>`<span class="line ${c.accent?.includes(i)?'accent ':''}${line==='FREE'?'free-line':''}" data-max="${line==='FREE'?174:kind==='booking'&&key==='B'&&theme==='T3'?92:kind==='storage'?112:kind==='desk'&&key==='D'?125:104}">${escapeHTML(line)}</span>`).join('');
- const support=c.support?`<p class="support">${escapeHTML(c.support)}</p>`:'';
- const benefits=c.benefits?`<p class="benefits">${escapeHTML(c.benefits)}</p>`:'';
- const payment=c.payment?`<p class="payment">${escapeHTML(c.payment)}</p>`:'';
- const steps=c.steps?`<ol class="steps">${c.steps.map((s,i)=>`<li><span class="step-number">${i+1}</span><span>${escapeHTML(s)}</span></li>`).join('')}</ol>`:'';
- const arrow=c.arrow?`<span class="desk-arrow" aria-hidden="true">↓</span><div class="desk-label">${c.label}</div>`:'';
- let action=kind==='storage'?`${c.feature?'<p class="free-feature">FREE</p>':''}<p class="time">${escapeHTML(c.time)}</p>${c.tagline?`<p class="tagline">${escapeHTML(c.tagline)}</p>`:''}`:`<div class="qrcard"><img src="qr.png" alt="Booking QR"><p class="qr-caption">${kind==='desk'?'Self booking<br>with QR':'Book in 5 min.'}</p></div>`;
- return `<article class="banner ${kind} ${theme} copy-${key}" data-kind="${kind}" data-copy="${key}" data-theme="${theme}" aria-label="${kind} copy ${key}, ${theme}"><div class="brand"><img class="logo" src="${logo}" alt="Goodlugg">${tiger}</div><div class="content"><h3 class="headline">${lines}</h3>${support||benefits?`<div class="support-group">${support}${benefits}</div>`:''}${payment}${steps}${arrow}</div><div class="action">${action}</div><footer class="footer">goodlugg.com</footer></article>`;
-}
-function renderKind(kind,num,name){
- const key=state[kind] in copies[kind]?state[kind]:'A';state[kind]=key;
- const c=copies[kind][key];const section=document.getElementById(kind)||document.createElement('section');section.id=kind;section.className='kind';
- section.innerHTML=`<h2>${name}</h2><div class="controls" role="group" aria-label="${name} copy">${Object.entries(copies[kind]).map(([k,v])=>`<button type="button" data-copy="${k}" aria-pressed="${k===key}">Copy ${k} · ${v.name}</button>`).join('')}</div><p class="copy-summary">${escapeHTML([...c.lines,c.support,c.benefits,c.feature,c.time,c.tagline,c.payment,...(c.steps||[])].filter(Boolean).join(' / '))}</p><div class="row">${themes.map(([t,n])=>`<div class="slot"><div class="frame">${bannerHTML(kind,key,t)}</div><p class="caption"><strong>${t} · ${n}</strong>Copy ${key}<br><a href="?only=${num}${key}&theme=${t}" target="_blank" rel="noopener">Full size / print</a></p></div>`).join('')}</div>`;
- if(!section.parentNode)document.getElementById('gallery').append(section);
- section.querySelectorAll('button[data-copy]').forEach(b=>b.addEventListener('click',()=>{state[kind]=b.dataset.copy;renderKind(kind,num,name);const q=new URLSearchParams(state);history.replaceState(null,'','?'+q.toString());fitType();}));
-}
-function fitType(){
- // Fit only the individual display lines. Supporting copy wraps naturally.
- document.querySelectorAll('.line').forEach(el=>{let size=Number(el.dataset.max);el.style.fontSize=size+'px';const available=el.clientWidth;const probe=document.createElement('span');probe.textContent=el.textContent;probe.style.cssText='display:inline-block;white-space:nowrap';el.replaceChildren(probe);const actual=probe.getBoundingClientRect().width/(el.closest('.frame')?parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale')):1);if(actual>available)size=Math.floor(size*available/actual*.988);el.style.fontSize=size+'px';el.textContent=probe.textContent;});
- document.documentElement.dataset.ready='true';
-}
-const only=params.get('only');const match=only?.match(/^([123])([A-D])(?:-(T[1-5]))?$/);
-if(match){const kind=kinds[Number(match[1])-1][0],key=match[2],theme=match[3]||params.get('theme')||'T4';if(copies[kind][key]&&themes.some(t=>t[0]===theme)){document.body.className='only';document.getElementById('single').innerHTML=bannerHTML(kind,key,theme);document.title=`Goodlugg X-banner ${match[1]}${key} · ${theme}`;const controls=document.createElement('aside');controls.className='print-control';controls.innerHTML='<a href="./">Back to gallery</a><button type="button">Print / Save PDF</button><small>600 × 1800 mm · confirm print specifications and QR destination before production.</small>';document.body.append(controls);controls.querySelector('button').addEventListener('click',()=>window.print());}}
-if(!document.body.classList.contains('only'))kinds.forEach(k=>renderKind(...k));
-document.getElementById('zoom').addEventListener('input',e=>{document.documentElement.style.setProperty('--scale',e.target.value/100);document.getElementById('zoom-value').textContent=e.target.value+'%';fitType();});
-document.fonts.ready.then(fitType);window.addEventListener('resize',fitType);
-window.galleryConfig={themes,copies,kinds};
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Incheon Cruise X-Banners</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <style>
+      :root {
+        --purple: #512a72;
+        --purple-deep: #3f1f5a;
+        --lime: #c7c22e;
+        --yellow: #efee5d;
+        --ink: #1a1a1a;
+        --scale: 0.36;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #ececef;
+        color: var(--ink);
+        font-family:
+          Pretendard,
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      header.page {
+        padding: 36px 40px 10px;
+      }
+      header.page h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--purple);
+      }
+      header.page p {
+        margin: 8px 0 0;
+        font-size: 15px;
+        color: #555;
+        max-width: 960px;
+        line-height: 1.5;
+      }
+      section.kind {
+        padding: 26px 40px 10px;
+      }
+      section.kind h2 {
+        margin: 0 0 12px;
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--purple);
+      }
+      section.kind h2 small {
+        font-weight: 500;
+        color: #666;
+        font-size: 14px;
+        margin-left: 10px;
+      }
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0 0 16px;
+      }
+      .tabs button {
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1.5px solid #c9c4d2;
+        background: #fff;
+        color: var(--purple);
+        border-radius: 999px;
+        padding: 8px 16px;
+        cursor: pointer;
+        max-width: 420px;
+        text-align: left;
+        line-height: 1.3;
+      }
+      .tabs button b {
+        font-weight: 900;
+        margin-right: 6px;
+      }
+      .tabs button.on {
+        background: var(--purple);
+        border-color: var(--purple);
+        color: #fff;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+      }
+      .slot {
+        width: calc(600px * var(--scale));
+      }
+      .frame {
+        width: calc(600px * var(--scale));
+        height: calc(1800px * var(--scale));
+        overflow: hidden;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+        background: #fff;
+      }
+      .frame .b {
+        transform: scale(var(--scale));
+        transform-origin: top left;
+      }
+      .cap {
+        margin: 10px 0 0;
+        font-size: 13px;
+        color: #444;
+        line-height: 1.4;
+      }
+      .cap b {
+        color: var(--purple);
+      }
+      .cap a {
+        color: var(--purple);
+      }
+
+      /* ====================== BANNER (600 x 1800) ====================== */
+      .b {
+        width: 600px;
+        height: 1800px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 44px 40px 0;
+        font-family: Pretendard, sans-serif;
+        line-height: 1;
+        color: var(--fg);
+      }
+      .b img {
+        display: block;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        height: 340px;
+        flex: none;
+      }
+      .top .logo {
+        height: 64px;
+        width: auto;
+        margin-bottom: 6px;
+      }
+      .top img.t {
+        height: 340px;
+        width: auto;
+        margin-bottom: -4px;
+      }
+      .k1 .top img.t {
+        margin-right: -22px;
+      }
+      .k2 .top img.t {
+        margin-left: -14px;
+      }
+      .k3 .top {
+        height: auto;
+        justify-content: center;
+      }
+      .copy {
+        flex: none;
+      }
+      .head {
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        line-height: 0.96;
+        margin: 34px 0 0;
+        white-space: nowrap;
+        font-size: 130px;
+      }
+      .head em {
+        font-style: normal;
+        color: var(--accent);
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+      }
+      .sub {
+        font-size: 42px;
+        font-weight: 600;
+        line-height: 1.22;
+        margin: 28px 0 0;
+        letter-spacing: -0.01em;
+        color: var(--sub);
+      }
+      .bul {
+        margin: 26px 0 0;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--accent);
+      }
+      .k3 .head,
+      .k3 .sub,
+      .k3 .bul {
+        text-align: center;
+      }
+      .pills {
+        display: flex;
+        gap: 20px;
+        margin-top: 44px;
+        justify-content: center;
+      }
+      .pill {
+        flex: 1;
+        border-radius: 36px;
+        text-align: center;
+        font-size: 60px;
+        font-weight: 800;
+        padding: 30px 0;
+        background: var(--chip-bg);
+        color: var(--chip-fg);
+      }
+      .arrow {
+        margin: 30px auto 0;
+        width: 220px;
+        height: 200px;
+      }
+      .arrow svg {
+        display: block;
+        width: 220px;
+        height: 200px;
+      }
+      .arrow path {
+        fill: var(--chip-bg);
+      }
+      .desk {
+        margin-top: 30px;
+        border-radius: 32px;
+        text-align: center;
+        font-size: 72px;
+        font-weight: 900;
+        padding: 40px 0;
+        letter-spacing: 0.02em;
+        background: var(--chip-bg);
+        color: var(--chip-fg);
+      }
+      .list {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+      }
+      .list div {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-size: 42px;
+        font-weight: 800;
+        line-height: 1.05;
+        text-align: left;
+      }
+      .list i {
+        flex: none;
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+        background: var(--chip-bg);
+        color: var(--chip-fg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-style: normal;
+        font-size: 52px;
+        font-weight: 900;
+      }
+
+      /* band: grows to fill whatever height is left, so no empty space */
+      .band {
+        flex: 1;
+        margin: 40px -40px 0;
+        padding: 36px 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        text-align: center;
+        color: var(--band-fg);
+        background: var(--band-bg);
+      }
+      .band .scan {
+        font-size: 54px;
+        font-weight: 900;
+        line-height: 1.1;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+      }
+      .qrcard {
+        background: #fff;
+        border-radius: 28px;
+        padding: 26px 26px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        color: var(--purple);
+        border: var(--card-border);
+      }
+      .qrcard img {
+        width: 380px;
+        height: 380px;
+      }
+      .qrcard .lbl {
+        font-size: 34px;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .band .free {
+        font-size: 230px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 0.9;
+        color: var(--free);
+      }
+      .band .lbl2 {
+        font-size: 56px;
+        font-weight: 800;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+      .band .time {
+        border-radius: 30px;
+        padding: 30px 40px 28px;
+        width: 100%;
+        background: var(--time-bg);
+        color: var(--time-fg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
+      }
+      .band .time .l1 {
+        font-size: 40px;
+        font-weight: 700;
+      }
+      .band .time .l2 {
+        font-size: 96px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+      }
+      .band .bsub {
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 1.22;
+        margin: 0;
+        white-space: nowrap;
+      }
+      .mini {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        background: #fff;
+        border-radius: 28px;
+        padding: 24px 30px;
+        color: var(--purple);
+        border: var(--card-border);
+      }
+      .mini img {
+        width: 380px;
+        height: 380px;
+      }
+      .mini .t {
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 1.2;
+        white-space: nowrap;
+      }
+      .foot {
+        margin-left: -40px;
+        margin-right: -40px;
+        height: 76px;
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        font-weight: 700;
+        background: var(--foot-bg);
+        color: var(--foot-fg);
+      }
+
+      /* ---------- T1: purple + lime rounded card panel (Starfield Luggage Center) ---------- */
+      .t1 {
+        background: var(--purple);
+        --fg: #fff;
+        --accent: var(--lime);
+        --sub: rgba(255, 255, 255, 0.92);
+        --chip-bg: var(--lime);
+        --chip-fg: var(--purple);
+        --band-bg: var(--lime);
+        --band-fg: var(--purple);
+        --free: var(--purple);
+        --time-bg: #fff;
+        --time-fg: var(--purple);
+        --card-border: 0;
+        --foot-bg: var(--purple);
+        --foot-fg: #fff;
+      }
+      .t1 .band {
+        margin: 40px 0 0;
+        border-radius: 34px;
+        padding: 36px 20px;
+      }
+      .t1 .foot {
+        height: 84px;
+      }
+
+      /* ---------- T2: yellow with traditional pattern border (K-Luggage Hunter / InterCon) ---------- */
+      .t2 {
+        background: var(--yellow);
+        padding-top: 110px;
+        padding-bottom: 80px;
+        --fg: var(--purple);
+        --accent: var(--purple);
+        --sub: var(--purple);
+        --chip-bg: var(--purple);
+        --chip-fg: #fff;
+        --band-bg: var(--purple);
+        --band-fg: #fff;
+        --free: var(--lime);
+        --time-bg: #fff;
+        --time-fg: var(--purple);
+        --card-border: 0;
+        --foot-bg: transparent;
+        --foot-fg: var(--purple);
+      }
+      .t2::before,
+      .t2::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 79px;
+        background: url("pattern.png") center top / 1200px 79px repeat-x;
+        pointer-events: none;
+      }
+      .t2::before {
+        top: 0;
+      }
+      .t2::after {
+        bottom: 0;
+        transform: scaleY(-1);
+      }
+      .t2 .band {
+        margin: 40px 0 0;
+        border-radius: 34px;
+        padding: 36px 20px;
+      }
+      .t2 .foot {
+        height: 72px;
+      }
+
+      /* ---------- T3: purple arch over white (Starfield Storage Delivery) ---------- */
+      .t3 {
+        background: #fff;
+        padding-top: 0;
+        --fg: var(--purple);
+        --accent: var(--lime);
+        --sub: rgba(255, 255, 255, 0.92);
+        --chip-bg: var(--lime);
+        --chip-fg: var(--purple);
+        --band-bg: transparent;
+        --band-fg: var(--purple);
+        --free: var(--purple);
+        --time-bg: var(--purple);
+        --time-fg: #fff;
+        --card-border: 6px solid var(--purple);
+        --foot-bg: transparent;
+        --foot-fg: var(--purple);
+      }
+      .t3 .arch {
+        flex: none;
+        margin: 0 -40px;
+        padding: 44px 40px 60px;
+        background: var(--purple);
+        color: #fff;
+        border-radius: 0 0 150px 150px;
+      }
+      .t3 .band {
+        margin-top: 20px;
+      }
+      .t3 .mini,
+      .t3 .qrcard {
+        border-radius: 34px;
+      }
+
+      /* ---------- T4: purple + lime bottom band (current) ---------- */
+      .t4 {
+        background: var(--purple);
+        --fg: #fff;
+        --accent: var(--lime);
+        --sub: rgba(255, 255, 255, 0.92);
+        --chip-bg: var(--lime);
+        --chip-fg: var(--purple);
+        --band-bg: var(--lime);
+        --band-fg: var(--purple);
+        --free: var(--purple);
+        --time-bg: #fff;
+        --time-fg: var(--purple);
+        --card-border: 0;
+        --foot-bg: var(--purple-deep);
+        --foot-fg: #fff;
+      }
+
+      /* ---------- T5: plain white ---------- */
+      .t5 {
+        background: #fff;
+        --fg: var(--purple);
+        --accent: var(--purple);
+        --sub: #333;
+        --chip-bg: var(--purple);
+        --chip-fg: #fff;
+        --band-bg: transparent;
+        --band-fg: var(--purple);
+        --free: var(--purple);
+        --time-bg: var(--lime);
+        --time-fg: var(--purple);
+        --card-border: 6px solid var(--purple);
+        --foot-bg: transparent;
+        --foot-fg: var(--purple);
+      }
+      .t5 .head em {
+        background: var(--lime);
+        color: var(--purple);
+        padding: 0 14px;
+        border-radius: 18px;
+      }
+      .t5 .band {
+        border-top: 6px solid var(--lime);
+        margin-top: 44px;
+      }
+
+      /* ---------- single-banner (full size) mode ---------- */
+      body.only header.page,
+      body.only section.kind h2,
+      body.only .tabs,
+      body.only .cap,
+      body.only .slot:not(.show) {
+        display: none;
+      }
+      body.only {
+        background: #fff;
+      }
+      body.only section.kind {
+        padding: 0;
+      }
+      body.only .slot.show,
+      body.only .slot.show .frame {
+        width: 600px;
+        height: 1800px;
+        box-shadow: none;
+      }
+      body.only .slot.show .b {
+        transform: none;
+      }
+      body.qa .slot {
+        display: block !important;
+      }
+      #qa {
+        font: 12px/1.4 monospace;
+        white-space: pre;
+        padding: 20px 40px;
+      }
+      @page {
+        size: 600mm 1800mm;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page">
+      <h1>Incheon Cruise Terminal · Goodlugg Zone X-Banners</h1>
+      <p>
+        3 kinds of banner, each with several copy options and 5 backgrounds.
+        Pick a copy option with the buttons to see it on all 5 backgrounds.
+        Each banner is drawn at 600 × 1800 (1 : 3). “Full size” opens one
+        banner alone at 100% for close review or printing.
+      </p>
+    </header>
+
+    <div id="app"></div>
+    <div id="qa"></div>
+
+    <script>
+      /* ---------------- data ---------------- */
+      var THEMES = [
+        ["T1", "Purple · lime card panel (Starfield Luggage Center)"],
+        ["T2", "Yellow · traditional border (K-Luggage Hunter / InterCon)"],
+        ["T3", "Purple arch over white (Starfield Storage Delivery)"],
+        ["T4", "Purple · lime bottom band (current)"],
+        ["T5", "Plain white"],
+      ];
+
+      var KINDS = [
+        {
+          id: "1",
+          title: "1 · Booking QR banner",
+          note: "moving tiger beside the logo · QR “Book in 5 min.”",
+          copies: [
+            {
+              id: "A",
+              label: "Same-day luggage delivery across Korea",
+              head: "Same-day<br>luggage<br>delivery<br><em>across<br>Korea</em>",
+              sub: "to your hotel, airport,<br>and beyond",
+            },
+            {
+              id: "B",
+              label: "Drop your bags here & start bagless travel!",
+              head: "Drop your<br>bags here<br>&amp; start<br><em>bagless<br>travel!</em>",
+              sub: "Same-day delivery to your<br>hotel or Airbnb<br>anywhere in Korea",
+              bul: "Nationwide · Airbnb OK<br>Card / PayPal",
+            },
+            {
+              id: "C",
+              label: "Your bags, delivered today (new, concise)",
+              head: "Your bags,<br><em>delivered<br>today</em>",
+              sub: "Same-day luggage delivery<br>anywhere in Korea:<br>hotel, airport &amp; beyond",
+            },
+          ],
+        },
+        {
+          id: "2",
+          title: "2 · Free luggage storage banner",
+          note: "sitting tiger on the left, beside the logo · no QR",
+          copies: [
+            {
+              id: "A",
+              label: "Free luggage storage until 3:00 PM",
+              head: "<em>Free</em><br>luggage<br>storage",
+              band: ["time", "sub:Leave your bags with us<br>and explore bagless"],
+            },
+            {
+              id: "B",
+              label: "Luggage storage · FREE · until 3:00 PM",
+              head: "Luggage<br>storage",
+              band: ["free", "time", "sub:Drop your bags,<br>enjoy the day"],
+            },
+            {
+              id: "C",
+              label: "Store your bags here · FREE · until 3:00 PM",
+              head: "Store<br>your bags<br><em>here</em>",
+              band: ["free", "time"],
+            },
+            {
+              id: "D",
+              label: "Drop. Explore. Pick up. (new, concise)",
+              head: "Drop.<br><em>Explore.</em><br>Pick up.",
+              band: ["free", "lbl:Luggage storage", "time"],
+            },
+          ],
+        },
+        {
+          id: "3",
+          title: "3 · Staff-assisted booking desk",
+          note: "no tiger · small QR captioned “Self booking with QR”",
+          copies: [
+            {
+              id: "A",
+              label: "Booking desk · Card · Cash",
+              head: "Booking<br>desk",
+              sub: "Our staff will<br>book it for you",
+              extra: "pills",
+            },
+            {
+              id: "B",
+              label: "Book here with our staff · arrow · Booking desk",
+              head: "Book here<br>with<br>our staff",
+              sub: "Card and cash accepted",
+              extra: "arrow",
+            },
+            {
+              id: "C",
+              label: "Help desk · Ask our staff · 1 2 3",
+              head: "Help<br>desk",
+              sub: "Ask our staff",
+              extra: "list",
+            },
+            {
+              id: "D",
+              label: "Need a hand? (new, concise)",
+              head: "Need<br>a hand?",
+              sub: "Our staff books it for you,<br>right here",
+              extra: "pill1",
+            },
+          ],
+        },
+      ];
+
+      /* ---------------- render ---------------- */
+      function esc(s) {
+        return s;
+      }
+      function bannerHTML(kind, copy, theme) {
+        var k = kind.id,
+          t = theme.toLowerCase();
+        var logoWhite = t === "t1" || t === "t3" || t === "t4";
+        var logo = logoWhite
+          ? "logo_white.png"
+          : t === "t2"
+            ? "logo_purple_solid.png"
+            : "logo_purple.png";
+        var top = "";
+        if (k === "1") {
+          top =
+            '<div class="top"><img class="logo" src="' +
+            logo +
+            '" alt="Goodlugg"><img class="t" src="tiger_move.png" alt=""></div>';
+        } else if (k === "2") {
+          top =
+            '<div class="top"><img class="t" src="tiger_sit.png" alt=""><img class="logo" src="' +
+            logo +
+            '" alt="Goodlugg"></div>';
+        } else {
+          top =
+            '<div class="top"><img class="logo" src="' +
+            logo +
+            '" alt="Goodlugg"></div>';
+        }
+        var c = '<div class="copy"><h1 class="head">' + copy.head + "</h1>";
+        if (copy.sub) c += '<p class="sub">' + copy.sub + "</p>";
+        if (copy.bul) c += '<p class="bul">' + copy.bul + "</p>";
+        if (copy.extra === "pills")
+          c +=
+            '<div class="pills"><span class="pill">Card</span><span class="pill">Cash</span></div>';
+        if (copy.extra === "pill1")
+          c += '<div class="pills"><span class="pill">Card · Cash</span></div>';
+        if (copy.extra === "arrow")
+          c +=
+            '<div class="arrow"><svg viewBox="0 0 220 200" aria-hidden="true"><path d="M75 0h70v100h60L110 200 0 100h75z"></path></svg></div><div class="desk">BOOKING DESK</div>';
+        if (copy.extra === "list")
+          c +=
+            '<div class="list"><div><i>1</i>Book your delivery</div><div><i>2</i>Pay by card or cash</div><div><i>3</i>Any questions</div></div>';
+        c += "</div>";
+
+        var band = '<div class="band">';
+        if (k === "1") {
+          band +=
+            '<div class="scan">Scan to book</div><div class="qrcard"><img src="qr.png" alt="Booking QR"><div class="lbl">Book in 5 min.</div></div>';
+        } else if (k === "2") {
+          copy.band.forEach(function (item) {
+            if (item === "free") band += '<div class="free">FREE</div>';
+            else if (item === "time")
+              band +=
+                '<div class="time"><span class="l1">until</span><span class="l2">3:00 PM</span></div>';
+            else if (item.indexOf("sub:") === 0)
+              band += '<p class="bsub">' + item.slice(4) + "</p>";
+            else if (item.indexOf("lbl:") === 0)
+              band += '<div class="lbl2">' + item.slice(4) + "</div>";
+          });
+        } else {
+          band +=
+            '<div class="mini"><img src="qr.png" alt="Booking QR"><div class="t">Self booking with QR</div></div>';
+        }
+        band += "</div>";
+
+        var foot = '<div class="foot">goodlugg.com</div>';
+        var inner =
+          t === "t3" ? '<div class="arch">' + top + c + "</div>" : top + c;
+        return (
+          '<div class="b k' + k + " " + t + '">' + inner + band + foot + "</div>"
+        );
+      }
+
+      var app = document.getElementById("app");
+      var params = new URLSearchParams(location.search);
+      var only = params.get("only");
+      var qa = params.get("qa");
+      /* also accept ?only=1A&theme=T1 and legacy ?only=1A (= T4) */
+      if (only && only.indexOf("-") < 0) {
+        only = only + "-" + (params.get("theme") || "T4");
+      }
+      var html = "";
+      KINDS.forEach(function (kind) {
+        html +=
+          '<section class="kind" data-kind="' +
+          kind.id +
+          '"><h2>' +
+          kind.title +
+          " <small>" +
+          kind.note +
+          "</small></h2>";
+        html += '<div class="tabs">';
+        kind.copies.forEach(function (copy, i) {
+          html +=
+            '<button type="button" data-copy="' +
+            copy.id +
+            '"' +
+            (i === 0 ? ' class="on"' : "") +
+            "><b>" +
+            kind.id +
+            copy.id +
+            "</b>" +
+            copy.label +
+            "</button>";
+        });
+        html += "</div>";
+        kind.copies.forEach(function (copy, i) {
+          html +=
+            '<div class="row" data-copy="' +
+            copy.id +
+            '"' +
+            (i === 0 ? "" : ' style="display:none"') +
+            ">";
+          THEMES.forEach(function (th) {
+            var id = kind.id + copy.id + "-" + th[0];
+            html +=
+              '<div class="slot" id="s' +
+              id +
+              '"><div class="frame">' +
+              bannerHTML(kind, copy, th[0]) +
+              '</div><p class="cap"><b>' +
+              id +
+              "</b> " +
+              th[1] +
+              ' · <a href="?only=' +
+              id +
+              '">Full size</a></p></div>';
+          });
+          html += "</div>";
+        });
+        html += "</section>";
+      });
+      app.innerHTML = html;
+
+      /* tabs */
+      Array.prototype.forEach.call(
+        document.querySelectorAll(".tabs button"),
+        function (btn) {
+          btn.addEventListener("click", function () {
+            var sec = btn.closest("section");
+            Array.prototype.forEach.call(
+              sec.querySelectorAll(".tabs button"),
+              function (b) {
+                b.classList.toggle("on", b === btn);
+              },
+            );
+            Array.prototype.forEach.call(
+              sec.querySelectorAll(".row"),
+              function (r) {
+                r.style.display =
+                  r.getAttribute("data-copy") === btn.getAttribute("data-copy")
+                    ? ""
+                    : "none";
+              },
+            );
+          });
+        },
+      );
+
+      /* single banner mode */
+      if (only) {
+        var slot = document.getElementById("s" + only);
+        if (slot) {
+          document.body.classList.add("only");
+          slot.classList.add("show");
+          slot.closest(".row").style.display = "";
+          document.title = "X-Banner " + only;
+        }
+      }
+      if (qa) {
+        document.body.classList.add("qa");
+        Array.prototype.forEach.call(
+          document.querySelectorAll(".row"),
+          function (r) {
+            r.style.display = "";
+          },
+        );
+      }
+
+      /* fit: shrink the headline until every line fits the width, then shrink
+         headline + sub until the whole banner fits 1800 px tall */
+      function fit(b) {
+        var head = b.querySelector(".head");
+        var sub = b.querySelector(".sub");
+        var fs = parseFloat(getComputedStyle(head).fontSize);
+        var guard = 0;
+        while (head.scrollWidth > head.clientWidth + 1 && fs > 40 && guard++ < 80) {
+          fs -= 2;
+          head.style.fontSize = fs + "px";
+        }
+        guard = 0;
+        var ss = sub ? parseFloat(getComputedStyle(sub).fontSize) : 0;
+        var qr = b.querySelector(".qrcard img, .mini img");
+        var qs = qr ? qr.width : 0;
+        while (b.scrollHeight > b.clientHeight && guard++ < 120) {
+          if (fs > 90) {
+            fs -= 2;
+            head.style.fontSize = fs + "px";
+          } else if (qr && qs > 300) {
+            qs -= 10;
+            qr.style.width = qr.style.height = qs + "px";
+          } else {
+            fs -= 2;
+            head.style.fontSize = fs + "px";
+            if (sub && ss > 32) {
+              ss -= 1;
+              sub.style.fontSize = ss + "px";
+            }
+          }
+        }
+      }
+      function fitAll() {
+        Array.prototype.forEach.call(document.querySelectorAll(".b"), fit);
+        if (qa) report();
+        window.__fitDone = true;
+      }
+      function report() {
+        var out = [];
+        Array.prototype.forEach.call(document.querySelectorAll(".slot"), function (s) {
+          var b = s.querySelector(".b");
+          var id = s.id.slice(1);
+          var over = b.scrollHeight - b.clientHeight;
+          var band = b.querySelector(".band");
+          var foot = b.querySelector(".foot");
+          var bh = band.offsetHeight;
+          var footBottom = foot.offsetTop + foot.offsetHeight;
+          var head = b.querySelector(".head");
+          var wide = head.scrollWidth - head.clientWidth;
+          out.push(
+            id +
+              " head=" +
+              parseFloat(getComputedStyle(head).fontSize) +
+              " over=" +
+              over +
+              " wide=" +
+              wide +
+              " band=" +
+              bh +
+              " footBottom=" +
+              footBottom,
+          );
+        });
+        document.getElementById("qa").textContent = out.join("\n");
+        document.body.setAttribute("data-qa-done", "1");
+      }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          Promise.all(
+            Array.prototype.map.call(document.images, function (im) {
+              return im.complete
+                ? Promise.resolve()
+                : new Promise(function (r) {
+                    im.onload = im.onerror = r;
+                  });
+            }),
+          ).then(fitAll);
+        });
+      } else {
+        window.addEventListener("load", fitAll);
+      }
+    </script>
+  </body>
 </html>

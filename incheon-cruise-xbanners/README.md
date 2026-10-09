@@ -1,29 +1,19 @@
 # Incheon Cruise Goodlugg Zone X-banner gallery
 
-Updated 9 October 2026 (New York). Review gallery at `https://bready723.github.io/goodlugg-mockups/incheon-cruise-xbanners/`.
+Live: `https://bready723.github.io/goodlugg-mockups/incheon-cruise-xbanners/`
 
-## Review options
+55 combinations for CEO review: 3 kinds x copy options x 5 backgrounds. The buttons under each kind switch the copy; all 5 backgrounds update together.
 
-55 combinations: booking copies A–C × T1–T5; storage copies A–D × T1–T5; staff desk copies A–D × T1–T5. Each kind's selector applies the same copy to all five backgrounds. The preview-size slider changes only the gallery scale.
+- Kind 1 Booking (moving tiger beside the logo, QR "Book in 5 min."): copies A, B, C
+- Kind 2 Free storage (sitting tiger on the left beside the logo, no QR): copies A, B, C, D
+- Kind 3 Staff booking desk (no tiger, small QR "Self booking with QR"): copies A, B, C, D
 
-- T1: purple with lime rounded card (luggage-center reference).
-- T2: reference yellow with the original traditional border at top and bottom.
-- T3: purple arch over white.
-- T4: purple with lime bottom band.
-- T5: plain white.
+Backgrounds: T1 purple with lime rounded card panel (Starfield Luggage Center), T2 yellow #efee5d with traditional pattern border top and bottom (K-Luggage Hunter / InterCon), T3 purple arch over white (Starfield Storage Delivery), T4 purple with lime bottom band (previous gallery), T5 plain white. Footer is "goodlugg.com" only. The bottom band grows to fill the banner so there is no empty space.
 
-Full-size view: `?only=1A&theme=T1`, `?only=2B&theme=T2`, `?only=3C&theme=T5`. The compact form `?only=1A-T1` is also supported. Legacy `?only=1A` chooses T4. Printing uses a 600 × 1800 mm page with zero margins. Review assets remain provisional for production.
+Full size (600 x 1800, printable at 600 x 1800 mm): `?only=1A-T1`. Also accepted: `?only=1A&theme=T1`; `?only=1A` alone shows T4.
 
-## Artwork and typography
+The page auto-fits each headline to the banner width and shrinks headline, sub-line, then QR until everything fits 1800 px. `?qa=1` prints a per-banner overflow report at the bottom of the page.
 
-Existing tiger_move.png, tiger_sit.png and QR assets were retained. The delivery tiger is beside the logo; storage tiger is on the left, facing right, without mirroring; desk has no tiger. Footer contains only goodlugg.com. Desktop/gallery text uses locally bundled Pretendard fonts with the original SIL Open Font License. Brand colors follow workspace guidance: purple #512a72, lime #c7c22e. Additional yellow #efee5d follows Sara's reference-theme request.
+Assets: `pattern.png` is the top strip of the InterCon banner image (image17 in Designs/20260207_디자인파일.pptx) resampled to 1200 x 79; it is low-resolution and needs the designer's vector for print. `tiger_sit.png` is also low-resolution (see memory). Fonts load from the Pretendard jsDelivr CDN.
 
-Traditional border is shown using CSS background positioning of pattern-reference.png, the unmodified image17.png embedded in Designs/20260207_디자인파일.pptx. Only its top/bottom ornamental strips are displayed. The older banner text is not used as current operational guidance.
-
-## Before print
-
-Confirm the real terminal booking QR, meaning of the 3:00 PM storage cutoff (KST), printer corner-hole/finishing margins and physical dimensions, and original high-resolution/vector tiger artwork. Card/cash copy follows Sara's supplied brief. The current qr.png is the existing review asset and must be verified for the final terminal destination.
-
-## Quality checks
-
-Every background × copy is captured in headless Google Chrome at 600 × 1800. Checks cover overflow, canvas size, loaded images, tiger placement, footer, copy selectors, and gallery scaling. Headless Chrome is closed afterward and the task's remaining browser process count is confirmed as zero. The Drive archive contains the resulting QA report and preview contact sheets.
+Before print: banner size (600 x 1800 vs 600 x 1600), meaning of "until 3:00 PM" (KST), real terminal QR destination, vector tiger artwork.
