@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Incheon Cruise Indoor X-Banners</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <style>
+      /* colours sampled from the CEO-approved finals (IncheonCruiseBanners.jpeg) */
+      :root {
+        --purple: #5f2079;
+        --yellow: #f6ed14;
+        --ink: #1a1a1a;
+        --scale: 0.3;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #ececef;
+        color: var(--ink);
+        font-family:
+          Pretendard,
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      header.page {
+        padding: 36px 40px 10px;
+      }
+      header.page h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--purple);
+      }
+      header.page p {
+        margin: 8px 0 0;
+        font-size: 15px;
+        color: #555;
+        max-width: 960px;
+        line-height: 1.5;
+      }
+      header.page a {
+        color: var(--purple);
+        font-weight: 600;
+      }
+      section.block {
+        padding: 26px 40px 10px;
+      }
+      section.block h2 {
+        margin: 0 0 12px;
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--purple);
+      }
+      section.block h2 small {
+        font-weight: 500;
+        color: #666;
+        font-size: 14px;
+        margin-left: 10px;
+      }
+      img.finals {
+        display: block;
+        width: 100%;
+        max-width: 760px;
+        height: auto;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 34px 44px;
+      }
+      h3.copyname {
+        margin: 0 0 10px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #333;
+        max-width: calc(1200px * var(--scale) + 18px);
+        line-height: 1.4;
+      }
+      h3.copyname b {
+        color: #fff;
+        background: var(--purple);
+        border-radius: 8px;
+        padding: 3px 9px;
+        margin-right: 8px;
+        font-weight: 900;
+      }
+      .row {
+        display: flex;
+        gap: 18px;
+      }
+      .slot {
+        width: calc(600px * var(--scale));
+      }
+      .frame {
+        width: calc(600px * var(--scale));
+        height: calc(1800px * var(--scale));
+        overflow: hidden;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+        background: #fff;
+      }
+      .frame .b {
+        transform: scale(var(--scale));
+        transform-origin: top left;
+      }
+      .cap {
+        margin: 8px 0 0;
+        font-size: 12px;
+        color: #444;
+        line-height: 1.4;
+      }
+      .cap b,
+      .cap a {
+        color: var(--purple);
+      }
+
+      /* ====================== BANNER (600 x 1800) ====================== */
+      .b {
+        width: 600px;
+        height: 1800px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        font-family: Pretendard, sans-serif;
+        line-height: 1;
+        color: var(--fg);
+        background: var(--bg);
+      }
+      .b img {
+        display: block;
+      }
+      /* traditional pattern border, top and bottom, as on the finals */
+      .b::before,
+      .b::after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        right: 0;
+        height: 32px;
+        background: url("pattern.jpg") center / 100% 100% no-repeat;
+        pointer-events: none;
+      }
+      .b::before {
+        top: 0;
+      }
+      .b::after {
+        bottom: 0;
+        transform: scaleY(-1);
+      }
+      .main {
+        height: 1200px;
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        padding: 139px 40px 0;
+      }
+      .logo {
+        flex: none;
+        margin: 0 auto;
+      }
+      .ty .logo {
+        width: 422px;
+        height: 166px;
+      }
+      .ta .logo {
+        width: 278px;
+        height: 76px;
+      }
+      .copy {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--gap, 44px);
+        text-align: center;
+      }
+      .copy > * {
+        max-width: 100%;
+      }
+      .head {
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.14;
+        white-space: nowrap;
+        font-size: 100px;
+      }
+      .mid {
+        margin: 0;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.18;
+        white-space: nowrap;
+        font-size: 54px;
+      }
+      .chip {
+        margin: 0;
+        display: inline-block;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        line-height: 1;
+        white-space: nowrap;
+        font-size: 62px;
+        padding: 10px 28px 14px;
+        border-radius: 14px;
+        background: var(--chip-bg);
+        color: var(--chip-fg);
+      }
+      .sub {
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        line-height: 1.22;
+        white-space: nowrap;
+        font-size: 44px;
+      }
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .list div {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 56px;
+        font-weight: 600;
+        line-height: 1;
+        text-align: left;
+        white-space: nowrap;
+        letter-spacing: -0.01em;
+      }
+      .list i {
+        flex: none;
+        width: 0.74em;
+        height: 0.74em;
+        border-radius: 50%;
+        background: var(--chip-bg);
+        color: var(--chip-fg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-style: normal;
+        font-size: 1em;
+      }
+      .list i span {
+        font-size: 0.5em;
+        font-weight: 800;
+      }
+
+      /* QR block: same size and place as on the finals */
+      .band {
+        height: 600px;
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--purple);
+      }
+      .band .lbl {
+        font-size: 40px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .band img {
+        width: 250px;
+        height: 250px;
+      }
+
+      /* ---------- TY: yellow, tiger lockup, QR on a white tile ---------- */
+      .ty {
+        --bg: var(--yellow);
+        --fg: var(--purple);
+        --chip-bg: var(--purple);
+        --chip-fg: var(--yellow);
+      }
+      .ty .band {
+        padding-top: 22px;
+      }
+      .ty .band .tile {
+        background: #fff;
+        border-radius: 16px;
+        padding: 12px;
+        margin-bottom: 26px;
+      }
+
+      /* ---------- TA: purple arch over white, white wordmark ---------- */
+      .ta {
+        --bg: #fff;
+        --fg: #fff;
+        --chip-bg: var(--yellow);
+        --chip-fg: var(--purple);
+      }
+      .ta .main {
+        background: var(--purple);
+        border-radius: 0 0 100px 100px;
+        padding-bottom: 40px;
+      }
+      .ta .band {
+        padding-top: 108px;
+      }
+      .ta .band .tile {
+        margin-bottom: 30px;
+      }
+
+      /* ---------- single-banner (full size) mode ---------- */
+      body.only header.page,
+      body.only section.ref,
+      body.only section.block h2,
+      body.only h3.copyname,
+      body.only .cap,
+      body.only .cell:not(.show),
+      body.only .slot:not(.show) {
+        display: none;
+      }
+      body.only {
+        background: #fff;
+      }
+      body.only section.block {
+        padding: 0;
+      }
+      body.only .slot.show,
+      body.only .slot.show .frame {
+        width: 600px;
+        height: 1800px;
+        box-shadow: none;
+      }
+      body.only .slot.show .b {
+        transform: none;
+      }
+      #qa {
+        font: 12px/1.4 monospace;
+        white-space: pre;
+        padding: 20px 40px;
+      }
+      @page {
+        size: 600mm 1800mm;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page">
+      <h1>Incheon Cruise Terminal · Indoor X-Banners</h1>
+      <p>
+        For the hall right after disembarkation: book inside, leave the bags at
+        the Goodlugg Zone outside. 6 copy options, each on the two fixed
+        backgrounds (yellow, purple arch). Every banner opens with the service
+        name and carries the booking QR. Each banner is drawn at 600 × 1800
+        (1 : 3); “Full size” opens one banner alone at 100%.
+      </p>
+      <p>
+        Outdoor copy gallery (earlier rounds):
+        <a href="../incheon-cruise-xbanners/">incheon-cruise-xbanners</a>
+      </p>
+    </header>
+
+    <section class="block ref">
+      <h2>Fixed outdoor banners <small>reference: the four finals</small></h2>
+      <img class="finals" src="finals.jpg" alt="The four fixed outdoor banners" />
+    </section>
+
+    <section class="block">
+      <h2>Indoor banner <small>service first · then book here, drop outside · QR</small></h2>
+      <div class="grid" id="app"></div>
+    </section>
+    <div id="qa"></div>
+
+    <script>
+      /* ---------------- data ---------------- */
+      var THEMES = [
+        ["Y", "Yellow"],
+        ["A", "Purple arch"],
+      ];
+      var DROP = "Drop your bags at the<br>Goodlugg Zone outside";
+
+      var COPIES = [
+        {
+          id: "4A",
+          label: "Same-Day Luggage Delivery · Book Here · drop at the Goodlugg Zone outside",
+          head: "Same-Day<br>Luggage<br>Delivery",
+          chip: "Book Here",
+          sub: DROP,
+        },
+        {
+          id: "4B",
+          label: "Same-Day Luggage Delivery · 1 Book Here 2 Drop Bags Outside",
+          head: "Same-Day<br>Luggage<br>Delivery",
+          list: ["Book Here", "Drop Bags Outside"],
+          gap: 64,
+        },
+        {
+          id: "4C",
+          label: "Same-Day Luggage Delivery across Korea · book now, drop outside",
+          head: "Same-Day<br>Luggage<br>Delivery",
+          chip: "across Korea",
+          sub: "Book now, drop your bags at<br>the Goodlugg Zone outside",
+        },
+        {
+          id: "4D",
+          label: "Travel Bagless in Korea · Same-Day Luggage Delivery · Book Here",
+          head: "Travel<br>Bagless<br>in Korea",
+          mid: "Same-Day<br>Luggage Delivery",
+          chip: "Book Here",
+          sub: DROP,
+          gap: 36,
+        },
+        {
+          id: "4E",
+          label: "Travel Bagless · Same-Day Luggage Delivery · 1 Book Here 2 Drop Bags Outside 3 Enjoy Korea",
+          head: "Travel<br>Bagless",
+          headSize: 128,
+          mid: "Same-Day<br>Luggage Delivery",
+          list: ["Book Here", "Drop Bags Outside", "Enjoy Korea"],
+          gap: 56,
+        },
+        {
+          id: "4F",
+          label: "Luggage Delivery to Your Hotel or Airport · Book Here",
+          head: "Luggage<br>Delivery",
+          headSize: 116,
+          mid: "to Your Hotel<br>or Airport",
+          midSize: 62,
+          chip: "Book Here",
+          sub: DROP,
+          gap: 40,
+        },
+      ];
+
+      /* ---------------- render ---------------- */
+      function bannerHTML(copy, theme) {
+        var y = theme === "Y";
+        var logo = y
+          ? '<img class="logo" src="lockup_yellow.png" alt="K-Luggage Hunter Goodlugg">'
+          : '<img class="logo" src="wordmark_purple.png" alt="Goodlugg">';
+        var c =
+          '<div class="copy"' +
+          (copy.gap ? ' style="--gap:' + copy.gap + 'px"' : "") +
+          '><h1 class="head"' +
+          (copy.headSize ? ' style="font-size:' + copy.headSize + 'px"' : "") +
+          ">" +
+          copy.head +
+          "</h1>";
+        if (copy.mid)
+          c +=
+            '<p class="mid"' +
+            (copy.midSize ? ' style="font-size:' + copy.midSize + 'px"' : "") +
+            ">" +
+            copy.mid +
+            "</p>";
+        if (copy.chip) c += '<p class="chip">' + copy.chip + "</p>";
+        if (copy.list)
+          c +=
+            '<div class="list">' +
+            copy.list
+              .map(function (x, i) {
+                return "<div><i><span>" + (i + 1) + "</span></i>" + x + "</div>";
+              })
+              .join("") +
+            "</div>";
+        if (copy.sub) c += '<p class="sub">' + copy.sub + "</p>";
+        c += "</div>";
+        var band =
+          '<div class="band"><div class="tile"><img src="qr.png" alt="Booking QR"></div><div class="lbl">Book in 5 min.</div></div>';
+        return (
+          '<div class="b ' +
+          (y ? "ty" : "ta") +
+          '"><div class="main">' +
+          logo +
+          c +
+          "</div>" +
+          band +
+          "</div>"
+        );
+      }
+
+      var app = document.getElementById("app");
+      var params = new URLSearchParams(location.search);
+      var only = params.get("only");
+      var qa = params.get("qa");
+      var html = "";
+      COPIES.forEach(function (copy) {
+        html +=
+          '<div class="cell"><h3 class="copyname"><b>' +
+          copy.id +
+          "</b>" +
+          copy.label +
+          '</h3><div class="row">';
+        THEMES.forEach(function (th) {
+          var id = copy.id + "-" + th[0];
+          html +=
+            '<div class="slot" id="s' +
+            id +
+            '"><div class="frame">' +
+            bannerHTML(copy, th[0]) +
+            '</div><p class="cap"><b>' +
+            id +
+            "</b> " +
+            th[1] +
+            ' · <a href="?only=' +
+            id +
+            '">Full size</a></p></div>';
+        });
+        html += "</div></div>";
+      });
+      app.innerHTML = html;
+
+      /* single banner mode */
+      if (only) {
+        var slot = document.getElementById("s" + only);
+        if (slot) {
+          document.body.classList.add("only");
+          slot.classList.add("show");
+          slot.parentNode.parentNode.classList.add("show");
+          document.title = "Indoor X-Banner " + only;
+        }
+      }
+
+      /* fit: shrink any line that is wider than the banner, then shrink the
+         copy (never the QR) until it fits the space above the QR */
+      var SEL = ".head, .mid, .chip, .sub, .list div";
+      function fit(b) {
+        var copy = b.querySelector(".copy");
+        var els = copy.querySelectorAll(SEL);
+        var limit = copy.clientWidth;
+        Array.prototype.forEach.call(els, function (el) {
+          var f = parseFloat(getComputedStyle(el).fontSize),
+            g = 0;
+          while (el.scrollWidth > limit + 1 && f > 30 && g++ < 80) {
+            f -= 2;
+            el.style.fontSize = f + "px";
+          }
+        });
+        var guard = 0;
+        while (copy.scrollHeight > copy.clientHeight + 1 && guard++ < 60) {
+          Array.prototype.forEach.call(els, function (el) {
+            var f = parseFloat(getComputedStyle(el).fontSize);
+            el.style.fontSize = f * 0.98 + "px";
+          });
+        }
+      }
+      function report() {
+        var out = [];
+        Array.prototype.forEach.call(document.querySelectorAll(".slot"), function (s) {
+          var b = s.querySelector(".b");
+          var copy = b.querySelector(".copy");
+          var wide = 0;
+          Array.prototype.forEach.call(copy.querySelectorAll(SEL), function (el) {
+            wide = Math.max(wide, el.scrollWidth - copy.clientWidth);
+          });
+          out.push(
+            s.id.slice(1) +
+              " head=" +
+              Math.round(parseFloat(getComputedStyle(b.querySelector(".head")).fontSize)) +
+              " over=" +
+              Math.max(0, copy.scrollHeight - copy.clientHeight) +
+              " wide=" +
+              wide +
+              " qr=" +
+              b.querySelector(".band img").offsetWidth,
+          );
+        });
+        document.getElementById("qa").textContent = out.join("\n");
+      }
+      function fitAll() {
+        Array.prototype.forEach.call(document.querySelectorAll(".b"), fit);
+        if (qa) report();
+        document.body.setAttribute("data-fit-done", "1");
+      }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          Promise.all(
+            Array.prototype.map.call(document.images, function (im) {
+              return im.complete
+                ? Promise.resolve()
+                : new Promise(function (r) {
+                    im.onload = im.onerror = r;
+                  });
+            }),
+          ).then(fitAll);
+        });
+      } else {
+        window.addEventListener("load", fitAll);
+      }
+    </script>
+  </body>
+</html>
