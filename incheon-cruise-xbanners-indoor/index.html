@@ -225,7 +225,7 @@
         letter-spacing: -0.01em;
         line-height: 1.22;
         white-space: nowrap;
-        font-size: 44px;
+        font-size: 52px;
       }
       .list {
         display: flex;
@@ -385,12 +385,12 @@
         ["Y", "Yellow"],
         ["A", "Purple arch"],
       ];
-      var DROP = "Drop your bags at the<br>Goodlugg Zone outside";
+      var DROP = "Drop your bags outside<br>Goodlugg Zone";
 
       var COPIES = [
         {
           id: "4A",
-          label: "Same-Day Luggage Delivery · Book Here · drop at the Goodlugg Zone outside",
+          label: "Same-Day Luggage Delivery · Book Here · drop outside, Goodlugg Zone",
           head: "Same-Day<br>Luggage<br>Delivery",
           chip: "Book Here",
           sub: DROP,
@@ -404,10 +404,12 @@
         },
         {
           id: "4C",
-          label: "Same-Day Luggage Delivery across Korea · book now, drop outside",
+          label: "Same-Day Luggage Delivery across Korea · Book Here · drop outside, Goodlugg Zone",
           head: "Same-Day<br>Luggage<br>Delivery",
           chip: "across Korea",
-          sub: "Book now, drop your bags at<br>the Goodlugg Zone outside",
+          chip2: "Book Here",
+          sub: DROP,
+          gap: 40,
         },
         {
           id: "4D",
@@ -462,6 +464,7 @@
             copy.mid +
             "</p>";
         if (copy.chip) c += '<p class="chip">' + copy.chip + "</p>";
+        if (copy.chip2) c += '<p class="chip">' + copy.chip2 + "</p>";
         if (copy.list)
           c +=
             '<div class="list">' +
