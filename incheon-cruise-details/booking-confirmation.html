@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking Confirmation (Incheon Cruise) mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --purple:#512a72; --line:#e1e1e6; --label:#6b6b74; --bg:#f3f3f5; }
+  body { margin:0; background:#fff; font-family:'Helvetica Neue',Arial,Pretendard,sans-serif; color:#1a1a1a; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1040px; margin:0 auto; padding:32px 24px 48px; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+  .brand { font-family:Poppins,sans-serif; font-weight:600; font-size:30px; letter-spacing:-.5px; }
+  .brand b { color:#512a72; font-weight:600; } .brand i { color:#c7c22e; font-style:normal; font-weight:600; }
+  .nav { display:flex; gap:28px; font-family:Poppins,sans-serif; font-size:17px; color:#333; }
+  .nav .out { color:#512a72; font-weight:600; }
+  .summary { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line); border-radius:6px; padding:16px 10px; text-align:center; font-size:19px; margin-bottom:18px; }
+  .card { border:1px solid var(--line); border-radius:6px; padding:14px; }
+  .card h2 { margin:0; background:var(--purple); color:#fff; font-weight:500; font-size:19px; text-align:center; padding:16px; border-radius:6px; }
+  table { width:100%; border-collapse:collapse; background:var(--bg); font-size:17px; }
+  th, td { text-align:left; padding:14px 18px; border-bottom:1px solid #e6e6ea; vertical-align:top; }
+  th { width:200px; color:var(--label); font-weight:400; vertical-align:middle; }
+  td .line { line-height:1.65; }
+  td .dt { margin-top:14px; }
+  .btn { display:inline-block; background:var(--purple); color:#fff; font-size:16px; font-weight:500; padding:8px 18px; border-radius:4px; margin:14px 0 8px; text-decoration:none; }
+  .big { display:block; background:var(--purple); color:#fff; text-align:center; font-size:19px; font-weight:500; padding:16px; border-radius:6px; margin-top:14px; text-decoration:none; }
+  .note { margin-top:28px; font-size:14px; color:#6b6b74; line-height:1.6; }
+  .note b { color:#512a72; }
+  mark { background:#fff3a3; padding:0 3px; }
+  @media (max-width:640px) { .nav{display:none} .summary{font-size:15px} th{width:110px} th,td{padding:12px 10px;font-size:15px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><b>Good</b><i>lugg</i></div>
+    <div class="nav"><span>English ▾</span><span>My Page</span><span>Tracking</span><span>Reviews</span><span>Contact Us</span><span>Notices</span><span class="out">Log Out</span></div>
+  </div>
+
+  <div class="summary"><span>2026-10-16</span><span>ODPXGLX42U</span><span>Korea</span><span>Booked</span></div>
+
+  <div class="card">
+    <h2>Booking Confirmation</h2>
+    <table>
+      <tr><th>Booking Number</th><td>ODPXGLX42U</td></tr>
+      <tr><th>Name</th><td>Sara Kim</td></tr>
+      <tr><th>Mobile Number</th><td>+82 (0)10-0000-0000</td></tr>
+      <tr><th>E-mail</th><td>guest@example.com</td></tr>
+      <tr>
+        <th>From</th>
+        <td>
+          <div class="line"><mark>Incheon Port Cruise Terminal, Goodlugg Bag Drop-off Zone outside terminal, 438 Gukjehangman-daero, Yeonsu-gu, Incheon</mark></div>
+          <a class="btn" href="https://www.goodlugg.com/luggage-delivery/korea-door-to-door/location/39" target="_blank" rel="noopener"><mark style="background:transparent;color:#fff">View Location</mark></a>
+          <div class="dt">Date/Time: 2026-10-16 11:00-12:00</div>
+        </td>
+      </tr>
+      <tr><th>Handoff method</th><td>Drop-off at desk</td></tr>
+      <tr>
+        <th>To</th>
+        <td>
+          <div class="line">Incheon Airport Terminal 1, In front of the Goodlugg Desk, near Gate 13 on the west side of the Arrival Hall, 1st Floor, Terminal 1, Incheon International Airport</div>
+          <a class="btn" href="#">Airport Desk Location</a>
+          <div class="dt">Date/Time: 2026-10-16 20:00-21:00</div>
+        </td>
+      </tr>
+      <tr><th>Luggage</th><td>Checked-in × 2</td></tr>
+      <tr><th>Flight Number</th><td>EY823 (2026-10-16 23:00)</td></tr>
+      <tr><th>Status</th><td>Booked</td></tr>
+    </table>
+    <a class="big" href="#">Photo Upload/Tracking</a>
+    <a class="big" href="#">Modify</a>
+  </div>
+
+  <div class="note">
+    <b>Mockup.</b> Highlighted = requested change. Today the From line shows the Korean address and detail copied from the QR place record, and no location button.
+    Requested: English text "Goodlugg Bag Drop-off Zone outside terminal" + a <b>View Location</b> button opening
+    /luggage-delivery/korea-door-to-door/location/39 (the existing Incheon Port Cruise Terminal guide page).
+  </div>
+</div>
+</body>
+</html>
