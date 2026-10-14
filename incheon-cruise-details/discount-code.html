@@ -4031,6 +4031,15 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
   .d2d-coupon-slidein.coupon .dcs-code { letter-spacing: 1.2px; font-family: "SF Mono", Menlo, Consolas, monospace; }
   .dcs-hint { display: none; font-size: 9px; font-weight: 600; opacity: .8; margin-top: 3px; letter-spacing: .2px; }
   .d2d-coupon-slidein.coupon .dcs-hint { display: block; }
+  .dcs-pre { display: none; font-size: 10px; font-weight: 700; line-height: 1; margin-bottom: 4px; letter-spacing: .2px; }
+  .d2d-coupon-slidein.coupon .dcs-pre { display: block; }
+  .d2d-coupon-slidein.coupon .dcs-perf { top: 51px; }
+  .d2d-coupon-slidein.coupon {
+    -webkit-mask: radial-gradient(circle 8px at 0 52px, #0000 98%, #000), radial-gradient(circle 8px at 100% 52px, #0000 98%, #000);
+    -webkit-mask-composite: source-in;
+    mask: radial-gradient(circle 8px at 0 52px, #0000 98%, #000), radial-gradient(circle 8px at 100% 52px, #0000 98%, #000);
+    mask-composite: intersect;
+  }
   /* MOCKUP ONLY: tab switch between the two options (not part of the real page) */
   .mock-tabs { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 100000; display: flex; align-items: center; gap: 4px;
                background: #fff; border: 1.5px solid #512a72; border-radius: 30px; padding: 4px 6px 4px 12px; font-family: Pretendard,'Poppins',sans-serif;
@@ -4046,10 +4055,10 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
 
 <div class="d2d-coupon-slidein" id="d2dCoupon" role="button" tabindex="0" onclick="copyCruiseCoupon()">
   <button class="dcs-x" aria-label="Close" onclick="closeD2dCoupon(event)">✕</button>
-  <div class="dcs-off">10%<small> OFF</small></div>
+  <div class="dcs-off"><span class="dcs-pre">Your exclusive</span><span id="dcsOffMain">10%<small> OFF</small></span></div>
   <div class="dcs-perf"></div>
   <div class="dcs-code" id="cruiseCodeText">IncheonCruise10</div>
-  <div class="dcs-hint">Your code · from the cruise terminal only</div>
+  <div class="dcs-hint">Cruise delivery only</div>
   <span class="dcs-cta" id="cruiseCta">Copy code</span>
 </div>
 
@@ -4097,6 +4106,7 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
     var card = document.getElementById('d2dCoupon');
     card.classList.toggle('coupon', v === 'coupon');
     document.getElementById('cruiseCodeText').textContent = v === 'coupon' ? deviceCoupon() : 'IncheonCruise10';
+    document.getElementById('dcsOffMain').innerHTML = v === 'coupon' ? '10%<small> Coupon</small>' : '10%<small> OFF</small>';
     var btns = document.querySelectorAll('#mockTabs button');
     for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('on', btns[i].getAttribute('data-v') === v);
     sessionStorage.setItem('cruiseTicketTab', v);
