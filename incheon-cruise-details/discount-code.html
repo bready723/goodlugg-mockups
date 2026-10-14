@@ -1667,16 +1667,6 @@
     wcs_add["wa"] = "s_2de3d2c21db";
     wcs_do();
   </script>
-
-<style>
-/* ── Incheon Cruise discount code (mockup) ── */
-.cruise-code{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;margin:4px 0 18px;padding:14px 16px;border-radius:12px;background:#f4f5cf;border:1.5px solid #c7c22e}
-.cruise-code .cc-off{flex:1 1 auto;font-size:19px;font-weight:800;color:#512a72;line-height:1;white-space:nowrap}
-.cruise-code .cc-off small{display:block;font-size:11px;font-weight:600;color:#512a72;opacity:.8;margin-top:4px;letter-spacing:.2px}
-.cruise-code .cc-btn{flex:0 0 auto;order:2;font:inherit;font-size:14px;font-weight:700;color:#fff;background:#512a72;border:none;border-radius:999px;padding:10px 18px;cursor:pointer}
-.cruise-code .cc-btn.done{background:#c7c22e;color:#512a72}
-.cruise-code .cc-code{order:3;flex-basis:100%;font-size:20px;font-weight:800;letter-spacing:.4px;color:#512a72;background:#fff;border:1.5px dashed #512a72;border-radius:8px;padding:10px 14px;text-align:center;user-select:all}
-</style>
 </head>
 
 <body>
@@ -1912,19 +1902,6 @@
     <!-- 예상 가격 확인 (메인 액션) -->
     <section class="d2d-location-section" id="d2d-calculator">
       <h2 class="section-title">Price calculator</h2>
-<div class="cruise-code" id="cruiseCode">
-  <div class="cc-off">10% OFF<small>Incheon Cruise code</small></div>
-  <div class="cc-code" id="cruiseCodeText">IncheonCruise10</div>
-  <button type="button" class="cc-btn" id="cruiseCodeBtn" onclick="copyCruiseCode()">Copy code</button>
-</div>
-<script>
-function copyCruiseCode(){
-  var t=document.getElementById('cruiseCodeText').textContent.trim(), b=document.getElementById('cruiseCodeBtn');
-  function ok(){ b.textContent='Copied'; b.classList.add('done'); setTimeout(function(){ b.textContent='Copy code'; b.classList.remove('done'); },2000); }
-  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,ok); }
-  else { var r=document.createRange(); r.selectNodeContents(document.getElementById('cruiseCodeText')); var sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(r); try{document.execCommand('copy');}catch(e){} ok(); }
-}
-</script>
 
       <!-- 출발지 -->
       <div class="d2d-location-field d2d-place-field">
@@ -4025,6 +4002,83 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
 
   <!-- 글로벌 flash 메시지: 컨트롤러가 redirectAttributes.addFlashAttribute("errorMessage", ...) 로 전달하면 alert 으로 표시 -->
   
+
+
+<!-- ════════ SCROLL-IN CRUISE COUPON (same ticket as the D2D welcome coupon, pinned to the price calculator column) ════════ -->
+<style>
+  .d2d-coupon-slidein {
+    position: fixed; bottom: 200px; right: 8px; width: max-content; z-index: 99999;
+    display: block; text-decoration: none; cursor: pointer;
+    background: #fff; color: #C0388A;
+    border-radius: 13px; padding: 11px 13px 12px;
+    font-family: 'Poppins','Noto Sans KR','Apple SD Gothic Neo',sans-serif;
+    box-shadow: inset 0 0 0 1.5px #E45BA8;
+    transform: translateX(200%); transition: transform 0.5s cubic-bezier(.18,.89,.32,1.15);
+    -webkit-mask: radial-gradient(circle 8px at 0 50px, #0000 98%, #000), radial-gradient(circle 8px at 100% 50px, #0000 98%, #000);
+    -webkit-mask-composite: source-in;
+    mask: radial-gradient(circle 8px at 0 50px, #0000 98%, #000), radial-gradient(circle 8px at 100% 50px, #0000 98%, #000);
+    mask-composite: intersect;
+  }
+  .d2d-coupon-slidein.show { transform: translateX(0); }
+  .dcs-x { position: absolute; top: 7px; right: 7px; width: 17px; height: 17px; background: rgba(192,56,138,.12); border: none; border-radius: 50%;
+           color: #C0388A; font-size: 9px; line-height: 1; cursor: pointer; padding: 0; z-index: 2; display: flex; align-items: center; justify-content: center; }
+  .dcs-x:hover { background: rgba(192,56,138,.25); }
+  .dcs-perf { position: absolute; left: 9px; right: 9px; top: 49px; height: 0; border-top: 1.5px dashed rgba(228,91,168,.7); }
+  .dcs-off { font-size: 19px; font-weight: 800; line-height: 1; }
+  .dcs-off small { font-size: 10px; font-weight: 700; margin-left: 2px; opacity: .95; }
+  .dcs-sub { font-size: 10px; font-weight: 600; opacity: .9; margin-top: 3px; letter-spacing: .2px; }
+  .dcs-code { margin-top: 12px; font-size: 13px; font-weight: 800; letter-spacing: .3px; color: #C0388A; text-align: center; }
+  .dcs-cta { display: inline-block; margin-top: 7px; background: linear-gradient(135deg,#E45BA8,#C0388A); color: #fff;
+             font-size: 10px; font-weight: 800; padding: 5px 11px; border-radius: 20px; }
+  .d2d-coupon-slidein.copied .dcs-cta { background: #512a72; }
+</style>
+
+<div class="d2d-coupon-slidein" id="d2dCoupon" role="button" tabindex="0" onclick="copyCruiseCoupon()">
+  <button class="dcs-x" aria-label="Close" onclick="closeD2dCoupon(event)">✕</button>
+  <div class="dcs-off">10%<small> OFF</small></div>
+  <div class="dcs-sub">Incheon Cruise Coupon</div>
+  <div class="dcs-perf"></div>
+  <div class="dcs-code" id="cruiseCodeText">IncheonCruise10</div>
+  <span class="dcs-cta" id="cruiseCta">Copy code</span>
+</div>
+
+<script>
+  (function () {
+    var card = document.getElementById('d2dCoupon');
+    if (!card) return;
+    var col = document.querySelector('.d2d-location-section') || document.querySelector('.container') || document.getElementById('goodlugg-wrapper');
+    var target = document.getElementById('d2d-calculator') || document.querySelector('.d2d-location-section');
+    function pin() {
+      if (!col) return;
+      var r = col.getBoundingClientRect();
+      // Sit just outside the calculator column (as on the D2D page); fall back to the window edge when there is no room
+      var outside = window.innerWidth - r.right - card.offsetWidth - 14;
+      card.style.right = (outside >= 6 ? outside : 6) + 'px';
+    }
+    pin();
+    window.addEventListener('resize', pin);
+    window.addEventListener('scroll', pin);
+    if (!sessionStorage.getItem('cruiseCouponClosed') && target) {
+      new IntersectionObserver(function (entries, obs) {
+        if (entries[0].isIntersecting) { card.classList.add('show'); obs.disconnect(); }
+      }, { threshold: 0.2 }).observe(target);
+    }
+  })();
+  function closeD2dCoupon(e) {
+    e.preventDefault(); e.stopPropagation();
+    document.getElementById('d2dCoupon').classList.remove('show');
+    sessionStorage.setItem('cruiseCouponClosed', '1');
+  }
+  function copyCruiseCoupon() {
+    var t = document.getElementById('cruiseCodeText').textContent.trim();
+    var card = document.getElementById('d2dCoupon'), cta = document.getElementById('cruiseCta');
+    function ok() { cta.textContent = 'Copied ✓'; card.classList.add('copied');
+                    setTimeout(function () { cta.textContent = 'Copy code'; card.classList.remove('copied'); }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(ok, ok); }
+    else { var r = document.createRange(); r.selectNodeContents(document.getElementById('cruiseCodeText'));
+           var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); try { document.execCommand('copy'); } catch (e) {} ok(); }
+  }
+</script>
 
 </body>
 
