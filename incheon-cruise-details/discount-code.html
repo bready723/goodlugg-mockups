@@ -4014,10 +4014,6 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
     font-family: 'Poppins','Noto Sans KR','Apple SD Gothic Neo',sans-serif;
     box-shadow: inset 0 0 0 1.5px #E45BA8;
     transform: translateX(200%); transition: transform 0.5s cubic-bezier(.18,.89,.32,1.15);
-    -webkit-mask: radial-gradient(circle 8px at 0 50px, #0000 98%, #000), radial-gradient(circle 8px at 100% 50px, #0000 98%, #000);
-    -webkit-mask-composite: source-in;
-    mask: radial-gradient(circle 8px at 0 50px, #0000 98%, #000), radial-gradient(circle 8px at 100% 50px, #0000 98%, #000);
-    mask-composite: intersect;
   }
   .d2d-coupon-slidein.show { transform: translateX(0); }
   .dcs-x { position: absolute; top: 7px; right: 7px; width: 17px; height: 17px; background: rgba(192,56,138,.12); border: none; border-radius: 50%;
@@ -4037,7 +4033,6 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
   <button class="dcs-x" aria-label="Close" onclick="closeD2dCoupon(event)">✕</button>
   <div class="dcs-off">10%<small> OFF</small></div>
   <div class="dcs-sub">Incheon Cruise Coupon</div>
-  <div class="dcs-perf"></div>
   <div class="dcs-code" id="cruiseCodeText">IncheonCruise10</div>
   <span class="dcs-cta" id="cruiseCta">Copy code</span>
 </div>
