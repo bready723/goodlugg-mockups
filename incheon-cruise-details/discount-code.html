@@ -4028,6 +4028,17 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
   .dcs-off small { font-size: 10px; font-weight: 700; margin-left: 2px; opacity: .95; }
   .dcs-sub { font-size: 10px; font-weight: 600; opacity: .9; margin-top: 3px; letter-spacing: .2px; }
   .dcs-code { margin-top: 16px; font-size: 13px; font-weight: 800; letter-spacing: .3px; color: #C0388A; text-align: center; }
+  .d2d-coupon-slidein.coupon .dcs-code { letter-spacing: 1.2px; font-family: "SF Mono", Menlo, Consolas, monospace; }
+  .dcs-hint { display: none; font-size: 9px; font-weight: 600; opacity: .8; margin-top: 3px; letter-spacing: .2px; }
+  .d2d-coupon-slidein.coupon .dcs-hint { display: block; }
+  /* MOCKUP ONLY: tab switch between the two options (not part of the real page) */
+  .mock-tabs { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 100000; display: flex; align-items: center; gap: 4px;
+               background: #fff; border: 1.5px solid #512a72; border-radius: 30px; padding: 4px 6px 4px 12px; font-family: Pretendard,'Poppins',sans-serif;
+               box-shadow: 0 4px 14px rgba(0,0,0,.12); }
+  .mock-tabs .mt-l { font-size: 11px; font-weight: 700; color: #512a72; margin-right: 4px; white-space: nowrap; }
+  .mock-tabs button { border: none; background: transparent; color: #512a72; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
+  .mock-tabs button.on { background: #512a72; color: #fff; }
+  @media (max-width: 480px) { .mock-tabs { top: auto; bottom: 10px; } .mock-tabs .mt-l { display: none; } }
   .dcs-cta { display: inline-block; margin-top: 7px; background: linear-gradient(135deg,#E45BA8,#C0388A); color: #fff;
              font-size: 10px; font-weight: 800; padding: 5px 11px; border-radius: 20px; }
   .d2d-coupon-slidein.copied .dcs-cta { background: #512a72; }
@@ -4038,7 +4049,14 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
   <div class="dcs-off">10%<small> OFF</small></div>
   <div class="dcs-perf"></div>
   <div class="dcs-code" id="cruiseCodeText">IncheonCruise10</div>
+  <div class="dcs-hint">Your code · from the cruise terminal only</div>
   <span class="dcs-cta" id="cruiseCta">Copy code</span>
+</div>
+
+<div class="mock-tabs" id="mockTabs" aria-label="Mockup options">
+  <span class="mt-l">Mockup:</span>
+  <button type="button" data-v="code" onclick="setCruiseTab('code')">Discount code</button>
+  <button type="button" data-v="coupon" onclick="setCruiseTab('coupon')">Personal coupon</button>
 </div>
 
 <script>
@@ -4062,6 +4080,31 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
         if (entries[0].isIntersecting) { card.classList.add('show'); obs.disconnect(); }
       }, { threshold: 0.2 }).observe(target);
     }
+  })();
+  // MOCKUP tab switch. Option A: shared discount code (IncheonCruise10, Discount/Partner code box, login needed today).
+  // Option B: one coupon per device, issued from the cruise coupon group on page open (10-char tbl_coupon format,
+  // departure = Incheon Cruise Terminal only), entered in the Coupon code box, no sign-in.
+  function deviceCoupon() {
+    var code = localStorage.getItem('cruiseCouponNo');
+    if (!code) {
+      var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; code = '';
+      for (var i = 0; i < 10; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+      localStorage.setItem('cruiseCouponNo', code);
+    }
+    return code;
+  }
+  function setCruiseTab(v) {
+    var card = document.getElementById('d2dCoupon');
+    card.classList.toggle('coupon', v === 'coupon');
+    document.getElementById('cruiseCodeText').textContent = v === 'coupon' ? deviceCoupon() : 'IncheonCruise10';
+    var btns = document.querySelectorAll('#mockTabs button');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('on', btns[i].getAttribute('data-v') === v);
+    sessionStorage.setItem('cruiseTicketTab', v);
+    if (!card.classList.contains('show') && sessionStorage.getItem('cruiseCouponClosed')) { sessionStorage.removeItem('cruiseCouponClosed'); card.classList.add('show'); }
+  }
+  (function () {
+    var q = new URLSearchParams(location.search).get('v');
+    setCruiseTab(q === 'coupon' || (!q && sessionStorage.getItem('cruiseTicketTab') === 'coupon') ? 'coupon' : 'code');
   })();
   function closeD2dCoupon(e) {
     e.preventDefault(); e.stopPropagation();
