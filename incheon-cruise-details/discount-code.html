@@ -4107,6 +4107,7 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
     card.classList.toggle('coupon', v === 'coupon');
     document.getElementById('cruiseCodeText').textContent = v === 'coupon' ? deviceCoupon() : 'IncheonCruise10';
     document.getElementById('dcsOffMain').innerHTML = v === 'coupon' ? '10%<small> Coupon</small>' : '10%<small> OFF</small>';
+    document.getElementById('cruiseCta').textContent = v === 'coupon' ? 'Copy coupon' : 'Copy code';
     var btns = document.querySelectorAll('#mockTabs button');
     for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('on', btns[i].getAttribute('data-v') === v);
     sessionStorage.setItem('cruiseTicketTab', v);
@@ -4125,7 +4126,7 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
     var t = document.getElementById('cruiseCodeText').textContent.trim();
     var card = document.getElementById('d2dCoupon'), cta = document.getElementById('cruiseCta');
     function ok() { cta.textContent = 'Copied ✓'; card.classList.add('copied');
-                    setTimeout(function () { cta.textContent = 'Copy code'; card.classList.remove('copied'); }, 2000); }
+                    setTimeout(function () { cta.textContent = card.classList.contains('coupon') ? 'Copy coupon' : 'Copy code'; card.classList.remove('copied'); }, 2000); }
     if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(ok, ok); }
     else { var r = document.createRange(); r.selectNodeContents(document.getElementById('cruiseCodeText'));
            var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); try { document.execCommand('copy'); } catch (e) {} ok(); }
