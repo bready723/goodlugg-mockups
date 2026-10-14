@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking Email (Incheon Cruise) mockup</title>
+<style>
+  body { margin:0; background:#fff; font-family:'Helvetica Neue',Arial,Pretendard,sans-serif; color:#222; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1080px; margin:0 auto; padding:28px 20px 40px; }
+  table.blk { width:100%; border:1.5px solid #6c3d8f; border-collapse:collapse; margin-bottom:22px; font-size:17px; }
+  table.blk th { width:210px; background:#f3effa; color:#4a2a6b; font-weight:600; text-align:left; padding:16px 16px; border-right:1.5px solid #6c3d8f; vertical-align:middle; }
+  table.blk td { padding:16px 16px; line-height:1.5; vertical-align:top; }
+  table.blk tr + tr th, table.blk tr + tr td { border-top:1.5px solid #6c3d8f; }
+  .sec { display:flex; align-items:center; gap:10px; font-weight:700; font-size:19px; margin:0 0 10px; }
+  .sec i { width:14px; height:14px; border:3px solid #222; border-radius:50%; display:inline-block; }
+  a { color:#1a54c8; }
+  .guide { margin-top:10px; }
+  .guide .ic { display:inline-block; width:18px; height:18px; background:#f39a1e; border-radius:3px; color:#fff; font-size:11px; text-align:center; line-height:18px; vertical-align:-3px; margin-right:6px; }
+  .dt { margin-top:4px; }
+  mark { background:#fff3a3; padding:0 3px; }
+  .note { margin-top:26px; font-size:14px; color:#6b6b74; line-height:1.6; }
+  .note b { color:#512a72; }
+  @media (max-width:640px) { table.blk th { width:110px; } table.blk th, table.blk td { padding:12px 10px; font-size:15px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <table class="blk">
+    <tr><th>Service</th><td>Korea Luggage Delivery</td></tr>
+    <tr><th>Service Type</th><td>Cruise Terminal → Airport</td></tr>
+  </table>
+  <table class="blk">
+    <tr><th>Photo Upload Link</th><td><a href="#">Track my luggage</a></td></tr>
+  </table>
+
+  <div class="sec"><i></i>Personal Info</div>
+  <table class="blk">
+    <tr><th>Name</th><td>Sara Kim</td></tr>
+    <tr><th>Phone</th><td><a href="#">+82 10-0000-0000</a></td></tr>
+    <tr><th>Email</th><td><a href="#">guest@example.com</a></td></tr>
+  </table>
+
+  <div class="sec"><i></i>Booking Details</div>
+  <table class="blk">
+    <tr><th>Booking No.</th><td>ODPXGLX42U</td></tr>
+    <tr><th>From</th><td>
+      <mark>Incheon Port Cruise Terminal, Goodlugg Bag Drop-off Zone outside terminal</mark>
+      <div class="dt">2026-10-16 / 11:00-12:00</div>
+      <div class="guide"><span class="ic">▶</span><mark>Goodlugg Zone location: <a href="https://www.goodlugg.com/luggage-delivery/korea-door-to-door/location/39">https://www.goodlugg.com/luggage-delivery/korea-door-to-door/location/39</a></mark></div>
+    </td></tr>
+    <tr><th>To</th><td>
+      Incheon Airport Terminal 1, In front of the Goodlugg Desk, near Gate 13 on the west side of the Arrival Hall, 1st Floor, Terminal 1, Incheon International Airport
+      <div class="dt">2026-10-16 / 20:00-21:00</div>
+      <div class="guide"><span class="ic">▶</span>Location guide: <a href="https://www.goodlugg.com/luggage-delivery/korea-door-to-door/location/4">https://www.goodlugg.com/luggage-delivery/korea-door-to-door/location/4</a></div>
+    </td></tr>
+  </table>
+
+  <div class="note">
+    <b>Mockup.</b> Highlighted = requested change in the booking confirmation email. Today the From line shows the Korean address and detail copied from the QR place record, and no location link.
+    Requested: English text "Goodlugg Bag Drop-off Zone outside terminal" (no street address) and a "Goodlugg Zone location" link to /luggage-delivery/korea-door-to-door/location/39, in the same style as the To side's "Location guide" link.
+    Also shown: Service Type as "Cruise Terminal → Airport" instead of "Partner Store → Airport".
+  </div>
+</div>
+</body>
+</html>
