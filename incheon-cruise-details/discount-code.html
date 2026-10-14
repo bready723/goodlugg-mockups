@@ -4014,16 +4014,20 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
     font-family: 'Poppins','Noto Sans KR','Apple SD Gothic Neo',sans-serif;
     box-shadow: inset 0 0 0 1.5px #E45BA8;
     transform: translateX(200%); transition: transform 0.5s cubic-bezier(.18,.89,.32,1.15);
+    -webkit-mask: radial-gradient(circle 8px at 0 38px, #0000 98%, #000), radial-gradient(circle 8px at 100% 38px, #0000 98%, #000);
+    -webkit-mask-composite: source-in;
+    mask: radial-gradient(circle 8px at 0 38px, #0000 98%, #000), radial-gradient(circle 8px at 100% 38px, #0000 98%, #000);
+    mask-composite: intersect;
   }
   .d2d-coupon-slidein.show { transform: translateX(0); }
   .dcs-x { position: absolute; top: 7px; right: 7px; width: 17px; height: 17px; background: rgba(192,56,138,.12); border: none; border-radius: 50%;
            color: #C0388A; font-size: 9px; line-height: 1; cursor: pointer; padding: 0; z-index: 2; display: flex; align-items: center; justify-content: center; }
   .dcs-x:hover { background: rgba(192,56,138,.25); }
-  .dcs-perf { position: absolute; left: 9px; right: 9px; top: 49px; height: 0; border-top: 1.5px dashed rgba(228,91,168,.7); }
+  .dcs-perf { position: absolute; left: 9px; right: 9px; top: 37px; height: 0; border-top: 1.5px dashed rgba(228,91,168,.7); }
   .dcs-off { font-size: 19px; font-weight: 800; line-height: 1; }
   .dcs-off small { font-size: 10px; font-weight: 700; margin-left: 2px; opacity: .95; }
   .dcs-sub { font-size: 10px; font-weight: 600; opacity: .9; margin-top: 3px; letter-spacing: .2px; }
-  .dcs-code { margin-top: 12px; font-size: 13px; font-weight: 800; letter-spacing: .3px; color: #C0388A; text-align: center; }
+  .dcs-code { margin-top: 16px; font-size: 13px; font-weight: 800; letter-spacing: .3px; color: #C0388A; text-align: center; }
   .dcs-cta { display: inline-block; margin-top: 7px; background: linear-gradient(135deg,#E45BA8,#C0388A); color: #fff;
              font-size: 10px; font-weight: 800; padding: 5px 11px; border-radius: 20px; }
   .d2d-coupon-slidein.copied .dcs-cta { background: #512a72; }
@@ -4032,7 +4036,7 @@ Seoul Office: 85 Cheonggyecheon-ro (Samil Building), Jongno-gu, Seoul, Korea</di
 <div class="d2d-coupon-slidein" id="d2dCoupon" role="button" tabindex="0" onclick="copyCruiseCoupon()">
   <button class="dcs-x" aria-label="Close" onclick="closeD2dCoupon(event)">✕</button>
   <div class="dcs-off">10%<small> OFF</small></div>
-  <div class="dcs-sub">Incheon Cruise Coupon</div>
+  <div class="dcs-perf"></div>
   <div class="dcs-code" id="cruiseCodeText">IncheonCruise10</div>
   <span class="dcs-cta" id="cruiseCta">Copy code</span>
 </div>
