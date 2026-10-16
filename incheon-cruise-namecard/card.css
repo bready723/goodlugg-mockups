@@ -21,7 +21,7 @@ body{ font-family:Pretendard,-apple-system,sans-serif; -webkit-print-color-adjus
 .usd .at{ font-size:12.2pt; font-weight:500; letter-spacing:0; margin-right:0.8mm; }
 .krw{ top:68.4mm; font-size:7.5pt; font-weight:400; color:var(--ink); }
 .extra{ top:75mm; font-size:9pt; font-weight:700; color:var(--ink); }
-.extra .s{ font-size:7.5pt; font-weight:600; }
+.extra .s{ font-size:7.5pt; font-weight:400; }
 .contact{ position:absolute; left:6mm; width:54mm; top:87mm; height:11mm; display:flex; align-items:center; justify-content:space-between; }
 .contact .q{ font-size:8.5pt; font-weight:600; white-space:nowrap; color:var(--ink); }
 .contact .ch{ display:flex; align-items:center; gap:0.9mm; }
