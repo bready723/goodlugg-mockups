@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Incheon Cruise name card (10/18 handout)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--purple:#512a72;--lime:#c7c22e;--ink:#1d1d1f;--muted:#6b6b74;--bg:#f3f3f5}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);font-family:Pretendard,-apple-system,sans-serif;color:var(--ink)}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 16px 48px}
+h1{font-size:22px;margin:0 0 4px;color:var(--purple)} .sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+.cards{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;margin-bottom:24px}
+.card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card h2{font-size:14px;margin:0 0 10px;color:var(--muted);font-weight:600}
+.frame{width:240px;height:400px;overflow:hidden;border:1px solid #ddd;border-radius:4px;position:relative;background:#fff}
+.frame iframe{position:absolute;left:0;top:0;width:66mm;height:106mm;border:0;transform-origin:0 0}
+.dl{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 24px}
+.btn{display:inline-block;background:var(--purple);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:10px 16px;border-radius:6px}
+.btn.alt{background:#fff;color:var(--purple);border:1.5px solid var(--purple)}
+.spec{background:#fff;border-radius:10px;padding:16px 20px;font-size:14px;line-height:1.6;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.spec table{border-collapse:collapse;width:100%} .spec td{padding:6px 8px;border-top:1px solid #eee;vertical-align:top} .spec td:first-child{color:var(--muted);width:160px}
+code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:#f1f1f4;padding:1px 5px;border-radius:4px}
+@media (max-width:640px){.frame{width:200px;height:333px}}
+</style></head>
+<body><div class="wrap">
+<h1>Incheon Cruise: name-card promo (10/18 handout)</h1>
+<p class="sub">60 × 100 mm, same stock and header as the existing yellow Goodlugg card. For tour guides and guests at the Goodlugg Zone.</p>
+<div class="cards">
+  <div class="card"><h2>Front</h2><div class="frame"><iframe src="front.html" title="front"></iframe></div></div>
+  <div class="card"><h2>Back</h2><div class="frame"><iframe src="back.html" title="back"></iframe></div></div>
+  <div class="card"><h2>Preview image</h2><a href="preview.png" target="_blank"><img src="preview.png" alt="front and back preview" style="width:300px;display:block;border-radius:4px"></a></div>
+</div>
+<div class="dl">
+  <a class="btn" href="IncheonCruise_NameCard_20261016.pdf" download>Print PDF (66 × 106 mm, 3 mm bleed)</a>
+  <a class="btn alt" href="IncheonCruise_NameCard_20261016_A4.pdf" download>A4 sheet, 6-up with crop marks (duplex)</a>
+  <a class="btn alt" href="preview.png" download>Preview PNG</a>
+</div>
+<div class="spec">
+<table>
+<tr><td>Trim size</td><td>60 × 100 mm (same as the existing card). Print PDF pages are 66 × 106 mm including 3 mm bleed on all sides. Keep nothing closer than 3 mm to the cut.</td></tr>
+<tr><td>Front copy</td><td>Same-Day Luggage Delivery / Across Korea · Today Only! · Up to 4 Bags · USD 50 (KRW 70,000) · + USD 10 per extra bag (KRW 14,000) · Questions? Contact us (KakaoTalk, WhatsApp)</td></tr>
+<tr><td>Back copy</td><td>Today's Offer: Conditions · Delivery to: Hotels in Seoul &amp; Gyeonggi, Incheon / Gimpo Airport, All bags to one address · Delivered by: Incheon / Gimpo Airport by 4 PM, Incheon / Seoul by 6 PM, Other Gyeonggi areas by 8 PM · Other destinations across Korea? QR · Book in 5 min.</td></tr>
+<tr><td>QR targets</td><td>Back: <code>https://www.goodlugg.com/luggage-delivery/korea-door-to-door/qr/incheon-cruise</code> (same as the outdoor banners). Front: KakaoTalk <code>pf.kakao.com/_AxoCxeC</code>, WhatsApp <code>wa.me/821086930419</code> (same QRs as the existing card).</td></tr>
+<tr><td>A4 sheet</td><td>Page 1 fronts, page 2 backs mirrored left-right. Print duplex, flip on the long edge, 250 g card stock, cut on the marks.</td></tr>
+<tr><td>Source</td><td>front.html / back.html + card.css. Header, borders and contact icons are cut from the Illustrator file of the existing card.</td></tr>
+</table>
+</div>
+</div>
+<script>
+document.querySelectorAll('.frame').forEach(fr=>{const ifr=fr.querySelector('iframe');const mm=96/25.4;const s=fr.clientWidth/(66*mm);ifr.style.transform=`scale(${s})`;});
+</script>
+</body></html>
