@@ -18,7 +18,7 @@ h1{font-size:22px;margin:0 0 24px;color:var(--purple)}
 </style></head>
 <body><div class="wrap">
 <h1>Incheon Cruise Name Card</h1>
-<div class="ver"><h2>A. Today's Special Price</h2>
+<div class="ver"><h2>A. Special Offer</h2>
 <div class="cards">
   <div class="frame"><iframe src="front_A.html" title="front A"></iframe></div>
   <div class="frame"><iframe src="back_A.html" title="back A"></iframe></div>
@@ -40,7 +40,7 @@ h1{font-size:22px;margin:0 0 24px;color:var(--purple)}
   <a class="btn alt" href="IncheonCruise_NameCard_B_20261016_A4.pdf" download>A4 sheet</a>
   <a class="btn alt" href="preview_B.png" download>Preview PNG</a>
 </div></div>
-<div class="ver"><h2>C. Cruise Guest Special Price</h2>
+<div class="ver"><h2>C. Cruise Guest Special</h2>
 <div class="cards">
   <div class="frame"><iframe src="front_C.html" title="front C"></iframe></div>
   <div class="frame"><iframe src="back_C.html" title="back C"></iframe></div>
@@ -53,6 +53,6 @@ h1{font-size:22px;margin:0 0 24px;color:var(--purple)}
 </div></div>
 </div>
 <script>
-document.querySelectorAll('.frame').forEach(fr=>{const ifr=fr.querySelector('iframe');const mm=96/25.4;const s=fr.clientWidth/(66*mm);ifr.style.transform=`scale(${s})`;});
+document.querySelectorAll('.frame').forEach(fr=>{const ifr=fr.querySelector('iframe');const mm=96/25.4;const s=fr.clientWidth/(60*mm);ifr.style.transform=`scale(${s}) translate(-3mm,-3mm)`;});
 </script>
 </body></html>
