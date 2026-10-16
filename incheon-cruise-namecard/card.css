@@ -8,8 +8,8 @@ body{ font-family:Pretendard,-apple-system,sans-serif; -webkit-print-color-adjus
 .front{ background:var(--yellow); color:var(--purple); }
 .back{ background:#fff; color:var(--ink); }
 .abs{ position:absolute; left:0; }
-.border-top{ top:-1.6mm; width:66mm; height:7.8mm; }
-.border-bottom{ bottom:-1.6mm; width:66mm; height:7.9mm; }
+.border-top{ top:0; width:66mm; height:5.4mm; background:url(assets/border_top.png) 0 100% / 66mm 2.4mm repeat-y; }
+.border-bottom{ bottom:0; width:66mm; height:5.4mm; background:url(assets/border_bottom.png) 0 0 / 66mm 2.4mm repeat-y; }
 .header{ top:8mm; left:3mm; width:60mm; height:19.1mm; }
 .c{ position:absolute; left:3mm; width:60mm; text-align:center; }
 .tag{ top:28.6mm; font-size:11.2pt; font-weight:800; line-height:1.12; letter-spacing:-0.1pt; }
