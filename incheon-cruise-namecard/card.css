@@ -29,7 +29,7 @@ body{ font-family:Pretendard,-apple-system,sans-serif; -webkit-print-color-adjus
 .contact img.qr{ height:9mm; width:9mm; }
 /* back */
 .b{ position:absolute; left:7mm; width:52mm; }
-.h1{ top:9.5mm; font-size:11pt; font-weight:800; color:var(--purple); letter-spacing:-0.2pt; white-space:nowrap; }
+.h1{ top:9.5mm; font-size:12pt; font-weight:800; color:var(--purple); letter-spacing:-0.2pt; white-space:nowrap; }
 .h1.long{ font-size:11pt; }
 .h2{ font-size:9.4pt; font-weight:700; color:var(--purple); border-bottom:0.25mm solid var(--purple); padding-bottom:0.6mm; margin-bottom:1.3mm; }
 .sec1{ top:21mm; } .sec2{ top:48.5mm; }
