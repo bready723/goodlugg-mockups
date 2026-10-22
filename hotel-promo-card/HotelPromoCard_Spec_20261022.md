@@ -53,10 +53,10 @@ Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back steps 8.6 pt SemiBo
 | `How It Works` + rule | 5.4 mm, left margin 5 mm |
 | Steps 1 to 3 (purple circle, yellow number) | 13.8 mm, 6.7 mm row pitch |
 | `Want It Delivered Later?` + rule (same style as How It Works) | 37.2 mm |
-| `Deferred delivery available:` / `pick your delivery date while booking.` / `Storage: first day complimentary,` / `then ₩5,000/bag per day.` (black, 7.2 pt) | 44.4 mm |
-| `Contact Us` / `via Live Chat` label left, WhatsApp QR and KakaoTalk QR 13.5 mm with captions right | 61.6 mm |
-| `Partner` / `Code` label left, white box 8.2 mm high with 0.25 mm grey border right (Memo row format) | 81 mm |
-| `* Sign-up / log-in required` / `* Apply at Discount / Partner Code at checkout` (5.9 pt) | 91.2 mm |
+| `Deferred delivery available:` then two dash bullets `Pick your delivery date while booking.` and `Storage: first day complimentary, then ₩5,000/bag per day.` (black, 7.2 pt, hanging indent) | 44.4 mm |
+| `Contact Us` / `via Live Chat` label left, WhatsApp icon + QR 12 mm and KakaoTalk icon + QR 12 mm right | 62.6 mm |
+| `Partner` / `Code` label left, white box 8.2 mm high with 0.25 mm grey border right (Memo row format) | 79.6 mm |
+| `* Sign-up / log-in required` / `* Apply at Discount / Partner Code at checkout` (5.5 pt, under the box) | 89.2 mm |
 
 Back QR targets: KakaoTalk `https://pf.kakao.com/_AxoCxeC?from=qr`, WhatsApp `https://wa.me/821086930419?text=`.
 
