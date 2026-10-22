@@ -24,17 +24,17 @@ body{ font-family:Pretendard,-apple-system,sans-serif; -webkit-print-color-adjus
 /* back: four equal sections (option C, 10/22) */
 .b{ position:absolute; left:8mm; width:55mm; }
 .h1{ font-size:9.6pt; font-weight:800; color:var(--purple); letter-spacing:-0.25pt; }
-.s1{ top:8mm; } .s2{ top:33.8mm; } .s3{ top:57.4mm; } .s4{ top:78.8mm; }
+.s1{ top:8mm; } .s2{ top:33.5mm; } .s3{ top:52.8mm; } .s4{ top:74.8mm; }
 .steps{ top:14.2mm; }
 .step{ display:flex; align-items:flex-start; gap:1.8mm; margin-bottom:1.6mm; }
 .step .n{ flex:none; width:4.4mm; height:4.4mm; border-radius:50%; background:var(--purple); color:var(--yellow); font-size:7.3pt; font-weight:800; text-align:center; line-height:4.4mm; }
 .step .t{ font-size:8.3pt; font-weight:600; line-height:1.3; padding-top:0.3mm; letter-spacing:-0.12pt; }
-.defer{ top:40mm; width:56mm; font-size:7.1pt; font-weight:500; line-height:1.42; color:var(--ink); letter-spacing:-0.15pt; }
+.defer{ top:39.7mm; width:56mm; font-size:7.1pt; font-weight:500; line-height:1.42; color:var(--ink); letter-spacing:-0.15pt; }
 .defer .li{ padding-left:2.6mm; text-indent:-2.6mm; } .defer .li::before{ content:"\2013\00a0"; }
-.qrrow{ top:65.2mm; display:flex; justify-content:space-around; align-items:center; }
+.qrrow{ top:60.5mm; display:flex; justify-content:space-around; align-items:center; }
 .ch{ display:flex; align-items:center; gap:1.2mm; flex:none; }
 .ch img.ic{ height:4.2mm; width:auto; flex:none; } .ch img.qr{ width:11.5mm; height:11.5mm; display:block; flex:none; image-rendering:pixelated; }
-.pbox{ top:85mm; height:7mm; background:#fff; border:0.25mm solid #b9b3a4; border-radius:1mm; }
-.sub{ top:93mm; font-size:5.5pt; font-weight:500; line-height:1.4; color:var(--ink); letter-spacing:-0.1pt; }
+.pbox{ top:82.3mm; height:7mm; background:#fff; border:0.25mm solid #b9b3a4; border-radius:1mm; }
+.sub{ top:90.5mm; font-size:5.5pt; font-weight:500; line-height:1.4; color:var(--ink); letter-spacing:-0.1pt; }
 .rule{ position:absolute; left:8mm; width:55mm; height:2px; background:var(--purple); }
-.r1{ top:50px; } .r2{ top:147px; } .r3{ top:236px; } .r4{ top:317px; } 
+.r1{ top:50px; } .r2{ top:146px; } .r3{ top:219px; } .r4{ top:302px; } 
