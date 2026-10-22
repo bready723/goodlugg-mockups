@@ -82,7 +82,10 @@ def preview(pdf, png):
     base = OUT / "_pv"
     subprocess.run(["pdftoppm", "-png", "-r", "160", str(pdf), str(base)], check=True)
     pages = sorted(OUT.glob("_pv-*.png"))
-    ims = [Image.open(p).convert("RGB") for p in pages]
+    ims = []
+    for p in pages:  # crop the 3 mm bleed so the preview shows the card as trimmed
+        im = Image.open(p).convert("RGB"); bl = round(3 / 25.4 * 160)
+        ims.append(im.crop((bl, bl, im.width - bl, im.height - bl)))
     gap = 24
     w = sum(i.width for i in ims) + gap * (len(ims) - 1); h = max(i.height for i in ims)
     canvas = Image.new("RGB", (w, h), (235, 232, 226))

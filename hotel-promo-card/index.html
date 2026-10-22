@@ -22,8 +22,9 @@
   figcaption a{color:var(--purple)}
   .live{width:100%;max-width:1180px}
   .frames{display:flex;gap:18px;flex-wrap:wrap}
-  .frames iframe{width:calc(71mm * 1.6);height:calc(106mm * 1.6);border:0;background:#fff;
-                 box-shadow:0 1px 2px rgba(0,0,0,.14),0 12px 26px -10px rgba(0,0,0,.3)}
+  .clip{position:relative;width:calc(65mm * 1.6);height:calc(100mm * 1.6);overflow:hidden;
+        box-shadow:0 1px 2px rgba(0,0,0,.14),0 12px 26px -10px rgba(0,0,0,.3)}
+  .clip iframe{position:absolute;left:calc(-3mm * 1.6);top:calc(-3mm * 1.6);width:calc(71mm * 1.6);height:calc(106mm * 1.6);border:0;background:#fff}
   p.note{color:var(--ink-3);font-size:13px;max-width:720px}
 </style></head><body>
 <header>
@@ -45,8 +46,8 @@
   </div>
   <h2>Live HTML (trim view)</h2>
   <div class="frames">
-    <iframe src="card_ninetree-myeongdong-1.html" title="Nine Tree card, live HTML"></iframe>
+    <div class="clip"><iframe src="card_ninetree-myeongdong-1.html" title="Nine Tree card, live HTML"></iframe></div>
   </div>
-  <p class="note">The live frame shows the page with bleed (71 &times; 106 mm). Dancheong strips are cropped from the Visa card proof; tiger and wordmark are raster captures for mock up. The final run should use the agency vector originals.</p>
+  <p class="note">The live frame and the previews are cropped to the trim line (65 &times; 100 mm); the PDFs carry 3 mm bleed. Dancheong strips are cropped from the Visa card proof; tiger and wordmark are raster captures for mock up. The final run should use the agency vector originals.</p>
 </main>
 </body></html>

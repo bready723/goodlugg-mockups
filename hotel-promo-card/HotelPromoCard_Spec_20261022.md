@@ -27,8 +27,7 @@ QR: 18 x 18 mm code on a 22 x 22 mm white box (2 mm quiet zone), centered, error
 |---|---|
 | Yellow (front) | #F1EF1D |
 | Purple (headline, copy, labels, step circles) | #742B97 |
-| Body text, BOOK IN 1 Min., deferred delivery note | #1D1D1F |
-| Partner code band (pale yellow, as on the earlier printed card) | #FBF7C9 |
+| Body text, BOOK IN 1 Min., deferred delivery copy, footnotes | #1D1D1F |
 | QR box, partner code box | #FFFFFF |
 
 ## 4. Type
@@ -39,7 +38,7 @@ Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back steps 8.6 pt SemiBo
 
 | Element | Position |
 |---|---|
-| Dancheong strip, same crop and scale as the Visa card | 0 to 5.2 mm, full bleed |
+| Dancheong strip, same crop and scale as the Visa card (the 3 mm bleed above it is a flat extension of the strip edge) | 0 to 5.2 mm, full bleed |
 | Header (tiger, K-Luggage Hunter, Goodlugg, short rule) | 9.4 to 28.5 mm, 60 mm wide, centered |
 | Headline `Same-day Luggage Delivery` / `across Korea`, both lines 13 pt | 33.2 mm |
 | Copy `to your next hotel, airport,` / `and beyond`, no box | 47.4 mm |
@@ -47,16 +46,17 @@ Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back steps 8.6 pt SemiBo
 | `BOOK IN 1 Min.` | 83.2 mm |
 | Dancheong strip | 94.8 to 100 mm, full bleed |
 
-## 6. Back, top to bottom (from trim top)
+## 6. Back, top to bottom (from trim top), same format as the Visa card back
 
 | Element | Position |
 |---|---|
-| `How It Works` + rule | 5.6 mm, left margin 5 mm |
-| Steps 1 to 3 (purple circle, yellow number) | 14.4 mm, 6.9 mm row pitch |
-| Note `* Deferred delivery also available: first storage day complimentary, then ₩5,000/bag per day.` (black) | 38.6 mm |
-| `Contact Us via Live Chat` | 52.6 mm |
-| KakaoTalk icon + QR 13.5 mm, WhatsApp icon + QR 13.5 mm | 59 mm |
-| Pale yellow band: `Partner Code` label, white box 39.5 x 6.4 mm, note `* Log in to Goodlugg and enter it at checkout under Discount / Partner Code` | 81 mm to trim bottom (19 mm visible), full bleed |
+| `How It Works` + rule | 5.4 mm, left margin 5 mm |
+| Steps 1 to 3 (purple circle, yellow number) | 13.8 mm, 6.7 mm row pitch |
+| `Want It Delivered Later?` + rule (same style as How It Works) | 37.2 mm |
+| `Deferred delivery available:` / `pick your delivery date while booking.` / `Storage: first day complimentary,` / `then ₩5,000/bag per day.` (black, 7.2 pt) | 44.4 mm |
+| `Contact Us` / `via Live Chat` label left, WhatsApp QR and KakaoTalk QR 13.5 mm with captions right | 61.6 mm |
+| `Partner` / `Code` label left, white box 8.2 mm high with 0.25 mm grey border right (Memo row format) | 81 mm |
+| `* Sign-up / log-in required` / `* Apply at Discount / Partner Code at checkout` (5.9 pt) | 91.2 mm |
 
 Back QR targets: KakaoTalk `https://pf.kakao.com/_AxoCxeC?from=qr`, WhatsApp `https://wa.me/821086930419?text=`.
 
@@ -67,7 +67,7 @@ Back QR targets: KakaoTalk `https://pf.kakao.com/_AxoCxeC?from=qr`, WhatsApp `ht
 | `HotelPromoCard_Master_20261022.pdf` | 2 pages, example QR, for the agency to swap in a partner QR |
 | `HotelPromoCard_{Partner}_20261022.pdf` | 2 pages, partner QR placed, print ready with bleed |
 | `HotelPromoCard_{Partner}_20261022_A4.pdf` | A4 sheet, 4 up, page 1 fronts, page 2 backs mirrored for long edge duplex, crop marks |
-| `HotelPromoCard_{Partner}_20261022_preview.png` | review image, front and back |
+| `HotelPromoCard_{Partner}_20261022_preview.png` | review image, front and back, cropped to trim |
 
 Rebuild: `python build.py` (needs Google Chrome, Python packages qrcode, opencv, pypdf, Pillow). Add partners in `partners.json`.
 
