@@ -32,7 +32,7 @@ QR: 18 x 18 mm code on a 22 x 22 mm white box (2 mm quiet zone), centered, error
 
 ## 4. Type
 
-Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back steps 8.6 pt SemiBold, notes 5.9 to 7.4 pt.
+Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back section titles 9.6 pt ExtraBold, steps 8.3 pt SemiBold, notes 5.5 to 7.1 pt.
 
 ## 5. Front, top to bottom (from trim top)
 
@@ -42,21 +42,23 @@ Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back steps 8.6 pt SemiBo
 | Header (tiger, K-Luggage Hunter, Goodlugg, short rule) | 9.4 to 28.5 mm, 60 mm wide, centered |
 | Headline `Same-day Luggage Delivery` / `across Korea`, both lines 13 pt | 33.2 mm |
 | Copy `to your next hotel, airport,` / `and beyond`, no box | 47.4 mm |
-| QR box 22 x 22 mm, QR 18 mm | 59.4 mm, centered |
-| `BOOK IN 1 Min.` | 83.2 mm |
+| QR box 22 x 22 mm, QR 18 mm | 62 mm, centered |
+| `BOOK IN 1 Min.` | 85.8 mm |
 | Dancheong strip | 94.8 to 100 mm, full bleed |
 
-## 6. Back, top to bottom (from trim top), same format as the Visa card back
+## 6. Back, top to bottom (from trim top): four sections, one title style (9.6 pt ExtraBold purple). Version A has a 0.32 mm purple rule under all four titles, version B only under How It Works and Deferred Delivery
 
 | Element | Position |
 |---|---|
-| `How It Works` + rule | 5.4 mm, left margin 5 mm |
-| Steps 1 to 3 (purple circle, yellow number) | 13.8 mm, 6.7 mm row pitch |
-| `Want It Delivered Later?` + rule (same style as How It Works) | 37.2 mm |
-| `Deferred delivery available:` then two dash bullets `Pick your delivery date while booking.` and `Storage: first day complimentary, then ₩5,000/bag per day.` (black, 7.2 pt, hanging indent) | 44.4 mm |
-| `Contact Us` / `via Live Chat` label left, WhatsApp icon + QR 12 mm and KakaoTalk icon + QR 12 mm right | 62.6 mm |
-| `Partner` / `Code` label left, white box 8.2 mm high with 0.25 mm grey border right (Memo row format) | 79.6 mm |
-| `* Sign-up / log-in required` / `* Apply at Discount / Partner Code at checkout` (5.5 pt, under the box) | 89.2 mm |
+| `How It Works` + rule | 5 mm, left margin 5 mm, 55 mm wide |
+| Steps 1 to 3 (purple circle, yellow number, 8.3 pt) | 11.2 mm, 6 mm row pitch |
+| `Deferred Delivery` + rule | 30.8 mm |
+| `Deferred delivery available:` then two dash bullets `Pick your delivery date while booking.` and `Storage: first day complimentary, then ₩5,000/bag per day.` (black, 7.1 pt, hanging indent) | 37 mm |
+| `Contact Us` (+ rule in A) | 54.4 mm |
+| WhatsApp icon + QR 12 mm, KakaoTalk icon + QR 12 mm, spread across the width | 60.6 mm |
+| `Partner Code` (+ rule in A) | 75.8 mm |
+| White box 55 x 7 mm, 0.25 mm grey border | 82 mm |
+| `* Sign-up / log-in required` / `* Apply at Discount / Partner Code at checkout` (5.5 pt) | 90 mm |
 
 Back QR targets: KakaoTalk `https://pf.kakao.com/_AxoCxeC?from=qr`, WhatsApp `https://wa.me/821086930419?text=`.
 
@@ -64,10 +66,12 @@ Back QR targets: KakaoTalk `https://pf.kakao.com/_AxoCxeC?from=qr`, WhatsApp `ht
 
 | File | Use |
 |---|---|
-| `HotelPromoCard_Master_20261022.pdf` | 2 pages, example QR, for the agency to swap in a partner QR |
-| `HotelPromoCard_{Partner}_20261022.pdf` | 2 pages, partner QR placed, print ready with bleed |
-| `HotelPromoCard_{Partner}_20261022_A4.pdf` | A4 sheet, 4 up, page 1 fronts, page 2 backs mirrored for long edge duplex, crop marks |
-| `HotelPromoCard_{Partner}_20261022_preview.png` | review image, front and back, cropped to trim |
+| `HotelPromoCard_Master_{A,B}_20261022.pdf` | 2 pages, example QR, for the agency to swap in a partner QR |
+| `HotelPromoCard_{Partner}_{A,B}_20261022.pdf` | 2 pages, partner QR placed, print ready with bleed |
+| `HotelPromoCard_{Partner}_{A,B}_20261022_A4.pdf` | A4 sheet, 4 up, page 1 fronts, page 2 backs mirrored for long edge duplex, crop marks |
+| `HotelPromoCard_{Partner}_{A,B}_20261022_preview.png` | review image, front and back, cropped to trim |
+
+A = rules under all four back titles. B = rules under How It Works and Deferred Delivery only. Pick one before printing.
 
 Rebuild: `python build.py` (needs Google Chrome, Python packages qrcode, opencv, pypdf, Pillow). Add partners in `partners.json`.
 
