@@ -20,7 +20,7 @@ TAIL = '</body></html>'
 FRONT_TPL = (HERE / "front.tpl.html").read_text()
 BACK = (HERE / "back.html").read_text()
 # A = rules under all four titles, B = rules under How It Works and Deferred Delivery only
-BACKS = {"A": BACK, "B": BACK.replace('<div class="rule r3"></div>', "").replace('<div class="rule r4"></div>', "")}
+BACKS = {"A": BACK}
 
 A4_STYLE = """<style>
 @page{size:A4;margin:0} body{background:#fff}
@@ -82,11 +82,11 @@ def kill_chrome():
 
 def preview(pdf, png):
     base = OUT / "_pv"
-    subprocess.run(["pdftoppm", "-png", "-r", "240", str(pdf), str(base)], check=True)
+    subprocess.run(["pdftoppm", "-png", "-r", "192", str(pdf), str(base)], check=True)
     pages = sorted(OUT.glob("_pv-*.png"))
     ims = []
     for p in pages:  # crop the 3 mm bleed so the preview shows the card as trimmed
-        im = Image.open(p).convert("RGB"); bl = round(3 / 25.4 * 240)
+        im = Image.open(p).convert("RGB"); bl = round(3 / 25.4 * 192)
         ims.append(im.crop((bl, bl, im.width - bl, im.height - bl)))
     gap = 24
     w = sum(i.width for i in ims) + gap * (len(ims) - 1); h = max(i.height for i in ims)
@@ -117,7 +117,7 @@ def verify_qr(pdf, expect_front):
     assert sorted(found[1]) == sorted(["https://wa.me/821086930419?text=", "https://pf.kakao.com/_AxoCxeC?from=qr"]) or len(found[1]) == 2, found[1]
 
 def build_one(slug, qr_src, expect_url, variant="A"):
-    tag = (slug or "master") + "_" + variant
+    tag = slug or "master"
     BACK = BACKS[variant]
     body = front_html(qr_src) + BACK
     card_html = write_html(f"card_{tag}.html", f"Hotel promo card: {tag}", body)

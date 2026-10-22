@@ -31,10 +31,10 @@ body{ font-family:Pretendard,-apple-system,sans-serif; -webkit-print-color-adjus
 .step .t{ font-size:8.3pt; font-weight:600; line-height:1.3; padding-top:0.3mm; letter-spacing:-0.12pt; }
 .defer{ top:40mm; width:56mm; font-size:7.1pt; font-weight:500; line-height:1.42; color:var(--ink); letter-spacing:-0.15pt; }
 .defer .li{ padding-left:2.6mm; text-indent:-2.6mm; } .defer .li::before{ content:"\2013\00a0"; }
-.qrrow{ top:63.6mm; display:flex; justify-content:space-around; align-items:center; }
+.qrrow{ top:65.2mm; display:flex; justify-content:space-around; align-items:center; }
 .ch{ display:flex; align-items:center; gap:1.2mm; flex:none; }
-.ch img.ic{ height:4.4mm; width:auto; flex:none; } .ch img.qr{ width:12mm; height:12mm; display:block; flex:none; image-rendering:pixelated; }
+.ch img.ic{ height:4.2mm; width:auto; flex:none; } .ch img.qr{ width:11.5mm; height:11.5mm; display:block; flex:none; image-rendering:pixelated; }
 .pbox{ top:85mm; height:7mm; background:#fff; border:0.25mm solid #b9b3a4; border-radius:1mm; }
 .sub{ top:93mm; font-size:5.5pt; font-weight:500; line-height:1.4; color:var(--ink); letter-spacing:-0.1pt; }
-.rule{ position:absolute; left:8mm; width:55mm; height:0.3175mm; background:var(--purple); }
-.r1{ top:13.1233mm; } .r2{ top:38.9467mm; } .r3{ top:62.5475mm; } .r4{ top:83.9258mm; } 
+.rule{ position:absolute; left:8mm; width:55mm; height:2px; background:var(--purple); }
+.r1{ top:50px; } .r2{ top:147px; } .r3{ top:236px; } .r4{ top:317px; } 

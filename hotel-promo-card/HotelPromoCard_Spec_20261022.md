@@ -46,17 +46,17 @@ Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back section titles 9.6 
 | `BOOK IN 1 Min.` | 85.8 mm |
 | Dancheong strip | 94.8 to 100 mm, full bleed |
 
-## 6. Back, top to bottom (from trim top): four sections, one title style (9.6 pt ExtraBold purple). Version A has a 0.32 mm purple rule under all four titles, version B only under How It Works and Deferred Delivery
+## 6. Back, top to bottom (from trim top): four sections, one title style (9.6 pt ExtraBold purple). 0.53 mm purple rule under every title
 
 | Element | Position |
 |---|---|
 | `How It Works` + rule | 5 mm, left margin 5 mm, 55 mm wide |
 | Steps 1 to 3 (purple circle, yellow number, 8.3 pt) | 11.2 mm, 6 mm row pitch |
-| `Deferred Delivery` + rule | 30.8 mm |
-| `Deferred delivery available:` then two dash bullets `Pick your delivery date while booking.` and `Storage: first day complimentary, then ₩5,000/bag per day.` (black, 7.1 pt, hanging indent) | 37 mm |
-| `Contact Us` (+ rule in A) | 54.4 mm |
-| WhatsApp icon + QR 12 mm, KakaoTalk icon + QR 12 mm, spread across the width | 60.6 mm |
-| `Partner Code` (+ rule in A) | 75.8 mm |
+| `Want Later Delivery?` + rule | 30.8 mm |
+| `Deferred delivery available:` then two dash bullets `Pick your delivery date while booking.` and `1st day storage complimentary,` / `then ₩5,000/bag per day.` (black, 7.1 pt, hanging indent) | 37 mm |
+| `Contact Us` + rule | 54.4 mm |
+| WhatsApp icon + QR 11.5 mm, KakaoTalk icon + QR 11.5 mm, spread across the width | 62.2 mm |
+| `Partner Code` + rule | 75.8 mm |
 | White box 55 x 7 mm, 0.25 mm grey border | 82 mm |
 | `* Sign-up / log-in required` / `* Apply at Discount / Partner Code at checkout` (5.5 pt) | 90 mm |
 
@@ -66,12 +66,10 @@ Back QR targets: KakaoTalk `https://pf.kakao.com/_AxoCxeC?from=qr`, WhatsApp `ht
 
 | File | Use |
 |---|---|
-| `HotelPromoCard_Master_{A,B}_20261022.pdf` | 2 pages, example QR, for the agency to swap in a partner QR |
-| `HotelPromoCard_{Partner}_{A,B}_20261022.pdf` | 2 pages, partner QR placed, print ready with bleed |
-| `HotelPromoCard_{Partner}_{A,B}_20261022_A4.pdf` | A4 sheet, 4 up, page 1 fronts, page 2 backs mirrored for long edge duplex, crop marks |
-| `HotelPromoCard_{Partner}_{A,B}_20261022_preview.png` | review image, front and back, cropped to trim |
-
-A = rules under all four back titles. B = rules under How It Works and Deferred Delivery only. Pick one before printing.
+| `HotelPromoCard_Master_20261022.pdf` | 2 pages, example QR, for the agency to swap in a partner QR |
+| `HotelPromoCard_{Partner}_20261022.pdf` | 2 pages, partner QR placed, print ready with bleed |
+| `HotelPromoCard_{Partner}_20261022_A4.pdf` | A4 sheet, 4 up, page 1 fronts, page 2 backs mirrored for long edge duplex, crop marks |
+| `HotelPromoCard_{Partner}_20261022_preview.png` | review image, front and back, cropped to trim |
 
 Rebuild: `python build.py` (needs Google Chrome, Python packages qrcode, opencv, pypdf, Pillow). Add partners in `partners.json`.
 
