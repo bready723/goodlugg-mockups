@@ -54,10 +54,7 @@ def qr_png(url, path):
     return q.modules_count
 
 def front_html(qr_src):
-    if qr_src is None:
-        block = '<div class="qrbox blank"><div class="ph">Partner QR<br>18 &times; 18 mm</div></div>'
-    else:
-        block = f'<div class="qrbox"><img src="{qr_src}" alt="Book QR"></div>'
+    block = f'<div class="qrbox"><img src="{qr_src}" alt="Book QR"></div>'
     return FRONT_TPL.replace("{{QR_BLOCK}}", block)
 
 def write_html(name, title, body, extra=""):
@@ -99,11 +96,15 @@ def verify_qr(pdf, expect_front):
     base = OUT / "_vq"
     subprocess.run(["pdftoppm", "-png", "-r", "600", str(pdf), str(base)], check=True)
     pages = sorted(OUT.glob("_vq-*.png"))
-    det = cv2.QRCodeDetector()
+    dets = [cv2.QRCodeDetector(), cv2.QRCodeDetectorAruco()]  # std detector is flaky on some symbols; Aruco is the fallback
     found = []
     for p in pages:
-        ok, decoded, pts, _ = det.detectAndDecodeMulti(cv2.imread(str(p)))
-        found.append([d for d in (decoded if ok else []) if d])
+        img = cv2.imread(str(p)); got = []
+        for det in dets:
+            ok, decoded, pts, _ = det.detectAndDecodeMulti(img)
+            got = sorted({d for d in (decoded if ok else []) if d})
+            if got: break
+        found.append(got)
         p.unlink()
     print("  QR front:", found[0], "\n  QR back :", found[1])
     if expect_front is not None:
@@ -131,7 +132,9 @@ def build_one(slug, qr_src, expect_url):
 def main():
     partners = json.loads((HERE / "partners.json").read_text())
     try:
-        build_one(None, None, None)
+        ex_url = "https://www.goodlugg.com/luggage-delivery/korea-door-to-door?utm_source=card"  # example QR on the master
+        n = qr_png(ex_url, HERE / "assets" / "qr_example.png"); print(f"[master] example QR {n} modules")
+        build_one(None, "assets/qr_example.png", ex_url)
         for p in partners:
             qr = HERE / "assets" / f"qr_{p['slug']}.png"
             n = qr_png(p["url"], qr)
