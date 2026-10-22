@@ -57,7 +57,7 @@ Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back section titles 9.6 
 | `Contact Us` + rule | 50.7 mm |
 | WhatsApp icon + QR 11.5 mm, KakaoTalk icon + QR 11.5 mm, spread across the width | 57.6 mm |
 | `Partner Code` + rule | 73.6 mm |
-| White box 55 x 8.25 mm, 0.25 mm grey border, 1.2 mm under the rule | 79 mm |
+| White box 55 x 7.75 mm, 0.25 mm grey border, 1.7 mm under the rule | 79.5 mm |
 | `* Sign-up / log-in required` / `* Apply at Discount / Partner Code at checkout` (5.5 pt) | 88.5 mm |
 
 Section gaps (content bottom to next title) are 5.6 mm; each rule is 0.53 mm thick and sits 0.3 mm under the title descenders (3.6 mm below the cap top).
