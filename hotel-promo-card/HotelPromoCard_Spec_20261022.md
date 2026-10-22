@@ -53,7 +53,7 @@ Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back section titles 9.6 
 | `How It Works` + rule | 5 mm, left margin 5 mm, 55 mm wide |
 | Steps 1 to 3 (purple circle, yellow number, 8.3 pt) | 11.2 mm, 6 mm row pitch |
 | `Want Later Delivery?` + rule | 30.5 mm |
-| `Deferred delivery available:` then two dash bullets `Pick your delivery date while booking.` and `1st day storage free, then ₩5,000/bag/day.` (black, 7.1 pt) | 36.7 mm |
+| `Deferred delivery available:` then two dash bullets `Pick your delivery date while booking` and `1st day storage free, then ₩5,000/bag/day` (black, 7.1 pt) | 36.7 mm |
 | `Contact Us` + rule | 49.8 mm |
 | WhatsApp icon + QR 11.5 mm, KakaoTalk icon + QR 11.5 mm, spread across the width | 57.5 mm |
 | `Partner Code` + rule | 71.8 mm |
