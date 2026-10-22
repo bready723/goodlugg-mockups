@@ -51,16 +51,16 @@ Pretendard. Headline 13 pt ExtraBold, copy 9.8 pt Bold, back section titles 9.6 
 | Element | Position |
 |---|---|
 | `How It Works` + rule | 3.8 mm, left margin 5 mm, 55 mm wide |
-| Steps 1 to 3 (purple circle, yellow number, 8.3 pt) | 9.2 mm, 6 mm row pitch |
-| `Want Later Delivery?` + rule | 30.4 mm |
-| `Deferred delivery available:` then two dash bullets `Pick your delivery date while booking` and `1st day storage free, then ₩5,000/bag/day` (black, 7.1 pt) | 35.8 mm |
-| `Contact Us` + rule | 50.8 mm |
-| WhatsApp icon + QR 11.5 mm, KakaoTalk icon + QR 11.5 mm, spread across the width | 57.7 mm |
-| `Partner Code` + rule | 74.1 mm |
-| White box 55 x 7 mm, 0.25 mm grey border | 80.8 mm |
-| `* Sign-up / log-in required` / `* Apply at Discount / Partner Code at checkout` (5.5 pt) | 89 mm |
+| Steps 1 to 3 (purple circle 3.8 mm, yellow number centered, text 8.3 pt) | 9.9 mm, 6 mm row pitch |
+| `Want Later Delivery?` + rule | 30.3 mm |
+| `Deferred delivery available:` then two dash bullets `Pick your delivery date while booking` and `1st day storage free, then ₩5,000/bag/day` (black, 7.1 pt) | 35.7 mm |
+| `Contact Us` + rule | 50.7 mm |
+| WhatsApp icon + QR 11.5 mm, KakaoTalk icon + QR 11.5 mm, spread across the width | 57.6 mm |
+| `Partner Code` + rule | 73.6 mm |
+| White box 55 x 7 mm, 0.25 mm grey border | 80.3 mm |
+| `* Sign-up / log-in required` / `* Apply at Discount / Partner Code at checkout` (5.5 pt) | 88.5 mm |
 
-Section gaps (content bottom to next title) are 5.5 mm; each rule is 0.53 mm thick and sits 0.3 mm under the title descenders (3.6 mm below the cap top).
+Section gaps (content bottom to next title) are 5.6 mm; each rule is 0.53 mm thick and sits 0.3 mm under the title descenders (3.6 mm below the cap top).
 
 Back QR targets: KakaoTalk `https://pf.kakao.com/_AxoCxeC?from=qr`, WhatsApp `https://wa.me/821086930419?text=`.
 
