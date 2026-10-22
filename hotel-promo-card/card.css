@@ -34,7 +34,7 @@ body{ font-family:Pretendard,-apple-system,sans-serif; -webkit-print-color-adjus
 .qrrow{ top:60.6mm; display:flex; justify-content:space-around; align-items:center; }
 .ch{ display:flex; align-items:center; gap:1.2mm; flex:none; }
 .ch img.ic{ height:4.2mm; width:auto; flex:none; } .ch img.qr{ width:11.5mm; height:11.5mm; display:block; flex:none; image-rendering:pixelated; }
-.pbox{ top:83.3mm; height:7mm; background:#fff; border:0.25mm solid #b9b3a4; border-radius:1mm; }
+.pbox{ top:82.05mm; height:8.25mm; background:#fff; border:0.25mm solid #b9b3a4; border-radius:1mm; }
 .sub{ top:91.5mm; font-size:5.5pt; font-weight:500; line-height:1.4; color:var(--ink); letter-spacing:-0.1pt; }
 .rule{ position:absolute; left:8mm; width:55mm; height:2px; background:var(--purple); }
 .r1{ top:42px; } .r2{ top:141px; } .r3{ top:219px; } .r4{ top:305px; } 
