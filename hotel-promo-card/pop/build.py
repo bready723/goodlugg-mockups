@@ -9,7 +9,7 @@ OUT = HERE / "out"; OUT.mkdir(exist_ok=True)
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DATE = "20261026"
 COPIES = [  # tag, copy ("|" = gap between the first line and the rest), font size (pt); longest line under 60 mm
-    ("V1", "Take One,|Book<br>Anytime", 26),
+    ("V1", "Take One|Book<br>Anytime", 26),
     ("V2", "Take One|Scan to Book", 26),
     ("V3", "Please|Take One", 26),
     ("V4", "Grab One|Book Later", 26),

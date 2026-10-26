@@ -17,7 +17,7 @@ Only the pocket copy differs between V1 to V4. Pick one.
 
 | File | Pocket copy |
 |---|---|
-| V1 | Take One, / Book / Anytime (26 pt, gap after the first line) |
+| V1 | Take One / Book / Anytime (26 pt, gap after the first line) |
 | V2 | Take One / Scan to Book (26 pt, gap after the first line) |
 | V3 | Please / Take One (26 pt, gap after the first line) |
 | V4 | Grab One / Book Later (26 pt, gap after the first line) |
