@@ -9,11 +9,11 @@ OUT = HERE / "out"; OUT.mkdir(exist_ok=True)
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DATE = "20261026"
 COPIES = [  # tag, three stacked lines, font size (pt) so the longest line stays under 60 mm
-    ("V1", "Take One,<br>Book<br>Anytime", 36),
-    ("V2", "Take One<br>&amp; Scan<br>to Book", 36),
-    ("V3", "Please<br>Take<br>One", 44),
-    ("V4", "Grab a Card,<br>Book<br>Later", 30),
-    ("V5", "Take One,<br>Scan<br>Later", 36),
+    ("V1", "Take One,<br>Book<br>Anytime", 26),
+    ("V2", "Take One<br>&amp; Scan<br>to Book", 26),
+    ("V3", "Please<br>Take<br>One", 32),
+    ("V4", "Grab a Card,<br>Book<br>Later", 22),
+    ("V5", "Take One,<br>Scan<br>Later", 26),
 ]
 MOCK = ('<img class="mockcard b2" src="assets/card_front.png" alt="">'
         '<img class="mockcard b1" src="assets/card_front.png" alt="">'
@@ -48,7 +48,9 @@ def main():
     tpl = (HERE / "pop.tpl.html").read_text(encoding="utf-8")
     try:
         for tag, copy, size in COPIES:
-            base = tpl.replace("{{TAG}}", tag).replace("{{POCKET_COPY}}", copy).replace("{{BOXSTYLE}}", "")
+            first, rest = copy.split("<br>", 1)
+            copy2 = f'<span class="l1">{first}</span><span class="l2">{rest}</span>'
+            base = tpl.replace("{{TAG}}", tag).replace("{{POCKET_COPY}}", copy2).replace("{{BOXSTYLE}}", "")
             html = HERE / f"pop_{tag.lower()}.html"
             html.write_text(base.replace("{{PAGECLS}}", "print").replace("{{MOCK}}", "")
                             .replace("</head>", f"<style>.pocket{{font-size:{size}pt}}</style></head>"), encoding="utf-8")
