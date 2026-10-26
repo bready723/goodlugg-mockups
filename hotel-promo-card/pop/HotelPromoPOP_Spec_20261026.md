@@ -17,11 +17,13 @@ Only the pocket copy differs between V1 to V5. Pick one.
 
 | File | Pocket copy |
 |---|---|
-| V1 | Take One, / Book Anytime |
-| V2 | Take One & / Scan to Book |
-| V3 | Please / Take One |
-| V4 | Grab a Card, / Book Later |
-| V5 | Take One, / Scan Later |
+| V1 | Take One, / Book / Anytime (36 pt) |
+| V2 | Take One / & Scan / to Book (36 pt) |
+| V3 | Please / Take / One (44 pt) |
+| V4 | Grab a Card, / Book / Later (30 pt) |
+| V5 | Take One, / Scan / Later (36 pt) |
+
+Three stacked lines, ExtraBold, yellow, centered in the box; the longest line stays under 60 mm.
 
 ## 3. Colors
 
@@ -34,7 +36,7 @@ Only the pocket copy differs between V1 to V5. Pick one.
 
 ## 4. Type
 
-Pretendard. Headline 27 pt ExtraBold, copy 20 pt Medium, pocket copy 23 pt ExtraBold.
+Pretendard. Headline 27 pt ExtraBold, copy 20 pt Medium, pocket copy 30 to 44 pt ExtraBold (see section 2).
 
 ## 5. Layout, top to bottom (from trim top)
 
@@ -45,7 +47,7 @@ Pretendard. Headline 27 pt ExtraBold, copy 20 pt Medium, pocket copy 23 pt Extra
 | `Same-day Luggage Delivery` / `across Korea` | 52 to 70 mm |
 | `to your next hotel, airport,` / `and beyond` | 76.5 to 91 mm |
 | Purple pocket box 70 x 77 mm, centered, same position as the Visa POP box | 123.3 to 200.3 mm, x 39 to 109 mm |
-| Pocket copy, 2 lines, centered in the box | 154 to 171 mm |
+| Pocket copy, 3 lines, centered in the box | about 143 to 182 mm |
 | Dancheong strip | 202 to 210 mm, full width |
 
 The copy ends at 91 mm so that a 65 x 100 card standing in the 77 mm pocket (top of card about 94 to 100 mm from the trim top) does not cover it.
@@ -58,10 +60,11 @@ The pocket is a separate tray fixed to the board. If the tray front is printed s
 
 | File | Use |
 |---|---|
-| `pop_v1.html` to `pop_v5.html` + `pop.css` + `assets/` | live HTML, 154 x 216 mm page |
+| `pop_v1.html` to `pop_v5.html` + `pop.css` + `assets/` | live HTML, 154 x 216 mm page, print layout |
+| `mock_v1.html` to `mock_v5.html` | same board with the Nine Tree card standing in the pocket, for review only |
 | `HotelPromoPOP_V1_20261026.pdf` to `_V5_` | print PDF with bleed, one per copy option |
 | `HotelPromoPOP_CopyOptions_20261026.png` | the five pockets side by side |
-| `HotelPromoPOP_Assembled_20261026.png` | board with a card in the pocket, not for print |
+| `HotelPromoPOP_Assembled_20261026.png` | V1 with a card in the pocket, not for print |
 
 Rebuild: `python build.py` (needs Google Chrome, Python packages Pillow, poppler pdftoppm).
 
