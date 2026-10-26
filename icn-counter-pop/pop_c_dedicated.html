@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICN Counter POP C Dedicated</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: Pretendard, "Pretendard Variable", -apple-system, "Apple SD Gothic Neo", sans-serif; }
+  .page {
+    width: 210mm; height: 297mm; margin: 0 auto; position: relative; overflow: hidden;
+    background: var(--bg); color: var(--fg);
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    padding: 14mm 14mm 14mm; text-align: center;
+  }
+  @media print { body { background: none; } .page { margin: 0; } }
+  @media screen { .page { margin: 0 auto; } }
+  body.a { --bg: #ffffff; --fg: #512a72; --muted: #512a72; --qrbox: #ffffff; --qrborder: #d9d3e2; --cap: #1a1a1a; }
+  body.b { --bg: #512a72; --fg: #ffffff; --muted: #ffffff; --qrbox: #ffffff; --qrborder: #ffffff; --cap: #ffffff; }
+
+  .head { display: flex; align-items: center; justify-content: center; gap: 7mm; width: 100%; }
+  .head img.logo { height: 16mm; width: auto; display: block; }
+  .head img.tiger { height: 30mm; width: auto; display: block; }
+  .b .head img.logo { content: url("logo_white.png"); }
+
+  .title .brand { display: none; margin-bottom: 4mm; line-height: 1.2; }
+  .title { line-height: 1.12; padding-bottom: 7mm; }
+  .title .kr { font-size: 52pt; font-weight: 800; letter-spacing: -0.02em; }
+  .title .en { font-size: 25pt; font-weight: 700; margin-top: 3mm; line-height: 1.18; }
+
+  .basis .kr { font-size: 16.5pt; font-weight: 600; }
+  .basis .en { font-size: 12.5pt; font-weight: 400; margin-top: 1.2mm; }
+
+  .elig .kr { font-size: 16pt; font-weight: 700; }
+  .elig .en { font-size: 12.5pt; font-weight: 400; margin-top: 1.2mm; }
+
+  .book { display: flex; flex-direction: column; align-items: center; gap: 3.5mm; }
+  .book .kr { font-size: 22pt; font-weight: 800; }
+  .book .en { font-size: 18pt; font-weight: 600; margin-top: 1mm; }
+  .qrbox { background: var(--qrbox); border: 0.5mm solid var(--qrborder); border-radius: 4mm; padding: 3mm; display: inline-block; }
+  .qrbox img { display: block; width: 34mm; height: 34mm; }
+  .qrcap { font-size: 13pt; font-weight: 600; margin-top: 1.5mm; color: var(--fg); }
+
+  .info .kr { font-size: 15.5pt; font-weight: 600; }
+  .info .en { font-size: 16pt; font-weight: 600; margin-top: 1.2mm; }
+
+  .contact { display: flex; flex-direction: column; align-items: center; gap: 3mm; }
+  .contact .h { text-align: left; padding-bottom: 6mm; }
+  .contact .h .kr { font-size: 19pt; font-weight: 800; }
+  .contact .h .en { font-size: 17pt; font-weight: 600; margin-top: 1mm; }
+  .contact .row { display: flex; gap: 10mm; justify-content: center; align-items: center; }
+  .contact .qrbox img { width: 24mm; height: 24mm; }
+  .contact .qrcap { font-size: 13pt; }
+  .b .qrcap { color: #ffffff; }
+
+  .c .title .kr { font-size: 60pt; }
+  .c .title .en { font-size: 24pt; font-weight: 600; margin-top: 4mm; }
+  .c .book .kr { font-size: 26pt; }
+  .c .book .en { font-size: 19pt; }
+  .c .book .qrbox img { width: 38mm; height: 38mm; }
+  .c .info .kr { font-size: 18pt; font-weight: 700; }
+  .c .info .en { font-size: 17pt; margin-top: 1.5mm; }
+  .c .contact .h { font-size: 18pt; }
+  .c .contact .qrbox img { width: 24mm; height: 24mm; }
+  .c .contact .qrcap { font-size: 13pt; }
+  .c .head img.logo { height: 17mm; } .c .head img.tiger { height: 31mm; }
+  .c .page { padding: 11mm 14mm 11mm; }
+</style>
+</head>
+<body class="a c">
+<main class="page">
+  <header class="head">
+    <img class="logo" src="logo_horizontal.png" alt="Goodlugg">
+    <img class="tiger" src="tiger.png" alt="">
+  </header>
+
+  <section class="title">
+    <div class="brand">
+      <div class="kr">굿럭 배기지프리</div>
+      <div class="en">Baggage-Free Service</div>
+    </div>
+    <div class="kr">교통약자 전용 카운터</div>
+    <div class="en">Dedicated Counter<br>for Passengers with Reduced Mobility (PRMs)</div>
+  </section>
+
+  <section class="book">
+    <div>
+      <div class="kr">사전 예약 후 이용해 주세요</div>
+      <div class="en">Advance booking required</div>
+    </div>
+    <div>
+      <div class="qrbox"><img src="qr_book.png" alt="Booking QR"></div>
+      <div class="qrcap">Book in 5 min</div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="row">
+      <div class="h"><div class="kr">서비스 문의</div><div class="en">Questions</div></div>
+      <div><div class="qrbox"><img src="qr_whatsapp.png" alt="WhatsApp QR"></div><div class="qrcap">WhatsApp</div></div>
+      <div><div class="qrbox"><img src="qr_kakao.png" alt="KakaoTalk QR"></div><div class="qrcap">KakaoTalk</div></div>
+    </div>
+  </section>
+
+
+  <section class="info">
+    <div class="kr">기타 짐 관련 문의: 공항 안내데스크</div>
+    <div class="en">Other luggage inquiries: Airport Information Desk</div>
+  </section>
+</main>
+</body>
+</html>
