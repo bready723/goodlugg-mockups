@@ -19,7 +19,7 @@ Only the pocket copy differs between V1 to V4. Pick one.
 |---|---|
 | V1 | Take One, / Book / Anytime (26 pt, gap after the first line) |
 | V2 | Take One / Scan to Book (26 pt, gap after the first line) |
-| V3 | Please / Take One (32 pt, no gap) |
+| V3 | Please / Take One (26 pt, gap after the first line) |
 | V4 | Grab One / Book Later (26 pt, gap after the first line) |
 
 ExtraBold, yellow, centered in the box; the longest line stays under 60 mm.
@@ -35,7 +35,7 @@ ExtraBold, yellow, centered in the box; the longest line stays under 60 mm.
 
 ## 4. Type
 
-Pretendard. Headline 27 pt ExtraBold, copy 20 pt Medium, pocket copy 26 to 32 pt ExtraBold (see section 2).
+Pretendard. Headline 27 pt ExtraBold, copy 20 pt Medium, pocket copy 26 pt ExtraBold.
 
 ## 5. Layout, top to bottom (from trim top)
 

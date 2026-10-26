@@ -11,7 +11,7 @@ DATE = "20261026"
 COPIES = [  # tag, copy ("|" = gap between the first line and the rest), font size (pt); longest line under 60 mm
     ("V1", "Take One,|Book<br>Anytime", 26),
     ("V2", "Take One|Scan to Book", 26),
-    ("V3", "Please<br>Take One", 32),
+    ("V3", "Please|Take One", 26),
     ("V4", "Grab One|Book Later", 26),
 ]
 MOCK = ('<img class="mockcard b2" src="assets/card_front.png" alt="">'
