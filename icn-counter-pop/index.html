@@ -10,12 +10,11 @@
   body { margin: 0; background: #f4f3f6; color: #252424; font-family: Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif; }
   header { padding: 28px 16px 8px; text-align: center; }
   h1 { margin: 0; font-size: 24px; color: #512a72; }
-  .sub { margin: 6px 0 0; font-size: 14px; color: #666; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1100px; margin: 16px auto 48px; padding: 0 16px; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 1100px; margin: 12px auto 40px; padding: 0 16px; }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
   .card { background: #fff; border-radius: 12px; box-shadow: 0 1px 8px rgba(0,0,0,.08); padding: 16px; text-align: center; }
   .card h2 { font-size: 16px; margin: 0 0 4px; color: #512a72; }
   .badge { display: inline-block; background: #c7c22e; color: #512a72; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
-  .card p { margin: 0 0 12px; font-size: 13px; color: #666; }
   .card img { width: 100%; height: auto; border: 1px solid #e3e0e8; border-radius: 6px; display: block; }
   .links { display: flex; gap: 10px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
   .links a { text-decoration: none; background: #512a72; color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; }
@@ -27,6 +26,7 @@
 <header>
   <h1>ICN Counter POP</h1>
 </header>
+<h2 class="sec">Info desk line above Contact Us</h2>
 <div class="grid">
   <div class="card">
     <h2>A. White<span class="badge">Recommended</span></h2>
@@ -50,10 +50,6 @@
     <h2>D. Yellow card style</h2>
     <a href="pop_d.html"><img src="preview_d.png" alt="POP variant D preview"></a>
     <div class="links"><a href="pop_d.html">Open</a><a class="ghost" href="pop_d.pdf">PDF</a></div>
-  </div>
-  <div class="card" style="grid-column:1/-1">
-    <h2>Compare with existing POPs</h2>
-    <a href="compare.png"><img src="compare.png" alt="Comparison with existing POPs"></a>
   </div>
 </div>
 </body>
