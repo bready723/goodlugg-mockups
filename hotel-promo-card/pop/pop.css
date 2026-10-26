@@ -1,0 +1,21 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+/* Hotel promo POP board, A5 148 x 210 mm trim, 3 mm bleed each side -> 154 x 216 mm page.
+   Coordinates are from the PAGE edge (bleed included). Trim starts at 3 mm.
+   Positions mirror the agency Visa POP (measured from the 300 dpi proof). */
+:root{ --purple:#742b97; --box:#5f2079; --yellow:#f6ed14; }
+@page{ size:154mm 216mm; margin:0; }
+html,body{ margin:0; padding:0; }
+body{ font-family:Pretendard,-apple-system,sans-serif; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.page{ position:relative; width:154mm; height:216mm; overflow:hidden; background:var(--yellow); color:var(--purple); }
+.abs{ position:absolute; left:0; }
+/* dancheong bands, 8 mm visible like the Visa POP, extended into the bleed */
+.border-top{ top:-1.6mm; width:154mm; height:12.6mm; background:url(assets/strip_top_bleed.png) center top / 100mm 12.6mm repeat-x; }
+.border-bottom{ bottom:-1.6mm; width:154mm; height:12.6mm; background:url(assets/strip_bottom_bleed.png) center bottom / 100mm 12.6mm repeat-x; }
+/* header: tiger + K-Luggage Hunter / Goodlugg + short rule, same footprint as the Visa POP header */
+.header{ top:13.6mm; left:15mm; width:124mm; height:auto; }
+.c{ position:absolute; left:7mm; width:140mm; text-align:center; }
+.head{ top:54mm; font-size:27pt; font-weight:800; line-height:1.12; letter-spacing:-0.5pt; }
+.copy{ top:78mm; font-size:20pt; font-weight:500; line-height:1.2; letter-spacing:-0.3pt; }
+/* purple pocket box: 70 x 77 mm, same position as the Visa POP box so it lines up with the existing tray */
+.box{ position:absolute; left:42mm; top:126.3mm; width:70mm; height:77mm; background:var(--box); }
+.pocket{ position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); text-align:center; color:var(--yellow); font-size:23pt; font-weight:800; line-height:1.18; letter-spacing:-0.3pt; }

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Goodlugg Hotel POP Stand</title>
+<style>
+  :root{--ink:#1a1420;--ink-3:#6a5d74;--line:#e7e1ec;--bg:#f2efe9;--purple:#512a72}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:400 15px/1.5 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  header{padding:40px 24px 24px;max-width:1280px;margin:0 auto}
+  h1{margin:0;font-size:26px;font-weight:800;letter-spacing:-.03em}
+  .sub{margin:6px 0 0;color:var(--ink-3);font:500 12px/1.4 ui-monospace,Menlo,monospace}
+  main{max-width:1280px;margin:0 auto;padding:0 24px 60px}
+  h2{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+     color:var(--ink-3);margin:34px 0 16px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+  .grid{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
+  figure{margin:0;width:400px;max-width:100%}
+  figure img{display:block;width:100%;height:auto;border-radius:3px;
+             box-shadow:0 1px 2px rgba(0,0,0,.14),0 12px 26px -10px rgba(0,0,0,.3)}
+  figcaption{margin-top:10px;font:500 11px/1.5 ui-monospace,Menlo,monospace;color:var(--ink-3)}
+  figcaption b{color:var(--ink);font-size:13px}
+  figcaption a{color:var(--purple)}
+  .frames{display:flex;gap:22px;flex-wrap:wrap}
+  .frame{width:calc(148mm * .78)}
+  .clip{position:relative;width:calc(148mm * .78);height:calc(210mm * .78);overflow:hidden;
+        box-shadow:0 1px 2px rgba(0,0,0,.14),0 12px 26px -10px rgba(0,0,0,.3)}
+  .clip iframe{position:absolute;left:calc(-3mm * .78);top:calc(-3mm * .78);width:calc(154mm * 1);height:calc(216mm * 1);
+        transform:scale(.78);transform-origin:0 0;border:0;background:#fff}
+  .frame .cap{margin-top:10px;font:500 11px/1.5 ui-monospace,Menlo,monospace;color:var(--ink-3)}
+  .frame .cap b{color:var(--ink);font-size:13px}
+  .frame .cap a{color:var(--purple)}
+  p.note{color:var(--ink-3);font-size:13px;max-width:760px}
+</style></head><body>
+<header>
+  <h1>Goodlugg Hotel POP Stand</h1>
+  <p class="sub">A5 148 &times; 210 mm, 3 mm bleed / one board for every hotel, copy on the pocket instead of a QR</p>
+</header>
+<main>
+  <h2>Pocket copy, five options</h2>
+  <div class="grid">
+    <figure style="width:100%"><img src="HotelPromoPOP_CopyOptions_20261026.png" alt="Five pocket copy options"></figure>
+  </div>
+  <h2>Full boards (live HTML, trim view)</h2>
+  <div class="frames">
+    <div class="frame"><div class="clip"><iframe src="pop_v1.html" title="V1"></iframe></div><div class="cap"><b>V1</b> Take One, Book Anytime / <a href="HotelPromoPOP_V1_20261026.pdf">PDF</a></div></div>
+    <div class="frame"><div class="clip"><iframe src="pop_v2.html" title="V2"></iframe></div><div class="cap"><b>V2</b> Take One &amp; Scan to Book / <a href="HotelPromoPOP_V2_20261026.pdf">PDF</a></div></div>
+    <div class="frame"><div class="clip"><iframe src="pop_v3.html" title="V3"></iframe></div><div class="cap"><b>V3</b> Please Take One / <a href="HotelPromoPOP_V3_20261026.pdf">PDF</a></div></div>
+    <div class="frame"><div class="clip"><iframe src="pop_v4.html" title="V4"></iframe></div><div class="cap"><b>V4</b> Grab a Card, Book Later / <a href="HotelPromoPOP_V4_20261026.pdf">PDF</a></div></div>
+    <div class="frame"><div class="clip"><iframe src="pop_v5.html" title="V5"></iframe></div><div class="cap"><b>V5</b> Take One, Scan Later / <a href="HotelPromoPOP_V5_20261026.pdf">PDF</a></div></div>
+  </div>
+  <h2>With a card in the pocket (V1, not for print)</h2>
+  <div class="grid">
+    <figure><img src="HotelPromoPOP_Assembled_20261026.png" alt="Board with the Nine Tree card in the pocket">
+      <figcaption><a href="HotelPromoPOP_Spec_20261026.md">spec</a> / <a href="../">hotel promo card</a></figcaption></figure>
+  </div>
+  <p class="note">Frames and previews are cropped to the trim line; the PDFs carry 3 mm bleed. The purple pocket sits where the Visa POP box sits, so the same tray fits. Dancheong strips, tiger and wordmark are raster captures for mock up; the final run should use the agency vector originals.</p>
+</main>
+</body></html>
