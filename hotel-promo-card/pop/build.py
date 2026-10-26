@@ -8,12 +8,11 @@ HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"; OUT.mkdir(exist_ok=True)
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DATE = "20261026"
-COPIES = [  # tag, three stacked lines, font size (pt) so the longest line stays under 60 mm
-    ("V1", "Take One,<br>Book<br>Anytime", 26),
-    ("V2", "Take One<br>&amp; Scan<br>to Book", 26),
-    ("V3", "Please<br>Take<br>One", 32),
-    ("V4", "Grab a Card,<br>Book<br>Later", 22),
-    ("V5", "Take One,<br>Scan<br>Later", 26),
+COPIES = [  # tag, copy ("|" = gap between the first line and the rest), font size (pt); longest line under 60 mm
+    ("V1", "Take One,|Book<br>Anytime", 26),
+    ("V2", "Take One|Scan to Book", 26),
+    ("V3", "Please<br>Take One", 32),
+    ("V4", "Grab One|Book Later", 26),
 ]
 MOCK = ('<img class="mockcard b2" src="assets/card_front.png" alt="">'
         '<img class="mockcard b1" src="assets/card_front.png" alt="">'
@@ -48,8 +47,11 @@ def main():
     tpl = (HERE / "pop.tpl.html").read_text(encoding="utf-8")
     try:
         for tag, copy, size in COPIES:
-            first, rest = copy.split("<br>", 1)
-            copy2 = f'<span class="l1">{first}</span><span class="l2">{rest}</span>'
+            if "|" in copy:
+                first, rest = copy.split("|", 1)
+                copy2 = f'<span class="l1">{first}</span><span class="l2">{rest}</span>'
+            else:
+                copy2 = copy
             base = tpl.replace("{{TAG}}", tag).replace("{{POCKET_COPY}}", copy2).replace("{{BOXSTYLE}}", "")
             html = HERE / f"pop_{tag.lower()}.html"
             html.write_text(base.replace("{{PAGECLS}}", "print").replace("{{MOCK}}", "")

@@ -13,17 +13,16 @@
 
 Nothing per hotel. The board is common: no QR, no hotel name. The hotel card (65 x 100) in the pocket carries the QR.
 
-Only the pocket copy differs between V1 to V5. Pick one.
+Only the pocket copy differs between V1 to V4. Pick one.
 
 | File | Pocket copy |
 |---|---|
-| V1 | Take One, / Book / Anytime (36 pt) |
-| V2 | Take One / & Scan / to Book (36 pt) |
-| V3 | Please / Take / One (44 pt) |
-| V4 | Grab a Card, / Book / Later (30 pt) |
-| V5 | Take One, / Scan / Later (36 pt) |
+| V1 | Take One, / Book / Anytime (26 pt, gap after the first line) |
+| V2 | Take One / Scan to Book (26 pt, gap after the first line) |
+| V3 | Please / Take One (32 pt, no gap) |
+| V4 | Grab One / Book Later (26 pt, gap after the first line) |
 
-Three stacked lines, ExtraBold, yellow, centered in the box; the longest line stays under 60 mm.
+ExtraBold, yellow, centered in the box; the longest line stays under 60 mm.
 
 ## 3. Colors
 
@@ -36,7 +35,7 @@ Three stacked lines, ExtraBold, yellow, centered in the box; the longest line st
 
 ## 4. Type
 
-Pretendard. Headline 27 pt ExtraBold, copy 20 pt Medium, pocket copy 30 to 44 pt ExtraBold (see section 2).
+Pretendard. Headline 27 pt ExtraBold, copy 20 pt Medium, pocket copy 26 to 32 pt ExtraBold (see section 2).
 
 ## 5. Layout, top to bottom (from trim top)
 
@@ -62,7 +61,7 @@ The pocket is a separate tray fixed to the board. If the tray front is printed s
 |---|---|
 | `pop_v1.html` to `pop_v5.html` + `pop.css` + `assets/` | live HTML, 154 x 216 mm page, print layout |
 | `mock_v1.html` to `mock_v5.html` | same board with the Nine Tree card standing in the pocket, for review only |
-| `HotelPromoPOP_V1_20261026.pdf` to `_V5_` | print PDF with bleed, one per copy option |
+| `HotelPromoPOP_V1_20261026.pdf` to `_V4_` | print PDF with bleed, one per copy option |
 | `HotelPromoPOP_CopyOptions_20261026.png` | the five pockets side by side |
 | `HotelPromoPOP_Assembled_20261026.png` | V1 with a card in the pocket, not for print |
 
