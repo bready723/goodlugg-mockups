@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICN Counter POP B EN</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: Pretendard, "Pretendard Variable", -apple-system, "Apple SD Gothic Neo", sans-serif; }
+  .page {
+    width: 210mm; height: 297mm; margin: 0 auto; position: relative; overflow: hidden;
+    background: var(--bg); color: var(--fg);
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    padding: 14mm 14mm 14mm; text-align: center;
+  }
+  @media print { body { background: none; } .page { margin: 0; } }
+  @media screen { .page { margin: 0 auto; } }
+  body.a { --bg: #ffffff; --fg: #512a72; --muted: #512a72; --qrbox: #ffffff; --qrborder: #d9d3e2; --cap: #1a1a1a; }
+  body.b { --bg: #512a72; --fg: #ffffff; --muted: #ffffff; --qrbox: #ffffff; --qrborder: #ffffff; --cap: #ffffff; }
+
+  .head { display: flex; align-items: center; justify-content: center; gap: 7mm; width: 100%; }
+  .head img.logo { height: 16mm; width: auto; display: block; }
+  .head img.tiger { height: 30mm; width: auto; display: block; }
+  .b .head img.logo { content: url("logo_white.png"); }
+
+  .title .brand { margin-bottom: 4mm; line-height: 1.2; }
+  .title .brand .kr { font-size: 18pt !important; font-weight: 700 !important; letter-spacing: 0 !important; }
+  .title .brand .en { font-size: 12.5pt !important; font-weight: 500 !important; margin-top: 0.5mm !important; }
+  .title { line-height: 1.12; }
+  .title .kr { font-size: 52pt; font-weight: 800; letter-spacing: -0.02em; }
+  .title .en { font-size: 25pt; font-weight: 700; margin-top: 3mm; line-height: 1.18; }
+
+  .basis .kr { font-size: 16.5pt; font-weight: 600; }
+  .basis .en { font-size: 12.5pt; font-weight: 400; margin-top: 1.2mm; }
+
+  .elig .kr { font-size: 16pt; font-weight: 700; }
+  .elig .en { font-size: 12.5pt; font-weight: 400; margin-top: 1.2mm; }
+
+  .book { display: flex; flex-direction: column; align-items: center; gap: 3.5mm; }
+  .book .kr { font-size: 22pt; font-weight: 800; }
+  .book .en { font-size: 15pt; font-weight: 500; margin-top: 1mm; }
+  .qrbox { background: var(--qrbox); border: 0.5mm solid var(--qrborder); border-radius: 4mm; padding: 3mm; display: inline-block; }
+  .qrbox img { display: block; width: 34mm; height: 34mm; }
+  .qrcap { font-size: 11.5pt; font-weight: 600; margin-top: 1.5mm; color: var(--fg); }
+
+  .info .kr { font-size: 15.5pt; font-weight: 600; }
+  .info .en { font-size: 12.5pt; font-weight: 400; margin-top: 1.2mm; }
+
+  .contact { display: flex; flex-direction: column; align-items: center; gap: 3mm; }
+  .contact .h { font-size: 15pt; font-weight: 800; }
+  .contact .row { display: flex; gap: 14mm; justify-content: center; }
+  .contact .qrbox img { width: 28mm; height: 28mm; }
+  .contact .qrcap { font-size: 11pt; }
+  .b .qrcap { color: #ffffff; }
+
+  .c .title .kr { font-size: 60pt; }
+  .c .title .en { font-size: 24pt; font-weight: 600; margin-top: 4mm; }
+  .c .book .kr { font-size: 26pt; }
+  .c .book .en { font-size: 17pt; }
+  .c .book .qrbox img { width: 42mm; height: 42mm; }
+  .c .info .kr { font-size: 18pt; font-weight: 700; }
+  .c .info .en { font-size: 13.5pt; margin-top: 1.5mm; }
+  .c .contact .h { font-size: 18pt; }
+  .c .contact .qrbox img { width: 32mm; height: 32mm; }
+  .c .contact .qrcap { font-size: 12.5pt; }
+  .c .head img.logo { height: 18mm; } .c .head img.tiger { height: 34mm; }
+  .c .page { padding: 16mm 14mm 16mm; }
+
+  body.d { --bg: #F6ED14; --fg: #512a72; --muted: #512a72; --qrbox: #ffffff; --qrborder: #ffffff; --cap: #1a1a1a; }
+  .d .page { padding: 0; justify-content: flex-start; }
+  .d .strip { width: 100%; height: 9mm; object-fit: cover; display: block; flex: none; }
+  .d .inner { flex: 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 9mm 14mm 10mm; }
+  .d .head img.hdr { height: 44mm; width: auto; display: block; }
+  .d .qrbox { border: none; }
+  .d .qrcap { color: #1a1a1a; }
+  .d .title .kr { font-size: 58pt; }
+
+  /* English-only */
+  body.en .title .brand .en { font-size: 18pt !important; font-weight: 700 !important; }
+  body.en .title .en { font-size: 23pt; font-weight: 600; margin-top: 0; line-height: 1.2; }
+  body.en .title .en .l1 { display: block; font-size: 58pt; font-weight: 800; letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 3mm; }
+  body.en .book .en { font-size: 27pt; font-weight: 800; margin-top: 0; }
+  body.en .book .qrbox img { width: 50mm; height: 50mm; }
+  body.en .book .qrcap { font-size: 13pt; }
+  body.en .info .en { font-size: 17pt; font-weight: 600; margin-top: 0; }
+  body.en .contact .h { font-size: 19pt; }
+  body.en .contact .qrbox img { width: 36mm; height: 36mm; }
+  body.en .contact .qrcap { font-size: 13pt; }
+</style>
+</head>
+<body class="d c en">
+<main class="page">
+  <img class="strip" src="strip_top.png" alt="">
+  <div class="inner">
+  <header class="head">
+    <img class="hdr" src="header_yellow.png" alt="K-Luggage Hunter Goodlugg">
+  </header>
+
+  <section class="title">
+    <div class="brand">
+      <div class="en">Baggage Free Service</div>
+    </div>
+    <div class="en"><span class="l1">Priority Counter</span>for Passengers with Reduced Mobility (PRMs)</div>
+  </section>
+
+  <section class="book">
+    <div>
+      <div class="en">Advance booking required</div>
+    </div>
+    <div>
+      <div class="qrbox"><img src="qr_book.png" alt="Booking QR"></div>
+      <div class="qrcap">Book in 5 min</div>
+    </div>
+  </section>
+
+  <section class="info">
+    <div class="en">Other luggage inquiries: Airport Information Desk</div>
+  </section>
+
+  <section class="contact">
+    <div class="h">Contact Us</div>
+    <div class="row">
+      <div><div class="qrbox"><img src="qr_whatsapp.png" alt="WhatsApp QR"></div><div class="qrcap">WhatsApp</div></div>
+      <div><div class="qrbox"><img src="qr_kakao.png" alt="KakaoTalk QR"></div><div class="qrcap">KakaoTalk</div></div>
+    </div>
+  </section>
+
+  </div>
+  <img class="strip" src="strip_bottom.png" alt="">
+</main>
+</body>
+</html>
