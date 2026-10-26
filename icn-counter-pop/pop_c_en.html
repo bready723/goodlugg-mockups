@@ -39,47 +39,48 @@
 
   .book { display: flex; flex-direction: column; align-items: center; gap: 3.5mm; }
   .book .kr { font-size: 22pt; font-weight: 800; }
-  .book .en { font-size: 15pt; font-weight: 500; margin-top: 1mm; }
+  .book .en { font-size: 18pt; font-weight: 600; margin-top: 1mm; }
   .qrbox { background: var(--qrbox); border: 0.5mm solid var(--qrborder); border-radius: 4mm; padding: 3mm; display: inline-block; }
   .qrbox img { display: block; width: 34mm; height: 34mm; }
-  .qrcap { font-size: 11.5pt; font-weight: 600; margin-top: 1.5mm; color: var(--fg); }
+  .qrcap { font-size: 13pt; font-weight: 600; margin-top: 1.5mm; color: var(--fg); }
 
   .info .kr { font-size: 15.5pt; font-weight: 600; }
-  .info .en { font-size: 14pt; font-weight: 600; margin-top: 1.2mm; }
+  .info .en { font-size: 16pt; font-weight: 600; margin-top: 1.2mm; }
 
   .contact { display: flex; flex-direction: column; align-items: center; gap: 3mm; }
-  .contact .h { text-align: left; padding-bottom: 7mm; }
+  .contact .h { text-align: left; padding-bottom: 6mm; }
   .contact .h .kr { font-size: 19pt; font-weight: 800; }
-  .contact .h .en { font-size: 14pt; font-weight: 600; margin-top: 1mm; }
-  .contact .row { display: flex; gap: 12mm; justify-content: center; align-items: center; }
-  .contact .qrbox img { width: 28mm; height: 28mm; }
-  .contact .qrcap { font-size: 11pt; }
+  .contact .h .en { font-size: 17pt; font-weight: 600; margin-top: 1mm; }
+  .contact .row { display: flex; gap: 10mm; width: 150mm; justify-content: flex-start; align-items: center; }
+  .contact .row > div:nth-child(2) { margin-left: auto; }
+  .contact .qrbox img { width: 24mm; height: 24mm; }
+  .contact .qrcap { font-size: 13pt; }
   .b .qrcap { color: #ffffff; }
 
   .c .title .kr { font-size: 60pt; }
   .c .title .en { font-size: 24pt; font-weight: 600; margin-top: 4mm; }
   .c .book .kr { font-size: 26pt; }
-  .c .book .en { font-size: 17pt; }
-  .c .book .qrbox img { width: 42mm; height: 42mm; }
+  .c .book .en { font-size: 19pt; }
+  .c .book .qrbox img { width: 38mm; height: 38mm; }
   .c .info .kr { font-size: 18pt; font-weight: 700; }
-  .c .info .en { font-size: 15pt; margin-top: 1.5mm; }
+  .c .info .en { font-size: 17pt; margin-top: 1.5mm; }
   .c .contact .h { font-size: 18pt; }
-  .c .contact .qrbox img { width: 32mm; height: 32mm; }
-  .c .contact .qrcap { font-size: 12.5pt; }
-  .c .head img.logo { height: 18mm; } .c .head img.tiger { height: 34mm; }
-  .c .page { padding: 16mm 14mm 16mm; }
+  .c .contact .qrbox img { width: 24mm; height: 24mm; }
+  .c .contact .qrcap { font-size: 13pt; }
+  .c .head img.logo { height: 17mm; } .c .head img.tiger { height: 31mm; }
+  .c .page { padding: 11mm 14mm 11mm; }
 
   /* English-only */
   body.en .title .brand { display: block; margin-bottom: 3mm; }
-  body.en .title .brand .en { font-size: 26pt !important; font-weight: 800 !important; letter-spacing: -0.01em; }
+  body.en .title .brand .en { font-size: 32pt !important; font-weight: 800 !important; letter-spacing: -0.01em; }
   body.en .title .en { font-size: 23pt; font-weight: 600; margin-top: 0; line-height: 1.2; }
   body.en .title .en .l1 { display: block; font-size: 58pt; font-weight: 800; letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 3mm; }
   body.en .book .en { font-size: 27pt; font-weight: 800; margin-top: 0; }
-  body.en .book .qrbox img { width: 50mm; height: 50mm; }
+  body.en .book .qrbox img { width: 46mm; height: 46mm; }
   body.en .book .qrcap { font-size: 13pt; }
   body.en .info .en { font-size: 19pt; font-weight: 800; margin-top: 0; }
   body.en .contact .h .en { font-size: 20pt; font-weight: 800; margin-top: 0; }
-  body.en .contact .qrbox img { width: 36mm; height: 36mm; }
+  body.en .contact .qrbox img { width: 26mm; height: 26mm; }
   body.en .contact .qrcap { font-size: 13pt; }
 </style>
 </head>
