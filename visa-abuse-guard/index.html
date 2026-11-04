@@ -4,244 +4,204 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Visa 1 Bag Free: hotel name + cardholder check</title>
+<title>Visa 1 Bag Free: current vs to-be</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
-  :root{
-    --purple:#512a72; --purple-d:#4a2a6e; --visa:#1434CB; --peri:#6b7fe0; --peri-l:#f4f6fd;
-    --red:#ee2a1e; --ink:#222; --ink-2:#555; --ink-3:#8a8a8a; --line:#e6e6ea; --bg:#efeff1;
-  }
+  :root{--pp:#472f6a;--red:#ea3323;--krp:#4b296e;--peri:#6b7de3;--peri-l:#f1f4fe}
   *{box-sizing:border-box}
-  body{margin:0;background:#dcdce0;font:400 15px/1.45 'Poppins','Pretendard',sans-serif;color:var(--ink)}
-  .tabs{position:sticky;top:0;z-index:5;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
-        padding:14px 12px;background:#dcdce0}
-  .tabs button{font:600 13px 'Poppins','Pretendard',sans-serif;border:1px solid #c9c9cf;background:#fff;color:#333;
-        border-radius:999px;padding:8px 14px;cursor:pointer}
-  .tabs button.on{background:var(--purple);border-color:var(--purple);color:#fff}
-  .stage{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;padding:8px 16px 60px}
-  .phone{width:390px;height:800px;background:var(--bg);border-radius:28px;overflow:hidden;
-         box-shadow:0 18px 40px -16px rgba(0,0,0,.35);position:relative}
-  .phone[hidden]{display:none}
-  .lbl{font:600 12px 'Poppins',sans-serif;color:#555;text-align:center;margin:0 0 8px}
-  .col{display:flex;flex-direction:column}
-  .top{height:58px;background:#fff;display:flex;align-items:center;justify-content:center;
-       font:700 26px 'Poppins',sans-serif;letter-spacing:-.02em}
-  .top b{color:var(--purple-d)} .top span{color:#c7c22e}
-  .red{color:var(--red)}
+  body{margin:0;background:#d9d9de;font:400 15px/1.4 'Poppins','Pretendard',sans-serif;color:#222}
+  .step{max-width:1000px;margin:0 auto;padding:30px 16px 10px}
+  .step h2{margin:0 0 14px;font-size:18px;font-weight:700;color:#333}
+  .pair{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+  .side{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .tag{font:600 12px 'Poppins',sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:#fff;color:#555}
+  .tag.tb{background:var(--pp);color:#fff}
+  .ph{width:393px;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 16px 36px -16px rgba(0,0,0,.4)}
+  .ph.wide{width:437px}
+  .ph img{display:block;width:100%;height:auto}
+  .crop{background-repeat:no-repeat;background-size:100% auto}
+  .stack{display:flex;flex-direction:column;gap:14px}
 
-  /* popup */
-  .pop{margin:14px;background:#fff;border-radius:24px;padding:22px 18px 18px}
-  .pop .vis{font:italic 800 30px 'Poppins',sans-serif;color:var(--visa);text-align:center;letter-spacing:-.03em}
-  .pop h3{margin:4px 0 14px;text-align:center;color:var(--visa);font-size:16px;font-weight:600}
-  .pop h4{color:var(--purple-d);font-size:15px;margin:16px 0 8px}
-  .mk{background:#f8f8fa;border:1px solid var(--line);border-radius:14px;padding:6px 14px}
-  .mk li{list-style:none;display:flex;gap:10px;padding:9px 0;font-size:13px;color:#333}
-  .mk li i{flex:0 0 20px;height:20px;border-radius:50%;background:#efeaf4;color:var(--purple-d);
-           font:normal 700 11px/20px sans-serif;text-align:center}
-  .mk li.new{color:var(--red);font-weight:600}
-  .mk li.new i{background:#fde7e5;color:var(--red)}
-  .mk ul{margin:0;padding:0}
-  .cta{display:block;margin:16px 0 0;background:var(--purple-d);color:#fff;text-align:center;border-radius:10px;
-       padding:13px;font-weight:600}
+  /* 1 popup bottom */
+  .pdim{zoom:.77;width:567.5px;background:#7d7d7d;padding:0 14px 23px}
+  .pcard{background:#fff;padding:0 24px 20px;border-radius:0 0 24px 24px}
+  .pcard h4{margin:0;padding:8px 0 12px;font-size:16px;font-weight:600;color:var(--pp)}
+  .mk{background:#fafafb;border:1px solid #e9e9ec;border-radius:14px;padding:6px 16px 6px 18px}
+  .mk ul{margin:0;padding:0;list-style:none}
+  .mk li{display:flex;gap:14px;padding:9px 0;font-size:14.5px;line-height:1.3;color:#333}
+  .mk li i{flex:0 0 23px;height:23px;border-radius:50%;background:#efebf6;color:var(--pp);font:normal 700 12px/23px sans-serif;text-align:center}
+  .mk li.r{color:var(--red);font-weight:700}
+  .mk li.r i{background:#fde8e6;color:var(--red)}
+  .pfoot{border-top:1px solid #e9e9ec;margin:16px -24px 0;padding:12px 24px 0}
+  .pbtn{height:42px;border-radius:10px;background:var(--pp);color:#fff;font-weight:600;font-size:16px;display:grid;place-items:center}
 
-  /* search sheet */
-  .dim{height:300px;background:#7a7a7a;filter:blur(0)}
-  .sheet{background:#fff;border-radius:24px 24px 0 0;margin-top:-24px;padding:18px 18px 30px;min-height:500px}
-  .sh-h{display:flex;align-items:center;justify-content:space-between}
-  .sh-h .c{width:40px;height:40px;border-radius:50%;background:#f1f1f3;display:grid;place-items:center;color:#555}
-  .sh-h b{font-size:20px}
-  .sh-sub{text-align:center;color:#666;font-size:14px;margin:6px 0 16px}
-  .inp{border:2px solid #e6e6ea;border-radius:12px;padding:13px 14px;font-size:14px;color:#999;background:#fff}
-  .inp.typed{color:#222}
-  .note{font-size:12.5px;margin:8px 2px 0;line-height:1.45}
-  .res{border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px;box-shadow:0 4px 14px -8px rgba(0,0,0,.2)}
-  .res .nm{font-weight:700;font-size:17px}
-  .res .ad{color:#555;font-size:13px;margin-top:4px}
-  .warn{margin-top:12px;background:#fff2f1;border:1px solid #f7c9c5;border-radius:10px;padding:10px 12px;
-        color:var(--red);font-size:13px;font-weight:600}
-  .btns{display:flex;gap:10px;margin-top:12px}
-  .btns div{flex:1;border-radius:10px;padding:11px 0;text-align:center;font-weight:600;font-size:14px}
-  .b-dis{background:#dfe1e6;color:#fff}
-  .b-out{border:1px solid #ccc;color:#333}
+  /* 2 search note */
+  .rel{position:relative}
+  .note{position:absolute;left:19px;right:19px;color:var(--red);font-size:10.5px;line-height:1.4;margin:0}
 
-  /* checkout visa box */
-  .co{padding:14px}
-  .vbanner{background:#fff;border:2px solid var(--peri);border-radius:16px;padding:14px 16px;display:flex;
-           justify-content:space-between;align-items:center}
-  .vbanner b{font-size:15px} .vbanner p{margin:2px 0 0;color:var(--visa);font-size:13px}
-  .vbanner .vis{font:italic 800 30px 'Poppins',sans-serif;color:var(--visa)}
-  .vbox{margin-top:14px;background:var(--peri-l);border:2px solid var(--peri);border-radius:16px;padding:16px}
-  .vbox h5{margin:0;font-size:17px} .vbox .s{font-size:12.5px;color:#555}
-  .digits{display:flex;gap:6px;margin-top:12px}
-  .digits input,.digits span{flex:1;min-width:0;height:46px;border-radius:10px;text-align:center;font:500 15px 'Poppins',sans-serif}
-  .digits input{border:1px solid #d6d8e4;background:#fff;color:#222}
-  .digits span{background:#e7e8ee;color:#999;line-height:46px;letter-spacing:2px}
-  .fld{margin-top:12px}
-  .fld label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
-  .fld input{width:100%;height:46px;border:1px solid #d6d8e4;border-radius:10px;padding:0 12px;
-             font:500 14px 'Poppins',sans-serif;text-transform:uppercase}
-  .fld input::placeholder{text-transform:none;color:#aaa}
-  .chk{display:flex;gap:10px;margin-top:14px;align-items:flex-start;cursor:pointer}
-  .chk input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--peri);flex:0 0 20px}
-  .chk .t{font-size:13.5px;font-weight:600;color:#222}
-  .rednote{margin:6px 0 0 30px;color:var(--red);font-size:12.5px;line-height:1.5}
-  .apply{margin-top:14px;width:100%;height:44px;border:0;border-radius:10px;background:var(--peri);color:#fff;
-         font:600 16px 'Poppins',sans-serif;cursor:pointer}
-  .apply:disabled{background:#c7cdef;cursor:not-allowed}
-  .foot{margin-top:12px;padding-top:10px;border-top:1px solid #d9dcea;font-size:12.5px;color:#555}
+  /* 3 result card */
+  .rwrap{background:#fff;padding:2px 18px 0;height:327px}
+  .rcard{border:1px solid #ececf0;border-radius:12px;padding:16px;box-shadow:0 4px 14px -8px rgba(0,0,0,.18)}
+  .rcard .nm{font-weight:700;font-size:17px}
+  .rcard .ad{font-size:14px;color:#444;margin-top:8px}
+  .warn{margin-top:12px;background:#fff1f0;border:1px solid #f6c8c3;border-radius:10px;padding:11px 12px;color:var(--red);font-size:13.5px;font-weight:600}
+  .btns{display:flex;gap:9px;margin-top:14px}
+  .btns div{flex:1;height:42px;border-radius:9px;display:grid;place-items:center;font-weight:600;font-size:14.5px}
+  .bd{background:#e2e4e8;color:#fff}
+  .bo{border:1px solid #cfcfd4;color:#333}
 
-  /* KR */
-  .kr{font-family:'Pretendard',sans-serif;background:#fff}
-  .kr .wrap{padding:18px 22px}
-  .kr h6{margin:4px 0 14px;font-size:17px}
-  .kr .opt{display:flex;gap:10px;align-items:center;padding:7px 0;font-size:15px}
-  .kr .opt i{width:20px;height:20px;border:1.5px solid #555;border-radius:50%;display:inline-block}
-  .kr .opt i.on{border:6px solid var(--purple-d)}
-  .kr ul{margin:6px 0 0 28px;padding:0;list-style:none;font-size:13.5px;color:var(--purple-d)}
-  .kr ul li{padding:3px 0}
-  .kr ul li.r{color:var(--red);font-weight:600}
-  .kr ul li.new{color:var(--red);font-weight:700}
-  @media(max-width:440px){.phone{width:100%}}
+  /* 4 EN checkout */
+  .cbg{zoom:.77;width:510px;background:#eee;padding:0 22px 18px}
+  .vbox{background:var(--peri-l);border:2px solid var(--peri);border-radius:16px;padding:16px 17px 14px}
+  .vbox h5{margin:0;font-size:17px;font-weight:600}
+  .vbox .s{font-size:13px;color:#555}
+  .dg{display:flex;gap:6px;margin-top:12px}
+  .dg input,.dg span{flex:1;min-width:0;height:44px;border-radius:9px;text-align:center;font:500 15px 'Poppins',sans-serif}
+  .dg input{border:1px solid #d9dbe5;background:#fff}
+  .dg span{background:#eaecef;color:#aeb5bc;line-height:44px;letter-spacing:2px}
+  .vbox label.f{display:block;font-size:13.5px;font-weight:600;margin:12px 0 5px}
+  .vbox input.n{width:100%;height:44px;border:1px solid #d9dbe5;border-radius:9px;padding:0 12px;font:500 14px 'Poppins',sans-serif;text-transform:uppercase}
+  .vbox input.n::placeholder{text-transform:none;color:#aaa}
+  .sub{margin:5px 0 0;font-size:12.5px;color:var(--krp)}
+  .nl{margin:12px 0 0;padding:0;list-style:none;font-size:12.5px;line-height:1.45;color:var(--krp)}
+  .nl li{padding:2px 0}
+  .nl li.r{color:var(--red);font-weight:700}
+  .ck{display:flex;gap:10px;margin-top:14px;cursor:pointer;align-items:flex-start}
+  .ck input{flex:0 0 20px;width:20px;height:20px;margin:1px 0 0;accent-color:var(--peri)}
+  .ck span{color:var(--red);font-size:13px;line-height:1.5}
+  .ck b{font-weight:700}
+  .ap{margin-top:14px;width:100%;height:42px;border:0;border-radius:10px;background:var(--peri);color:#fff;font:600 16px 'Poppins',sans-serif;cursor:pointer}
+  .ap:disabled{background:#c5cdf1;cursor:not-allowed}
+  .vf{margin-top:12px;padding-top:10px;border-top:1px solid #d7dbec;font-size:12.5px;color:#555}
+
+  /* 5 KR line */
+  .krline{background:#fff;height:19.5px;padding-left:52.5px;font:700 13.3px/19.5px 'Pretendard',sans-serif;color:var(--red)}
 </style>
 </head>
 <body>
-<nav class="tabs" id="tabs">
-  <button data-k="all" class="on">All</button>
-  <button data-k="p1">1 Visa popup</button>
-  <button data-k="p2">2 Hotel search</button>
-  <button data-k="p3">3 Address entered</button>
-  <button data-k="p4">4 Checkout</button>
-  <button data-k="p5">5 KR Visa</button>
-</nav>
 
-<main class="stage">
-
-  <!-- 1 Visa popup -->
-  <div class="col" data-p="p1">
-    <p class="lbl">1 Visa popup</p>
-    <div class="phone">
-      <div class="pop">
-        <div class="vis">VISA</div>
-        <h3>One bag delivered free with your Visa card</h3>
-        <h4>Must-Knows</h4>
-        <div class="mk"><ul>
-          <li class="new"><i>!</i>Hotels only, chosen by hotel name in search. Addresses, Airbnbs and homes don't qualify</li>
-          <li class="new"><i>!</i>Your own card only. The name on the card must match your booking</li>
-          <li><i>✓</i>Once per person during the promotion period</li>
-          <li><i>✓</i>With multiple bags, the highest-priced bag is free, and the others are charged at the regular price</li>
-          <li><i>✓</i>Korea Luggage Delivery only. Door-to-Door not included</li>
-          <li><i>✓</i>Cannot be combined with other coupons or offers</li>
-          <li><i>✓</i>May end early if the promotion budget runs out</li>
-        </ul></div>
-        <div class="cta">Book Now</div>
+<!-- 1 -->
+<section class="step">
+  <h2>1. Visa popup</h2>
+  <div class="pair">
+    <div class="side"><span class="tag">Current</span><div class="ph wide"><img src="current/1-popup.png" alt="Current Visa popup"></div></div>
+    <div class="side"><span class="tag tb">To-be</span>
+      <div class="ph wide">
+        <div class="crop" style="height:635px;background-image:url(current/1-popup.png)"></div>
+        <div class="pdim"><div class="pcard">
+          <h4>Must-Knows</h4>
+          <div class="mk"><ul>
+            <li class="r"><i>✓</i>Cardholder only, once per person during the promotion period</li>
+            <li><i>✓</i>With multiple bags, the highest-priced bag is free, and the others are charged at the regular price</li>
+            <li><i>✓</i>Korea Luggage Delivery only. Door-to-Door not included</li>
+            <li><i>✓</i>Cannot be combined with other coupons or offers</li>
+            <li><i>✓</i>May end early if the promotion budget runs out</li>
+            <li class="r"><i>✓</i>Hotels searched by hotel name only. Not valid for bookings searched by address</li>
+          </ul></div>
+          <div class="pfoot"><div class="pbtn">Book Now</div></div>
+        </div></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- 2 Hotel search -->
-  <div class="col" data-p="p2">
-    <p class="lbl">2 Hotel search</p>
-    <div class="phone">
-      <div class="top"><b>Good</b><span>lugg</span></div>
-      <div class="dim"></div>
-      <div class="sheet">
-        <div class="sh-h"><div class="c">←</div><b>Search</b><div class="c">✕</div></div>
-        <div class="sh-sub">Please search by hotel name</div>
-        <div class="inp">Enter hotel name</div>
-        <p class="note red">* Visa 1 Bag Free applies only to hotels chosen by name. Addresses don't qualify</p>
+<!-- 2 -->
+<section class="step">
+  <h2>2. Hotel search</h2>
+  <div class="pair">
+    <div class="side"><span class="tag">Current</span><div class="ph"><img src="current/2-search.png" alt="Current hotel search"></div></div>
+    <div class="side"><span class="tag tb">To-be</span>
+      <div class="ph rel"><img src="current/2-search.png" alt="">
+        <p class="note" style="top:764px">* Bookings searched by address may be canceled</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- 3 Address entered -->
-  <div class="col" data-p="p3">
-    <p class="lbl">3 Address entered</p>
-    <div class="phone">
-      <div class="top"><b>Good</b><span>lugg</span></div>
-      <div class="dim" style="height:200px"></div>
-      <div class="sheet">
-        <div class="sh-h"><div class="c">←</div><b>Search</b><div class="c">✕</div></div>
-        <div class="sh-sub">Please search by hotel name</div>
-        <div class="inp typed">Olympic-ro 35-gil, Songpa-gu</div>
-        <div class="res">
+<!-- 3 -->
+<section class="step">
+  <h2>3. Search result</h2>
+  <div class="pair">
+    <div class="side"><span class="tag">Current</span><div class="ph"><img src="current/3-result.png" alt="Current search result"></div></div>
+    <div class="side"><span class="tag tb">To-be: address searched</span>
+      <div class="ph">
+        <div class="crop" style="height:516px;background-image:url(current/3-result.png)"></div>
+        <div class="rwrap"><div class="rcard">
           <div class="nm">📍 Olympic-ro 35-gil</div>
           <div class="ad">Songpa District, Seoul, South Korea</div>
-          <div class="warn">This is an address, not a hotel. Please search by hotel name. Visa 1 Bag Free does not apply to addresses</div>
-          <div class="btns"><div class="b-dis">Select this place</div><div class="b-out">🔍 Search again</div></div>
-        </div>
+          <div class="warn">This is an address, not a hotel. Please search by hotel name</div>
+          <div class="btns"><div class="bd">Select this place</div><div class="bo">🔍 Search again</div></div>
+        </div></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- 4 Checkout -->
-  <div class="col" data-p="p4">
-    <p class="lbl">4 Checkout</p>
-    <div class="phone">
-      <div class="top"><b>Good</b><span>lugg</span></div>
-      <div class="co">
-        <div class="vbanner"><div><b>🎁 Visa 1 Bag Free</b><p>One bag delivered free with your Visa card</p></div><div class="vis">VISA</div></div>
-        <div class="vbox">
+<!-- 4 -->
+<section class="step">
+  <h2>4. Checkout (EN)</h2>
+  <div class="pair">
+    <div class="side"><span class="tag">Current</span><div class="ph"><img src="current/4-checkout-en.png" alt="Current EN checkout"></div></div>
+    <div class="side"><span class="tag tb">To-be</span>
+      <div class="ph">
+        <div class="crop" style="height:190px;background-image:url(current/4-checkout-en.png)"></div>
+        <div class="cbg"><div class="vbox">
           <h5>Verify your Visa card</h5>
           <div class="s">Enter the first 4 and last 4 digits of your card</div>
-          <div class="digits">
+          <div class="dg">
             <input id="d1" inputmode="numeric" maxlength="4" placeholder="4000" aria-label="First 4 digits">
             <span>••••</span><span>••••</span>
             <input id="d4" inputmode="numeric" maxlength="4" placeholder="1234" aria-label="Last 4 digits">
           </div>
-          <div class="fld">
-            <label for="nm">Name on card</label>
-            <input id="nm" placeholder="As shown on your card" autocomplete="off">
-            <p class="note red">* Must match the name on your booking</p>
-          </div>
-          <label class="chk"><input type="checkbox" id="own"><span class="t">I confirm I'm paying with my own Visa card</span></label>
-          <p class="rednote">Visa benefit is for the cardholder only. We may check your card at drop-off, so please bring it with you. If you're not the cardholder, or your hotel was entered as an address, your booking may be canceled without notice.</p>
-          <button class="apply" id="apply" disabled>Apply</button>
-          <div class="foot">Only the first 4 and last 4 digits. The full card number is never entered here.</div>
+          <label class="f" for="nm">Name on card</label>
+          <input class="n" id="nm" placeholder="Cardholder's name in English" autocomplete="off">
+          <p class="sub">* If different from your passport, enter the name shown on the card</p>
+          <ul class="nl">
+            <li class="r">* Cardholder only, once per person during the promotion period</li>
+            <li>* With multiple bags, the highest-priced bag is free</li>
+            <li>* Korea Luggage Delivery only. Door-to-Door not included</li>
+            <li>* Cannot be combined with other coupons or offers</li>
+            <li class="r">* Hotels searched by hotel name only. Not valid for bookings searched by address</li>
+          </ul>
+          <label class="ck"><input type="checkbox" id="own"><span><b>I confirm I'm paying with my own Visa card.</b> The Visa benefit is for the cardholder only. Your identity may be checked at drop-off, so please bring the card you used. If you're not the cardholder, your booking may be canceled or service refused without notice.</span></label>
+          <button class="ap" id="ap" disabled>Apply</button>
+          <div class="vf">Only the first 4 and last 4 digits. The full card number is never entered here.</div>
+        </div></div>
+        <div class="crop" style="height:412px;background-image:url(current/4-checkout-en.png);background-position:0 -424px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="step">
+  <h2>5. Checkout (KR Visa)</h2>
+  <div class="pair">
+    <div class="side"><span class="tag">Current</span>
+      <div class="stack">
+        <div class="ph"><img src="current/5a-checkout-kr.png" alt="Current KR checkout, payment method"></div>
+        <div class="ph"><img src="current/5b-checkout-kr.png" alt="Current KR checkout, card fields"></div>
+      </div>
+    </div>
+    <div class="side"><span class="tag tb">To-be</span>
+      <div class="stack">
+        <div class="ph">
+          <div class="crop" style="height:405.5px;background-image:url(current/5a-checkout-kr.png)"></div>
+          <div class="krline">* 호텔명으로 검색한 호텔만 적용 (주소 검색 시 적용 불가)</div>
+          <div class="crop" style="height:442.5px;background-image:url(current/5a-checkout-kr.png);background-position:0 -405.5px"></div>
         </div>
+        <div class="ph"><img src="current/5b-checkout-kr.png" alt="KR checkout, card fields (no change)"></div>
       </div>
     </div>
   </div>
-
-  <!-- 5 KR Visa -->
-  <div class="col" data-p="p5">
-    <p class="lbl">5 KR Visa</p>
-    <div class="phone kr">
-      <div class="top" style="font-family:'Poppins',sans-serif"><b>Good</b><span>lugg</span></div>
-      <div class="wrap">
-        <h6>결제방법</h6>
-        <div class="opt"><i></i>신용카드</div>
-        <div class="opt"><i></i>가상계좌</div>
-        <div class="opt"><i></i>해외발급신용카드</div>
-        <div class="opt"><i></i>간편 결제</div>
-        <div class="opt"><i class="on"></i>Visa 프리미엄카드 혜택</div>
-        <ul>
-          <li class="r">* 대상 : 인피니트/시그니처 카드</li>
-          <li>* 2026년 1월 1일 ~ 2026년 12월 31일 결제</li>
-          <li class="r">* 본인 카드에 한해 캐리어1개 연1회 (고객 1인 기준) 무료<br>(배낭, 쇼핑백 등만 1개 무료 이용 불가)</li>
-          <li class="new">* 호텔명으로 검색한 호텔만 적용 (주소 입력 시 적용 불가)</li>
-          <li>* 짐 2개 이상 이용 시, 추가 짐은 20% 할인</li>
-          <li>* 20% 할인은 연간 3회까지 가능</li>
-          <li>* 플래티늄 카드는 10% 할인(연간 3회)</li>
-          <li>* 타 할인 및 쿠폰과 중복사용 불가</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-</main>
+</section>
 
 <script>
-  const own=document.getElementById('own'),nm=document.getElementById('nm'),
-        d1=document.getElementById('d1'),d4=document.getElementById('d4'),ap=document.getElementById('apply');
+  const g=id=>document.getElementById(id),own=g('own'),nm=g('nm'),d1=g('d1'),d4=g('d4'),ap=g('ap');
   const ok=()=>{ap.disabled=!(own.checked&&nm.value.trim()&&d1.value.length===4&&d4.value.length===4)};
-  [own,nm,d1,d4].forEach(e=>e.addEventListener('input',ok));own.addEventListener('change',ok);
-  document.getElementById('tabs').addEventListener('click',e=>{
-    const k=e.target.dataset.k;if(!k)return;
-    document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b===e.target));
-    document.querySelectorAll('[data-p]').forEach(c=>c.hidden=!(k==='all'||c.dataset.p===k));
-  });
+  [own,nm,d1,d4].forEach(e=>{e.addEventListener('input',ok);e.addEventListener('change',ok)});
 </script>
 </body>
 </html>
