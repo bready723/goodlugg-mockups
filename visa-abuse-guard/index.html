@@ -67,7 +67,8 @@
   .sub{margin:5px 0 0;font-size:12.5px;color:var(--krp)}
   .nl{margin:12px 0 0;padding:0;list-style:none;font-size:12.5px;line-height:1.45;color:var(--krp)}
   .nl li{padding:2px 0}
-  .nl li.r{color:var(--red);font-weight:700}
+  .nl li.r{color:var(--red)}
+  .nh{margin:14px 0 0;font-size:13px;font-weight:600;color:#222}
   .ck{display:flex;gap:10px;margin-top:14px;cursor:pointer;align-items:flex-start}
   .ck input{flex:0 0 20px;width:20px;height:20px;margin:1px 0 0;accent-color:var(--peri)}
   .ck span{color:var(--red);font-size:13px;line-height:1.5}
@@ -158,7 +159,8 @@
           <label class="f" for="nm">Name on card</label>
           <input class="n" id="nm" placeholder="Name as shown on your card" autocomplete="off">
           <p class="sub">* The name on the card must match the name on your booking</p>
-          <ul class="nl">
+          <p class="nh">Please note</p>
+          <ul class="nl" style="margin-top:4px">
             <li class="r">* Your own card only (name on card must be yours), once per person during the promotion period</li>
             <li class="r">* If it is not your own card, your booking may be canceled even after payment</li>
             <li>* With multiple bags, the highest-priced bag is free</li>
