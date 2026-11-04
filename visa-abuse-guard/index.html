@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Visa 1 Bag Free: hotel name + cardholder check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --purple:#512a72; --purple-d:#4a2a6e; --visa:#1434CB; --peri:#6b7fe0; --peri-l:#f4f6fd;
+    --red:#ee2a1e; --ink:#222; --ink-2:#555; --ink-3:#8a8a8a; --line:#e6e6ea; --bg:#efeff1;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#dcdce0;font:400 15px/1.45 'Poppins','Pretendard',sans-serif;color:var(--ink)}
+  .tabs{position:sticky;top:0;z-index:5;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+        padding:14px 12px;background:#dcdce0}
+  .tabs button{font:600 13px 'Poppins','Pretendard',sans-serif;border:1px solid #c9c9cf;background:#fff;color:#333;
+        border-radius:999px;padding:8px 14px;cursor:pointer}
+  .tabs button.on{background:var(--purple);border-color:var(--purple);color:#fff}
+  .stage{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;padding:8px 16px 60px}
+  .phone{width:390px;height:800px;background:var(--bg);border-radius:28px;overflow:hidden;
+         box-shadow:0 18px 40px -16px rgba(0,0,0,.35);position:relative}
+  .phone[hidden]{display:none}
+  .lbl{font:600 12px 'Poppins',sans-serif;color:#555;text-align:center;margin:0 0 8px}
+  .col{display:flex;flex-direction:column}
+  .top{height:58px;background:#fff;display:flex;align-items:center;justify-content:center;
+       font:700 26px 'Poppins',sans-serif;letter-spacing:-.02em}
+  .top b{color:var(--purple-d)} .top span{color:#c7c22e}
+  .red{color:var(--red)}
+
+  /* popup */
+  .pop{margin:14px;background:#fff;border-radius:24px;padding:22px 18px 18px}
+  .pop .vis{font:italic 800 30px 'Poppins',sans-serif;color:var(--visa);text-align:center;letter-spacing:-.03em}
+  .pop h3{margin:4px 0 14px;text-align:center;color:var(--visa);font-size:16px;font-weight:600}
+  .pop h4{color:var(--purple-d);font-size:15px;margin:16px 0 8px}
+  .mk{background:#f8f8fa;border:1px solid var(--line);border-radius:14px;padding:6px 14px}
+  .mk li{list-style:none;display:flex;gap:10px;padding:9px 0;font-size:13px;color:#333}
+  .mk li i{flex:0 0 20px;height:20px;border-radius:50%;background:#efeaf4;color:var(--purple-d);
+           font:normal 700 11px/20px sans-serif;text-align:center}
+  .mk li.new{color:var(--red);font-weight:600}
+  .mk li.new i{background:#fde7e5;color:var(--red)}
+  .mk ul{margin:0;padding:0}
+  .cta{display:block;margin:16px 0 0;background:var(--purple-d);color:#fff;text-align:center;border-radius:10px;
+       padding:13px;font-weight:600}
+
+  /* search sheet */
+  .dim{height:300px;background:#7a7a7a;filter:blur(0)}
+  .sheet{background:#fff;border-radius:24px 24px 0 0;margin-top:-24px;padding:18px 18px 30px;min-height:500px}
+  .sh-h{display:flex;align-items:center;justify-content:space-between}
+  .sh-h .c{width:40px;height:40px;border-radius:50%;background:#f1f1f3;display:grid;place-items:center;color:#555}
+  .sh-h b{font-size:20px}
+  .sh-sub{text-align:center;color:#666;font-size:14px;margin:6px 0 16px}
+  .inp{border:2px solid #e6e6ea;border-radius:12px;padding:13px 14px;font-size:14px;color:#999;background:#fff}
+  .inp.typed{color:#222}
+  .note{font-size:12.5px;margin:8px 2px 0;line-height:1.45}
+  .res{border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px;box-shadow:0 4px 14px -8px rgba(0,0,0,.2)}
+  .res .nm{font-weight:700;font-size:17px}
+  .res .ad{color:#555;font-size:13px;margin-top:4px}
+  .warn{margin-top:12px;background:#fff2f1;border:1px solid #f7c9c5;border-radius:10px;padding:10px 12px;
+        color:var(--red);font-size:13px;font-weight:600}
+  .btns{display:flex;gap:10px;margin-top:12px}
+  .btns div{flex:1;border-radius:10px;padding:11px 0;text-align:center;font-weight:600;font-size:14px}
+  .b-dis{background:#dfe1e6;color:#fff}
+  .b-out{border:1px solid #ccc;color:#333}
+
+  /* checkout visa box */
+  .co{padding:14px}
+  .vbanner{background:#fff;border:2px solid var(--peri);border-radius:16px;padding:14px 16px;display:flex;
+           justify-content:space-between;align-items:center}
+  .vbanner b{font-size:15px} .vbanner p{margin:2px 0 0;color:var(--visa);font-size:13px}
+  .vbanner .vis{font:italic 800 30px 'Poppins',sans-serif;color:var(--visa)}
+  .vbox{margin-top:14px;background:var(--peri-l);border:2px solid var(--peri);border-radius:16px;padding:16px}
+  .vbox h5{margin:0;font-size:17px} .vbox .s{font-size:12.5px;color:#555}
+  .digits{display:flex;gap:6px;margin-top:12px}
+  .digits input,.digits span{flex:1;min-width:0;height:46px;border-radius:10px;text-align:center;font:500 15px 'Poppins',sans-serif}
+  .digits input{border:1px solid #d6d8e4;background:#fff;color:#222}
+  .digits span{background:#e7e8ee;color:#999;line-height:46px;letter-spacing:2px}
+  .fld{margin-top:12px}
+  .fld label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+  .fld input{width:100%;height:46px;border:1px solid #d6d8e4;border-radius:10px;padding:0 12px;
+             font:500 14px 'Poppins',sans-serif;text-transform:uppercase}
+  .fld input::placeholder{text-transform:none;color:#aaa}
+  .chk{display:flex;gap:10px;margin-top:14px;align-items:flex-start;cursor:pointer}
+  .chk input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--peri);flex:0 0 20px}
+  .chk .t{font-size:13.5px;font-weight:600;color:#222}
+  .rednote{margin:6px 0 0 30px;color:var(--red);font-size:12.5px;line-height:1.5}
+  .apply{margin-top:14px;width:100%;height:44px;border:0;border-radius:10px;background:var(--peri);color:#fff;
+         font:600 16px 'Poppins',sans-serif;cursor:pointer}
+  .apply:disabled{background:#c7cdef;cursor:not-allowed}
+  .foot{margin-top:12px;padding-top:10px;border-top:1px solid #d9dcea;font-size:12.5px;color:#555}
+
+  /* KR */
+  .kr{font-family:'Pretendard',sans-serif;background:#fff}
+  .kr .wrap{padding:18px 22px}
+  .kr h6{margin:4px 0 14px;font-size:17px}
+  .kr .opt{display:flex;gap:10px;align-items:center;padding:7px 0;font-size:15px}
+  .kr .opt i{width:20px;height:20px;border:1.5px solid #555;border-radius:50%;display:inline-block}
+  .kr .opt i.on{border:6px solid var(--purple-d)}
+  .kr ul{margin:6px 0 0 28px;padding:0;list-style:none;font-size:13.5px;color:var(--purple-d)}
+  .kr ul li{padding:3px 0}
+  .kr ul li.r{color:var(--red);font-weight:600}
+  .kr ul li.new{color:var(--red);font-weight:700}
+  @media(max-width:440px){.phone{width:100%}}
+</style>
+</head>
+<body>
+<nav class="tabs" id="tabs">
+  <button data-k="all" class="on">All</button>
+  <button data-k="p1">1 Visa popup</button>
+  <button data-k="p2">2 Hotel search</button>
+  <button data-k="p3">3 Address entered</button>
+  <button data-k="p4">4 Checkout</button>
+  <button data-k="p5">5 KR Visa</button>
+</nav>
+
+<main class="stage">
+
+  <!-- 1 Visa popup -->
+  <div class="col" data-p="p1">
+    <p class="lbl">1 Visa popup</p>
+    <div class="phone">
+      <div class="pop">
+        <div class="vis">VISA</div>
+        <h3>One bag delivered free with your Visa card</h3>
+        <h4>Must-Knows</h4>
+        <div class="mk"><ul>
+          <li class="new"><i>!</i>Hotels only, chosen by hotel name in search. Addresses, Airbnbs and homes don't qualify</li>
+          <li class="new"><i>!</i>Your own card only. The name on the card must match your booking</li>
+          <li><i>✓</i>Once per person during the promotion period</li>
+          <li><i>✓</i>With multiple bags, the highest-priced bag is free, and the others are charged at the regular price</li>
+          <li><i>✓</i>Korea Luggage Delivery only. Door-to-Door not included</li>
+          <li><i>✓</i>Cannot be combined with other coupons or offers</li>
+          <li><i>✓</i>May end early if the promotion budget runs out</li>
+        </ul></div>
+        <div class="cta">Book Now</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 Hotel search -->
+  <div class="col" data-p="p2">
+    <p class="lbl">2 Hotel search</p>
+    <div class="phone">
+      <div class="top"><b>Good</b><span>lugg</span></div>
+      <div class="dim"></div>
+      <div class="sheet">
+        <div class="sh-h"><div class="c">←</div><b>Search</b><div class="c">✕</div></div>
+        <div class="sh-sub">Please search by hotel name</div>
+        <div class="inp">Enter hotel name</div>
+        <p class="note red">* Visa 1 Bag Free applies only to hotels chosen by name. Addresses don't qualify</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 Address entered -->
+  <div class="col" data-p="p3">
+    <p class="lbl">3 Address entered</p>
+    <div class="phone">
+      <div class="top"><b>Good</b><span>lugg</span></div>
+      <div class="dim" style="height:200px"></div>
+      <div class="sheet">
+        <div class="sh-h"><div class="c">←</div><b>Search</b><div class="c">✕</div></div>
+        <div class="sh-sub">Please search by hotel name</div>
+        <div class="inp typed">Olympic-ro 35-gil, Songpa-gu</div>
+        <div class="res">
+          <div class="nm">📍 Olympic-ro 35-gil</div>
+          <div class="ad">Songpa District, Seoul, South Korea</div>
+          <div class="warn">This is an address, not a hotel. Please search by hotel name. Visa 1 Bag Free does not apply to addresses</div>
+          <div class="btns"><div class="b-dis">Select this place</div><div class="b-out">🔍 Search again</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 Checkout -->
+  <div class="col" data-p="p4">
+    <p class="lbl">4 Checkout</p>
+    <div class="phone">
+      <div class="top"><b>Good</b><span>lugg</span></div>
+      <div class="co">
+        <div class="vbanner"><div><b>🎁 Visa 1 Bag Free</b><p>One bag delivered free with your Visa card</p></div><div class="vis">VISA</div></div>
+        <div class="vbox">
+          <h5>Verify your Visa card</h5>
+          <div class="s">Enter the first 4 and last 4 digits of your card</div>
+          <div class="digits">
+            <input id="d1" inputmode="numeric" maxlength="4" placeholder="4000" aria-label="First 4 digits">
+            <span>••••</span><span>••••</span>
+            <input id="d4" inputmode="numeric" maxlength="4" placeholder="1234" aria-label="Last 4 digits">
+          </div>
+          <div class="fld">
+            <label for="nm">Name on card</label>
+            <input id="nm" placeholder="As shown on your card" autocomplete="off">
+            <p class="note red">* Must match the name on your booking</p>
+          </div>
+          <label class="chk"><input type="checkbox" id="own"><span class="t">I confirm I'm paying with my own Visa card</span></label>
+          <p class="rednote">Visa benefit is for the cardholder only. We may check your card at drop-off, so please bring it with you. If you're not the cardholder, or your hotel was entered as an address, your booking may be canceled without notice.</p>
+          <button class="apply" id="apply" disabled>Apply</button>
+          <div class="foot">Only the first 4 and last 4 digits. The full card number is never entered here.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 KR Visa -->
+  <div class="col" data-p="p5">
+    <p class="lbl">5 KR Visa</p>
+    <div class="phone kr">
+      <div class="top" style="font-family:'Poppins',sans-serif"><b>Good</b><span>lugg</span></div>
+      <div class="wrap">
+        <h6>결제방법</h6>
+        <div class="opt"><i></i>신용카드</div>
+        <div class="opt"><i></i>가상계좌</div>
+        <div class="opt"><i></i>해외발급신용카드</div>
+        <div class="opt"><i></i>간편 결제</div>
+        <div class="opt"><i class="on"></i>Visa 프리미엄카드 혜택</div>
+        <ul>
+          <li class="r">* 대상 : 인피니트/시그니처 카드</li>
+          <li>* 2026년 1월 1일 ~ 2026년 12월 31일 결제</li>
+          <li class="r">* 본인 카드에 한해 캐리어1개 연1회 (고객 1인 기준) 무료<br>(배낭, 쇼핑백 등만 1개 무료 이용 불가)</li>
+          <li class="new">* 호텔명으로 검색한 호텔만 적용 (주소 입력 시 적용 불가)</li>
+          <li>* 짐 2개 이상 이용 시, 추가 짐은 20% 할인</li>
+          <li>* 20% 할인은 연간 3회까지 가능</li>
+          <li>* 플래티늄 카드는 10% 할인(연간 3회)</li>
+          <li>* 타 할인 및 쿠폰과 중복사용 불가</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const own=document.getElementById('own'),nm=document.getElementById('nm'),
+        d1=document.getElementById('d1'),d4=document.getElementById('d4'),ap=document.getElementById('apply');
+  const ok=()=>{ap.disabled=!(own.checked&&nm.value.trim()&&d1.value.length===4&&d4.value.length===4)};
+  [own,nm,d1,d4].forEach(e=>e.addEventListener('input',ok));own.addEventListener('change',ok);
+  document.getElementById('tabs').addEventListener('click',e=>{
+    const k=e.target.dataset.k;if(!k)return;
+    document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b===e.target));
+    document.querySelectorAll('[data-p]').forEach(c=>c.hidden=!(k==='all'||c.dataset.p===k));
+  });
+</script>
+</body>
+</html>
