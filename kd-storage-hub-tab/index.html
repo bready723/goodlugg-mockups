@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[국내짐배송] 트래킹 - 짐보관소 탭 목업 (2026-11-07 실데이터)</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      :root {
+        --bg: #f4f5f7;
+        --card: #ffffff;
+        --line: #e5e7eb;
+        --text: #212529;
+        --muted: #6c757d;
+        --blue: #2f5fd8;
+        --blue-soft: #e8eefc;
+        --dark: #343a40;
+        --dlv-bg: #efeafb;
+        --dlv-fg: #5b3fd3;
+        --sto-bg: #fdf0e3;
+        --sto-fg: #b5651d;
+        --kakao: #f9e04b;
+        --limo: #3b6fd6;
+        --green: #198754;
+        --green-bg: #e6f4ec;
+        --red: #d63333;
+        --red-bg: #fdecec;
+        --amber-bg: #fff6df;
+        --amber: #b36b00;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          Pretendard,
+          -apple-system,
+          "Noto Sans KR",
+          sans-serif;
+        font-size: 13px;
+        color: var(--text);
+        background: var(--bg);
+      }
+      a {
+        color: var(--blue);
+        text-decoration: none;
+      }
+      button {
+        font-family: inherit;
+      }
+      /* ---------- layout ---------- */
+      .side {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 240px;
+        background: #fff;
+        border-right: 1px solid var(--line);
+        padding: 18px 0;
+        overflow: auto;
+      }
+      .side .brand {
+        font-size: 20px;
+        font-weight: 700;
+        padding: 0 26px 18px;
+      }
+      .side .item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 26px;
+        color: #495057;
+        font-size: 14px;
+      }
+      .side .item i {
+        width: 16px;
+        text-align: center;
+        color: #868e96;
+      }
+      .side .item .chev {
+        margin-left: auto;
+        color: #adb5bd;
+        font-size: 11px;
+      }
+      .side .item.active {
+        color: var(--blue);
+        font-weight: 600;
+        background: var(--blue-soft);
+      }
+      .main {
+        margin-left: 240px;
+        padding: 24px 28px 60px;
+        min-width: 1180px;
+      }
+      h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 6px 0 16px;
+      }
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin-bottom: 14px;
+      }
+      /* ---------- filter panel ---------- */
+      .frow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 8px 0;
+        flex-wrap: wrap;
+      }
+      .frow .lbl {
+        width: 66px;
+        color: #495057;
+        font-weight: 500;
+      }
+      .sel,
+      .inp {
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        padding: 7px 10px;
+        font-size: 13px;
+        background: #fff;
+        font-family: inherit;
+        color: var(--text);
+      }
+      .sel {
+        width: 140px;
+      }
+      .inp.search {
+        width: 360px;
+      }
+      .inp.date {
+        width: 120px;
+      }
+      .chip {
+        border: 1px solid #ced4da;
+        background: #fff;
+        color: #495057;
+        border-radius: 999px;
+        padding: 5px 12px;
+        font-size: 12px;
+        cursor: pointer;
+        line-height: 1.3;
+      }
+      .chip.on {
+        background: var(--dark);
+        border-color: var(--dark);
+        color: #fff;
+      }
+      .chip.static {
+        cursor: default;
+      }
+      .quick a {
+        margin-left: 8px;
+        font-size: 12px;
+      }
+      .btn {
+        border: 1px solid #ced4da;
+        background: #fff;
+        border-radius: 6px;
+        padding: 7px 12px;
+        font-size: 12.5px;
+        cursor: pointer;
+        color: var(--text);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn.primary {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+      }
+      .btn.outline {
+        border-color: var(--blue);
+        color: var(--blue);
+      }
+      .btn.sm {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+      .btn.danger {
+        background: var(--red);
+        border-color: var(--red);
+        color: #fff;
+      }
+      .btn.ghost {
+        border-color: transparent;
+        color: var(--muted);
+      }
+      .right {
+        margin-left: auto;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      /* ---------- duty bar ---------- */
+      .duty {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+      }
+      .duty b {
+        font-weight: 600;
+      }
+      .duty .inp {
+        width: 190px;
+      }
+      .duty .note {
+        color: var(--muted);
+      }
+      /* ---------- tabs ---------- */
+      .tabs {
+        display: flex;
+        align-items: flex-end;
+        gap: 4px;
+        border-bottom: 1px solid var(--line);
+        margin: 18px 0 14px;
+      }
+      .tab {
+        padding: 10px 16px;
+        font-size: 14px;
+        color: #495057;
+        cursor: pointer;
+        border: 0;
+        background: transparent;
+        border-bottom: 3px solid transparent;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .tab.on {
+        color: var(--text);
+        font-weight: 700;
+        border-bottom-color: var(--blue);
+      }
+      .cnt {
+        background: #e9ecef;
+        color: #495057;
+        border-radius: 999px;
+        padding: 1px 8px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .cnt.red {
+        background: var(--red);
+        color: #fff;
+      }
+      .cnt.blue {
+        background: var(--blue);
+        color: #fff;
+      }
+      .tabs .right {
+        margin-bottom: 8px;
+      }
+      /* ---------- results ---------- */
+      .resbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .resbar .n {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .pill {
+        display: inline-block;
+        border-radius: 6px;
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .pill.dlv {
+        background: var(--dlv-bg);
+        color: var(--dlv-fg);
+      }
+      .pill.sto {
+        background: var(--sto-bg);
+        color: var(--sto-fg);
+      }
+      table.grid {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table.grid th {
+        text-align: left;
+        font-weight: 600;
+        color: #495057;
+        font-size: 12px;
+        padding: 10px 10px;
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+        background: #fafbfc;
+        user-select: none;
+      }
+      table.grid th.sortable {
+        cursor: pointer;
+      }
+      table.grid th.sortable::after {
+        content: "\2195";
+        color: #adb5bd;
+        margin-left: 4px;
+        font-size: 11px;
+      }
+      table.grid th.asc::after {
+        content: "\2191";
+        color: var(--blue);
+      }
+      table.grid th.desc::after {
+        content: "\2193";
+        color: var(--blue);
+      }
+      table.grid td {
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+        font-size: 12.5px;
+      }
+      table.grid tr:last-child td {
+        border-bottom: 0;
+      }
+      .bk .svc {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 1px 6px;
+        border-radius: 4px;
+        margin-bottom: 4px;
+      }
+      .svc.KD {
+        background: #e7f0ff;
+        color: #1d4ed8;
+      }
+      .svc.D2D {
+        background: #e7f0ff;
+        color: #1d4ed8;
+      }
+      .bk .no {
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.2px;
+      }
+      .trk {
+        display: inline-block;
+        margin-top: 5px;
+        font-size: 10px;
+        padding: 2px 7px;
+        border-radius: 4px;
+        background: #e9ecef;
+        color: #495057;
+        font-weight: 600;
+      }
+      .trk.DROPPED_OFF {
+        background: #fff3cd;
+        color: #8a6100;
+      }
+      .trk.PICKED_UP {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .trk.ARRIVED {
+        background: var(--green-bg);
+        color: var(--green);
+      }
+      .route {
+        white-space: nowrap;
+      }
+      .route .to {
+        color: var(--muted);
+      }
+      /* ---------- segment cards ---------- */
+      .segs {
+        display: flex;
+        gap: 8px;
+      }
+      .seg {
+        width: 170px;
+        min-height: 92px;
+        border-radius: 7px;
+        padding: 8px 10px 26px;
+        position: relative;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .seg.dlv {
+        background: var(--dlv-bg);
+      }
+      .seg.sto {
+        background: var(--sto-bg);
+      }
+      .seg .ttl {
+        font-weight: 700;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .seg.dlv .ttl {
+        color: var(--dlv-fg);
+      }
+      .seg.sto .ttl {
+        color: var(--sto-fg);
+      }
+      .seg .body {
+        color: #343a40;
+        word-break: keep-all;
+      }
+      .seg .date {
+        color: #495057;
+        margin-top: 2px;
+      }
+      .seg .date.red {
+        color: var(--red);
+        font-weight: 700;
+      }
+      .seg .notice {
+        color: #495057;
+        font-size: 11px;
+        margin-top: 4px;
+        border-top: 1px dashed rgba(0, 0, 0, 0.12);
+        padding-top: 4px;
+      }
+      .seg .foot {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 6px;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+      }
+      .tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+        background: #e9ecef;
+        color: #495057;
+        white-space: nowrap;
+      }
+      .tag.kakao {
+        background: var(--kakao);
+        color: #222;
+        margin-left: auto;
+      }
+      .tag.limo {
+        background: var(--limo);
+        color: #fff;
+        margin-left: auto;
+      }
+      .tag.own {
+        background: #20c997;
+        color: #fff;
+        margin-left: auto;
+      }
+      .tag.mgr {
+        background: #212529;
+        color: #fff;
+        margin-left: auto;
+      }
+      .tag.ok {
+        background: var(--green-bg);
+        color: var(--green);
+      }
+      .tag.auto {
+        background: #e9ecef;
+        color: #6c757d;
+      }
+      .tag.warn {
+        background: var(--red-bg);
+        color: var(--red);
+      }
+      .tag.amber {
+        background: var(--amber-bg);
+        color: var(--amber);
+      }
+      .seg .io {
+        margin-top: 3px;
+        font-size: 11.5px;
+      }
+      .seg .io b {
+        font-weight: 700;
+      }
+      .place small {
+        display: block;
+        color: var(--muted);
+        font-size: 11.5px;
+        margin-top: 2px;
+      }
+      .place .t {
+        font-weight: 600;
+      }
+      .place .t.red {
+        color: var(--red);
+      }
+      .place .t.blue {
+        color: var(--blue);
+      }
+      .flight {
+        color: var(--blue);
+        font-size: 11.5px;
+      }
+      /* ---------- storage hub tab ---------- */
+      .hubhead {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 4px 0 12px;
+      }
+      .hubhead .ttl {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .hubhead .sub {
+        color: var(--muted);
+      }
+      .hubs {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .hub {
+        text-align: left;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px 14px;
+        cursor: pointer;
+        min-height: 92px;
+        position: relative;
+      }
+      .hub:hover {
+        border-color: #adb5bd;
+      }
+      .hub.on {
+        border: 2px solid var(--blue);
+        background: #f6f8ff;
+      }
+      .hub .name {
+        font-weight: 700;
+        font-size: 13.5px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .hub .mgr {
+        margin-left: auto;
+        font-size: 10px;
+        font-weight: 600;
+        color: #6c757d;
+        background: #f1f3f5;
+        border-radius: 4px;
+        padding: 1px 6px;
+      }
+      .hub .nums {
+        display: flex;
+        gap: 12px;
+        font-size: 12px;
+        color: #495057;
+      }
+      .hub .nums b {
+        font-size: 17px;
+        font-weight: 700;
+        margin-left: 3px;
+      }
+      .hub .nums .out b {
+        color: var(--red);
+      }
+      .hub .nums .in b {
+        color: var(--blue);
+      }
+      .hub .flag {
+        margin-top: 8px;
+      }
+      .chips {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .chips .inp {
+        width: 240px;
+        padding: 5px 10px;
+      }
+      .kind {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 5px;
+        white-space: nowrap;
+      }
+      .kind.out {
+        background: var(--red-bg);
+        color: var(--red);
+      }
+      .kind.in {
+        background: #e7f0ff;
+        color: #1d4ed8;
+      }
+      .kind.hold {
+        background: var(--sto-bg);
+        color: var(--sto-fg);
+      }
+      .kind.both {
+        margin-left: 4px;
+        background: #e9ecef;
+        color: #495057;
+        font-weight: 600;
+      }
+      .time {
+        font-size: 16px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .time small {
+        display: block;
+        font-size: 10.5px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .time.none {
+        color: #adb5bd;
+        font-size: 12px;
+      }
+      tr.done td {
+        background: #f3faf6;
+      }
+      tr.risk td {
+        background: #fff7f7;
+      }
+      tr.risk td:first-child {
+        box-shadow: inset 3px 0 0 var(--red);
+      }
+      tr.done td:first-child {
+        box-shadow: inset 3px 0 0 var(--green);
+      }
+      .conf .big {
+        font-weight: 700;
+      }
+      .conf .big.ok {
+        color: var(--green);
+      }
+      .conf .big.warn {
+        color: var(--red);
+      }
+      .conf .big.auto {
+        color: #6c757d;
+      }
+      .conf .big.due {
+        color: var(--amber);
+      }
+      td.nowrap,
+      .nowrap {
+        white-space: nowrap;
+      }
+      .conf small {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .memo {
+        max-width: 230px;
+        color: #495057;
+        font-size: 11.5px;
+      }
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #212529;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+        z-index: 9;
+      }
+      .toast.show {
+        opacity: 1;
+      }
+      .legend {
+        color: var(--muted);
+        font-size: 11.5px;
+        padding: 10px 16px;
+        border-top: 1px solid var(--line);
+      }
+      .ribbon {
+        position: fixed;
+        right: 16px;
+        top: 12px;
+        background: #212529;
+        color: #fff;
+        font-size: 11px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        z-index: 9;
+        opacity: 0.85;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .w160 {
+        width: 160px;
+      }
+      .lbl2 {
+        width: auto;
+        margin-left: 10px;
+      }
+      .nopad {
+        padding: 0;
+      }
+      .pgsel {
+        width: 80px;
+        padding: 5px 8px;
+      }
+      .chipsrow {
+        padding: 12px 16px 0;
+      }
+      .sub {
+        color: #6c757d;
+      }
+      .empty {
+        padding: 30px;
+        text-align: center;
+        color: var(--muted);
+      }
+      @media print {
+        .side,
+        .panel.filters,
+        .panel.duty,
+        .tabs,
+        .ribbon,
+        .noprint {
+          display: none !important;
+        }
+        .main {
+          margin: 0;
+          padding: 0;
+          min-width: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ribbon noprint">
+      목업 · 2026-11-07 (KST) 운영 데이터, 현재 시각 13:00 가정 · 고객명 제외 · 버튼은 화면에서만 반영
+    </div>
+    <nav class="side" aria-label="사이드 메뉴">
+      <div class="brand">Goodlugg Admin</div>
+      <div class="item"><i class="bi bi-person-fill"></i>goodlugg 관리자<span class="chev">&#9013;</span></div>
+      <div class="item active"><i class="bi bi-table"></i>Booking List<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-briefcase-fill"></i>Service Operations<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-truck"></i>국내 배송사 연동<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-chat-dots-fill"></i>Ask AI<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-people-fill"></i>Users<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-shop"></i>Partner<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-ticket-perforated-fill"></i>Promotions<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-envelope-fill"></i>Hotel Email<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-chat-fill"></i>Alimtalk<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-megaphone-fill"></i>Notices<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-star-fill"></i>Reviews</div>
+      <div class="item"><i class="bi bi-house-door-fill"></i>Main Page<span class="chev">&#9013;</span></div>
+      <div class="item"><i class="bi bi-gear-fill"></i>Settings<span class="chev">&#9013;</span></div>
+    </nav>
+
+    <main class="main">
+      <h1>[국내짐배송] 트래킹</h1>
+
+      <section class="panel filters">
+        <div class="frow">
+          <select class="sel" aria-label="검색 유형">
+            <option>예약번호</option>
+            <option>고객명</option>
+            <option>전화</option>
+            <option>이메일</option>
+          </select>
+          <input type="text" class="inp search" id="q" placeholder="검색어 입력" aria-label="검색어" />
+          <div class="right">
+            <button type="button" class="btn" id="reset"><i class="bi bi-arrow-counterclockwise"></i>필터 초기화</button>
+            <button type="button" class="btn outline"><i class="bi bi-download"></i>내려받기</button>
+          </div>
+        </div>
+        <div class="frow">
+          <span class="lbl">기준</span>
+          <button type="button" class="chip static">예약 일자</button>
+          <button type="button" class="chip static on">배송 일자</button>
+          <button type="button" class="chip static">맡기는 일자</button>
+          <button type="button" class="chip static">찾는 일자</button>
+          <button type="button" class="chip static">보관 일자</button>
+          <input type="text" class="inp date" value="2026-11-07" aria-label="시작일" id="d1" />
+          <span>~</span>
+          <input type="text" class="inp date" value="2026-11-07" aria-label="종료일" id="d2" />
+          <span class="quick"><a href="#top">오늘</a><a href="#top">7일</a><a href="#top">14일</a><a href="#top">1개월</a></span>
+        </div>
+        <div class="frow">
+          <span class="lbl">서비스</span>
+          <button type="button" class="chip on" data-svc="">All</button>
+          <button type="button" class="chip" data-svc="KD">KD</button>
+          <button type="button" class="chip" data-svc="D2D">D2D</button>
+          <button type="button" class="chip static">BF</button>
+        </div>
+        <div class="frow">
+          <span class="lbl">트래킹 상태</span>
+          <button type="button" class="chip on" data-trk="">All</button>
+          <button type="button" class="chip" data-trk="NONE">NONE</button>
+          <button type="button" class="chip" data-trk="DROPPED_OFF">DROPPED_OFF</button>
+          <button type="button" class="chip" data-trk="PICKED_UP">PICKED_UP</button>
+          <button type="button" class="chip" data-trk="ARRIVED">ARRIVED</button>
+        </div>
+        <div class="frow">
+          <span class="lbl">출발 타입</span>
+          <button type="button" class="chip static on">All</button>
+          <button type="button" class="chip static">공항</button>
+          <button type="button" class="chip static">호텔</button>
+          <button type="button" class="chip static">숙소</button>
+          <button type="button" class="chip static">KTX 역</button>
+          <button type="button" class="chip static">크루즈터미널</button>
+          <button type="button" class="chip static">기타</button>
+          <input type="text" class="inp w160" placeholder="출발지 이름/주소" aria-label="출발지" />
+        </div>
+        <div class="frow">
+          <span class="lbl">도착 타입</span>
+          <button type="button" class="chip static on">All</button>
+          <button type="button" class="chip static">공항</button>
+          <button type="button" class="chip static">호텔</button>
+          <button type="button" class="chip static">숙소</button>
+          <button type="button" class="chip static">KTX 역</button>
+          <button type="button" class="chip static">크루즈터미널</button>
+          <button type="button" class="chip static">기타</button>
+          <input type="text" class="inp w160" placeholder="도착지 이름/주소" aria-label="도착지" />
+        </div>
+        <div class="frow">
+          <span class="lbl">QR 매장</span>
+          <select class="sel" aria-label="QR 매장">
+            <option>전체</option>
+            <option>더현대 서울</option>
+            <option>인천항 크루즈터미널</option>
+          </select>
+          <span class="lbl lbl2">라벨 출력</span>
+          <button type="button" class="chip static on">All</button>
+          <button type="button" class="chip static">출력됨</button>
+          <button type="button" class="chip static">미출력</button>
+        </div>
+      </section>
+
+      <section class="panel duty">
+        <b>오늘 당번 연락처</b>
+        <input type="text" class="inp" placeholder="010-1234-5678" aria-label="당번 연락처" />
+        <button type="button" class="btn primary">현재 목록에 일괄 적용</button>
+        <span class="note">카카오T 미주문 건의 픽업·드롭오프 연락처를 한 번에 변경합니다.</span>
+      </section>
+
+      <div class="tabs" id="top">
+        <button type="button" class="tab on" data-tab="list">개별 배송</button>
+        <button type="button" class="tab" data-tab="bundle">합배송 <span class="cnt">0</span></button>
+        <button type="button" class="tab" data-tab="hub">
+          짐보관소 <span class="cnt blue" id="hubCnt">0</span><span class="cnt red" id="hubUnc">미확인 0</span>
+        </button>
+        <div class="right">
+          <button type="button" class="btn primary"><i class="bi bi-plus-lg"></i>합배송 만들기</button>
+        </div>
+      </div>
+
+      <!-- ===== 개별 배송 ===== -->
+      <section class="panel nopad" id="tab-list">
+        <div class="resbar">
+          <span class="n" id="listN">0 results</span>
+          <span class="pill dlv" id="listDlv">배송 0</span>
+          <span class="pill sto" id="listSto">보관 0</span>
+          <div class="right">
+            <button type="button" class="btn primary sm"><i class="bi bi-printer"></i>오늘 출력</button>
+            <button type="button" class="btn outline sm"><i class="bi bi-printer"></i>일괄 출력</button>
+            <button type="button" class="btn sm">선택 출력</button>
+            <select class="sel pgsel" aria-label="페이지 크기">
+              <option>50</option>
+            </select>
+          </div>
+        </div>
+        <table class="grid" id="listTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="sortable" data-k="no">예약번호</th>
+              <th class="sortable" data-k="route">루트</th>
+              <th class="sortable" data-k="qty">짐</th>
+              <th>1단계</th>
+              <th>2단계</th>
+              <th>3단계</th>
+              <th>4단계</th>
+              <th class="sortable" data-k="dtm">출발</th>
+              <th class="sortable" data-k="ptm">도착</th>
+              <th>라벨</th>
+            </tr>
+          </thead>
+          <tbody id="listBody"></tbody>
+        </table>
+        <div class="legend">
+          보관 카드에 기간 대신 입고 / 출고 시각을 표시 (개선안 3.3). 확인 표시: 출고확인 = 사람이 누른 기록, 자동 = 직전
+          배송 도착 시 시스템 통과, 미확인 = 기록 없음
+        </div>
+      </section>
+
+      <!-- ===== 합배송 ===== -->
+      <section class="panel hidden" id="tab-bundle">
+        <div class="empty">11/07 합배송 0건 (운영 화면과 동일)</div>
+      </section>
+
+      <!-- ===== 짐보관소 ===== -->
+      <section class="hidden" id="tab-hub">
+        <div class="hubhead">
+          <span class="ttl" id="hubTitle">11/07 (토) 보관소 입출고</span>
+          <span class="sub" id="hubSub"></span>
+          <div class="right noprint">
+            <button type="button" class="btn outline sm" id="printBtn"><i class="bi bi-printer"></i>출고 리스트 출력</button>
+            <button type="button" class="btn primary sm"><i class="bi bi-qr-code-scan"></i>QR 스캔 입출고</button>
+          </div>
+        </div>
+        <div class="hubs" id="hubs"></div>
+        <section class="panel nopad">
+          <div class="chips chipsrow">
+            <button type="button" class="chip on" data-kind="">전체</button>
+            <button type="button" class="chip" data-kind="out">오늘 출고</button>
+            <button type="button" class="chip" data-kind="in">오늘 입고</button>
+            <button type="button" class="chip" data-kind="hold">보관중</button>
+            <button type="button" class="chip" data-kind="unc">미확인</button>
+            <button type="button" class="chip" data-kind="auto">자동 통과</button>
+            <input type="text" class="inp" id="hubQ" placeholder="예약번호 / 호텔 검색" aria-label="보관소 검색" />
+            <span class="sub" id="hubRows"></span>
+          </div>
+          <table class="grid" id="hubTable">
+            <thead>
+              <tr>
+                <th class="sortable" data-k="kind">구분</th>
+                <th class="sortable asc" data-k="time" id="thTime">예정 시각</th>
+                <th class="sortable" data-k="hub">보관소</th>
+                <th class="sortable" data-k="no">예약번호</th>
+                <th class="sortable" data-k="qty">짐</th>
+                <th class="sortable" data-k="from">어디서 (직전 구간)</th>
+                <th class="sortable" data-k="to" id="thTo">어디로 (다음 구간)</th>
+                <th class="sortable" data-k="period">보관 기간</th>
+                <th class="sortable" data-k="conf" id="thConf">확인</th>
+                <th>전달사항</th>
+                <th class="noprint">액션</th>
+              </tr>
+            </thead>
+            <tbody id="hubBody"></tbody>
+          </table>
+          <div class="legend">
+            예정 시각 산출: 출고 = 다음 구간 카카오T 픽업 희망시각, 마지막 보관이면 고객 찾는 시각(창 시작). 입고 = 직전 배송
+            도착 시각(이벤트), 없으면 카카오T 픽업 희망시각 / 맡기는 시각. 시각을 못 만든 건은 맨 아래. 확인 열: 사람이 누른
+            입고 / 출고확인(계정)만 완료로 집계, 자동 통과는 별도 표기. 배송 일자 필터에 안 잡히는 보관중 건도 포함.
+          </div>
+        </section>
+      </section>
+    </main>
+    <div class="toast" id="toast"></div>
+
+    <script id="data" type="application/json">
+      {"date":"2026-11-07","hubs":[{"key":"COEX","name":"코엑스 러기지센터","manager":"Seoul2024"},{"key":"CALT","name":"도심공항터미널","manager":"CALT"},{"key":"ICN1","name":"인천공항 T1","manager":"Seoul2024"},{"key":"ICN2","name":"인천공항 T2","manager":"Seoul2024"},{"key":"ZDSEL","name":"제로데이 서울경부","manager":null},{"key":"ZDPUS","name":"제로데이 부산","manager":null},{"key":"ZDICN","name":"제로데이 인천","manager":null},{"key":"ZDGJ","name":"제로데이 경주","manager":null},{"key":"CGV","name":"CGV 명동","manager":"Seoul2024"},{"key":"GMP","name":"김포공항","manager":null},{"key":"CJU","name":"제주공항 화물터미널","manager":null}],"bookings":[{"svc":"KD","no":"FD9H3R7PVK","qty":2,"dep_type":"hotel","dep_name":"호텔 휘겔리","arr_type":"hotel","arr_name":"Jongno The Stay Korea","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-08","ptm":"By 15:00","flight":"","handover":null,"dep_display":"호텔 휘겔리","arr_display":"Jongno The Stay Korea","route_from":"부산","route_to":"서울","in_admin_list":true,"admin_order":1,"segs":[{"id":"8913","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"호텔 휘겔리","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8914","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"제로데이 서울경부","to":"제로데이 서울경부","hub":"ZDSEL","sd":"2026-11-07","ed":"2026-11-08","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":false,"holding":false},{"id":"8915","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 서울경부","to":"Jongno The Stay Korea","hub":null,"sd":null,"ed":null,"td":"2026-11-08","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"D2D","no":"3NW0NS3AX2","qty":8,"dep_type":"STAY","dep_name":"6-9","arr_type":"AIRPORT","arr_name":"Incheon Airport Terminal 1","dd":"2026-11-07","dtm":"09:00","pd":"2026-11-07","ptm":"20:00-21:00","flight":"5J187 2026-11-08 02:15","handover":"MEET","dep_display":"숙소 (종로구)","arr_display":"Incheon Airport Terminal 1","route_from":"서울","route_to":"인천T1","in_admin_list":true,"admin_order":2,"segs":[{"id":"2337","order":1,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"숙소 (종로구)","to":"코엑스 러기지센터","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":{"status":"MATCHING","wish":"09:00","picker":false},"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"2345","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"코엑스 러기지센터","to":"코엑스 러기지센터","hub":"COEX","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":"09:00","in_src":"카카오T 픽업희망","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":true,"holding":false},{"id":"2346","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T1","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"2338","order":4,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T1","to":"인천공항 T1","hub":"ICN1","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"20:00","out_src":"고객 찾는 시각","is_last":true,"in_today":true,"out_today":true,"holding":false}],"tracking":"DROPPED_OFF"},{"svc":"D2D","no":"Q6CDAZ267J","qty":3,"dep_type":"STAY","dep_name":"81","arr_type":"AIRPORT","arr_name":"Incheon Airport Terminal 1","dd":"2026-11-07","dtm":"09:00","pd":"2026-11-07","ptm":"16:00-17:00","flight":"UA892 2026-11-07 18:00","handover":"MEET","dep_display":"숙소 (종로구)","arr_display":"Incheon Airport Terminal 1","route_from":"서울","route_to":"인천T1","in_admin_list":true,"admin_order":3,"segs":[{"id":"2331","order":1,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"숙소 (종로구)","to":"도심공항터미널","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":{"status":"MATCHED","wish":"09:00","picker":true},"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"2332","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"도심공항터미널","to":"도심공항터미널","hub":"CALT","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":"09:00","in_src":"카카오T 픽업희망","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":true,"holding":false},{"id":"2333","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T1","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"2334","order":4,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T1","to":"인천공항 T1","hub":"ICN1","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"16:00","out_src":"고객 찾는 시각","is_last":true,"in_today":true,"out_today":true,"holding":false}],"tracking":"DROPPED_OFF"},{"svc":"KD","no":"497LO3ZHPP","qty":3,"dep_type":"hotel","dep_name":"SIGNIEL BUSAN","arr_type":"hotel","arr_name":"Grand InterContinental Seoul Parnas","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":null,"dep_display":"SIGNIEL BUSAN","arr_display":"Grand InterContinental Seoul Parnas","route_from":"부산","route_to":"서울","in_admin_list":true,"admin_order":4,"segs":[{"id":"8904","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"시그니엘 부산","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8905","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 서울경부","to":"숙소 (강남구)","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"KD","no":"AILR962IPB","qty":2,"dep_type":"hotel","dep_name":"L7 Hongdae","arr_type":"hotel","arr_name":"Arban Hotel","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":null,"dep_display":"L7 Hongdae","arr_display":"Arban Hotel","route_from":"서울","route_to":"부산","in_admin_list":true,"admin_order":5,"segs":[{"id":"8902","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"L7 홍대","to":"제로데이 서울경부","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8903","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 부산","to":"아르반호텔","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"KD","no":"JD51W5GV5J","qty":3,"dep_type":"hotel","dep_name":"LOTTE HOTEL WORLD","arr_type":"airport","arr_name":"Incheon Airport Terminal 2","dd":"2026-11-07","dtm":"Before 11:00","pd":"2026-11-07","ptm":"17:00-18:00","flight":"KE659 2026-11-07 20:15","handover":"intercon","dep_display":"LOTTE HOTEL WORLD","arr_display":"Incheon Airport Terminal 2","route_from":"서울","route_to":"인천T2","in_admin_list":true,"admin_order":6,"segs":[{"id":"8896","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"롯데호텔 월드","to":"도심공항터미널","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8897","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"도심공항터미널","to":"도심공항터미널","hub":"CALT","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":true,"holding":false},{"id":"8898","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T2","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8899","order":4,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T2","to":"인천공항 T2","hub":"ICN2","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"17:00","out_src":"고객 찾는 시각","is_last":true,"in_today":true,"out_today":true,"holding":false}],"tracking":"NONE"},{"svc":"D2D","no":"PF33O5MVF2","qty":6,"dep_type":"HOTEL","dep_name":"Grand Hyatt Jeju","arr_type":"HOTEL","arr_name":"Josun Palace, A Luxury Collection Hotel, Seoul Gangnam","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":"DESK","dep_display":"Grand Hyatt Jeju","arr_display":"Josun Palace, A Luxury Collection Hotel, Seoul Gangnam","route_from":"제주","route_to":"서울","in_admin_list":true,"admin_order":7,"segs":[{"id":"2311","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"그랜드 하얏트 제주","to":"제주공항 화물터미널","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"2312","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"김포공항","to":"조선 팰리스 서울 강남","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"KD","no":"794LAG68G0","qty":2,"dep_type":"hotel","dep_name":"Park Hyatt Busan","arr_type":"hotel","arr_name":"Sofitel Ambassador Seoul Hotel & Serviced Residences","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":null,"dep_display":"Park Hyatt Busan","arr_display":"Sofitel Ambassador Seoul Hotel & Serviced Residences","route_from":"부산","route_to":"서울","in_admin_list":true,"admin_order":8,"segs":[{"id":"8881","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"파크 하얏트 부산","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8882","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 서울경부","to":"소피텔 앰배서더 서울 호텔 & 서비스드 레지던스","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"D2D","no":"H75J9I782B","qty":1,"dep_type":"HOTEL","dep_name":"L7 HAEUNDAE","arr_type":"AIRPORT","arr_name":"Incheon Airport Terminal 2","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-09","ptm":"10:00-11:00","flight":"DL7837 2026-11-09 16:10","handover":"DESK","dep_display":"L7 HAEUNDAE","arr_display":"Incheon Airport Terminal 2","route_from":"부산","route_to":"인천T2","in_admin_list":true,"admin_order":9,"segs":[{"id":"2302","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"L7 해운대바이롯데","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":"인천으로 올릴거라서 천일 제외하고 보내달라는 내용 카카오T 전달사항 반영 완료.","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"2303","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 인천","to":"인천공항 T2","hub":null,"sd":null,"ed":null,"td":"2026-11-08","notice":"고객 9일 오전 픽업이니 8일 오후에는 T2 도착하도록 배차 넣어주세요.","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"2304","order":3,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T2","to":"인천공항 T2","hub":"ICN2","sd":"2026-11-08","ed":"2026-11-09","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"10:00","out_src":"고객 찾는 시각","is_last":true,"in_today":false,"out_today":false,"holding":false}],"tracking":"NONE"},{"svc":"KD","no":"I51D91IWH1","qty":3,"dep_type":"hotel","dep_name":"Busan Seomyeon Nestly Hotel","arr_type":"hotel","arr_name":"Stayrak Hotel","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-09","ptm":"By 15:00","flight":"","handover":null,"dep_display":"Busan Seomyeon Nestly Hotel","arr_display":"Stayrak Hotel","route_from":"부산","route_to":"서울","in_admin_list":true,"admin_order":10,"segs":[{"id":"8866","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"네스트리 호텔","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8867","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"제로데이 서울경부","to":"제로데이 서울경부","hub":"ZDSEL","sd":"2026-11-07","ed":"2026-11-09","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":false,"holding":false},{"id":"8868","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 서울경부","to":"스테이락 호텔","hub":null,"sd":null,"ed":null,"td":"2026-11-09","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"KD","no":"HMSYT4U681","qty":2,"dep_type":"hotel","dep_name":"Hotel Skypark Myeongdong III","arr_type":"hotel","arr_name":"Hound Hotel Busan Station","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":null,"dep_display":"Hotel Skypark Myeongdong III","arr_display":"Hound Hotel Busan Station","route_from":"서울","route_to":"부산","in_admin_list":true,"admin_order":11,"segs":[{"id":"8783","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"호텔스카이파크 명동3호점","to":"제로데이 서울경부","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8784","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 부산","to":"하운드호텔 부산역","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"KD","no":"JDST133N4M","qty":1,"dep_type":"airport","dep_name":"仁川国際空港 第1ターミナル","arr_type":"hotel","arr_name":"Gold River Hotel","dd":"2026-11-07","dtm":"12:00-13:00","pd":"2026-11-07","ptm":"By 20:00","flight":"TW248 2026-11-07 11:50","handover":null,"dep_display":"仁川国際空港 第1ターミナル","arr_display":"Gold River Hotel","route_from":"인천T1","route_to":"서울","in_admin_list":true,"admin_order":12,"segs":[{"id":"8750","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"공항리무진","from":"인천공항 T1","to":"도심공항터미널","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8751","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"도심공항터미널","to":"도심공항터미널","hub":"CALT","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":true,"holding":false},{"id":"8752","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"도심공항터미널","to":"골드리버호텔","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"KD","no":"1C1Q8QNAKH","qty":2,"dep_type":"hotel","dep_name":"Courtyard by Marriott Seoul Myeongdong","arr_type":"hotel","arr_name":"Park Hyatt Busan","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":null,"dep_display":"Courtyard by Marriott Seoul Myeongdong","arr_display":"Park Hyatt Busan","route_from":"서울","route_to":"부산","in_admin_list":true,"admin_order":13,"segs":[{"id":"8587","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"Courtyard by Marriott Seoul Namdaemun","to":"제로데이 서울경부","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8588","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 부산","to":"파크 하얏트 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":"11/7 불꽃놀이문제호텔","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"KD","no":"5VY5MJT73H","qty":2,"dep_type":"airport","dep_name":"Incheon Airport Terminal 2","arr_type":"hotel","arr_name":"LOTTE City Hotel Gimpo Airport","dd":"2026-11-07","dtm":"08:00-09:00","pd":"2026-11-07","ptm":"By 20:00","flight":"KE428 2026-11-07 07:15","handover":null,"dep_display":"Incheon Airport Terminal 2","arr_display":"LOTTE City Hotel Gimpo Airport","route_from":"인천T2","route_to":"김포","in_admin_list":true,"admin_order":14,"segs":[{"id":"8578","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"공항리무진","from":"인천공항 T2","to":"도심공항터미널","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8579","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"도심공항터미널","to":"도심공항터미널","hub":"CALT","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":true,"holding":false},{"id":"8580","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"도심공항터미널","to":"김포공항","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"KD","no":"MRMCDC60B6","qty":1,"dep_type":"hotel","dep_name":"HOP INN Seoul Myeongdong","arr_type":"airport","arr_name":"仁川国際空港 第2ターミナル","dd":"2026-11-07","dtm":"Before 11:00","pd":"2026-11-07","ptm":"16:00-17:00","flight":"KE705 2026-11-07 18:45","handover":null,"dep_display":"HOP INN Seoul Myeongdong","arr_display":"仁川国際空港 第2ターミナル","route_from":"서울","route_to":"인천T2","in_admin_list":true,"admin_order":15,"segs":[{"id":"7668","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"홉인 서울 명동","to":"도심공항터미널","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"7669","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"도심공항터미널","to":"도심공항터미널","hub":"CALT","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":true,"holding":false},{"id":"7670","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T2","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"7671","order":4,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T2","to":"인천공항 T2","hub":"ICN2","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"16:00","out_src":"고객 찾는 시각","is_last":true,"in_today":true,"out_today":true,"holding":false}],"tracking":"NONE"},{"svc":"KD","no":"KR0URJ2U69","qty":1,"dep_type":"hotel","dep_name":"HOP INN Seoul Myeongdong","arr_type":"airport","arr_name":"仁川国際空港 第2ターミナル","dd":"2026-11-07","dtm":"Before 11:00","pd":"2026-11-07","ptm":"16:00-17:00","flight":"KE705 2026-11-07 18:55","handover":null,"dep_display":"HOP INN Seoul Myeongdong","arr_display":"仁川国際空港 第2ターミナル","route_from":"서울","route_to":"인천T2","in_admin_list":true,"admin_order":16,"segs":[{"id":"7657","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"홉인 서울 명동","to":"도심공항터미널","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"7658","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"도심공항터미널","to":"도심공항터미널","hub":"CALT","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":true,"holding":false},{"id":"7659","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T2","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"7660","order":4,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T2","to":"인천공항 T2","hub":"ICN2","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"16:00","out_src":"고객 찾는 시각","is_last":true,"in_today":true,"out_today":true,"holding":false}],"tracking":"NONE"},{"svc":"KD","no":"UH06AAG6IL","qty":2,"dep_type":"hotel","dep_name":"Hotel Cappuccino","arr_type":"hotel","arr_name":"Haerium Hotel","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"After 22:00","flight":"","handover":null,"dep_display":"Hotel Cappuccino","arr_display":"Haerium Hotel","route_from":"서울","route_to":"부산","in_admin_list":true,"admin_order":17,"segs":[{"id":"7085","order":1,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"Hotel Cappuccino","to":"제로데이 서울경부","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"7086","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 부산","to":"해리움호텔","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"NONE"},{"svc":"KD","no":"229575C8S5","qty":2,"dep_type":"hotel","dep_name":"Grand Josun Busan","arr_type":"hotel","arr_name":"Hotel The Botanik Sewoon","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":null,"dep_display":"Grand Josun Busan","arr_display":"Hotel The Botanik Sewoon","route_from":"부산","route_to":"서울","in_admin_list":true,"admin_order":18,"segs":[{"id":"8842","order":1,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"그랜드 조선 부산","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8843","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 서울경부","to":"호텔 더 보타닉 세운 명동","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"DROPPED_OFF"},{"svc":"KD","no":"VHYFCU9LF6","qty":4,"dep_type":"hotel","dep_name":"Arban Hotel","arr_type":"hotel","arr_name":"New Blanc Central Myeongdong","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":null,"dep_display":"Arban Hotel","arr_display":"New Blanc Central Myeongdong","route_from":"부산","route_to":"서울","in_admin_list":true,"admin_order":19,"segs":[{"id":"8798","order":1,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"아르반호텔","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":"와티: Manu Marco","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8799","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 서울경부","to":"뉴블랑 센트럴 명동","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"DROPPED_OFF"},{"svc":"KD","no":"3FV5GS6E9E","qty":1,"dep_type":"hotel","dep_name":"Park Hyatt Busan","arr_type":"hotel","arr_name":"Park Hyatt Seoul","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":null,"dep_display":"Park Hyatt Busan","arr_display":"Park Hyatt Seoul","route_from":"부산","route_to":"서울","in_admin_list":true,"admin_order":20,"segs":[{"id":"8720","order":1,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"파크 하얏트 부산","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8721","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 서울경부","to":"파크 하얏트 서울","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"DROPPED_OFF"},{"svc":"KD","no":"XL0WIK5544","qty":6,"dep_type":"hotel","dep_name":"Baymond Hotel","arr_type":"hotel","arr_name":"Sejong Hotel","dd":"2026-11-07","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 22:00","flight":"","handover":null,"dep_display":"Baymond Hotel","arr_display":"Sejong Hotel","route_from":"부산","route_to":"서울","in_admin_list":true,"admin_order":21,"segs":[{"id":"8561","order":1,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"베이몬드호텔","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8562","order":2,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 서울경부","to":"세종호텔","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"DROPPED_OFF"},{"svc":"KD","no":"G4Y6J8S58H","qty":2,"dep_type":"hotel","dep_name":"Aventa hotel","arr_type":"hotel","arr_name":"ibis Styles Ambassador Seoul Myeongdong","dd":"2026-11-07","dtm":"Before 11:00","pd":"2026-11-08","ptm":"After 15:00","flight":"","handover":null,"dep_display":"Aventa hotel","arr_display":"ibis Styles Ambassador Seoul Myeongdong","route_from":"Aventa","route_to":"서울","in_admin_list":true,"admin_order":22,"segs":[{"id":"6577","order":1,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"제로데이 경주","to":"제로데이 경주","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"6578","order":2,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"제로데이 서울경부","to":"제로데이 서울경부","hub":"ZDSEL","sd":"2026-11-07","ed":"2026-11-08","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":true,"out_today":false,"holding":false},{"id":"6579","order":3,"type":"DELIVERY","status":"PENDING","status_ko":"대기","drv":"카카오T","from":"제로데이 서울경부","to":"이비스 스타일 앰배서더 서울 명동","hub":null,"sd":null,"ed":null,"td":"2026-11-08","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"DROPPED_OFF"},{"svc":"KD","no":"0S4H620D3Y","qty":2,"dep_type":"hotel","dep_name":"Ramada Encore by Wyndham Busan Haeundae","arr_type":"hotel","arr_name":"Hotel The Botanik Sewoon","dd":"2026-11-06","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 15:00","flight":"","handover":null,"dep_display":"Ramada Encore by Wyndham Busan Haeundae","arr_display":"Hotel The Botanik Sewoon","route_from":"부산","route_to":"서울","in_admin_list":true,"admin_order":23,"segs":[{"id":"8869","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"라마다 앙코르 바이 윈덤 부산 해운대","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-06","notice":null,"kakao":{"status":"COMPLETED","wish":"09:32","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-06 10:17:43"},"picked_up":{"who":"SYSTEM","at":"2026-11-06 09:32:44"}},{"id":"8870","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"제로데이 서울경부","to":"제로데이 서울경부","hub":"ZDSEL","sd":"2026-11-06","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-06 10:17:43"},"arrived":null,"picked_up":null,"in_time":"10:17","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":true,"holding":false},{"id":"8871","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"제로데이 서울경부","to":"호텔 더 보타닉 세운 명동","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"PICKED_UP"},{"svc":"KD","no":"H08148G4QV","qty":4,"dep_type":"hotel","dep_name":"Holiday Inn Express Seoul Hongdae by IHG","arr_type":"hotel","arr_name":"BUSAN GWANGALLI HOTEL RYOKAN BADADA","dd":"2026-11-06","dtm":"Before 10:00","pd":"2026-11-07","ptm":"By 15:00","flight":"","handover":null,"dep_display":"Holiday Inn Express Seoul Hongdae by IHG","arr_display":"BUSAN GWANGALLI HOTEL RYOKAN BADADA","route_from":"서울","route_to":"부산","in_admin_list":true,"admin_order":24,"segs":[{"id":"8850","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"홀리데이 인 익스프레스 서울 홍대","to":"제로데이 서울경부","hub":null,"sd":null,"ed":null,"td":"2026-11-06","notice":null,"kakao":{"status":"COMPLETED","wish":"","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-06 10:36:02"},"picked_up":{"who":"SYSTEM","at":"2026-11-06 09:25:32"}},{"id":"8851","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"제로데이 부산","to":"제로데이 부산","hub":"ZDPUS","sd":"2026-11-06","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-06 10:36:02"},"arrived":null,"picked_up":null,"in_time":"10:36","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":true,"holding":false},{"id":"8852","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"제로데이 부산","to":"부산 광안리 호텔 료칸 바다다","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"PICKED_UP"},{"svc":"KD","no":"VMA79CB06X","qty":1,"dep_type":"airport","dep_name":"Incheon Airport Terminal 2","arr_type":"hotel","arr_name":"Crown Park Hotel Seoul","dd":"2026-11-05","dtm":"08:00-09:00","pd":"2026-11-07","ptm":"By 15:00","flight":"OZ752 2026-11-05 05:10","handover":null,"dep_display":"Incheon Airport Terminal 2","arr_display":"Crown Park Hotel Seoul","route_from":"인천T2","route_to":"서울","in_admin_list":true,"admin_order":25,"segs":[{"id":"8812","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"공항리무진","from":"인천공항 T2","to":"도심공항터미널","hub":null,"sd":null,"ed":null,"td":"2026-11-05","notice":"도심도착후, 코엑스 옮겨 보관예정","kakao":null,"received":null,"dispatched":null,"arrived":{"who":"eunhye","at":"2026-11-05 11:19:04"},"picked_up":{"who":"sihoon","at":"2026-11-05 08:17:52"}},{"id":"8813","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"코엑스 러기지센터","to":"코엑스 러기지센터","hub":"COEX","sd":"2026-11-05","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-05 11:19:04"},"arrived":null,"picked_up":null,"in_time":"11:19","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":true,"holding":false},{"id":"8814","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"코엑스 러기지센터","to":"크라운 파크 호텔 서울","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":"계단 아래 보관 중","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"PICKED_UP"},{"svc":"D2D","no":"G6CEXL346X","qty":4,"dep_type":"STAY","dep_name":"MORU","arr_type":"AIRPORT","arr_name":"Incheon Airport Terminal 1","dd":"2026-11-03","dtm":"08:00","pd":"2026-11-07","ptm":"20:00-21:00","flight":"QR859 2026-11-08 00:20","handover":"MEET","dep_display":"모루","arr_display":"Incheon Airport Terminal 1","route_from":"부산","route_to":"인천T1","in_admin_list":true,"admin_order":26,"segs":[{"id":"2180","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"모루","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-03","notice":"PayPal 정상화 후 고객에게 결제 안내 부탁드립니다. (와티: Novozamsky)","kakao":{"status":"COMPLETED","wish":"08:00","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-03 08:43:08"},"picked_up":{"who":"SYSTEM","at":"2026-11-03 07:43:17"}},{"id":"2181","order":2,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"제로데이 서울경부","to":"코엑스 러기지센터","hub":null,"sd":null,"ed":null,"td":"2026-11-03","notice":"코엑스보관(11/3~11/7)","kakao":{"status":"COMPLETED","wish":"15:30","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-03 16:12:33"},"picked_up":{"who":"SYSTEM","at":"2026-11-03 15:19:27"}},{"id":"2194","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T1","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":"11/7 인천스탭 확인 후 코엑스 스탭은 오전 중 도심공항 전달 바랍니다.","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"2182","order":4,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T1","to":"인천공항 T1","hub":"ICN1","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"20:00","out_src":"고객 찾는 시각","is_last":true,"in_today":true,"out_today":true,"holding":false}],"tracking":"PICKED_UP"},{"svc":"KD","no":"U0O6139F73","qty":1,"dep_type":"goodlugg_station","dep_name":"CGV Myeongdong (Noon Square)","arr_type":"airport","arr_name":"Incheon Airport Terminal 2","dd":"2026-10-31","dtm":"10:30-11:00","pd":"2026-11-07","ptm":"20:00-21:00","flight":"SK988 2026-11-07 23:45","handover":null,"dep_display":"CGV Myeongdong (Noon Square)","arr_display":"Incheon Airport Terminal 2","route_from":"CGV My","route_to":"인천T2","in_admin_list":true,"admin_order":27,"segs":[{"id":"8242","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"CGV 명동","to":"코엑스 러기지센터","hub":null,"sd":null,"ed":null,"td":"2026-10-31","notice":"왼쪽 라커 / 비밀번호 6935","kakao":null,"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-10-31 13:02:31"},"picked_up":{"who":"SYSTEM","at":"2026-10-31 11:31:53"}},{"id":"8243","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"코엑스 러기지센터","to":"코엑스 러기지센터","hub":"COEX","sd":"2026-10-31","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-10-31 13:02:31"},"arrived":null,"picked_up":null,"in_time":"13:02","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":true,"holding":false},{"id":"8244","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T2","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":"11/7 인천스탭 확인 후 도심공항 전달 바랍니다.","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8245","order":4,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T2","to":"인천공항 T2","hub":"ICN2","sd":"2026-11-07","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"20:00","out_src":"고객 찾는 시각","is_last":true,"in_today":true,"out_today":true,"holding":false}],"tracking":"PICKED_UP"},{"svc":"KD","no":"N9033C1H48","qty":1,"dep_type":"hotel","dep_name":"롯데호텔 월드","arr_type":"airport","arr_name":"Incheon Airport Terminal 2","dd":"2026-11-03","dtm":"Before 11:00","pd":"2026-11-08","ptm":"11:00-12:00","flight":"KE023 2026-11-08 16:00","handover":null,"dep_display":"롯데호텔 월드","arr_display":"Incheon Airport Terminal 2","route_from":"서울","route_to":"인천T2","in_admin_list":true,"admin_order":28,"segs":[{"id":"7776","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"롯데호텔 월드","to":"코엑스 러기지센터","hub":null,"sd":null,"ed":null,"td":"2026-11-03","notice":null,"kakao":{"status":"COMPLETED","wish":"09:19","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-03 10:02:15"},"picked_up":{"who":"SYSTEM","at":"2026-11-03 09:25:32"}},{"id":"7777","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"코엑스 러기지센터","to":"코엑스 러기지센터","hub":"COEX","sd":"2026-11-03","ed":"2026-11-07","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-03 10:02:15"},"arrived":null,"picked_up":null,"in_time":"10:02","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":true,"holding":false},{"id":"7778","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T2","hub":null,"sd":null,"ed":null,"td":"2026-11-07","notice":"전날 오전 차로 공항 발송","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"7779","order":4,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T2","to":"인천공항 T2","hub":"ICN2","sd":"2026-11-07","ed":"2026-11-08","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"11:00","out_src":"고객 찾는 시각","is_last":true,"in_today":true,"out_today":false,"holding":false}],"tracking":"PICKED_UP"},{"svc":"D2D","no":"15GF08Z1M5","qty":2,"dep_type":"STAY","dep_name":"156-1","arr_type":"STAY","arr_name":"신흥로3길 51-6 2 층","dd":"2026-10-31","dtm":"10:00","pd":"2026-11-10","ptm":"By 15:00","flight":"MU8604","handover":"MEET","dep_display":"숙소 (수영구)","arr_display":"숙소 (용산구)","route_from":"부산","route_to":"서울","in_admin_list":false,"admin_order":999,"segs":[{"id":"2111","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"숙소 (수영구)","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-10-31","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-10-31 10:29:54"},"picked_up":{"who":"SYSTEM","at":"2026-10-31 09:56:03"}},{"id":"2128","order":2,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"제로데이 서울경부","to":"코엑스 러기지센터","hub":null,"sd":null,"ed":null,"td":"2026-10-31","notice":"16시픽업위시타임","kakao":null,"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-10-31 17:07:11"},"picked_up":{"who":"SYSTEM","at":"2026-10-31 16:04:39"}},{"id":"2112","order":3,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"코엑스 러기지센터","to":"코엑스 러기지센터","hub":"COEX","sd":"2026-10-31","ed":"2026-11-10","td":null,"notice":null,"kakao":null,"received":{"who":"eunhye","at":"2026-10-31 10:49:22"},"dispatched":{"who":"SYSTEM","at":"2026-10-31 17:07:11"},"arrived":null,"picked_up":null,"in_time":"17:07","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":false,"holding":true},{"id":"2113","order":4,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"코엑스 러기지센터","to":"숙소 (용산구)","hub":null,"sd":null,"ed":null,"td":"2026-11-10","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"PICKED_UP"},{"svc":"KD","no":"56BX3C0OH1","qty":1,"dep_type":"hotel","dep_name":"UH Continental SeoulCenter","arr_type":"airport","arr_name":"Incheon Airport Terminal 1","dd":"2026-11-05","dtm":"Before 11:00","pd":"2026-11-09","ptm":"17:00-18:00","flight":"AS120 2026-11-09 20:00","handover":null,"dep_display":"UH Continental SeoulCenter","arr_display":"Incheon Airport Terminal 1","route_from":"서울","route_to":"인천T1","in_admin_list":false,"admin_order":999,"segs":[{"id":"8703","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"숙소 (중구)","to":"코엑스 러기지센터","hub":null,"sd":null,"ed":null,"td":"2026-11-05","notice":"와티: Lisa (비자결제실패,수동결제로 예약확정처리)","kakao":{"status":"COMPLETED","wish":"11:06","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-05 12:16:36"},"picked_up":{"who":"SYSTEM","at":"2026-11-05 11:09:24"}},{"id":"8704","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"코엑스 러기지센터","to":"코엑스 러기지센터","hub":"COEX","sd":"2026-11-05","ed":"2026-11-09","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-05 12:16:36"},"arrived":null,"picked_up":null,"in_time":"12:16","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":false,"holding":true},{"id":"8705","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T1","hub":null,"sd":null,"ed":null,"td":"2026-11-09","notice":"11/9 코엑스 스탭은 인천스탭 확인 후 도심공항 전달 바랍니다.","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null},{"id":"8706","order":4,"type":"STORAGE","status":"PENDING","status_ko":"대기","drv":null,"from":"인천공항 T1","to":"인천공항 T1","hub":"ICN1","sd":"2026-11-09","ed":"2026-11-09","td":null,"notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null,"in_time":null,"in_src":"직전 구간 미도착","out_time":"17:00","out_src":"고객 찾는 시각","is_last":true,"in_today":false,"out_today":false,"holding":false}],"tracking":"PICKED_UP"},{"svc":"D2D","no":"5V004E0JOS","qty":4,"dep_type":"HOTEL","dep_name":"JK Blossom Hotel","arr_type":"HOTEL","arr_name":"Hotel Marinabay Seoul","dd":"2026-11-06","dtm":"Before 10:00","pd":"2026-11-21","ptm":"By 15:00","flight":"","handover":"DESK","dep_display":"JK Blossom Hotel","arr_display":"Hotel Marinabay Seoul","route_from":"서울","route_to":"서울","in_admin_list":false,"admin_order":999,"segs":[{"id":"2299","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"CU 염창JK블라썸호텔점","to":"코엑스 러기지센터","hub":null,"sd":null,"ed":null,"td":"2026-11-06","notice":null,"kakao":{"status":"COMPLETED","wish":"","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-06 12:48:37"},"picked_up":{"who":"SYSTEM","at":"2026-11-06 10:37:06"}},{"id":"2300","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"코엑스 러기지센터","to":"코엑스 러기지센터","hub":"COEX","sd":"2026-11-06","ed":"2026-11-21","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-06 12:48:37"},"arrived":null,"picked_up":null,"in_time":"12:48","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":false,"holding":true},{"id":"2301","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"코엑스 러기지센터","to":"호텔 마리나베이 서울","hub":null,"sd":null,"ed":null,"td":"2026-11-21","notice":"코엑스 계단 밑에 보관중입니다.","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"PICKED_UP"},{"svc":"KD","no":"6Y8732F3M5","qty":1,"dep_type":"hotel","dep_name":"WECO STAY Gangnam","arr_type":"airport","arr_name":"Incheon Airport Terminal 2","dd":"2026-10-01","dtm":"Before 11:00","pd":"2026-11-19","ptm":"18:00-19:00","flight":"DL7853 2026-11-19 21:50","handover":null,"dep_display":"WECO STAY Gangnam","arr_display":"Incheon Airport Terminal 2","route_from":"서울","route_to":"인천T2","in_admin_list":false,"admin_order":999,"segs":[{"id":"6426","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"위코스테이 강남","to":"도심공항터미널","hub":null,"sd":null,"ed":null,"td":"2026-10-01","notice":"318호 앞 픽업 요청","kakao":null,"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-10-01 11:56:37"},"picked_up":{"who":"SYSTEM","at":"2026-10-01 11:27:46"}},{"id":"6427","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"도심공항터미널","to":"도심공항터미널","hub":"CALT","sd":"2026-10-01","ed":"2026-10-01","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-10-01 11:56:37"},"arrived":null,"picked_up":null,"in_time":"11:56","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":false,"holding":false},{"id":"6428","order":3,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"공항리무진","from":"도심공항터미널","to":"인천공항 T2","hub":null,"sd":null,"ed":null,"td":"2026-10-01","notice":"13:50출발(9385)","kakao":null,"received":null,"dispatched":null,"arrived":{"who":"sihoon","at":"2026-10-01 15:31:28"},"picked_up":{"who":"eunhye","at":"2026-10-01 14:35:54"}},{"id":"6429","order":4,"type":"STORAGE","status":"IN_STORAGE","status_ko":"입고 완료","drv":null,"from":"인천공항 T2","to":"인천공항 T2","hub":"ICN2","sd":"2026-10-01","ed":"2026-11-19","td":null,"notice":null,"kakao":null,"received":{"who":"SYSTEM","at":"2026-10-01 15:31:28"},"dispatched":null,"arrived":null,"picked_up":null,"in_time":"15:31","in_src":"직전 배송 도착","out_time":"18:00","out_src":"고객 찾는 시각","is_last":true,"in_today":false,"out_today":false,"holding":true}],"tracking":"ARRIVED"},{"svc":"KD","no":"70E706SBI8","qty":3,"dep_type":"hotel","dep_name":"Ramada Encore by Wyndham Busan Station","arr_type":"hotel","arr_name":"Rian Hotel","dd":"2026-11-06","dtm":"Before 10:00","pd":"2026-11-08","ptm":"By 15:00","flight":"","handover":null,"dep_display":"Ramada Encore by Wyndham Busan Station","arr_display":"Rian Hotel","route_from":"부산","route_to":"서울","in_admin_list":false,"admin_order":999,"segs":[{"id":"8686","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"라마다 앙코르 바이 윈덤 부산역","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-06","notice":"합배송1(윈덤부산)","kakao":null,"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-06 11:16:26"},"picked_up":{"who":"SYSTEM","at":"2026-11-06 10:12:47"}},{"id":"8687","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"제로데이 서울경부","to":"제로데이 서울경부","hub":"ZDSEL","sd":"2026-11-06","ed":"2026-11-08","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-06 11:16:26"},"arrived":null,"picked_up":null,"in_time":"11:16","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":false,"holding":true},{"id":"8688","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"제로데이 서울경부","to":"리안 호텔","hub":null,"sd":null,"ed":null,"td":"2026-11-08","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"PICKED_UP"},{"svc":"D2D","no":"FU15WK3Z63","qty":1,"dep_type":"HOTEL","dep_name":"205-17","arr_type":"STAY","arr_name":"10-3","dd":"2026-11-02","dtm":"Before 10:00","pd":"2026-11-12","ptm":"By 15:00","flight":"","handover":"DESK","dep_display":"205-17","arr_display":"Seoul","route_from":"205-17","route_to":"10-3","in_admin_list":false,"admin_order":999,"segs":[{"id":"2031","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"선유스테이","to":"안동터미널","hub":null,"sd":null,"ed":null,"td":"2026-11-02","notice":"와티: Noemie","kakao":{"status":"COMPLETED","wish":"09:00","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-02 09:40:25"},"picked_up":{"who":"SYSTEM","at":"2026-11-02 09:06:02"}},{"id":"2033","order":2,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"숙소 (서초구)","to":"코엑스 러기지센터","hub":null,"sd":null,"ed":null,"td":"2026-11-02","notice":null,"kakao":{"status":"COMPLETED","wish":"14:24","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-02 14:49:51"},"picked_up":{"who":"SYSTEM","at":"2026-11-02 14:21:58"}},{"id":"2190","order":3,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"코엑스 러기지센터","to":"코엑스 러기지센터","hub":"COEX","sd":"2026-11-02","ed":"2026-11-12","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-02 14:49:51"},"arrived":null,"picked_up":null,"in_time":"14:49","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":false,"holding":true},{"id":"2189","order":4,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"자체 기사","from":"코엑스 러기지센터","to":"Seoul","hub":null,"sd":null,"ed":null,"td":"2026-11-12","notice":"도착주소 차량 진입불가 숙소. 고객 연락하여 타주소(서울 용산구 신흥로11나길 2-12) 앞에서 만나야 한다고 조율 예정","kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"PICKED_UP"},{"svc":"D2D","no":"IR9CQ50EJQ","qty":5,"dep_type":"STAY","dep_name":"Y COLLECTION by UH FLAT OSIRIA","arr_type":"STAY","arr_name":"Goodlugg Luggage Center at COEX","dd":"2026-11-06","dtm":"Before 10:00","pd":"2026-11-09","ptm":"By 15:00","flight":"","handover":"DESK","dep_display":"숙소 (기장군)","arr_display":"코엑스 러기지센터","route_from":"부산","route_to":"Goodlu","in_admin_list":false,"admin_order":999,"segs":[{"id":"2282","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"숙소 (기장군)","to":"제로데이 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-06","notice":null,"kakao":{"status":"COMPLETED","wish":"","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-06 10:40:02"},"picked_up":{"who":"SYSTEM","at":"2026-11-06 10:02:51"}},{"id":"2283","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"제로데이 서울경부","to":"제로데이 서울경부","hub":"ZDSEL","sd":"2026-11-06","ed":"2026-11-06","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-06 10:40:02"},"arrived":null,"picked_up":null,"in_time":"10:40","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":false,"holding":false},{"id":"2284","order":3,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"제로데이 서울경부","to":"코엑스 러기지센터","hub":null,"sd":null,"ed":null,"td":"2026-11-06","notice":"도착사진 고객에게 노출되니 코엑스 스탭은 보관중인 사진으로 교체 업로드 바랍니다","kakao":{"status":"COMPLETED","wish":"","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-06 19:02:23"},"picked_up":{"who":"SYSTEM","at":"2026-11-06 17:35:16"}},{"id":"2308","order":4,"type":"STORAGE","status":"IN_STORAGE","status_ko":"입고 완료","drv":null,"from":"코엑스 러기지센터","to":"코엑스 러기지센터","hub":"COEX","sd":"2026-11-06","ed":"2026-11-09","td":null,"notice":null,"kakao":null,"received":{"who":"sojikim","at":"2026-11-06 20:33:20"},"dispatched":{"who":"SYSTEM","at":"2026-11-06 19:02:23"},"arrived":null,"picked_up":null,"in_time":"19:02","in_src":"직전 배송 도착","out_time":"15:00","out_src":"고객 찾는 시각","is_last":true,"in_today":false,"out_today":false,"holding":true}],"tracking":"ARRIVED"},{"svc":"KD","no":"P6O2NYJU20","qty":1,"dep_type":"hotel","dep_name":"Four Points by Sheraton Seoul, Gangnam","arr_type":"hotel","arr_name":"The Westin Josun Busan","dd":"2026-11-02","dtm":"Before 10:00","pd":"2026-11-08","ptm":"By 15:00","flight":"","handover":null,"dep_display":"Four Points by Sheraton Seoul, Gangnam","arr_display":"The Westin Josun Busan","route_from":"서울","route_to":"부산","in_admin_list":false,"admin_order":999,"segs":[{"id":"8340","order":1,"type":"DELIVERY","status":"ARRIVED","status_ko":"도착 완료","drv":"카카오T","from":"숙소 (강남구)","to":"제로데이 서울경부","hub":null,"sd":null,"ed":null,"td":"2026-11-02","notice":null,"kakao":{"status":"COMPLETED","wish":"09:35","picker":true},"received":null,"dispatched":null,"arrived":{"who":"SYSTEM","at":"2026-11-02 10:24:06"},"picked_up":{"who":"SYSTEM","at":"2026-11-02 09:34:58"}},{"id":"8341","order":2,"type":"STORAGE","status":"DISPATCHED","status_ko":"출고 완료","drv":null,"from":"제로데이 부산","to":"제로데이 부산","hub":"ZDPUS","sd":"2026-11-02","ed":"2026-11-08","td":null,"notice":null,"kakao":null,"received":null,"dispatched":{"who":"SYSTEM","at":"2026-11-02 10:24:06"},"arrived":null,"picked_up":null,"in_time":"10:24","in_src":"직전 배송 도착","out_time":null,"out_src":"다음 구간 미배차","is_last":false,"in_today":false,"out_today":false,"holding":true},{"id":"8342","order":3,"type":"DELIVERY","status":"READY","status_ko":"준비 완료","drv":"카카오T","from":"제로데이 부산","to":"더 웨스틴 조선 부산","hub":null,"sd":null,"ed":null,"td":"2026-11-08","notice":null,"kakao":null,"received":null,"dispatched":null,"arrived":null,"picked_up":null}],"tracking":"PICKED_UP"}]}
+    </script>
+    <script>
+      const DATA = JSON.parse(document.getElementById("data").textContent);
+      const TODAY = DATA.date;
+      const NOW = "13:00"; // 목업 기준 현재 시각 (KST)
+      const HUBS = DATA.hubs;
+      const hubName = (k) => (HUBS.find((h) => h.key === k) || { name: k }).name;
+      const hubMgr = (k) => (HUBS.find((h) => h.key === k) || {}).manager;
+      const state = { tab: "list", svc: "", trk: "", q: "", hub: "", kind: "", hubQ: "", listSort: { k: "", d: 1 }, hubSort: { k: "time", d: 1 }, confirm: {} };
+      const $ = (s, r = document) => r.querySelector(s);
+      const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+      const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const md = (d) => (d ? d.slice(5) : "");
+      const day = (d) => ["일", "월", "화", "수", "목", "금", "토"][new Date(d + "T00:00:00").getDay()];
+      const dday = (d) => Math.round((new Date(d) - new Date(TODAY)) / 86400000);
+      let toastT;
+      function toast(m) {
+        const t = $("#toast");
+        t.textContent = m;
+        t.classList.add("show");
+        clearTimeout(toastT);
+        toastT = setTimeout(() => t.classList.remove("show"), 2200);
+      }
+
+      /* ---------- 공통: 확인 상태 계산 (로컬 버튼 반영 포함) ---------- */
+      function confState(seg, which) {
+        const local = state.confirm[seg.id + which];
+        if (local) return { st: "ok", who: local.who, at: local.at, local: true };
+        const ev = which === "out" ? seg.dispatched : seg.received;
+        if (!ev) return { st: "none" };
+        if (ev.who === "SYSTEM") return { st: "auto", at: ev.at.slice(11, 16), date: ev.at.slice(5, 10) };
+        return { st: "ok", who: ev.who, at: ev.at.slice(11, 16), date: ev.at.slice(5, 10) };
+      }
+      function drvTag(seg) {
+        if (!seg.drv) return "";
+        const cls = seg.drv === "카카오T" ? "kakao" : seg.drv === "공항리무진" ? "limo" : "own";
+        return `<span class="tag ${cls}">${esc(seg.drv)}</span>`;
+      }
+      function dlvStatus(seg) {
+        if (seg.kakao && seg.kakao.status === "MATCHING") return "배차중";
+        if (seg.kakao && seg.kakao.status === "MATCHED" && seg.status === "READY") return "배차 완료";
+        return seg.status_ko;
+      }
+
+      /* ---------- 탭 1: 개별 배송 ---------- */
+      function segCard(seg, b) {
+        if (seg.type === "DELIVERY") {
+          const red = seg.td && seg.td !== TODAY;
+          return `<div class="seg dlv">
+            <div class="ttl"><i class="bi bi-truck"></i>배송</div>
+            <div class="body">${esc(seg.from)}<br>&rarr;${esc(seg.to)}</div>
+            <div class="date ${red ? "red" : ""}">${md(seg.td)}</div>
+            ${seg.notice ? `<div class="notice">${esc(seg.notice)}</div>` : ""}
+            <div class="foot"><span class="tag">${esc(dlvStatus(seg))}</span>${drvTag(seg)}</div>
+          </div>`;
+        }
+        const ci = confState(seg, "in"), co = confState(seg, "out");
+        const inTxt = ci.st === "ok" ? `<b>입고</b> ${ci.at} 확인` : ci.st === "auto" ? `<b>입고</b> ${ci.at} 자동` : seg.in_time ? `<b>입고</b> ${seg.in_time} 예정` : `<b>입고</b> ${md(seg.sd)} 대기`;
+        const outTxt = co.st === "ok" ? `<b>출고</b> ${co.at} 확인` : co.st === "auto" ? `<b>출고</b> ${co.at} 자동` : seg.out_time ? `<b>출고</b> ${seg.out_time} 예정` : `<b>출고</b> ${md(seg.ed)} 미배차`;
+        const overdue = seg.out_today && co.st === "none" && !!seg.out_time && seg.out_time <= NOW;
+        const badge = co.st === "ok" ? `<span class="tag ok">출고확인</span>` : co.st === "auto" ? `<span class="tag auto">자동 통과</span>` : overdue ? `<span class="tag warn">출고 지연</span>` : seg.out_today ? `<span class="tag amber">출고 대기</span>` : `<span class="tag">${esc(seg.status_ko)}</span>`;
+        const mgr = hubMgr(seg.hub);
+        return `<div class="seg sto">
+          <div class="ttl"><i class="bi bi-archive-fill"></i>보관</div>
+          <div class="body">${esc(seg.from)}</div>
+          <div class="date">${md(seg.sd)} ~ ${md(seg.ed)}</div>
+          <div class="io">${inTxt}<br>${outTxt}</div>
+          ${seg.notice ? `<div class="notice">${esc(seg.notice)}</div>` : ""}
+          <div class="foot">${badge}${mgr ? `<span class="tag mgr">${esc(mgr)}</span>` : ""}</div>
+        </div>`;
+      }
+      function listRows() {
+        let rows = DATA.bookings.filter((b) => b.in_admin_list);
+        if (state.svc) rows = rows.filter((b) => b.svc === state.svc);
+        if (state.trk) rows = rows.filter((b) => b.tracking === state.trk);
+        if (state.q) {
+          const q = state.q.toLowerCase();
+          rows = rows.filter((b) => (b.no + " " + b.dep_name + " " + b.arr_name).toLowerCase().includes(q));
+        }
+        const k = state.listSort.k, d = state.listSort.d;
+        if (k) {
+          const key = (b) => (k === "route" ? b.route_from + b.route_to : k === "dtm" ? b.dd + (b.dtm || "") : k === "ptm" ? b.pd + (b.ptm || "") : b[k]);
+          rows = rows.slice().sort((a, b) => (key(a) > key(b) ? d : key(a) < key(b) ? -d : 0));
+        }
+        return rows;
+      }
+      function renderList() {
+        const rows = listRows();
+        $("#listN").textContent = rows.length + " results";
+        $("#listDlv").textContent = "배송 " + rows.length;
+        $("#listSto").textContent = "보관 " + rows.filter((b) => b.segs.some((s) => s.type === "STORAGE")).length;
+        $("#listBody").innerHTML = rows.length
+          ? rows
+              .map((b, i) => {
+                const cells = [0, 1, 2, 3].map((n) => (b.segs[n] ? segCard(b.segs[n], b) : `<span style="color:#adb5bd">&mdash;</span>`));
+                return `<tr>
+                <td>${i + 1}</td>
+                <td class="bk"><span class="svc ${b.svc}">${b.svc}</span><br><span class="no">${b.no}</span><br><span class="trk ${b.tracking}">${b.tracking}</span></td>
+                <td class="route">${esc(b.route_from)}<br><span class="to">&rarr; ${esc(b.route_to)}</span></td>
+                <td>${b.qty}개</td>
+                <td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td>
+                <td class="place">${b.handover === "MEET" ? `<span class="tag ok">만나서 전달</span><br>` : ""}${esc(b.dep_display || b.dep_name)}<small><span class="t">${md(b.dd)}</span> ${esc(b.dtm || "")}</small></td>
+                <td class="place">${esc(b.arr_display || b.arr_name)}<small><span class="t ${b.pd !== TODAY ? "red" : ""}">${md(b.pd)}</span> ${esc(b.ptm || "")}</small>${b.flight ? `<small class="flight"><i class="bi bi-airplane-fill"></i> ${esc(b.flight)}</small>` : ""}</td>
+                <td class="nowrap"><button type="button" class="btn sm">출력</button></td>
+              </tr>`;
+              })
+              .join("")
+          : `<tr><td colspan="11" class="empty">조건에 맞는 예약이 없습니다.</td></tr>`;
+        $$("#listTable th.sortable").forEach((th) => {
+          th.classList.remove("asc", "desc");
+          if (th.dataset.k === state.listSort.k) th.classList.add(state.listSort.d > 0 ? "asc" : "desc");
+        });
+      }
+
+      /* ---------- 탭 3: 짐보관소 ---------- */
+      function hubRowsAll() {
+        const out = [];
+        DATA.bookings.forEach((b) => {
+          b.segs.forEach((s, i) => {
+            if (s.type !== "STORAGE" || !(s.in_today || s.out_today || s.holding)) return;
+            if (state.svc && b.svc !== state.svc) return;
+            const prev = b.segs[i - 1], next = b.segs[i + 1];
+            const kind = s.out_today ? "out" : s.in_today ? "in" : "hold";
+            const ci = confState(s, "in"), co = confState(s, "out");
+            const time = kind === "out" ? s.out_time : kind === "in" ? s.in_time : null;
+            const unc = kind === "out" && co.st === "none";
+            const overdue = unc && !!time && time <= NOW;
+            out.push({ b, s, i, prev, next, kind, ci, co, time, hub: s.hub, unc, overdue, auto: co.st === "auto" || ci.st === "auto" });
+          });
+        });
+        return out;
+      }
+      function hubRows() {
+        let rows = hubRowsAll();
+        if (state.hub) rows = rows.filter((r) => r.hub === state.hub);
+        if (state.kind === "unc") rows = rows.filter((r) => r.unc);
+        else if (state.kind === "auto") rows = rows.filter((r) => r.auto);
+        else if (state.kind) rows = rows.filter((r) => r.kind === state.kind);
+        if (state.hubQ) {
+          const q = state.hubQ.toLowerCase();
+          rows = rows.filter((r) => (r.b.no + " " + r.b.dep_name + " " + r.b.arr_name + " " + (r.prev ? r.prev.from : "") + " " + (r.next ? r.next.to : "")).toLowerCase().includes(q));
+        }
+        const k = state.hubSort.k, d = state.hubSort.d;
+        const kindOrder = { out: 0, in: 1, hold: 2 };
+        const key = (r) => {
+          switch (k) {
+            case "kind": return kindOrder[r.kind];
+            case "time": return r.time ? r.time : r.kind === "hold" ? "9" + r.s.ed : "99:99";
+            case "hub": return hubName(r.hub);
+            case "no": return r.b.no;
+            case "qty": return r.b.qty;
+            case "from": return r.prev ? r.prev.from : "";
+            case "to": return r.next ? r.next.to : "고객";
+            case "period": return r.s.sd + r.s.ed;
+            case "conf": return r.co.st === "none" ? 0 : r.co.st === "auto" ? 1 : 2;
+            default: return 0;
+          }
+        };
+        rows.sort((a, b) => {
+          const x = key(a), y = key(b);
+          return x > y ? d : x < y ? -d : a.b.no > b.b.no ? 1 : -1;
+        });
+        return rows;
+      }
+      function renderHubs() {
+        const all = hubRowsAll();
+        const total = all.length, unc = all.filter((r) => r.unc).length;
+        $("#hubCnt").textContent = total;
+        $("#hubUnc").textContent = "미확인 " + unc;
+        $("#hubTitle").textContent = `${md(TODAY).replace("-", "/")} (${day(TODAY)}) 보관소 입출고`;
+        $("#hubSub").textContent = `상단 날짜 필터 기준 · 출고 예정 ${all.filter((r) => r.kind === "out").length} · 입고 예정 ${all.filter((r) => r.s.in_today).length} · 보관중 ${all.filter((r) => r.kind === "hold").length} · 자동 통과 ${all.filter((r) => r.auto).length} · 지연 ${all.filter((r) => r.overdue).length}`;
+        const keys = HUBS.map((h) => h.key).filter((k) => all.some((r) => r.hub === k));
+        const card = (k, name, mgr, rows) => {
+          const o = rows.filter((r) => r.kind === "out").length, i = rows.filter((r) => r.kind === "in" || (r.kind === "out" && r.s.in_today)).length, h = rows.filter((r) => r.kind === "hold").length;
+          const od = rows.filter((r) => r.overdue).length, du = rows.filter((r) => r.unc && !r.overdue).length, a = rows.filter((r) => r.auto).length;
+          const flag = (od ? `<span class="tag warn">지연 ${od}</span> ` : "") + (du ? `<span class="tag amber">출고 대기 ${du}</span> ` : "") + (a ? `<span class="tag auto">자동 통과 ${a}</span>` : "") || `<span class="tag ok">이상 없음</span>`;
+          return `<button type="button" class="hub ${state.hub === k ? "on" : ""}" data-hub="${k}">
+            <div class="name">${esc(name)}${mgr ? `<span class="mgr">${esc(mgr)}</span>` : k ? `<span class="mgr">파트너</span>` : ""}</div>
+            <div class="nums"><span class="out">출고<b>${o}</b></span><span class="in">입고<b>${i}</b></span><span>보관<b>${h}</b></span></div>
+            <div class="flag">${flag}</div>
+          </button>`;
+        };
+        $("#hubs").innerHTML = card("", "전체 보관소", "", all) + keys.map((k) => card(k, hubName(k), hubMgr(k), all.filter((r) => r.hub === k))).join("");
+        const icn = state.hub === "ICN1" || state.hub === "ICN2";
+        $("#thTime").childNodes[0].textContent = icn ? "맡기는 / 찾는 시각" : "예정 시각";
+        $("#thTo").childNodes[0].textContent = icn ? "고객 수령 (항공편)" : "어디로 (다음 구간)";
+        $("#thConf").childNodes[0].textContent = icn ? "실제 수령 시각" : "확인";
+        renderHubTable();
+      }
+      function renderHubTable() {
+        const rows = hubRows();
+        $("#hubRows").textContent = rows.length + "건";
+        $("#hubBody").innerHTML = rows.length
+          ? rows
+              .map((r) => {
+                const { b, s, prev, next, kind, ci, co } = r;
+                const kindHtml = kind === "out" ? `<span class="kind out">출고</span>${s.in_today ? `<span class="kind both">당일 입고</span>` : ""}` : kind === "in" ? `<span class="kind in">입고</span>` : `<span class="kind hold">보관중</span>`;
+                let timeHtml;
+                if (kind === "hold") timeHtml = `<div class="time none">D-${dday(s.ed)} 출고<small>${md(s.ed)} ${s.out_time ? s.out_time : ""}</small></div>`;
+                else if (r.time) timeHtml = `<div class="time">${r.time}<small>${esc(kind === "out" ? s.out_src : s.in_src)}${kind === "out" && s.in_today && s.in_time ? ` · 입고 ${s.in_time}` : ""}</small></div>`;
+                else timeHtml = `<div class="time none">시간 미확인<small>${esc(kind === "out" ? s.out_src : s.in_src)}</small></div>`;
+                const fromHtml = prev
+                  ? `<div class="place">${esc(prev.from)}<small>${prev.arrived ? `<span class="t">${prev.arrived.at.slice(5, 16)} 도착</span>` : `${md(prev.td)} ${esc(dlvStatus(prev))}`} ${prev.drv ? "· " + esc(prev.drv) : ""}</small></div>`
+                  : `<div class="place">고객 직접 맡김<small>${md(b.dd)} ${esc(b.dtm || "")}</small></div>`;
+                const toHtml = next
+                  ? `<div class="place">${esc(next.to)}<small><span class="t ${next.td !== TODAY ? "" : "blue"}">${md(next.td)}</span> ${esc(dlvStatus(next))} ${next.drv ? "· " + esc(next.drv) : ""}${next.kakao && next.kakao.wish ? ` · 희망 ${next.kakao.wish}` : ""}</small></div>`
+                  : `<div class="place">고객 직접 수령<small><span class="t ${b.pd === TODAY ? "red" : ""}">${md(b.pd)} ${esc(b.ptm || "")}</span>${b.flight ? `<br><span class="flight"><i class="bi bi-airplane-fill"></i> ${esc(b.flight)}</span>` : ""}</small></div>`;
+                const period = s.sd === s.ed ? md(s.sd) : `${md(s.sd)} ~ ${md(s.ed)}`;
+                const confOf = (c, label) => (c.st === "ok" ? `<span class="big ok">${c.at} ${label}확인</span><small>${esc(c.who)}${c.local ? " (지금)" : c.date && c.date !== md(TODAY) ? " · " + c.date : ""}</small>` : c.st === "auto" ? `<span class="big auto">${c.at} 자동 ${label}</span><small>직전 배송 도착 시 시스템 처리${c.date && c.date !== md(TODAY) ? " · " + c.date : ""}</small>` : "");
+                let confHtml;
+                if (kind === "out") confHtml = confOf(co, "출고") || `<span class="big ${r.overdue ? "warn" : "due"}">${r.overdue ? "출고 미확인 · 지연" : "출고 대기"}</span><small>${ci.st === "ok" ? `입고 ${ci.at} ${esc(ci.who)}` : ci.st === "auto" ? `입고 ${ci.at} 자동` : "입고 기록 없음"}</small>`;
+                else if (kind === "in") confHtml = confOf(ci, "입고") || `<span class="big warn">입고 대기</span><small>${s.status_ko}</small>`;
+                else if (co.st === "auto") confHtml = `<span class="big warn">시스템상 출고 완료</span><small>${co.date ? co.date + " " : ""}${co.at} 자동 처리 · 실물은 보관중</small>`;
+                else confHtml = confOf(ci, "입고") || `<span class="big auto">${esc(s.status_ko)}</span><small>입고 기록 없음</small>`;
+                const memo = [s.notice, prev && prev.notice, next && next.notice].filter(Boolean).map(esc).join("<br>");
+                let act = "";
+                if (kind !== "out" && ci.st !== "ok") act += `<button type="button" class="btn outline sm" data-act="in" data-id="${s.id}">입고확인</button> `;
+                if (kind === "out" && co.st !== "ok") act += `<button type="button" class="btn ${r.overdue ? "danger" : "primary"} sm" data-act="out" data-id="${s.id}">출고확인</button>`;
+                if ((co.local || ci.local)) act += ` <button type="button" class="btn ghost sm" data-act="undo" data-id="${s.id}">되돌리기</button>`;
+                const cls = kind === "out" ? (co.st === "ok" ? "done" : r.overdue ? "risk" : "") : "";
+                return `<tr class="${cls}">
+                  <td>${kindHtml}</td>
+                  <td>${timeHtml}</td>
+                  <td>${esc(hubName(s.hub))}</td>
+                  <td class="bk"><span class="svc ${b.svc}">${b.svc}</span><br><span class="no">${b.no}</span></td>
+                  <td>${b.qty}개</td>
+                  <td>${fromHtml}</td>
+                  <td>${toHtml}</td>
+                  <td>${period}</td>
+                  <td class="conf">${confHtml}</td>
+                  <td class="memo">${memo}</td>
+                  <td class="noprint nowrap">${act}</td>
+                </tr>`;
+              })
+              .join("")
+          : `<tr><td colspan="11" class="empty">조건에 맞는 보관 건이 없습니다.</td></tr>`;
+        $$("#hubTable th.sortable").forEach((th) => {
+          th.classList.remove("asc", "desc");
+          if (th.dataset.k === state.hubSort.k) th.classList.add(state.hubSort.d > 0 ? "asc" : "desc");
+        });
+      }
+
+      /* ---------- 이벤트 ---------- */
+      function showTab(t) {
+        state.tab = t;
+        $$(".tab").forEach((b) => b.classList.toggle("on", b.dataset.tab === t));
+        ["list", "bundle", "hub"].forEach((k) => $("#tab-" + k).classList.toggle("hidden", k !== t));
+        if (t === "hub") renderHubs();
+      }
+      $$(".tab").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
+      $$("[data-svc]").forEach((c) =>
+        c.addEventListener("click", () => {
+          state.svc = c.dataset.svc;
+          $$("[data-svc]").forEach((x) => x.classList.toggle("on", x === c));
+          renderList();
+          renderHubs();
+        })
+      );
+      $$("[data-trk]").forEach((c) =>
+        c.addEventListener("click", () => {
+          state.trk = c.dataset.trk;
+          $$("[data-trk]").forEach((x) => x.classList.toggle("on", x === c));
+          renderList();
+        })
+      );
+      $$("[data-kind]").forEach((c) =>
+        c.addEventListener("click", () => {
+          state.kind = c.dataset.kind;
+          $$("[data-kind]").forEach((x) => x.classList.toggle("on", x === c));
+          renderHubTable();
+        })
+      );
+      $("#q").addEventListener("input", (e) => { state.q = e.target.value.trim(); renderList(); });
+      $("#hubQ").addEventListener("input", (e) => { state.hubQ = e.target.value.trim(); renderHubTable(); });
+      $("#reset").addEventListener("click", () => {
+        state.svc = ""; state.trk = ""; state.q = ""; $("#q").value = "";
+        $$("[data-svc],[data-trk]").forEach((x) => x.classList.toggle("on", x.dataset.svc === "" || x.dataset.trk === ""));
+        renderList(); renderHubs();
+      });
+      $$("#listTable th.sortable").forEach((th) =>
+        th.addEventListener("click", () => {
+          const k = th.dataset.k;
+          state.listSort = { k, d: state.listSort.k === k ? -state.listSort.d : 1 };
+          renderList();
+        })
+      );
+      $$("#hubTable th.sortable").forEach((th) =>
+        th.addEventListener("click", () => {
+          const k = th.dataset.k;
+          state.hubSort = { k, d: state.hubSort.k === k ? -state.hubSort.d : 1 };
+          renderHubTable();
+        })
+      );
+      $("#hubs").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-hub]");
+        if (!btn) return;
+        state.hub = btn.dataset.hub;
+        renderHubs();
+      });
+      $("#hubBody").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-act]");
+        if (!btn) return;
+        const id = btn.dataset.id, act = btn.dataset.act;
+        const now = new Date();
+        const hhmm = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+        if (act === "undo") { delete state.confirm[id + "in"]; delete state.confirm[id + "out"]; toast("되돌렸습니다"); }
+        else { state.confirm[id + act] = { who: "goodlugg (데모)", at: hhmm }; toast((act === "out" ? "출고확인 " : "입고확인 ") + hhmm + " 기록 (목업: 새로고침하면 초기화)"); }
+        renderHubs();
+        renderList();
+      });
+      $("#printBtn").addEventListener("click", () => window.print());
+      ["#d1", "#d2"].forEach((s) => $(s).addEventListener("change", (e) => { e.target.value = TODAY; toast("목업은 11/07 데이터만 포함합니다"); }));
+
+      const P = new URLSearchParams(location.search);
+      if (P.get("hub")) state.hub = P.get("hub");
+      if (P.get("kind")) { state.kind = P.get("kind"); $$("[data-kind]").forEach((x) => x.classList.toggle("on", x.dataset.kind === state.kind)); }
+      if (P.get("sort")) state.hubSort = { k: P.get("sort"), d: P.get("dir") === "desc" ? -1 : 1 };
+      renderList();
+      renderHubs();
+      if (P.get("tab")) showTab(P.get("tab"));
+    </script>
+  </body>
+</html>
