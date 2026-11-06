@@ -719,6 +719,169 @@
         z-index: 9;
         opacity: 0.85;
       }
+      /* ---------- 짐보관소 탭 전용 글래스 스타일 ---------- */
+      #tab-hub .hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        padding: 18px 20px 16px;
+        margin: 2px 0 14px;
+        background: linear-gradient(135deg, #eef1ff 0%, #f7f3ff 45%, #eefaf6 100%);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        box-shadow:
+          0 18px 40px rgba(47, 95, 216, 0.1),
+          0 2px 6px rgba(31, 41, 55, 0.06);
+      }
+      #tab-hub .hero::before,
+      #tab-hub .hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      #tab-hub .hero::before {
+        width: 320px;
+        height: 320px;
+        left: -80px;
+        top: -160px;
+        background: #c7d2fe;
+      }
+      #tab-hub .hero::after {
+        width: 360px;
+        height: 360px;
+        right: -120px;
+        bottom: -220px;
+        background: #bbf7d0;
+      }
+      #tab-hub .hero > * {
+        position: relative;
+      }
+      #tab-hub .hubhead {
+        margin: 0 0 14px;
+      }
+      #tab-hub .hubhead .ttl {
+        font-size: 18px;
+        letter-spacing: -0.2px;
+      }
+      #tab-hub .stats {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      #tab-hub .stat {
+        border-radius: 14px;
+        padding: 14px 16px 12px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.55));
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.95),
+          inset 0 -1px 0 rgba(31, 41, 55, 0.04),
+          0 10px 24px rgba(31, 41, 55, 0.08);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        cursor: pointer;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      #tab-hub .stat:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.95),
+          0 16px 30px rgba(31, 41, 55, 0.12);
+      }
+      #tab-hub .stat.on {
+        outline: 2px solid var(--blue);
+        outline-offset: -2px;
+      }
+      #tab-hub .stat .k {
+        font-size: 12px;
+        color: #495057;
+        font-weight: 600;
+      }
+      #tab-hub .stat .v {
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        line-height: 1.1;
+        margin-top: 4px;
+        font-variant-numeric: tabular-nums;
+      }
+      #tab-hub .stat .v.red {
+        color: var(--red);
+      }
+      #tab-hub .stat .v.blue {
+        color: var(--blue);
+      }
+      #tab-hub .stat .v.amber {
+        color: var(--amber);
+      }
+      #tab-hub .stat .v.grey {
+        color: #6c757d;
+      }
+      #tab-hub .stat .v.sto {
+        color: var(--sto-fg);
+      }
+      #tab-hub .stat small {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        margin-top: 2px;
+      }
+      #tab-hub .hubs {
+        margin-bottom: 0;
+      }
+      #tab-hub .hub {
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.7));
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.95),
+          0 8px 20px rgba(31, 41, 55, 0.07);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      #tab-hub .hub:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 14px 28px rgba(31, 41, 55, 0.12);
+      }
+      #tab-hub .hub.on {
+        border: 1px solid rgba(47, 95, 216, 0.5);
+        box-shadow:
+          0 0 0 2px rgba(47, 95, 216, 0.25),
+          0 14px 28px rgba(47, 95, 216, 0.16);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(238, 242, 255, 0.9));
+      }
+      #tab-hub .hub .nums b {
+        font-size: 19px;
+      }
+      #tab-hub .panel {
+        border-radius: 14px;
+        box-shadow: 0 10px 28px rgba(31, 41, 55, 0.06);
+      }
+      a.bkno {
+        color: var(--blue);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      a.bkno:hover {
+        text-decoration: underline;
+      }
+      a.flt {
+        color: var(--blue);
+        text-decoration: none;
+        border-bottom: 1px dotted var(--blue);
+      }
+      a.flt:hover {
+        background: #e8eefc;
+      }
       .hidden {
         display: none !important;
       }
@@ -930,15 +1093,18 @@
 
       <!-- ===== 짐보관소 ===== -->
       <section class="hidden" id="tab-hub">
-        <div class="hubhead">
-          <span class="ttl" id="hubTitle">11/07 (토) 보관소 입출고</span>
-          <span class="sub" id="hubSub"></span>
-          <div class="right noprint">
-            <button type="button" class="btn outline sm" id="printBtn"><i class="bi bi-printer"></i>출고 리스트 출력</button>
-            <button type="button" class="btn primary sm"><i class="bi bi-qr-code-scan"></i>QR 스캔 입출고</button>
+        <div class="hero">
+          <div class="hubhead">
+            <span class="ttl" id="hubTitle">11/07 (토) 보관소 입출고</span>
+            <span class="sub" id="hubSub"></span>
+            <div class="right noprint">
+              <button type="button" class="btn outline sm" id="printBtn"><i class="bi bi-printer"></i>출고 리스트 출력</button>
+              <button type="button" class="btn primary sm"><i class="bi bi-qr-code-scan"></i>QR 스캔 입출고</button>
+            </div>
           </div>
+          <div class="stats" id="stats"></div>
+          <div class="hubs" id="hubs"></div>
         </div>
-        <div class="hubs" id="hubs"></div>
         <section class="panel nopad">
           <div class="chips chipsrow">
             <button type="button" class="chip on" data-kind="">전체</button>
@@ -959,8 +1125,8 @@
                 <th class="sortable" data-k="hub">보관소</th>
                 <th class="sortable" data-k="no">예약번호</th>
                 <th class="sortable" data-k="qty">짐</th>
-                <th class="sortable" data-k="from">어디서 (직전 구간)</th>
-                <th class="sortable" data-k="to" id="thTo">어디로 (다음 구간)</th>
+                <th class="sortable" data-k="from">이전 구간</th>
+                <th class="sortable" data-k="to" id="thTo">다음 구간</th>
                 <th class="sortable" data-k="period">보관 기간</th>
                 <th class="sortable" data-k="conf" id="thConf">확인</th>
                 <th>전달사항</th>
@@ -996,6 +1162,8 @@
       const md = (d) => (d ? d.slice(5) : "");
       const day = (d) => ["일", "월", "화", "수", "목", "금", "토"][new Date(d + "T00:00:00").getDay()];
       const dday = (d) => Math.round((new Date(d) - new Date(TODAY)) / 86400000);
+      const bkLink = (b) => `<a class="bkno" href="https://admin.goodlugg.com/v2/${b.svc === "KD" ? "kd" : "d2d"}/tracking/${b.no}/detail" target="_blank" rel="noopener" title="예약 트래킹 상세 열기">${b.no}</a>`;
+      const fltLink = (s) => esc(s).replace(/\b([A-Z]{2}\d{2,4}|[A-Z]\d[A-Z0-9]?\d{2,4})\b/g, (m) => `<a class="flt" href="https://www.google.com/search?q=${encodeURIComponent(m + " flight")}" target="_blank" rel="noopener" title="항공편 검색">${m}</a>`);
       let toastT;
       function toast(m) {
         const t = $("#toast");
@@ -1078,12 +1246,12 @@
                 const cells = [0, 1, 2, 3].map((n) => (b.segs[n] ? segCard(b.segs[n], b) : `<span style="color:#adb5bd">&mdash;</span>`));
                 return `<tr>
                 <td>${i + 1}</td>
-                <td class="bk"><span class="svc ${b.svc}">${b.svc}</span><br><span class="no">${b.no}</span><br><span class="trk ${b.tracking}">${b.tracking}</span></td>
+                <td class="bk"><span class="svc ${b.svc}">${b.svc}</span><br><span class="no">${bkLink(b)}</span><br><span class="trk ${b.tracking}">${b.tracking}</span></td>
                 <td class="route">${esc(b.route_from)}<br><span class="to">&rarr; ${esc(b.route_to)}</span></td>
                 <td>${b.qty}개</td>
                 <td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td>
                 <td class="place">${b.handover === "MEET" ? `<span class="tag ok">만나서 전달</span><br>` : ""}${esc(b.dep_display || b.dep_name)}<small><span class="t">${md(b.dd)}</span> ${esc(b.dtm || "")}</small></td>
-                <td class="place">${esc(b.arr_display || b.arr_name)}<small><span class="t ${b.pd !== TODAY ? "red" : ""}">${md(b.pd)}</span> ${esc(b.ptm || "")}</small>${b.flight ? `<small class="flight"><i class="bi bi-airplane-fill"></i> ${esc(b.flight)}</small>` : ""}</td>
+                <td class="place">${esc(b.arr_display || b.arr_name)}<small><span class="t ${b.pd !== TODAY ? "red" : ""}">${md(b.pd)}</span> ${esc(b.ptm || "")}</small>${b.flight ? `<small class="flight"><i class="bi bi-airplane-fill"></i> ${fltLink(b.flight)}</small>` : ""}</td>
                 <td class="nowrap"><button type="button" class="btn sm">출력</button></td>
               </tr>`;
               })
@@ -1154,7 +1322,15 @@
         $("#hubLate").textContent = "지연 " + late;
         $("#hubLate").classList.toggle("hidden", late === 0);
         $("#hubTitle").textContent = `${md(TODAY).replace("-", "/")} (${day(TODAY)}) 보관소 입출고`;
-        $("#hubSub").textContent = `상단 날짜 필터 기준 · 출고 예정 ${all.filter((r) => r.kind === "out").length} · 입고 예정 ${all.filter((r) => r.s.in_today).length} · 보관중 ${all.filter((r) => r.kind === "hold").length} · 자동 통과 ${all.filter((r) => r.auto).length} · 지연 ${all.filter((r) => r.overdue).length}`;
+        $("#hubSub").textContent = `상단 날짜 필터 기준 · 보관소 ${new Set(all.map((r) => r.hub)).size}곳 · 보관 구간 ${total}건 (예약 ${new Set(all.map((r) => r.b.no)).size}건)`;
+        const S = [
+          ["out", "오늘 출고", all.filter((r) => r.kind === "out").length, "red", "예정 시각 순"],
+          ["in", "오늘 입고", all.filter((r) => r.s.in_today).length, "blue", "당일 통과 포함"],
+          ["hold", "보관중", all.filter((r) => r.kind === "hold").length, "sto", "배송 일자 밖 장기 보관"],
+          ["unc", "출고확인 필요", all.filter((r) => r.unc).length, "amber", "사람이 아직 안 누름"],
+          ["late", "지연", all.filter((r) => r.overdue).length, all.filter((r) => r.overdue).length ? "red" : "grey", `${NOW} 기준 예정 시각 경과`],
+        ];
+        $("#stats").innerHTML = S.map(([k, label, v, cls, note]) => `<button type="button" class="stat ${state.kind === k ? "on" : ""}" data-stat="${k}"><div class="k">${label}</div><div class="v ${cls}">${v}</div><small>${note}</small></button>`).join("");
         const keys = HUBS.map((h) => h.key).filter((k) => all.some((r) => r.hub === k));
         const card = (k, name, mgr, rows) => {
           const o = rows.filter((r) => r.kind === "out").length, i = rows.filter((r) => r.kind === "in" || (r.kind === "out" && r.s.in_today)).length, h = rows.filter((r) => r.kind === "hold").length;
@@ -1169,7 +1345,7 @@
         $("#hubs").innerHTML = card("", "전체 보관소", "", all) + keys.map((k) => card(k, hubName(k), hubMgr(k), all.filter((r) => r.hub === k))).join("");
         const icn = state.hub === "ICN1" || state.hub === "ICN2";
         $("#thTime").childNodes[0].textContent = icn ? "맡기는 / 찾는 시각" : "예정 시각";
-        $("#thTo").childNodes[0].textContent = icn ? "고객 수령 (항공편)" : "어디로 (다음 구간)";
+        $("#thTo").childNodes[0].textContent = icn ? "고객 수령 (항공편)" : "다음 구간";
         $("#thConf").childNodes[0].textContent = icn ? "실제 수령 시각" : "확인";
         renderHubTable();
       }
@@ -1190,7 +1366,7 @@
                   : `<div class="place">고객 직접 맡김<small>${md(b.dd)} ${esc(b.dtm || "")}</small></div>`;
                 const toHtml = next
                   ? `<div class="place">${esc(next.to)}<small><span class="t ${next.td !== TODAY ? "" : "blue"}">${md(next.td)}</span> ${esc(dlvStatus(next))} ${next.drv ? "· " + esc(next.drv) : ""}${next.kakao && next.kakao.wish ? ` · 희망 ${next.kakao.wish}` : ""}</small></div>`
-                  : `<div class="place">고객 직접 수령<small><span class="t ${b.pd === TODAY ? "red" : ""}">${md(b.pd)} ${esc(b.ptm || "")}</span>${b.flight ? `<br><span class="flight"><i class="bi bi-airplane-fill"></i> ${esc(b.flight)}</span>` : ""}</small></div>`;
+                  : `<div class="place">고객 직접 수령<small><span class="t ${b.pd === TODAY ? "red" : ""}">${md(b.pd)} ${esc(b.ptm || "")}</span>${b.flight ? `<br><span class="flight"><i class="bi bi-airplane-fill"></i> ${fltLink(b.flight)}</span>` : ""}</small></div>`;
                 const period = s.sd === s.ed ? md(s.sd) : `${md(s.sd)} ~ ${md(s.ed)}`;
                 const confOf = (c, label) => (c.st === "ok" ? `<span class="big ok">${c.at} ${label}확인</span><small>${esc(c.who)}${c.local ? " (지금)" : c.date && c.date !== md(TODAY) ? " · " + c.date : ""}</small>` : c.st === "auto" ? `<span class="big auto">${c.at} 자동 ${label}</span><small>직전 배송 도착 시 시스템 처리${c.date && c.date !== md(TODAY) ? " · " + c.date : ""}</small>` : "");
                 let confHtml;
@@ -1208,7 +1384,7 @@
                   <td>${kindHtml}</td>
                   <td>${timeHtml}</td>
                   <td>${esc(hubName(s.hub))}</td>
-                  <td class="bk"><span class="svc ${b.svc}">${b.svc}</span><br><span class="no">${b.no}</span></td>
+                  <td class="bk"><span class="svc ${b.svc}">${b.svc}</span><br><span class="no">${bkLink(b)}</span></td>
                   <td>${b.qty}개</td>
                   <td>${fromHtml}</td>
                   <td>${toHtml}</td>
@@ -1253,7 +1429,7 @@
         c.addEventListener("click", () => {
           state.kind = c.dataset.kind;
           $$("[data-kind]").forEach((x) => x.classList.toggle("on", x === c));
-          renderHubTable();
+          renderHubs();
         })
       );
       $("#q").addEventListener("input", (e) => { state.q = e.target.value.trim(); renderList(); });
@@ -1277,6 +1453,13 @@
           renderHubTable();
         })
       );
+      $("#stats").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-stat]");
+        if (!btn) return;
+        state.kind = state.kind === btn.dataset.stat ? "" : btn.dataset.stat;
+        $$("[data-kind]").forEach((x) => x.classList.toggle("on", x.dataset.kind === state.kind));
+        renderHubs();
+      });
       $("#hubs").addEventListener("click", (e) => {
         const btn = e.target.closest("[data-hub]");
         if (!btn) return;
