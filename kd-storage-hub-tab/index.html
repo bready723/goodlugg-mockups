@@ -1349,12 +1349,13 @@
         $("#hubLate").classList.toggle("hidden", late === 0);
         $("#hubTitle").textContent = `${md(TODAY).replace("-", "/")} (${day(TODAY)}) 보관소 입출고`;
         $("#hubSub").textContent = `보관소 ${new Set(all.map((r) => r.hub)).size}곳 · 보관 구간 ${total}건 (예약 ${new Set(all.map((r) => r.b.no)).size}건)`;
+        const sc = state.hub ? all.filter((r) => r.hub === state.hub) : all; // 보관소 선택 시 숫자도 그 보관소 기준
         const S = [
-          ["out", "오늘 출고", all.filter((r) => r.kind === "out").length, "red", "예정 시각 순"],
-          ["in", "오늘 입고", all.filter((r) => r.s.in_today).length, "blue", "당일 통과 포함"],
-          ["hold", "보관중", all.filter((r) => r.kind === "hold").length, "sto", "배송 일자 밖 장기 보관"],
-          ["unc", "출고확인 필요", all.filter((r) => r.unc).length, "amber", "사람이 아직 안 누름"],
-          ["late", "지연", all.filter((r) => r.overdue).length, all.filter((r) => r.overdue).length ? "red" : "grey", `${NOW} 기준 예정 시각 경과`],
+          ["out", "오늘 출고", sc.filter((r) => r.kind === "out").length, "red", "예정 시각 순"],
+          ["in", "오늘 입고", sc.filter((r) => r.s.in_today).length, "blue", "당일 통과 포함"],
+          ["hold", "보관중", sc.filter((r) => r.kind === "hold").length, "sto", "배송 일자 밖 장기 보관"],
+          ["unc", "출고확인 필요", sc.filter((r) => r.unc).length, "amber", "사람이 아직 안 누름"],
+          ["late", "지연", sc.filter((r) => r.overdue).length, sc.filter((r) => r.overdue).length ? "red" : "grey", `${NOW} 기준 예정 시각 경과`],
         ];
         $("#stats").innerHTML = S.map(([k, label, v, cls, note]) => `<button type="button" class="stat ${state.kind === k ? "on" : ""}" data-stat="${k}"><div class="k">${label}</div><div class="v ${cls}">${v}</div><small>${note}</small></button>`).join("");
         const keys = HUBS.map((h) => h.key).filter((k) => all.some((r) => r.hub === k));
@@ -1368,7 +1369,7 @@
           </button>`;
         };
         $("#hubs").innerHTML = keys.map((k) => card(k, hubName(k), hubMgr(k), all.filter((r) => r.hub === k))).join("");
-        $("#hubSel").textContent = state.hub ? `${hubName(state.hub)} 선택 중` : "";
+        $("#hubSel").textContent = state.hub ? `${hubName(state.hub)} 기준` : "";
         $("#hubAll").classList.toggle("hidden", !state.hub);
         const icn = state.hub === "ICN1" || state.hub === "ICN2";
         $("#thTime").childNodes[0].textContent = icn ? "맡기는 / 찾는 시각" : "예정 시각";
