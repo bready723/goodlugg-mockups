@@ -877,7 +877,7 @@
         <button type="button" class="tab on" data-tab="list">개별 배송</button>
         <button type="button" class="tab" data-tab="bundle">합배송 <span class="cnt">0</span></button>
         <button type="button" class="tab" data-tab="hub">
-          짐보관소 <span class="cnt blue" id="hubCnt">0</span><span class="cnt red" id="hubUnc">미확인 0</span>
+          짐보관소 <span class="cnt blue" id="hubCnt">0</span><span class="cnt red hidden" id="hubLate">지연 0</span>
         </button>
         <div class="right">
           <button type="button" class="btn primary"><i class="bi bi-plus-lg"></i>합배송 만들기</button>
@@ -945,7 +945,8 @@
             <button type="button" class="chip" data-kind="out">오늘 출고</button>
             <button type="button" class="chip" data-kind="in">오늘 입고</button>
             <button type="button" class="chip" data-kind="hold">보관중</button>
-            <button type="button" class="chip" data-kind="unc">미확인</button>
+            <button type="button" class="chip" data-kind="unc">출고확인 필요</button>
+            <button type="button" class="chip" data-kind="late">지연</button>
             <button type="button" class="chip" data-kind="auto">자동 통과</button>
             <input type="text" class="inp" id="hubQ" placeholder="예약번호 / 호텔 검색" aria-label="보관소 검색" />
             <span class="sub" id="hubRows"></span>
@@ -1116,6 +1117,7 @@
         let rows = hubRowsAll();
         if (state.hub) rows = rows.filter((r) => r.hub === state.hub);
         if (state.kind === "unc") rows = rows.filter((r) => r.unc);
+        else if (state.kind === "late") rows = rows.filter((r) => r.overdue);
         else if (state.kind === "auto") rows = rows.filter((r) => r.auto);
         else if (state.kind) rows = rows.filter((r) => r.kind === state.kind);
         if (state.hubQ) {
@@ -1148,7 +1150,9 @@
         const all = hubRowsAll();
         const total = all.length, unc = all.filter((r) => r.unc).length;
         $("#hubCnt").textContent = total;
-        $("#hubUnc").textContent = "미확인 " + unc;
+        const late = all.filter((r) => r.overdue).length;
+        $("#hubLate").textContent = "지연 " + late;
+        $("#hubLate").classList.toggle("hidden", late === 0);
         $("#hubTitle").textContent = `${md(TODAY).replace("-", "/")} (${day(TODAY)}) 보관소 입출고`;
         $("#hubSub").textContent = `상단 날짜 필터 기준 · 출고 예정 ${all.filter((r) => r.kind === "out").length} · 입고 예정 ${all.filter((r) => r.s.in_today).length} · 보관중 ${all.filter((r) => r.kind === "hold").length} · 자동 통과 ${all.filter((r) => r.auto).length} · 지연 ${all.filter((r) => r.overdue).length}`;
         const keys = HUBS.map((h) => h.key).filter((k) => all.some((r) => r.hub === k));
