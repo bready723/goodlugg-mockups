@@ -1385,7 +1385,7 @@
                 const { b, s, prev, next, kind, ci, co } = r;
                 const kindHtml = kind === "out" ? `<span class="kind out">출고</span>${s.in_today ? `<span class="kind both">당일 입고</span>` : ""}` : kind === "in" ? `<span class="kind in">입고</span>` : `<span class="kind hold">보관중</span>`;
                 let timeHtml;
-                if (kind === "hold") timeHtml = `<div class="time none">D-${dday(s.ed)} 출고<small>${md(s.ed)} ${s.out_time ? s.out_time : ""}</small></div>`;
+                if (kind === "hold") timeHtml = `<div class="time none">D-${dday(s.ed)}<small>${md(s.ed)} ${s.out_time ? s.out_time : ""}</small></div>`;
                 else if (r.time) timeHtml = `<div class="time">${r.time}<small>${esc(kind === "out" ? s.out_src : s.in_src)}${kind === "out" && s.in_today && s.in_time ? ` · 입고 ${s.in_time}` : ""}</small></div>`;
                 else timeHtml = `<div class="time none">시간 미확인<small>${esc(kind === "out" ? s.out_src : s.in_src)}</small></div>`;
                 const fromHtml = prev
