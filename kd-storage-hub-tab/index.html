@@ -724,8 +724,8 @@
         position: relative;
         overflow: hidden;
         border-radius: 16px;
-        padding: 18px 20px 16px;
-        margin: 2px 0 14px;
+        padding: 12px 16px 12px;
+        margin: 2px 0 12px;
         background: linear-gradient(135deg, #eef1ff 0%, #f7f3ff 45%, #eefaf6 100%);
         border: 1px solid rgba(255, 255, 255, 0.9);
         box-shadow:
@@ -759,21 +759,24 @@
         position: relative;
       }
       #tab-hub .hubhead {
-        margin: 0 0 14px;
+        margin: 0 0 10px;
       }
       #tab-hub .hubhead .ttl {
-        font-size: 18px;
+        font-size: 16px;
         letter-spacing: -0.2px;
       }
       #tab-hub .stats {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 12px;
-        margin-bottom: 14px;
+        gap: 10px;
+        margin-bottom: 10px;
       }
       #tab-hub .stat {
-        border-radius: 14px;
-        padding: 14px 16px 12px;
+        border-radius: 12px;
+        padding: 8px 14px 8px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.55));
         border: 1px solid rgba(255, 255, 255, 0.95);
         box-shadow:
@@ -803,11 +806,10 @@
         font-weight: 600;
       }
       #tab-hub .stat .v {
-        font-size: 30px;
+        font-size: 24px;
         font-weight: 800;
         letter-spacing: -0.5px;
         line-height: 1.1;
-        margin-top: 4px;
         font-variant-numeric: tabular-nums;
       }
       #tab-hub .stat .v.red {
@@ -826,16 +828,20 @@
         color: var(--sto-fg);
       }
       #tab-hub .stat small {
-        display: block;
+        margin-left: auto;
         color: var(--muted);
-        font-size: 11px;
-        margin-top: 2px;
+        font-size: 10.5px;
+        text-align: right;
       }
       #tab-hub .hubs {
         margin-bottom: 0;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 8px;
       }
       #tab-hub .hub {
-        border-radius: 14px;
+        min-height: 0;
+        padding: 8px 12px;
+        border-radius: 12px;
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.7));
         border: 1px solid rgba(255, 255, 255, 0.95);
         box-shadow:
@@ -859,8 +865,26 @@
           0 14px 28px rgba(47, 95, 216, 0.16);
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(238, 242, 255, 0.9));
       }
+      #tab-hub .hub .name {
+        font-size: 12.5px;
+        margin-bottom: 4px;
+      }
+      #tab-hub .hub .nums {
+        gap: 8px;
+        font-size: 11px;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
       #tab-hub .hub .nums b {
-        font-size: 19px;
+        font-size: 15px;
+        margin-left: 2px;
+      }
+      #tab-hub .hub .flag {
+        margin: 0 0 0 auto;
+      }
+      #tab-hub .hub .flag .tag {
+        font-size: 9.5px;
+        padding: 1px 5px;
       }
       #tab-hub .panel {
         border-radius: 14px;
@@ -1097,6 +1121,8 @@
           <div class="hubhead">
             <span class="ttl" id="hubTitle">11/07 (토) 보관소 입출고</span>
             <span class="sub" id="hubSub"></span>
+            <span class="sub" id="hubSel"></span>
+            <button type="button" class="btn ghost sm hidden" id="hubAll">전체 보기</button>
             <div class="right noprint">
               <button type="button" class="btn outline sm" id="printBtn"><i class="bi bi-printer"></i>출고 리스트 출력</button>
               <button type="button" class="btn primary sm"><i class="bi bi-qr-code-scan"></i>QR 스캔 입출고</button>
@@ -1322,7 +1348,7 @@
         $("#hubLate").textContent = "지연 " + late;
         $("#hubLate").classList.toggle("hidden", late === 0);
         $("#hubTitle").textContent = `${md(TODAY).replace("-", "/")} (${day(TODAY)}) 보관소 입출고`;
-        $("#hubSub").textContent = `상단 날짜 필터 기준 · 보관소 ${new Set(all.map((r) => r.hub)).size}곳 · 보관 구간 ${total}건 (예약 ${new Set(all.map((r) => r.b.no)).size}건)`;
+        $("#hubSub").textContent = `보관소 ${new Set(all.map((r) => r.hub)).size}곳 · 보관 구간 ${total}건 (예약 ${new Set(all.map((r) => r.b.no)).size}건)`;
         const S = [
           ["out", "오늘 출고", all.filter((r) => r.kind === "out").length, "red", "예정 시각 순"],
           ["in", "오늘 입고", all.filter((r) => r.s.in_today).length, "blue", "당일 통과 포함"],
@@ -1338,11 +1364,12 @@
           const flag = (od ? `<span class="tag warn">지연 ${od}</span> ` : "") + (du ? `<span class="tag amber">출고 대기 ${du}</span> ` : "") + (a ? `<span class="tag auto">자동 통과 ${a}</span>` : "") || `<span class="tag ok">이상 없음</span>`;
           return `<button type="button" class="hub ${state.hub === k ? "on" : ""}" data-hub="${k}">
             <div class="name">${esc(name)}${mgr ? `<span class="mgr">${esc(mgr)}</span>` : k ? `<span class="mgr">파트너</span>` : ""}</div>
-            <div class="nums"><span class="out">출고<b>${o}</b></span><span class="in">입고<b>${i}</b></span><span>보관<b>${h}</b></span></div>
-            <div class="flag">${flag}</div>
+            <div class="nums"><span class="out">출고<b>${o}</b></span><span class="in">입고<b>${i}</b></span><span>보관<b>${h}</b></span><span class="flag">${flag}</span></div>
           </button>`;
         };
-        $("#hubs").innerHTML = card("", "전체 보관소", "", all) + keys.map((k) => card(k, hubName(k), hubMgr(k), all.filter((r) => r.hub === k))).join("");
+        $("#hubs").innerHTML = keys.map((k) => card(k, hubName(k), hubMgr(k), all.filter((r) => r.hub === k))).join("");
+        $("#hubSel").textContent = state.hub ? `${hubName(state.hub)} 선택 중` : "";
+        $("#hubAll").classList.toggle("hidden", !state.hub);
         const icn = state.hub === "ICN1" || state.hub === "ICN2";
         $("#thTime").childNodes[0].textContent = icn ? "맡기는 / 찾는 시각" : "예정 시각";
         $("#thTo").childNodes[0].textContent = icn ? "고객 수령 (항공편)" : "다음 구간";
@@ -1460,10 +1487,11 @@
         $$("[data-kind]").forEach((x) => x.classList.toggle("on", x.dataset.kind === state.kind));
         renderHubs();
       });
+      $("#hubAll").addEventListener("click", () => { state.hub = ""; renderHubs(); });
       $("#hubs").addEventListener("click", (e) => {
         const btn = e.target.closest("[data-hub]");
         if (!btn) return;
-        state.hub = btn.dataset.hub;
+        state.hub = state.hub === btn.dataset.hub ? "" : btn.dataset.hub;
         renderHubs();
       });
       $("#hubBody").addEventListener("click", (e) => {
