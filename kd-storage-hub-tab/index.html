@@ -1162,7 +1162,7 @@
       const md = (d) => (d ? d.slice(5) : "");
       const day = (d) => ["일", "월", "화", "수", "목", "금", "토"][new Date(d + "T00:00:00").getDay()];
       const dday = (d) => Math.round((new Date(d) - new Date(TODAY)) / 86400000);
-      const bkLink = (b) => `<a class="bkno" href="https://admin.goodlugg.com/v2/${b.svc === "KD" ? "kd" : "d2d"}/tracking/${b.no}/detail" target="_blank" rel="noopener" title="예약 트래킹 상세 열기">${b.no}</a>`;
+      const bkLink = (b) => `<a class="bkno" href="https://admin.goodlugg.com/v2/kd/tracking/list?page=1&pageCnt=50&searchType=bookingNo&searchText=${b.no}&searchDates=1&startDate=2000-01-01&endDate=2100-12-31" target="_blank" rel="noopener" title="트래킹 목록에서 이 예약만 열기 (행 클릭으로 상세)">${b.no}</a>`;
       const fltLink = (s) => esc(s).replace(/\b([A-Z]{2}\d{2,4}|[A-Z]\d[A-Z0-9]?\d{2,4})\b/g, (m) => `<a class="flt" href="https://www.google.com/search?q=${encodeURIComponent(m + " flight")}" target="_blank" rel="noopener" title="항공편 검색">${m}</a>`);
       let toastT;
       function toast(m) {
