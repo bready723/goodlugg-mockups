@@ -1377,7 +1377,7 @@
         };
         $("#hubs").innerHTML = keys.map((k) => card(k, hubName(k), hubMgr(k), all.filter((r) => r.hub === k))).join("");
         $("#hubSel").textContent = state.hub ? `${hubName(state.hub)} 기준` : "";
-        $("#hubAll").classList.toggle("hidden", !state.hub);
+        $("#hubAll").classList.toggle("hidden", !(state.hub || state.kind || state.hubQ));
         const icn = state.hub === "ICN1" || state.hub === "ICN2";
         $("#thTime").childNodes[0].textContent = icn ? "맡기는 / 찾는 시각" : "예정 시각";
         $("#thTo").childNodes[0].textContent = icn ? "고객 수령 (항공편)" : "다음 구간";
@@ -1495,7 +1495,11 @@
         $$("[data-kind]").forEach((x) => x.classList.toggle("on", x.dataset.kind === state.kind));
         renderHubs();
       });
-      $("#hubAll").addEventListener("click", () => { state.hub = ""; renderHubs(); });
+      $("#hubAll").addEventListener("click", () => {
+        state.hub = ""; state.kind = ""; state.hubQ = ""; $("#hubQ").value = "";
+        $$("[data-kind]").forEach((x) => x.classList.toggle("on", x.dataset.kind === ""));
+        renderHubs();
+      });
       $("#hubs").addEventListener("click", (e) => {
         const btn = e.target.closest("[data-hub]");
         if (!btn) return;
