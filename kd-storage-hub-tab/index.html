@@ -516,6 +516,12 @@
         color: var(--blue);
         font-size: 11.5px;
       }
+      .dt {
+        font-weight: 600;
+      }
+      .dt.red {
+        color: var(--red);
+      }
       /* ---------- storage hub tab ---------- */
       .hubhead {
         display: flex;
@@ -1186,6 +1192,7 @@
       const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
       const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       const md = (d) => (d ? d.slice(5) : "");
+      const dd = (d) => (d ? `<span class="dt${d === TODAY ? "" : " red"}">${d.slice(5)}</span>` : ""); // 오늘이 아니면 빨강
       const day = (d) => ["일", "월", "화", "수", "목", "금", "토"][new Date(d + "T00:00:00").getDay()];
       const dday = (d) => Math.round((new Date(d) - new Date(TODAY)) / 86400000);
       const bkLink = (b) => `<a class="bkno" href="https://admin.goodlugg.com/v2/kd/tracking/list?page=1&pageCnt=50&searchType=bookingNo&searchText=${b.no}&searchDates=1&startDate=2000-01-01&endDate=2100-12-31" target="_blank" rel="noopener" title="트래킹 목록에서 이 예약만 열기 (행 클릭으로 상세)">${b.no}</a>`;
@@ -1232,15 +1239,15 @@
           </div>`;
         }
         const ci = confState(seg, "in"), co = confState(seg, "out");
-        const inTxt = ci.st === "ok" ? `<b>입고</b> ${ci.at} 확인` : ci.st === "auto" ? `<b>입고</b> ${ci.at} 자동` : seg.in_time ? `<b>입고</b> ${seg.in_time} 예정` : `<b>입고</b> ${md(seg.sd)} 대기`;
-        const outTxt = co.st === "ok" ? `<b>출고</b> ${co.at} 확인` : co.st === "auto" ? `<b>출고</b> ${co.at} 자동` : seg.out_time ? `<b>출고</b> ${seg.out_time} 예정` : `<b>출고</b> ${md(seg.ed)} 미배차`;
+        const inTxt = ci.st === "ok" ? `<b>입고</b> ${ci.at} 확인` : ci.st === "auto" ? `<b>입고</b> ${ci.at} 자동` : seg.in_time ? `<b>입고</b> ${seg.in_time} 예정` : `<b>입고</b> ${dd(seg.sd)} 대기`;
+        const outTxt = co.st === "ok" ? `<b>출고</b> ${co.at} 확인` : co.st === "auto" ? `<b>출고</b> ${co.at} 자동` : seg.out_time ? `<b>출고</b> ${seg.out_time} 예정` : `<b>출고</b> ${dd(seg.ed)} 미배차`;
         const overdue = seg.out_today && co.st === "none" && !!seg.out_time && seg.out_time <= NOW;
         const badge = co.st === "ok" ? `<span class="tag ok">출고확인</span>` : co.st === "auto" ? `<span class="tag auto">자동 통과</span>` : overdue ? `<span class="tag warn">출고 지연</span>` : seg.out_today ? `<span class="tag amber">출고 대기</span>` : `<span class="tag">${esc(seg.status_ko)}</span>`;
         const mgr = hubMgr(seg.hub);
         return `<div class="seg sto">
           <div class="ttl"><i class="bi bi-archive-fill"></i>보관</div>
           <div class="body">${esc(seg.from)}</div>
-          <div class="date">${md(seg.sd)} ~ ${md(seg.ed)}</div>
+          <div class="date">${dd(seg.sd)} ~ ${dd(seg.ed)}</div>
           <div class="io">${inTxt}<br>${outTxt}</div>
           ${seg.notice ? `<div class="notice">${esc(seg.notice)}</div>` : ""}
           <div class="foot">${badge}${mgr ? `<span class="tag mgr">${esc(mgr)}</span>` : ""}</div>
@@ -1386,16 +1393,16 @@
                 const { b, s, prev, next, kind, ci, co } = r;
                 const kindHtml = kind === "out" ? `<span class="kind out">출고</span>${s.in_today ? `<span class="kind both">당일 입고</span>` : ""}` : kind === "in" ? `<span class="kind in">입고</span>` : `<span class="kind hold">보관중</span>`;
                 let timeHtml;
-                if (kind === "hold") timeHtml = `<div class="time none">D-${dday(s.ed)}<small>${md(s.ed)} ${s.out_time ? s.out_time : ""}</small></div>`;
+                if (kind === "hold") timeHtml = `<div class="time none">D-${dday(s.ed)}<small>${dd(s.ed)} ${s.out_time ? s.out_time : ""}</small></div>`;
                 else if (r.time) timeHtml = `<div class="time">${r.time}<small>${esc(kind === "out" ? s.out_src : s.in_src)}${kind === "out" && s.in_today && s.in_time ? ` · 입고 ${s.in_time}` : ""}</small></div>`;
                 else timeHtml = `<div class="time none">시간 미확인<small>${esc(kind === "out" ? s.out_src : s.in_src)}</small></div>`;
                 const fromHtml = prev
-                  ? `<div class="place">${esc(prev.from)}<small>${prev.arrived ? `<span class="t">${prev.arrived.at.slice(5, 16)} 도착</span>` : `${md(prev.td)} ${esc(dlvStatus(prev))}`} ${prev.drv ? "· " + esc(prev.drv) : ""}</small></div>`
-                  : `<div class="place">고객 직접 맡김<small>${md(b.dd)} ${esc(b.dtm || "")}</small></div>`;
+                  ? `<div class="place">${esc(prev.from)}<small>${prev.arrived ? `${dd(prev.arrived.at.slice(0, 10))} <span class="t">${prev.arrived.at.slice(11, 16)} 도착</span>` : `${dd(prev.td)} ${esc(dlvStatus(prev))}`} ${prev.drv ? "· " + esc(prev.drv) : ""}</small></div>`
+                  : `<div class="place">고객 직접 맡김<small>${dd(b.dd)} ${esc(b.dtm || "")}</small></div>`;
                 const toHtml = next
-                  ? `<div class="place">${esc(next.to)}<small><span class="t ${next.td !== TODAY ? "" : "blue"}">${md(next.td)}</span> ${esc(dlvStatus(next))} ${next.drv ? "· " + esc(next.drv) : ""}${next.kakao && next.kakao.wish ? ` · 희망 ${next.kakao.wish}` : ""}</small></div>`
-                  : `<div class="place">고객 직접 수령<small><span class="t ${b.pd === TODAY ? "red" : ""}">${md(b.pd)} ${esc(b.ptm || "")}</span>${b.flight ? `<br><span class="flight"><i class="bi bi-airplane-fill"></i> ${fltLink(b.flight)}</span>` : ""}</small></div>`;
-                const period = s.sd === s.ed ? md(s.sd) : `${md(s.sd)} ~ ${md(s.ed)}`;
+                  ? `<div class="place">${esc(next.to)}<small>${dd(next.td)} ${esc(dlvStatus(next))} ${next.drv ? "· " + esc(next.drv) : ""}${next.kakao && next.kakao.wish ? ` · 희망 ${next.kakao.wish}` : ""}</small></div>`
+                  : `<div class="place">고객 직접 수령<small>${dd(b.pd)} <span class="t">${esc(b.ptm || "")}</span>${b.flight ? `<br><span class="flight"><i class="bi bi-airplane-fill"></i> ${fltLink(b.flight)}</span>` : ""}</small></div>`;
+                const period = s.sd === s.ed ? dd(s.sd) : `${dd(s.sd)} ~ ${dd(s.ed)}`;
                 const confOf = (c, label) => (c.st === "ok" ? `<span class="big ok">${c.at} ${label}확인</span><small>${esc(c.who)}${c.local ? " (지금)" : c.date && c.date !== md(TODAY) ? " · " + c.date : ""}</small>` : c.st === "auto" ? `<span class="big auto">${c.at} 자동 ${label}</span><small>직전 배송 도착 시 시스템 처리${c.date && c.date !== md(TODAY) ? " · " + c.date : ""}</small>` : "");
                 let confHtml;
                 if (kind === "out") confHtml = confOf(co, "출고") || `<span class="big ${r.overdue ? "warn" : "due"}">${r.overdue ? "출고 미확인 · 지연" : "출고 대기"}</span><small>${ci.st === "ok" ? `입고 ${ci.at} ${esc(ci.who)}` : ci.st === "auto" ? `입고 ${ci.at} 자동` : "입고 기록 없음"}</small>`;
