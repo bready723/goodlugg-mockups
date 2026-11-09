@@ -13,8 +13,8 @@
   :root { --visa: #1434CB; --ink: #2b2140; }
   .page {
     width: 210mm; height: 297mm; margin: 0 auto; position: relative; overflow: hidden;
-    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-    padding: 11mm 11mm 13mm; text-align: center; background: #ffffff; color: var(--ink);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    padding: 11mm 11mm 14mm; text-align: center; background: #ffffff; color: var(--ink);
   }
   .logos { display: flex; align-items: center; justify-content: space-between; width: 172mm; }
   .logos img { display: block; width: auto; }
@@ -31,6 +31,10 @@
   .hero .e1 { font-size: 38pt; font-weight: 800; line-height: 1.12; margin-top: 4mm; }
   .hero .e2 { font-size: 30pt; font-weight: 600; line-height: 1.12; margin-top: 1mm; }
 
+  /* spacing scale (4mm base): pair 1-2mm, tight 4mm, group 8-12mm, section = flexible */
+  .gap-top { flex: 2 1 0; min-height: 10mm; }
+  .gap-mid { flex: 3 1 0; min-height: 12mm; }
+  .offer { display: flex; flex-direction: column; align-items: center; gap: 10mm; }
   .qr { background: #ffffff; line-height: 0; }
   .qr img { width: 46mm; height: 46mm; display: block; }
 
@@ -46,11 +50,14 @@
     <img class="iiac" src="logo_incheon_airport.png" alt="Incheon Airport">
     <img class="visa" src="logo_visa_blue.png" alt="Visa">
   </header>
+  <div class="gap-top"></div>
   <section class="brand">
     <div class="name">굿럭 배기지프리</div>
     <div class="name-en">Baggage-Free Service</div>
     <div class="sub">Luggage Delivery for Passengers<br>with Reduced Mobility (PRMs)</div>
   </section>
+  <div class="gap-mid"></div>
+  <div class="offer">
   <section class="hero">
     <div class="k">장애인 Visa 50% 할인</div>
     <div class="e1">50% off with Visa</div>
@@ -61,6 +68,7 @@
     <div class="kr">모든 Visa 카드로 일년 내내 가볍게</div>
     <div class="en">With any Visa card, all year round</div>
   </section>
+  </div>
 </main>
 </body>
 </html>
