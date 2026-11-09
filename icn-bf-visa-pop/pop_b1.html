@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICN BF Visa POP B1</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: Pretendard, "Pretendard Variable", -apple-system, "Apple SD Gothic Neo", sans-serif; }
+  :root { --visa: #1434CB; --visa-y: #FCC015; --purple: #512a72; --ink: #2b2140; --lime: #c7c22e; }
+  .page {
+    width: 210mm; height: 297mm; margin: 0 auto; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    padding: 11mm 12mm 12mm; text-align: center; background: #ffffff; color: var(--ink);
+  }
+
+  /* logo row, sized like the printed POP */
+  .logos { display: flex; align-items: center; justify-content: space-between; width: 172mm; }
+  .logos img { display: block; width: auto; }
+  .logos .customs { height: 15mm; }
+  .logos .iiac { height: 10.5mm; }
+  .logos .visa { height: 11mm; }
+
+  .svc { display: flex; flex-direction: column; align-items: center; }
+  .chip { display: inline-block; background: var(--lime); color: var(--ink); border-radius: 999px;
+          padding: 2.6mm 14mm; font-size: 24pt; font-weight: 600; letter-spacing: 0.02em; }
+  .chip-en { font-size: 19pt; font-weight: 500; line-height: 1.25; margin-top: 3mm; color: var(--ink); }
+  .name { font-size: 60pt; font-weight: 600; letter-spacing: 0.01em; line-height: 1.08; margin-top: 5mm; color: var(--ink); }
+  .name-en { font-size: 30pt; font-weight: 500; letter-spacing: 0.12em; margin-top: 1mm; color: var(--ink); }
+
+  .qr { background: #ffffff; line-height: 0; }
+  .qr img { width: 50mm; height: 50mm; display: block; }
+
+  .hero { color: #111111; }
+  .hero .v { color: var(--visa); }
+  .hero .pct { color: var(--visa-y); }
+  body.b .hero .v { color: #ffffff; }
+  .hero .k1 { font-size: 46pt; font-weight: 800; line-height: 1.08; letter-spacing: -0.01em; }
+  .hero .k2 { font-size: 90pt; font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; }
+  .hero .e1 { font-size: 28pt; font-weight: 800; line-height: 1.15; margin-top: 4mm; }
+  .hero .e2 { font-size: 22pt; font-weight: 600; line-height: 1.15; margin-top: 0.5mm; }
+
+  .support { color: #111111; }
+  .support .v { color: var(--visa); }
+  body.b .support .v { color: #ffffff; }
+  .support .kr { font-size: 22pt; font-weight: 700; }
+  .support .en { font-size: 17pt; font-weight: 600; margin-top: 1mm; }
+
+  /* B: full Visa-blue page, logos kept on a white band (Visa blue logo must sit on white) */
+  body.b { background: var(--visa); }
+  body.b .page { background: var(--visa); color: #ffffff; }
+  body.b .logos { background: #ffffff; border-radius: 5mm; padding: 4mm 9mm; width: 186mm; }
+  body.b .chip { background: #ffffff; color: var(--visa); }
+  body.b .chip-en, body.b .name, body.b .name-en, body.b .hero, body.b .support { color: #ffffff; }
+  body.b .hero .pct { color: var(--visa-y); }
+  body.b .qr { padding: 0; border-radius: 2mm; overflow: hidden; }
+  body.b .qr img { width: 48mm; height: 48mm; }
+</style>
+</head>
+<body class="b">
+<main class="page">
+  <header class="logos">
+    <img class="customs" src="logo_customs.png" alt="관세청">
+    <img class="iiac" src="logo_incheon_airport.png" alt="Incheon Airport">
+    <img class="visa" src="logo_visa_blue.png" alt="Visa">
+  </header>
+  <section class="svc">
+    <div class="chip">교통약자 전용 짐배송 서비스</div>
+    <div class="name">굿럭 배기지프리</div>
+    <div class="name-en">Goodlugg Baggage Free</div>
+    <div class="chip-en">Luggage Delivery for Passengers<br>with Reduced Mobility (PRMs)</div>
+  </section>
+  <section class="hero">
+    <div class="k1">장애인 <span class="v">Visa</span></div>
+    <div class="k2"><span class="pct">50%</span> 할인</div>
+    <div class="e1">50% off with <span class="v">Visa</span></div>
+    <div class="e2">for travelers with disabilities</div>
+  </section>
+  <div class="qr"><img src="qr_bf_disabled_en_tight.png" alt="QR: Baggage Free for travelers with disabilities"></div>
+  <section class="support">
+    <div class="kr">모든 <span class="v">Visa</span> 카드로 일년 내내 가볍게</div>
+    <div class="en">With any <span class="v">Visa</span> card, all year round</div>
+  </section>
+</main>
+</body>
+</html>
