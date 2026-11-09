@@ -35,7 +35,10 @@
 
   /* spacing scale (4mm base): pair 1-2mm, tight 4mm, group 8-12mm, section = flexible */
   .gap-top { flex: 2 1 0; min-height: 10mm; }
-  .gap-mid { flex: 3 1 0; min-height: 12mm; }
+  .gap-mid { flex: 2.4 1 0; min-height: 12mm; }
+  /* hero lifted: 20% of the brand-to-hero space moved below the hero */
+  .gap-hq { flex: 0.6 1 0; }
+  .offer + .gap-hq + .offer { margin-top: 10mm; }
   .offer { display: flex; flex-direction: column; align-items: center; gap: 10mm; }
   .qr { background: #ffffff; line-height: 0; }
   .qr img { width: 46mm; height: 46mm; display: block; }
@@ -67,6 +70,9 @@
     <div class="e1">50% off with <span class="v">Visa</span></div>
     <div class="e2">for travelers with disabilities</div>
   </section>
+  </div>
+  <div class="gap-hq"></div>
+  <div class="offer">
   <div class="qr"><img src="qr_bf_disabled_en.png" alt="QR: Baggage Free for travelers with disabilities"></div>
   <section class="support">
     <div class="kr">모든 <span class="v">Visa</span> 카드로 일년 내내 가볍게</div>
