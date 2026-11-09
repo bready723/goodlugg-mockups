@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ICN BF Visa POP 3</title>
+<title>ICN BF Visa POP 2</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
   @page { size: A4; margin: 0; }
@@ -58,6 +58,9 @@
   body.b .hero .pct { color: var(--visa-y); }
   body.b .qr { padding: 0; border-radius: 2mm; overflow: hidden; }
   body.b .qr img { width: 48mm; height: 48mm; }
+  .svc .t-kr { font-size: 60pt; font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; white-space: nowrap; color: var(--ink); }
+  .svc .t-en { font-size: 40pt; font-weight: 600; line-height: 1.15; margin-top: 3mm; white-space: nowrap; color: var(--ink); }
+  body.b .svc .t-kr, body.b .svc .t-en { color: #ffffff; }
 </style>
 </head>
 <body class="a">
@@ -68,10 +71,8 @@
     <img class="visa" src="logo_visa_blue.png" alt="Visa">
   </header>
   <section class="svc">
-    <div class="chip">교통약자 전용 짐배송 서비스</div>
-    <div class="name">굿럭 배기지프리</div>
-    <div class="name-en">Goodlugg Baggage Free</div>
-    <div class="chip-en">Luggage Delivery for Passengers<br>with Reduced Mobility (PRMs)</div>
+    <div class="t-kr">교통약자 전용 짐배송</div>
+    <div class="t-en">Luggage Delivery for PRMs</div>
   </section>
   <div class="qr"><img src="qr_bf_disabled_en.png" alt="QR: Baggage Free for travelers with disabilities"></div>
   <section class="hero">
