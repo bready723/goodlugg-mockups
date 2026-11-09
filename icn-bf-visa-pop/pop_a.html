@@ -27,14 +27,17 @@
   .svc { display: flex; flex-direction: column; align-items: center; }
   .chip { display: inline-block; background: var(--lime); color: var(--ink); border-radius: 999px;
           padding: 2.6mm 14mm; font-size: 24pt; font-weight: 600; letter-spacing: 0.02em; }
-  .chip-en { font-size: 13pt; font-weight: 500; margin-top: 2.5mm; color: var(--ink); }
+  .chip-en { font-size: 19pt; font-weight: 500; line-height: 1.25; margin-top: 3mm; color: var(--ink); }
   .name { font-size: 60pt; font-weight: 600; letter-spacing: 0.01em; line-height: 1.08; margin-top: 5mm; color: var(--ink); }
-  .name-en { font-size: 23pt; font-weight: 500; letter-spacing: 0.16em; margin-top: 1mm; color: var(--ink); }
+  .name-en { font-size: 30pt; font-weight: 500; letter-spacing: 0.12em; margin-top: 1mm; color: var(--ink); }
 
   .qr { background: #ffffff; line-height: 0; }
   .qr img { width: 50mm; height: 50mm; display: block; }
 
-  .hero { color: var(--visa); }
+  .hero { color: #111111; }
+  .hero .v { color: var(--visa); }
+  .hero .pct { color: var(--visa-y); }
+  body.b .hero .v { color: #ffffff; }
   .hero .k1 { font-size: 46pt; font-weight: 800; line-height: 1.08; letter-spacing: -0.01em; }
   .hero .k2 { font-size: 100pt; font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; }
   .hero .e1 { font-size: 28pt; font-weight: 800; line-height: 1.15; margin-top: 4mm; }
@@ -54,6 +57,7 @@
   body.b .chip-en, body.b .name, body.b .name-en, body.b .hero, body.b .support { color: #ffffff; }
   body.b .hero .pct { color: var(--visa-y); }
   body.b .qr { padding: 2.5mm; border-radius: 3mm; }
+  body.b .qr img { width: 43mm; height: 43mm; }
 </style>
 </head>
 <body class="a">
@@ -67,13 +71,13 @@
     <div class="chip">교통약자 전용 짐배송 서비스</div>
     <div class="name">굿럭 배기지프리</div>
     <div class="name-en">Goodlugg Baggage Free</div>
-    <div class="chip-en">Luggage Delivery for Passengers with Reduced Mobility (PRMs)</div>
+    <div class="chip-en">Luggage Delivery for Passengers<br>with Reduced Mobility (PRMs)</div>
   </section>
   <div class="qr"><img src="qr_bf_disabled_en.png" alt="QR: Baggage Free for travelers with disabilities"></div>
   <section class="hero">
-    <div class="k1">장애인 Visa</div>
+    <div class="k1">장애인 <span class="v">Visa</span></div>
     <div class="k2"><span class="pct">50%</span> 할인</div>
-    <div class="e1">50% off with Visa</div>
+    <div class="e1">50% off with <span class="v">Visa</span></div>
     <div class="e2">for travelers with disabilities</div>
   </section>
   <section class="support">
