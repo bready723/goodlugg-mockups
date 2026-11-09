@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICN BF Visa POP C</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: Pretendard, "Pretendard Variable", -apple-system, "Apple SD Gothic Neo", sans-serif; }
+  :root { --visa: #1434CB; --visa-y: #FCC015; --purple: #512a72; --lime: #c7c22e; }
+  .page {
+    width: 210mm; height: 297mm; margin: 0 auto; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    padding: 12mm 12mm 12mm; text-align: center; background: #ffffff; color: var(--purple);
+  }
+
+  .logos { display: flex; align-items: center; justify-content: center; gap: 11mm; width: 100%; }
+  .logos img { display: block; width: auto; }
+  .logos .customs { height: 12.5mm; }
+  .logos .iiac { height: 8.6mm; }
+  .logos .visa { height: 10mm; }
+
+  .svc { display: flex; flex-direction: column; align-items: center; }
+  .chip { display: inline-block; background: var(--lime); color: var(--purple); border-radius: 999px;
+          padding: 2.2mm 9mm; font-size: 21pt; font-weight: 700; letter-spacing: -0.01em; }
+  .chip-en { font-size: 13pt; font-weight: 600; margin-top: 2mm; color: var(--purple); }
+  .name { font-size: 46pt; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-top: 4mm; }
+  .name-en { font-size: 20pt; font-weight: 600; letter-spacing: 0.14em; margin-top: 1.5mm; }
+
+  .hero { width: 100%; }
+  .hero .k1 { font-size: 50pt; font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; }
+  .hero .k2 { font-size: 104pt; font-weight: 900; line-height: 1.0; letter-spacing: -0.03em; }
+  .hero .k2 .pct { color: var(--visa-y); }
+  .hero .e1 { font-size: 30pt; font-weight: 800; line-height: 1.15; margin-top: 5mm; }
+  .hero .e2 { font-size: 24pt; font-weight: 600; line-height: 1.15; margin-top: 0.5mm; }
+
+  .support .kr { font-size: 22pt; font-weight: 700; }
+  .support .en { font-size: 17pt; font-weight: 600; margin-top: 1mm; }
+
+  .qr { background: #ffffff; padding: 0; line-height: 0; }
+  .qr img { width: 36mm; height: 36mm; display: block; }
+
+  /* A: white page, Visa-blue hero block */
+  body.a .heroblock { width: 100%; background: var(--visa); color: #ffffff; border-radius: 6mm; padding: 9mm 8mm 10mm; }
+  body.a .support { color: var(--visa); }
+
+  /* B: full Visa-blue page, logos on a white band */
+  body.b { background: var(--visa); }
+  body.b .page { background: var(--visa); color: #ffffff; }
+  body.b .logos { background: #ffffff; border-radius: 5mm; padding: 5mm 0; }
+  body.b .chip { background: #ffffff; color: var(--visa); }
+  body.b .chip-en { color: #ffffff; }
+  body.b .heroblock { width: 100%; padding: 2mm 0; }
+  body.b .support { color: #ffffff; }
+  body.b .qr { padding: 2mm; border-radius: 3mm; }
+
+  /* C: current layout, blue band enlarged to half the page */
+  body.c .page { padding: 11mm 12mm 0; justify-content: flex-start; }
+  body.c .top { width: 100%; height: calc(148.5mm - 11mm - 6mm); display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
+  body.c .name { font-size: 42pt; margin-top: 3mm; }
+  body.c .name-en { font-size: 18pt; }
+  body.c .chip { font-size: 19pt; }
+  body.c .chip-en { font-size: 12pt; }
+  body.c .qr img { width: 30mm; height: 30mm; }
+  body.c .band { position: absolute; left: 8mm; right: 8mm; bottom: 8mm; height: calc(148.5mm - 8mm);
+                 background: var(--visa); color: #ffffff; border-radius: 6mm;
+                 display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9mm; padding: 6mm; }
+  body.c .support { color: #ffffff; }
+</style>
+</head>
+<body class="c">
+<main class="page">
+  <div class="top">
+  <header class="logos">
+    <img class="customs" src="logo_customs.png" alt="관세청">
+    <img class="iiac" src="logo_incheon_airport.png" alt="Incheon Airport">
+    <img class="visa" src="logo_visa_blue.png" alt="Visa">
+  </header>
+  <section class="svc">
+    <div class="chip">교통약자 전용 짐배송 서비스</div>
+    <div class="chip-en">Luggage Delivery for Passengers with Reduced Mobility (PRMs)</div>
+    <div class="name">굿럭 배기지프리</div>
+    <div class="name-en">Goodlugg Baggage Free</div>
+  </section>
+  <div class="qr"><img src="qr_bf_disabled_en.png" alt="QR: Baggage Free for travelers with disabilities"></div>
+  </div>
+  <section class="band">
+    <div class="hero">
+      <div class="k1">장애인 Visa</div>
+      <div class="k2"><span class="pct">50%</span> 할인</div>
+      <div class="e1">50% off with Visa</div>
+      <div class="e2">for travelers with disabilities</div>
+    </div>
+    <section class="support">
+    <div class="kr">모든 Visa 카드로 일년 내내 가볍게</div>
+    <div class="en">With any Visa card, all year round</div>
+  </section>
+  </section>
+</main>
+</body>
+</html>
