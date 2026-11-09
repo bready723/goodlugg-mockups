@@ -19,7 +19,7 @@
 
   .logos { display: flex; align-items: center; justify-content: center; gap: 11mm; width: 100%; }
   .logos img { display: block; width: auto; }
-  .logos .customs { height: 12.5mm; }
+  .logos .customs { height: 14mm; }
   .logos .iiac { height: 8.6mm; }
   .logos .visa { height: 10mm; }
 
@@ -42,9 +42,11 @@
 
   .qr { background: #ffffff; padding: 0; line-height: 0; }
   .qr img { width: 36mm; height: 36mm; display: block; }
+  .foot { width: 100%; display: flex; align-items: center; justify-content: center; gap: 12mm; }
+  .foot .support { text-align: left; }
 
   /* A: white page, Visa-blue hero block */
-  body.a .heroblock { width: 100%; background: var(--visa); color: #ffffff; border-radius: 6mm; padding: 9mm 8mm 10mm; }
+  body.a .heroblock { width: 100%; background: var(--visa); color: #ffffff; border-radius: 6mm; padding: 14mm 8mm 15mm; }
   body.a .support { color: var(--visa); }
 
   /* B: full Visa-blue page, logos on a white band */
@@ -59,16 +61,26 @@
 
   /* C: current layout, blue band enlarged to half the page */
   body.c .page { padding: 11mm 12mm 0; justify-content: flex-start; }
-  body.c .top { width: 100%; height: calc(148.5mm - 11mm - 6mm); display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
+  body.c .top { width: 100%; height: calc(148.5mm - 11mm - 4mm); display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; }
   body.c .name { font-size: 42pt; margin-top: 3mm; }
   body.c .name-en { font-size: 18pt; }
   body.c .chip { font-size: 19pt; }
   body.c .chip-en { font-size: 12pt; }
-  body.c .qr img { width: 30mm; height: 30mm; }
+  body.c .qr img { width: 33mm; height: 33mm; }
   body.c .band { position: absolute; left: 8mm; right: 8mm; bottom: 8mm; height: calc(148.5mm - 8mm);
                  background: var(--visa); color: #ffffff; border-radius: 6mm;
                  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9mm; padding: 6mm; }
   body.c .support { color: #ffffff; }
+
+  /* D: full-bleed blue bottom half, QR inside the band */
+  body.d .page { padding: 11mm 12mm 0; justify-content: flex-start; }
+  body.d .top { width: 100%; height: calc(148.5mm - 11mm); display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; }
+  body.d .band { position: absolute; left: 0; right: 0; bottom: 0; height: 148.5mm; background: var(--visa); color: #ffffff;
+                 display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9mm; padding: 8mm 12mm; }
+  body.d .support { color: #ffffff; }
+  body.d .qr { padding: 2mm; border-radius: 3mm; }
+  body.d .qr img { width: 32mm; height: 32mm; }
+  body.d .hero .k2 { font-size: 98pt; }
 </style>
 </head>
 <body class="a">
@@ -92,11 +104,13 @@
       <div class="e2">for travelers with disabilities</div>
     </div>
   </section>
-  <section class="support">
+  <div class="foot">
+    <section class="support">
     <div class="kr">모든 Visa 카드로 일년 내내 가볍게</div>
     <div class="en">With any Visa card, all year round</div>
   </section>
-  <div class="qr"><img src="qr_bf_disabled_en.png" alt="QR: Baggage Free for travelers with disabilities"></div>
+    <div class="qr"><img src="qr_bf_disabled_en.png" alt="QR: Baggage Free for travelers with disabilities"></div>
+  </div>
 </main>
 </body>
 </html>
