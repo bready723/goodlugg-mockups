@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICN BF Visa POP C</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: Pretendard, "Pretendard Variable", -apple-system, "Apple SD Gothic Neo", sans-serif; }
+  :root { --visa: #1434CB; --ink: #2b2140; }
+  .page {
+    width: 210mm; height: 297mm; margin: 0 auto; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    padding: 11mm 11mm 13mm; text-align: center; background: #ffffff; color: var(--ink);
+  }
+  .logos { display: flex; align-items: center; justify-content: space-between; width: 172mm; }
+  .logos img { display: block; width: auto; }
+  .logos .customs { height: 15mm; }
+  .logos .iiac { height: 10.5mm; }
+  .logos .visa { height: 11mm; }
+
+  .brand .name { font-size: 66pt; font-weight: 600; letter-spacing: 0.01em; line-height: 1.05; }
+  .brand .name-en { font-size: 36pt; font-weight: 600; letter-spacing: 0.04em; line-height: 1.1; margin-top: 2.5mm; }
+  .brand .sub { font-size: 21pt; font-weight: 500; line-height: 1.25; margin-top: 4mm; }
+
+  .hero { color: var(--visa); }
+  .hero .k { font-size: 56.0pt; font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; white-space: nowrap; }
+  .hero .e1 { font-size: 38pt; font-weight: 800; line-height: 1.12; margin-top: 4mm; }
+  .hero .e2 { font-size: 30pt; font-weight: 600; line-height: 1.12; margin-top: 1mm; }
+
+  .qr { background: #ffffff; line-height: 0; }
+  .qr img { width: 46mm; height: 46mm; display: block; }
+
+  .support { color: var(--visa); }
+  .support .kr { font-size: 26pt; font-weight: 700; line-height: 1.2; }
+  .support .en { font-size: 23pt; font-weight: 600; line-height: 1.2; margin-top: 1.5mm; }
+</style>
+</head>
+<body class="c">
+<main class="page">
+  <header class="logos">
+    <img class="customs" src="logo_customs.png" alt="관세청">
+    <img class="iiac" src="logo_incheon_airport.png" alt="Incheon Airport">
+    <img class="visa" src="logo_visa_blue.png" alt="Visa">
+  </header>
+  <section class="brand">
+    <div class="name">굿럭 배기지프리</div>
+    <div class="name-en">Baggage-Free Service</div>
+    <div class="sub">Luggage Delivery for Passengers<br>with Reduced Mobility (PRMs)</div>
+  </section>
+  <section class="hero">
+    <div class="k">장애인 Visa 50% 할인</div>
+    <div class="e1">50% off with Visa</div>
+    <div class="e2">for travelers with disabilities</div>
+  </section>
+  <div class="qr"><img src="qr_bf_disabled_en.png" alt="QR: Baggage Free for travelers with disabilities"></div>
+  <section class="support">
+    <div class="kr">모든 Visa 카드로 일년 내내 가볍게</div>
+    <div class="en">With any Visa card, all year round</div>
+  </section>
+</main>
+</body>
+</html>
