@@ -10,77 +10,48 @@
   * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   html, body { margin: 0; padding: 0; }
   body { background: #ffffff; font-family: Pretendard, "Pretendard Variable", -apple-system, "Apple SD Gothic Neo", sans-serif; }
-  :root { --visa: #1434CB; --visa-y: #FCC015; --purple: #512a72; --lime: #c7c22e; }
+  :root { --visa: #1434CB; --visa-y: #FCC015; --purple: #512a72; --ink: #2b2140; --lime: #c7c22e; }
   .page {
     width: 210mm; height: 297mm; margin: 0 auto; position: relative; overflow: hidden;
     display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-    padding: 12mm 12mm 12mm; text-align: center; background: #ffffff; color: var(--purple);
+    padding: 11mm 12mm 12mm; text-align: center; background: #ffffff; color: var(--ink);
   }
 
-  .logos { display: flex; align-items: center; justify-content: center; gap: 11mm; width: 100%; }
+  /* logo row, sized like the printed POP */
+  .logos { display: flex; align-items: center; justify-content: space-between; width: 172mm; }
   .logos img { display: block; width: auto; }
-  .logos .customs { height: 14mm; }
-  .logos .iiac { height: 8.6mm; }
-  .logos .visa { height: 10mm; }
+  .logos .customs { height: 15mm; }
+  .logos .iiac { height: 10.5mm; }
+  .logos .visa { height: 11mm; }
 
   .svc { display: flex; flex-direction: column; align-items: center; }
-  .chip { display: inline-block; background: var(--lime); color: var(--purple); border-radius: 999px;
-          padding: 2.2mm 9mm; font-size: 21pt; font-weight: 700; letter-spacing: -0.01em; }
-  .chip-en { font-size: 13pt; font-weight: 600; margin-top: 2mm; color: var(--purple); }
-  .name { font-size: 46pt; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-top: 4mm; }
-  .name-en { font-size: 20pt; font-weight: 600; letter-spacing: 0.14em; margin-top: 1.5mm; }
+  .chip { display: inline-block; background: var(--lime); color: var(--ink); border-radius: 999px;
+          padding: 2.6mm 14mm; font-size: 24pt; font-weight: 600; letter-spacing: 0.02em; }
+  .chip-en { font-size: 12.5pt; font-weight: 500; margin-top: 2mm; color: var(--ink); }
+  .name { font-size: 60pt; font-weight: 600; letter-spacing: 0.01em; line-height: 1.08; margin-top: 3mm; color: var(--ink); }
+  .name-en { font-size: 23pt; font-weight: 500; letter-spacing: 0.16em; margin-top: 1mm; color: var(--ink); }
 
-  .hero { width: 100%; }
-  .hero .k1 { font-size: 50pt; font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; }
-  .hero .k2 { font-size: 104pt; font-weight: 900; line-height: 1.0; letter-spacing: -0.03em; }
-  .hero .k2 .pct { color: var(--visa-y); }
-  .hero .e1 { font-size: 30pt; font-weight: 800; line-height: 1.15; margin-top: 5mm; }
-  .hero .e2 { font-size: 24pt; font-weight: 600; line-height: 1.15; margin-top: 0.5mm; }
+  .qr { background: #ffffff; line-height: 0; }
+  .qr img { width: 50mm; height: 50mm; display: block; }
 
+  .hero { color: var(--visa); }
+  .hero .k1 { font-size: 46pt; font-weight: 800; line-height: 1.08; letter-spacing: -0.01em; }
+  .hero .k2 { font-size: 100pt; font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; }
+  .hero .e1 { font-size: 28pt; font-weight: 800; line-height: 1.15; margin-top: 4mm; }
+  .hero .e2 { font-size: 22pt; font-weight: 600; line-height: 1.15; margin-top: 0.5mm; }
+
+  .support { color: var(--visa); }
   .support .kr { font-size: 22pt; font-weight: 700; }
   .support .en { font-size: 17pt; font-weight: 600; margin-top: 1mm; }
 
-  .qr { background: #ffffff; padding: 0; line-height: 0; }
-  .qr img { width: 36mm; height: 36mm; display: block; }
-  .foot { width: 100%; display: flex; align-items: center; justify-content: center; gap: 12mm; }
-  .foot .support { text-align: left; }
-
-  /* A: white page, Visa-blue hero block */
-  body.a .heroblock { width: 100%; background: var(--visa); color: #ffffff; border-radius: 6mm; padding: 14mm 8mm 15mm; }
-  body.a .support { color: var(--visa); }
-
-  /* B: full Visa-blue page, logos on a white band */
+  /* B: full Visa-blue page, logos kept on a white band (Visa blue logo must sit on white) */
   body.b { background: var(--visa); }
   body.b .page { background: var(--visa); color: #ffffff; }
-  body.b .logos { background: #ffffff; border-radius: 5mm; padding: 5mm 0; }
+  body.b .logos { background: #ffffff; border-radius: 5mm; padding: 4mm 9mm; width: 186mm; }
   body.b .chip { background: #ffffff; color: var(--visa); }
-  body.b .chip-en { color: #ffffff; }
-  body.b .heroblock { width: 100%; padding: 2mm 0; }
-  body.b .support { color: #ffffff; }
-  body.b .qr { padding: 2mm; border-radius: 3mm; }
-
-  /* C: current layout, blue band enlarged to half the page */
-  body.c .page { padding: 11mm 12mm 0; justify-content: flex-start; }
-  body.c .top { width: 100%; height: calc(148.5mm - 11mm - 4mm); display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; }
-  body.c .name { font-size: 42pt; margin-top: 3mm; }
-  body.c .name-en { font-size: 18pt; }
-  body.c .chip { font-size: 19pt; }
-  body.c .chip-en { font-size: 12pt; }
-  body.c .qr img { width: 33mm; height: 33mm; }
-  body.c .band { position: absolute; left: 8mm; right: 8mm; bottom: 8mm; height: calc(148.5mm - 8mm);
-                 background: var(--visa); color: #ffffff; border-radius: 6mm;
-                 display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9mm; padding: 6mm; }
-  body.c .support { color: #ffffff; }
-
-  /* D: full-bleed blue bottom half, QR inside the band */
-  body.d .page { padding: 11mm 12mm 0; justify-content: flex-start; }
-  body.d .top { width: 100%; height: calc(148.5mm - 11mm); display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; }
-  body.d .band { position: absolute; left: 0; right: 0; bottom: 0; height: 148.5mm; background: var(--visa); color: #ffffff;
-                 display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9mm; padding: 8mm 12mm; }
-  body.d .support { color: #ffffff; }
-  body.d .qr { padding: 2mm; border-radius: 3mm; }
-  body.d .qr img { width: 32mm; height: 32mm; }
-  body.d .hero .k2 { font-size: 98pt; }
+  body.b .chip-en, body.b .name, body.b .name-en, body.b .hero, body.b .support { color: #ffffff; }
+  body.b .hero .pct { color: var(--visa-y); }
+  body.b .qr { padding: 2.5mm; border-radius: 3mm; }
 </style>
 </head>
 <body class="b">
@@ -96,21 +67,17 @@
     <div class="name">굿럭 배기지프리</div>
     <div class="name-en">Goodlugg Baggage Free</div>
   </section>
-  <section class="heroblock">
-    <div class="hero">
-      <div class="k1">장애인 Visa</div>
-      <div class="k2"><span class="pct">50%</span> 할인</div>
-      <div class="e1">50% off with Visa</div>
-      <div class="e2">for travelers with disabilities</div>
-    </div>
+  <div class="qr"><img src="qr_bf_disabled_en.png" alt="QR: Baggage Free for travelers with disabilities"></div>
+  <section class="hero">
+    <div class="k1">장애인 Visa</div>
+    <div class="k2"><span class="pct">50%</span> 할인</div>
+    <div class="e1">50% off with Visa</div>
+    <div class="e2">for travelers with disabilities</div>
   </section>
-  <div class="foot">
-    <section class="support">
+  <section class="support">
     <div class="kr">모든 Visa 카드로 일년 내내 가볍게</div>
     <div class="en">With any Visa card, all year round</div>
   </section>
-    <div class="qr"><img src="qr_bf_disabled_en.png" alt="QR: Baggage Free for travelers with disabilities"></div>
-  </div>
 </main>
 </body>
 </html>
