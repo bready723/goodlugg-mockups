@@ -452,7 +452,7 @@ function vDone(){
    +'<div class="meetbig"><div class="k">'+(p.desk?'Pick up your luggage at':'Meet our driver at')+'</div><div class="t">'+S.puDate+' '+S.puTime+'</div><div class="p">'+esc(p.name)+'</div><div>'+esc(p.desk?'Goodlugg desk (1F)':p.meet)+'</div></div>'
    +(p.desk?'':meetCard())
    +'<div class="plain"><div class="sum-row"><span>Handoff</span><span>'+S.hdDate+' '+S.hdTime+', '+FROM.name+'</span></div><div class="sum-row"><span>Luggage</span><span>'+bagsTxt(bagCount())+'</span></div><div class="sum-row"><span>Paid</span><span>'+won(fees().total)+'</span></div></div>'
-   +'<div class="btns"><button class="d2d-btn" data-act="noop">Track my luggage</button></div></div></div>';
+   +'<div class="btns"><button class="d2d-btn" data-act="home">Back to Door2Door</button></div></div></div>';
 }
 function row(k,v){return '<div><b>'+k+'</b><span>'+v+'</span></div>';}
 function bagsTxt(n){return n+(n===1?' bag':' bags');}
@@ -498,6 +498,7 @@ var ACT={
   info:function(){S.info=!S.info;},
   qty:function(v){var a=v.split(',');S.bags[a[0]]=Math.max(0,S.bags[a[0]]+ +a[1]);S.priced=false;},
   noop:function(){return 'skip';},
+  home:function(){var c=S.to.code;reset(c);return true;},
   drawer:function(v){S.drawer=v==='1';},
   toCalc:function(){S.view='calc';S.toOpen=true;S.toMode=S.to.kind;return true;},
   book:function(){S.view='s1';S.drawer=null;return true;},
