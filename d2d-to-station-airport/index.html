@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Door2Door: To KTX Station / Airport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:#e9e8ee;color:#222;font-size:14px;line-height:1.45}
+button{font-family:inherit}
+.pv{position:sticky;top:0;z-index:90;background:#111;color:#fff;display:flex;gap:6px;align-items:center;padding:8px 10px;overflow-x:auto;white-space:nowrap}
+.pv span{font-size:11px;color:#aaa;margin-right:4px}
+.pv button{border:1px solid #444;background:#222;color:#ddd;border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer}
+.pv button.on{background:#fff;color:#111;border-color:#fff;font-weight:600}
+.phone{max-width:410px;margin:0 auto;background:#fff;min-height:calc(100vh - 40px);position:relative;padding-bottom:40px}
+.langbar{padding:8px 16px;font-size:14px;border-bottom:1px solid #eee}
+.hdr{display:flex;align-items:center;justify-content:center;position:relative;height:58px;border-bottom:1px solid #f0f0f0}
+.hdr img{height:24px}
+.hdr .ham{position:absolute;right:16px;top:19px;width:28px;height:20px;display:flex;flex-direction:column;justify-content:space-between}
+.hdr .ham i{display:block;height:3px;background:#512a72;border-radius:2px}
+
+/* calculator (live calculatorSections.html) */
+.d2d-location-section{background:#F7F8FC;border-radius:16px;margin:24px 16px 0;padding:24px 16px}
+.d2d-location-section h2{font-size:26px;font-weight:700;margin:0 0 14px}
+.d2d-location-field{margin-bottom:16px}
+.d2d-location-label{font-size:14px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.d2d-place-close{margin-left:auto;padding:2px 4px;border:0;background:none;font-size:12px;font-weight:500;color:#512a72;cursor:pointer}
+.d2d-place-row{display:flex;align-items:center;gap:10px;width:100%;padding:10px 14px;background:#fff;border:1px solid #e4e1ea;border-radius:12px;text-align:left;cursor:pointer;font-family:inherit}
+.d2d-place-row-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.d2d-place-row .kicker{font-size:12px;color:#777}
+.d2d-place-row .value{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d2d-place-row .value.ph{font-weight:400;color:#999}
+.d2d-place-row .addr{font-size:12px;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d2d-place-row .go{flex:none;font-size:13px;color:#512a72;font-weight:600}
+.d2d-place-toggle{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:8px;border:1px solid #ddd;border-radius:8px;overflow:hidden}
+.d2d-place-toggle button{padding:9px 0;border:none;border-top:1px solid #eee;border-left:1px solid #eee;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#999}
+.d2d-place-toggle button:nth-child(-n+3){border-top:none}
+.d2d-place-toggle button:nth-child(3n+1){border-left:none}
+.d2d-place-toggle button.active{background:#512a72;color:#fff}
+.d2d-place-toggle button.coming-soon{color:#bbb}
+.d2d-place-toggle button.coming-soon.active{background:#9b8bb0;color:#fff}
+.d2d-comingsoon-note{font-size:12px;color:#b86800;background:#fff8f0;border:1px solid #ffd4a8;border-radius:8px;padding:8px 12px;margin-bottom:8px}
+.d2d-location-input{width:100%;border:1px solid #ddd;border-radius:8px;padding:12px 14px;font-size:14px;background:#fff;outline:none;font-family:inherit;color:#222}
+.d2d-location-input:focus{border-color:#512a72}
+.dd{position:relative}
+.dd-display{width:100%;border:1px solid #ddd;border-radius:8px;padding:12px 14px;font-size:14px;background:#fff;display:flex;justify-content:space-between;align-items:center;cursor:pointer;color:#999}
+.dd-display.open{border-color:#512a72}
+.dd-display svg{flex:none}
+.dd-list{background:#fff;border:1px solid #ddd;border-radius:10px;margin-top:6px;max-height:300px;overflow-y:auto;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.dd-list div{padding:13px 16px;font-size:14px;border-bottom:1px solid #f0f0f0;cursor:pointer}
+.dd-list div:last-child{border-bottom:none}
+.dd-list div:hover{background:#f5f0fa}
+.d2d-calc-schedule{background:#fff;border:1px solid #e4e1ea;border-radius:12px;padding:4px 12px}
+.d2d-calc-schedule-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px 8px;align-items:center;padding:8px 0}
+.d2d-calc-schedule-row>label{grid-column:1/-1;font-size:12px;color:#777;margin:0}
+.d2d-calc-schedule-row+.d2d-calc-schedule-row{border-top:1px solid #eee}
+.d2d-calc-schedule.is-locked .d2d-calc-schedule-row{opacity:.45;pointer-events:none}
+.d2d-calc-schedule .d2d-location-input,.d2d-calc-schedule .cs-display{padding:8px 10px;font-size:13px;border-radius:8px}
+.cs-display{width:100%;border:1px solid #ddd;border-radius:10px;padding:12px 14px;font-size:14px;background:#fff;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:inherit;color:#222;text-align:left}
+.cs-display.ph{color:#999}
+.sched-note{font-size:12px;margin:6px 2px 0;color:#121212}
+.sched-rule{font-size:12px;color:#512a72;margin:6px 2px 0;font-weight:500}
+.d2d-luggage-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid #eee;border-radius:12px;background:#fff;overflow:hidden;margin-top:2px}
+.d2d-luggage-row{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:8px;border-bottom:1px solid #eee;min-width:0}
+.d2d-luggage-grid .d2d-luggage-row:nth-child(odd){border-right:1px solid #eee}
+.d2d-luggage-grid .d2d-luggage-row:nth-last-child(-n+2){border-bottom:none}
+.d2d-luggage-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.d2d-luggage-desc{font-size:12.5px;font-weight:700;color:#000;line-height:1.25;white-space:nowrap}
+.d2d-luggage-name{font-size:11px;color:#777}
+.d2d-qty-control{display:flex;align-items:center;gap:4px;flex:none}
+.d2d-qty-btn{width:26px;height:26px;border-radius:50%;border:1px solid #ddd;background:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#512a72;padding:0}
+.d2d-qty-value{min-width:14px;font-size:14px;font-weight:600;text-align:center}
+.d2d-calc-info-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:6px 2px;border:0;background:none;cursor:pointer;font-size:13px;color:#512a72;text-align:left;margin-top:6px}
+.d2d-calc-info-panel{font-size:12px;color:#444;padding:0 2px 4px}
+.d2d-calc-info-panel p{margin:4px 0}
+.d2d-price-result{background:#fff;border-radius:10px;padding:16px;margin-top:8px}
+.d2d-price-line{display:flex;justify-content:space-between;font-size:14px;padding:4px 0}
+.d2d-price-line.total{border-top:1px solid #ddd;margin-top:8px;padding-top:12px;font-weight:700;font-size:16px}
+.d2d-price-line .price{font-weight:600}
+.d2d-price-btn{width:100%;padding:14px;border-radius:8px;border:none;background:#512a72;color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-top:12px}
+.d2d-price-btn:disabled{background:#D1D5DB;color:#6B7280;cursor:not-allowed}
+.d2d-book-with-price-btn{background:#BBE22F;color:#333}
+.d2d-ai-pricing-note{margin-top:12px;font-size:12px;color:#512a72;font-weight:700}
+
+/* booking (live d2d/booking.css look) */
+.bk{padding:16px 18px 0}
+.d2d-progress{display:flex;gap:4px;margin-bottom:16px}
+.d2d-progress i{flex:1;height:4px;border-radius:2px;background:#e6e6e6}
+.d2d-progress i.done{background:#BBE22F}
+.d2d-progress i.active{background:#512a72}
+.bk h1{font-size:22px;font-weight:700;margin:0 0 4px}
+.bk .sub{color:#777;margin:0 0 18px}
+.bk h3{font-size:16px;font-weight:600;margin:20px 0 10px}
+.d2d-field{margin-bottom:14px}
+.d2d-label{font-size:13px;font-weight:600;margin-bottom:6px;display:block}
+.d2d-label .req{color:#FF5607}
+.d2d-label .opt{color:#999;font-weight:400}
+.d2d-input{width:100%;border:1px solid #ddd;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none;background:#fff;color:#222}
+.d2d-input:focus{border-color:#512a72}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.selected-location{border:1px solid #e4e1ea;border-radius:12px;padding:12px 14px;margin-bottom:14px}
+.selected-location .k{font-size:12px;color:#777}
+.selected-location .n{font-weight:600}
+.selected-location .a{font-size:12px;color:#666}
+.d2d-place-card{border:1px solid #e4e1ea;border-radius:12px;overflow:hidden;margin-bottom:14px}
+.d2d-place-card .txt{padding:12px 14px}
+.d2d-place-card .name{font-weight:600;font-size:15px}
+.d2d-place-card .address{font-size:12px;color:#666;margin-top:2px}
+.d2d-place-card iframe{display:block;width:100%;height:180px;border:0;border-top:1px solid #eee}
+.d2d-station-photos{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;border-top:1px solid #eee}
+.d2d-station-photos img{height:150px;border-radius:8px;flex:none}
+.d2d-warn-box{background:#FFF8F0;border:1px solid #FFD4A8;color:#B86800;border-radius:10px;padding:10px 12px;font-size:12px;margin-bottom:14px}
+.d2d-warn-box b{display:block;margin-bottom:2px}
+.d2d-agree{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:10px 0;cursor:pointer}
+.d2d-agree input{margin-top:3px;accent-color:#512a72}
+.lug-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #eee}
+.lug-row:last-child{border-bottom:none}
+.lug-row .d2d-qty-btn{width:32px;height:32px;font-size:18px}
+.lug-row .d2d-qty-control{gap:12px}
+.lug-row .d2d-luggage-desc{font-size:14px}
+.lug-row .d2d-luggage-name{font-size:12px;color:#999}
+.btns{display:flex;gap:8px;margin-top:22px}
+.btn{flex:1;padding:14px;border-radius:10px;border:none;background:#512a72;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.btn.ghost{flex:0 0 96px;background:#fff;color:#512a72;border:1px solid #512a72}
+.btn:disabled{background:#D1D5DB;color:#6B7280;cursor:not-allowed}
+.sum-h{color:#512a72;font-weight:600;font-size:14px;margin:16px 4px 8px}
+.sum-card{border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.sum-card.dep{background:#f5f0fa}
+.sum-card.arr{background:#eef6ef}
+.sum-row{display:flex;justify-content:space-between;gap:14px;padding:5px 0;font-size:13px}
+.sum-row span:first-child{color:#777;flex:none}
+.sum-row span:last-child{font-weight:600;text-align:right}
+.plain .sum-row{padding:5px 4px}
+.d2d-pay-opt{display:flex;align-items:center;gap:10px;border:1px solid #ddd;border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
+.d2d-pay-opt.on{border-color:#512a72;background:#f5f0fa}
+.d2d-pay-opt input{accent-color:#512a72}
+.pricebox{border-top:1px solid #eee;margin-top:18px;padding-top:14px}
+.pricebox .ttl{text-align:center;color:#444;margin-bottom:8px}
+.pricebox .amt{color:#5b6ee1;font-size:18px}
+.fin{text-align:center;padding:30px 0 8px}
+.fin .ck{width:64px;height:64px;border-radius:50%;background:#512a72;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px}
+.fin h1{margin-bottom:4px}
+.fin .no{color:#777;font-size:13px}
+.meetbig{background:#f5f0fa;border-radius:12px;padding:14px;margin:18px 0 14px}
+.meetbig .k{font-size:12px;color:#777}
+.meetbig .t{font-size:20px;font-weight:700;color:#512a72}
+.meetbig .p{font-weight:600;margin-top:6px}
+
+/* bottom sheet */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:none}
+.ov.on{display:block}
+.sheet{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:410px;background:#fff;border-radius:18px 18px 0 0;z-index:101;max-height:62vh;display:none;flex-direction:column}
+.sheet.on{display:flex}
+.sheet-h{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;font-weight:600;font-size:16px;border-bottom:1px solid #eee}
+.sheet-h button{width:30px;height:30px;border-radius:50%;border:0;background:#f0f0f0;font-size:14px;cursor:pointer}
+.sheet-b{overflow-y:auto}
+.sheet-b .grp{padding:8px 16px;font-size:12px;color:#777;background:#fafafa;border-bottom:1px solid #f0f0f0}
+.sheet-b .it{padding:13px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;font-size:14px}
+.sheet-b .it:hover{background:#f5f0fa}
+
+/* slack */
+.slack{max-width:560px;margin:24px auto;background:#fff;border-radius:10px;border:1px solid #ddd;overflow:hidden;font-family:Lato,'Helvetica Neue',Arial,sans-serif}
+.slack .ch{padding:12px 16px;border-bottom:1px solid #e8e8e8;font-weight:700;font-size:15px}
+.slack .msg{display:flex;gap:10px;padding:14px 16px}
+.slack .av{width:36px;height:36px;border-radius:6px;background:#512a72;color:#c7c22e;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.slack .who{font-weight:700;font-size:15px}
+.slack .who span{font-weight:400;font-size:12px;color:#616061;margin-left:6px}
+.slack .who em{font-style:normal;font-size:10px;background:#e8e8e8;color:#555;border-radius:3px;padding:1px 4px;margin-left:4px}
+.slack .att{border-left:4px solid #512a72;padding:2px 0 2px 12px;margin-top:6px;font-size:14px;line-height:1.6;color:#1d1c1d}
+.slack .att div{display:grid;grid-template-columns:118px 1fr}
+.slack .att b{color:#616061;font-weight:400}
+.slack .ttl{font-size:15px;color:#1d1c1d}
+</style>
+</head>
+<body>
+<div class="pv" id="pv">
+  <span>Preview</span>
+  <button data-s="BUSAN">To Busan Station</button>
+  <button data-s="PUS_D">To Gimhae Airport</button>
+  <button data-s="CJU_D">To Jeju Airport</button>
+  <button data-s="SLACK">Slack alert</button>
+</div>
+<div id="app"></div>
+<div class="ov" id="ov"></div>
+<div class="sheet" id="sheet"><div class="sheet-h"><span id="sheet-t"></span><button id="sheet-x">&#10005;</button></div><div class="sheet-b" id="sheet-b"></div></div>
+
+<script>
+var PHOTO='https://emc-resources.s3.amazonaws.com/d2d/';
+var FROM={type:'Hotel',name:'SIGNIEL BUSAN',addr:'30 Dalmaji-gil, Haeundae, Busan, South Korea',city:'Busan'};
+// Stations: production D2D_LOCATION order. Meeting place text from the same record shown for From.
+var STATIONS=[
+ ['BUSAN','Busan Station','Busan','In front of Emart24, next to Hotel Asti, by Exit 5','7-8, Jungang-daero 214beon-gil, Dong-gu, Busan',35.1159715,129.0419708],
+ ['SUSEO','Suseo Station','Seoul','Shuttle Bus Stop (Outside, 1st Floor)','',37.4854961,127.1043706],
+ ['SEOUL','Seoul Station','Seoul','Loading Zone (Toward Lotte Mart, outside Exit 3)','',37.5546125,126.9698281],
+ ['GYEONGJU','Gyeongju Station','Gyeongju','Parking Lot A entrance next to the taxi stand, in front of Exit 1','',35.7983773,129.1389994],
+ ['YONGSAN','Yongsan Station','Seoul','Station Plaza, below the escalator (Exit 3)','95, Cheongpa-ro 20-gil, Yongsan-gu, Seoul',37.5318625,126.9637656],
+ ['DONGDAEGU','Dongdaegu Station','Daegu','Parking Lot 1 entrance, in front of Exit 5','',35.879324,128.6283938],
+ ['JEONJU','Jeonju Station','Jeonju','Rear Parking Lot (Dongbu-daero side), in front of the elevated walkway exit','',35.8498531,127.1618034],
+ ['GANGNEUNG','Gangneung Station','Gangneung','Taxi drop-off across the road from Exit 3 (Smile Rent-a-Car)','',37.7645236,128.8996276],
+ ['YEOSU','Yeosu-Expo Station','Yeosu','Parking lot next to the taxi stand, in front of the main exit','',34.7530666,127.7486407],
+ ['DAEJEON','Daejeon Station','Daejeon','In front of Exit 4, Daejeon Station','',36.3318978,127.4336154],
+ ['GWANGMYEONG','Gwangmyeong Station','Gwangmyeong','Transfer drop-off zone in front of West Exit 4','',37.4161962,126.8846812],
+ ['GWANGJU','Gwangju-Songjeong Station','Gwangju','1F of the parking building','',35.1376675,126.790805],
+ ['OSONG','Osong Station','Cheongju','In front of the taxi stand at the front plaza','',36.6200867,127.3276033],
+ ['CHEONANASAN','Cheonan-Asan Station','Asan','In front of the taxi stand at the West Plaza','',36.7943447,127.1044438],
+ ['ULSAN','Ulsan Station','Ulsan','Private-car drop-off zone at the transfer stop, in front of Exit 1','',35.5514271,129.1385985],
+ ['MOKPO','Mokpo Station','Mokpo','Mokpo Station parking entrance behind the taxi stand (front-left exit)','',34.7911345,126.3865755],
+ ['SUNCHEON','Suncheon Station','Suncheon','Korail parking entrance next to the front-plaza taxi stand','',34.9458018,127.5030853],
+ ['IKSAN','Iksan Station','Iksan','East Plaza, east parking-lot entrance (exit with the lockers)','',35.9405326,126.9457173],
+ ['POHANG','Pohang Station','Pohang','Next to the taxi stand at the front plaza','',36.0716052,129.3419282],
+ ['CHANGWONJUNGANG','Changwon-Jungang Station','Changwon','Passenger drop-off lane at the front plaza (next to the taxi stand)','',35.2423502,128.7013074],
+ ['CHEONGNYANGNI','Cheongnyangni Station','Seoul','Parking lot in front of Exit 3','',37.5799701,127.0477363],
+ ['DONGTAN','Dongtan Station','Hwaseong','Next to the stop sign at the East Exit 1 ground entrance','',37.1996,127.0963],
+ ['PYEONGTAEK','Pyeongtaek-Jije Station','Pyeongtaek','Drop-off area next to the taxi stand at Exit 1 (Emart side)','',37.0187818,127.0698327],
+ ['JINBU','Jinbu(Odaesan) Station','Pyeongchang',"Next to the 'Taxi Stand' sign at the first platform of the front plaza",'',37.6427373,128.5744966]
+].map(function(a){return {code:a[0],kind:'station',type:'KTX Station',name:a[1],city:a[2],meet:a[3],addr:a[4],lat:a[5],lng:a[6],photos:[]};});
+var AIRPORTS=[
+ ['ICN_T1','Incheon Airport Terminal 1','Incheon','In front of the Goodlugg Desk, just ahead of Gate 13 on the west side of the Arrival Hall (1st Floor, Arrival Level)','272, Gonghang-ro, Jung-gu, Incheon',37.448,126.4525,true,[]],
+ ['ICN_T2','Incheon Airport Terminal 2','Incheon','Go to the Goodlugg Desk located near Gate 4 at the center of the Arrival Hall (1F)','446, Je2teominal-daero, Jung-gu, Incheon',37.467887,126.4310651,true,[]],
+ ['GMP_I','Gimpo Airport International Terminal (Seoul)','Seoul','On 1F (Arrival Hall), go to the Baggage Total Service desk near Gate 1','38, Haneul-gil, Gangseo-gu, Seoul',37.5655382,126.7964573,true,[]],
+ ['GMP_D','Gimpo Airport Domestic Terminal (Seoul)','Seoul','Outside Entrance Gate 4, Departures(2F)','112, Haneul-gil, Gangseo-gu, Seoul',37.558596,126.80428,false,[]],
+ ['PUS_D','Gimhae International Airport Domestic Terminal (Busan)','Busan','2F Departures, in front of Gate 4','2779-8, Daejeo 2(i)-dong, Gangseo-gu, Busan',35.170593,128.949628,false,['airport/17f38c73023b421eaff41e58e3d33bb1.png']],
+ ['PUS_I','Gimhae International Airport International Terminal (Busan)','Busan','2F Departures, in front of Gate 4','108, Gonghangjinip-ro, Gangseo-gu, Busan',35.1724968,128.9475066,false,['airport/3e71c4b9a582437b9b556c9d5af0f258.png']],
+ ['CJU_D','Jeju International Airport Domestic Terminal','Jeju','3F Departures, in front of Gate 3','2, Gonghang-ro, Jeju-si, Jeju-do',33.506668,126.4934352,false,[]],
+ ['CJJ_D','Cheongju International Airport','Cheongju','1F Departures, in front of Gate 3','980, Ochang-daero, Naesu-eup, Cheongwon-gu, Cheongju-si, Chungcheongbuk-do',36.722027,127.4958562,false,[]],
+ ['TAE_D','Daegu International Airport Domestic Terminal','Daegu','1F Departures, in front of Gate 2','221, Gonghang-ro, Dong-gu, Daegu',35.8990569,128.6386697,false,[]],
+ ['TAE_I','Daegu International Airport International Terminal','Daegu','1F Departures, in front of Gate 3','221, Gonghang-ro, Dong-gu, Daegu',35.8999451,128.6370271,false,[]],
+ ['YNY_D','Yangyang International Airport','Yangyang','2F Departures, in front of Gate 3','201, Gonghang-ro, Sonyang-myeon, Yangyang-gun, Gangwon-do',38.0587709,128.662894,false,[]]
+].map(function(a){return {code:a[0],kind:'airport',type:'Airport',name:a[1],city:a[2],meet:a[3],addr:a[4],lat:a[5],lng:a[6],desk:a[7],photos:a[8]};});
+var PLACES={};STATIONS.concat(AIRPORTS).forEach(function(p){PLACES[p.code]=p;});
+var LUG=[['carry','Carry-on','≤ 22"'],['checked','Checked-in','≤ 28"'],['over','Oversize','≤ 32"'],['golf','Golf bag','']];
+var PRICE={BUSAN:[12000,16000,20000,20000],PUS:[16000,20000,24000,24000],INTER:[28000,34000,40000,40000]};
+
+function pad(n){return String(n).padStart(2,'0');}
+function iso(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function addDays(s,n){var d=new Date(s+'T00:00:00');d.setDate(d.getDate()+n);return iso(d);}
+function dayDiff(a,b){return Math.round((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000);}
+function toMin(t){var p=t.split(':');return +p[0]*60+ +p[1];}
+function fmt(m){return pad(Math.floor(m/60))+':'+pad(m%60);}
+function range(a,b,step){var r=[];for(var m=a;m<=b;m+=step)r.push(fmt(m));return r;}
+function won(n){return '₩'+n.toLocaleString('en-US');}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+
+var TODAY=iso(new Date());
+var S;
+function reset(code){
+  S={view:'calc',to:code?PLACES[code]:null,toOpen:!code,toMode:code?PLACES[code].kind:'airport',ddOpen:false,
+     hdDate:addDays(TODAY,1),hdTime:'',puDate:'',puTime:'',bags:{carry:0,checked:1,over:0,golf:0},
+     priced:false,info:false,agreeDep:false,train:'',flightNo:'',flightDt:'',
+     cust:{fn:'',ln:'',em:'',ph:''},pay:'card',ag:[false,false,false]};
+}
+function inCity(){return S.to&&S.to.city===FROM.city;}
+function earliest(){
+  if(!S.hdTime)return null;
+  var hd=toMin(S.hdTime);
+  if(inCity())return {date:S.hdDate,start:hd+300};
+  return hd<=600?{date:S.hdDate,start:1200}:{date:addDays(S.hdDate,1),start:480};
+}
+function puSlots(){
+  var e=earliest();if(!e||!S.puDate)return [];
+  return S.puDate>e.date?range(480,1440,30):range(e.start,1440,30);
+}
+function syncPickup(){
+  var e=earliest();
+  if(!e){S.puDate='';S.puTime='';return;}
+  if(!S.puDate||S.puDate<e.date)S.puDate=e.date;
+  if(puSlots().indexOf(S.puTime)<0)S.puTime='';
+  S.priced=false;
+}
+function ruleText(){
+  if(!S.to)return '';
+  return inCity()?'Same city: pickup is available from 5 hours after handoff, every 30 minutes until 24:00.'
+    :'Different city: handoff by 10:00 for pickup from 20:00 the same day. After 10:00, pickup is from 08:00 the next day.';
+}
+function bagCount(){return LUG.reduce(function(n,l){return n+S.bags[l[0]];},0);}
+function priceTable(){
+  if(!S.to)return PRICE.INTER;
+  if(S.to.code==='BUSAN')return PRICE.BUSAN;
+  if(S.to.code.indexOf('PUS')===0)return PRICE.PUS;
+  return inCity()?PRICE.PUS:PRICE.INTER;
+}
+function storageDays(){var e=earliest();return e&&S.puDate?Math.max(0,dayDiff(e.date,S.puDate)):0;}
+function fees(){
+  var t=priceTable(),d=0;LUG.forEach(function(l,i){d+=S.bags[l[0]]*t[i];});
+  var s=storageDays()*bagCount()*5000;return {delivery:d,storage:s,total:d+s};
+}
+function ready(){return S.to&&S.hdTime&&S.puDate&&S.puTime&&bagCount()>0;}
+function chev(){return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';}
+
+/* ---------- views ---------- */
+function header(){return '<div class="langbar">&#127760; English &#8964;</div><div class="hdr"><img src="../d2d-how-to-video/assets/logo_wordmark.png" alt="Goodlugg"><div class="ham"><i></i><i></i><i></i></div></div>';}
+function toggle(){
+  var m=[['airport','Airport'],['hotel','Hotel'],['stay','Airbnb'],['station','KTX Station'],['cruise','Cruise Terminal'],['other','Other']];
+  return '<div class="d2d-place-toggle">'+m.map(function(x){
+    var cs=x[0]==='cruise'?' coming-soon':'';
+    return '<button class="'+(S.toMode===x[0]?'active':'')+cs+'" data-act="mode" data-v="'+x[0]+'">'+x[1]+'</button>';}).join('')+'</div>';
+}
+function toWrapper(){
+  if(S.toMode==='cruise')return '<div class="d2d-comingsoon-note">Available soon</div>';
+  if(S.toMode==='airport'||S.toMode==='station'){
+    var list=S.toMode==='airport'?AIRPORTS:STATIONS;
+    var h='<div class="dd"><div class="dd-display'+(S.ddOpen?' open':'')+'" data-act="dd">'+(S.toMode==='airport'?'Select an airport':'Select a KTX station')+chev()+'</div>';
+    if(S.ddOpen)h+='<div class="dd-list">'+list.map(function(p){return '<div data-act="pick" data-v="'+p.code+'">'+esc(p.name)+'</div>';}).join('')+'</div>';
+    return h+'</div>';
+  }
+  return '<input class="d2d-location-input" placeholder="Search by name or address">';
+}
+function schedRow(label,dateKey,timeKey,slotsAct,min){
+  return '<div class="d2d-calc-schedule-row"><label>'+label+'</label>'
+   +'<input type="date" class="d2d-location-input" data-date="'+dateKey+'" value="'+S[dateKey]+'" min="'+min+'">'
+   +'<button class="cs-display'+(S[timeKey]?'':' ph')+'" data-act="'+slotsAct+'">'+(S[timeKey]||'Time slot')+chev()+'</button></div>';
+}
+function lugGrid(){
+  return LUG.map(function(l){return '<div class="d2d-luggage-row"><div class="d2d-luggage-info"><span class="d2d-luggage-desc">'+l[1]+'</span>'+(l[2]?'<span class="d2d-luggage-name">'+l[2]+'</span>':'')+'</div>'
+   +'<div class="d2d-qty-control"><button class="d2d-qty-btn" data-act="qty" data-v="'+l[0]+',-1">&minus;</button><span class="d2d-qty-value">'+S.bags[l[0]]+'</span><button class="d2d-qty-btn" data-act="qty" data-v="'+l[0]+',1">+</button></div></div>';}).join('');
+}
+function priceLines(){
+  var f=fees(),t=priceTable(),h='';
+  LUG.forEach(function(l,i){var q=S.bags[l[0]];if(q)h+='<div class="d2d-price-line"><span>'+l[1]+' &times; '+q+'</span><span class="price">'+won(q*t[i])+'</span></div>';});
+  if(f.storage)h+='<div class="d2d-price-line"><span>Storage fee '+bagsTxt(bagCount())+' &times; '+storageDays()+' days</span><span class="price">'+won(f.storage)+'</span></div>';
+  return h+'<div class="d2d-price-line total"><span>Total</span><span>'+won(f.total)+'</span></div>';
+}
+function vCalc(){
+  var e=earliest();
+  var h=header()+'<div class="d2d-location-section"><h2>Price calculator</h2>';
+  h+='<div class="d2d-location-field"><div class="d2d-location-label">&#128205; From</div><div class="d2d-place-row"><span class="d2d-place-row-text"><span class="kicker">'+FROM.type+'</span><span class="value">'+FROM.name+'</span><span class="addr">'+FROM.addr+'</span></span><span class="go">Change</span></div></div>';
+  h+='<div class="d2d-location-field"><div class="d2d-location-label">&#128205; To'+(S.toOpen&&S.to?'<button class="d2d-place-close" data-act="closeTo">Close</button>':'')+'</div>';
+  if(S.toOpen||!S.to)h+=toggle()+toWrapper();
+  else h+='<button class="d2d-place-row" data-act="openTo"><span class="d2d-place-row-text"><span class="kicker">'+S.to.type+'</span><span class="value">'+esc(S.to.name)+'</span><span class="addr">'+esc(S.to.addr||S.to.city)+'</span></span><span class="go">Change</span></button>';
+  h+='</div>';
+  h+='<div class="d2d-location-field"><div class="d2d-location-label">&#128336; Schedule</div><div class="d2d-calc-schedule'+(S.to?'':' is-locked')+'">'
+    +schedRow('Handoff (From)','hdDate','hdTime','hdSlots',TODAY)
+    +schedRow('Pickup (To)','puDate','puTime','puSlots',e?e.date:TODAY)+'</div>'
+    +(S.to?'<p class="sched-rule">'+ruleText()+'</p>':'')
+    +'<p class="sched-note">* The price shown is based on the date and time you select.</p></div>';
+  h+='<div class="d2d-location-field"><div class="d2d-location-label">&#128230; Luggage</div><div class="d2d-luggage-grid">'+lugGrid()+'</div>'
+    +'<button class="d2d-calc-info-toggle" data-act="info"><span>Size guide &amp; restricted items</span><span>'+(S.info?'Hide':'View')+'</span></button>'
+    +(S.info?'<div class="d2d-calc-info-panel"><p>22" = 120cm, 28" = 160cm (length + width + height)</p><p>Items over 32" or 30kg are not accepted.</p><p>First storage day complimentary, ₩5,000/bag/day after.</p></div>':'')+'</div>';
+  if(S.priced&&ready())h+='<div class="d2d-price-result">'+priceLines()+'<div class="d2d-ai-pricing-note">&#10022; Live AI pricing: reflects traffic &amp; volume</div><button class="d2d-price-btn d2d-book-with-price-btn" data-act="book">Book with these options</button></div>';
+  else h+='<button class="d2d-price-btn" data-act="price"'+(ready()?'':' disabled')+'>Check price</button>';
+  return h+'</div>';
+}
+function prog(n){var h='<div class="d2d-progress">';for(var i=1;i<=5;i++)h+='<i class="'+(i<n?'done':i===n?'active':'')+'"></i>';return h+'</div>';}
+function nav(back,next,label,dis){return '<div class="btns"><button class="btn ghost" data-act="go" data-v="'+back+'">Back</button><button class="btn" data-act="go" data-v="'+next+'"'+(dis?' disabled':'')+'>'+(label||'Next')+'</button></div>';}
+function meetCard(){
+  var p=S.to,d=0.0035;
+  var src='https://www.openstreetmap.org/export/embed.html?bbox='+(p.lng-d)+'%2C'+(p.lat-d*0.6)+'%2C'+(p.lng+d)+'%2C'+(p.lat+d*0.6)+'&layer=mapnik&marker='+p.lat+'%2C'+p.lng;
+  return '<div class="d2d-place-card"><div class="txt"><div class="name">'+esc(p.meet)+'</div><div class="address">'+esc(p.addr||p.name)+'</div></div><iframe src="'+src+'" loading="lazy" title="Map"></iframe>'
+   +(p.photos.length?'<div class="d2d-station-photos">'+p.photos.map(function(u){return '<img src="'+PHOTO+u+'" alt="Meeting place photo">';}).join('')+'</div>':'')+'</div>';
+}
+function vStep1(){
+  return header()+'<div class="bk">'+prog(1)+'<h1>Departure</h1><p class="sub">Where do we collect your luggage?</p>'
+   +'<div class="selected-location"><div class="k">'+FROM.type+'</div><div class="n">'+FROM.name+'</div><div class="a">'+FROM.addr+'</div></div>'
+   +'<div class="d2d-warn-box"><b>Hotel handoff</b>Leave your luggage with the hotel front desk before your handoff time. Our driver collects it from the front desk.</div>'
+   +'<label class="d2d-agree"><input type="checkbox" data-chk="agreeDep"'+(S.agreeDep?' checked':'')+'><span>I confirm this hotel has a staffed front desk that can keep my luggage.</span></label>'
+   +nav('calc','s2','Next',!S.agreeDep)+'</div>';
+}
+function vStep2(){
+  var p=S.to,st=p.kind==='station',h=header()+'<div class="bk">'+prog(2)+'<h1>Destination</h1><p class="sub">Where do you receive your luggage?</p>'
+   +'<div class="selected-location"><div class="k">'+p.type+'</div><div class="n">'+esc(p.name)+'</div></div>'
+   +'<label class="d2d-label">'+(p.desk?'Goodlugg desk':'Meeting place')+'</label>'+meetCard();
+  if(!p.desk)h+='<div class="d2d-warn-box"><b>Meet-up rules</b>Our driver meets you at this spot at your pickup time and hands over your luggage in person. Please be there on time.</div>';
+  if(st)h+='<div class="d2d-field"><label class="d2d-label">Train departure time <span class="opt">(optional)</span></label><input type="time" class="d2d-input" data-in="train" value="'+S.train+'"></div>';
+  else h+='<div class="d2d-field"><label class="d2d-label">Departure flight no. <span class="req">*</span></label><input class="d2d-input" data-in="flightNo" placeholder="e.g. KE1104" value="'+esc(S.flightNo)+'"></div>'
+    +'<div class="d2d-field"><label class="d2d-label">Departure date / time <span class="req">*</span></label><input type="datetime-local" class="d2d-input" data-in="flightDt" value="'+S.flightDt+'"></div>';
+  return h+nav('s1','s3')+'</div>';
+}
+function vStep3(){
+  var e=earliest();
+  return header()+'<div class="bk">'+prog(3)+'<h1>Schedule &amp; Luggage</h1><p class="sub">When will you drop off and pick up?</p>'
+   +'<h3>Drop-off at your departure</h3><div class="two"><div class="d2d-field"><label class="d2d-label">Date <span class="req">*</span></label><input type="date" class="d2d-input" data-date="hdDate" value="'+S.hdDate+'" min="'+TODAY+'"></div>'
+   +'<div class="d2d-field"><label class="d2d-label">Time slot <span class="req">*</span></label><button class="cs-display'+(S.hdTime?'':' ph')+'" data-act="hdSlots">'+(S.hdTime||'Please select')+chev()+'</button></div></div>'
+   +'<h3>Pickup at your destination</h3><div class="two"><div class="d2d-field"><label class="d2d-label">Date <span class="req">*</span></label><input type="date" class="d2d-input" data-date="puDate" value="'+S.puDate+'" min="'+(e?e.date:TODAY)+'"></div>'
+   +'<div class="d2d-field"><label class="d2d-label">Time slot <span class="req">*</span></label><button class="cs-display'+(S.puTime?'':' ph')+'" data-act="puSlots">'+(S.puTime||'Please select')+chev()+'</button></div></div>'
+   +'<p class="sched-rule" style="margin-top:-4px">'+ruleText()+'</p>'
+   +'<h3>Luggage</h3>'+LUG.map(function(l){return '<div class="lug-row"><div class="d2d-luggage-info"><span class="d2d-luggage-desc">'+l[1]+'</span>'+(l[2]?'<span class="d2d-luggage-name">'+l[2]+'</span>':'')+'</div><div class="d2d-qty-control"><button class="d2d-qty-btn" data-act="qty" data-v="'+l[0]+',-1">&minus;</button><span class="d2d-qty-value">'+S.bags[l[0]]+'</span><button class="d2d-qty-btn" data-act="qty" data-v="'+l[0]+',1">+</button></div></div>';}).join('')
+   +nav('s2','s4','Next',!ready())+'</div>';
+}
+function vStep4(){
+  var c=S.cust;
+  return header()+'<div class="bk">'+prog(4)+'<h1>Customer Info</h1><p class="sub">Who is travelling?</p>'
+   +'<div class="two"><div class="d2d-field"><label class="d2d-label">First name <span class="req">*</span></label><input class="d2d-input" data-cu="fn" value="'+esc(c.fn)+'" placeholder="As in passport"></div>'
+   +'<div class="d2d-field"><label class="d2d-label">Last name <span class="req">*</span></label><input class="d2d-input" data-cu="ln" value="'+esc(c.ln)+'"></div></div>'
+   +'<div class="d2d-field"><label class="d2d-label">Email <span class="req">*</span></label><input class="d2d-input" data-cu="em" value="'+esc(c.em)+'" placeholder="name@example.com"></div>'
+   +'<div class="d2d-field"><label class="d2d-label">Phone <span class="req">*</span></label><div class="two" style="grid-template-columns:110px 1fr"><button class="cs-display">+1'+chev()+'</button><input class="d2d-input" data-cu="ph" value="'+esc(c.ph)+'"></div></div>'
+   +nav('s3','s5')+'</div>';
+}
+function vStep5(){
+  var p=S.to,f=fees(),st=p.kind==='station';
+  var extra=st?(S.train?'<div class="sum-row"><span>Train (Departure)</span><span>'+S.train+'</span></div>':'')
+    :'<div class="sum-row"><span>Flight (Departure)</span><span>'+esc(S.flightNo||'KE1104')+(S.flightDt?' / '+S.flightDt.replace('T',' '):'')+'</span></div>';
+  var ags=['I agree to the Terms of Service.','I agree to the Privacy Policy.','I agree to the cancellation and refund policy.'];
+  return header()+'<div class="bk">'+prog(5)+'<h1>Review &amp; Payment</h1><p class="sub">Please review your booking!</p><h3 style="font-size:18px;margin-top:0">Booking summary</h3>'
+   +'<div class="sum-h">Delivery info</div>'
+   +'<div class="sum-card dep"><div class="sum-row"><span>Departure</span><span>'+FROM.name+'</span></div><div class="sum-row"><span>Departure Address</span><span>'+FROM.addr+'</span></div><div class="sum-row"><span>Handoff method</span><span>Hotel front desk</span></div></div>'
+   +'<div class="sum-card arr"><div class="sum-row"><span>Destination</span><span>'+esc(p.name)+'</span></div><div class="sum-row"><span>'+(p.desk?'Goodlugg desk':'Meeting place')+'</span><span>'+esc(p.meet)+'</span></div>'+extra+'</div>'
+   +'<div class="sum-h">Schedule</div><div class="plain"><div class="sum-row"><span>Drop-off date/time</span><span>'+S.hdDate+' '+S.hdTime+'</span></div><div class="sum-row"><span>Pick-up date/time</span><span>'+S.puDate+' '+S.puTime+'</span></div></div>'
+   +'<div class="sum-h">Luggage</div><div class="plain">'+LUG.filter(function(l){return S.bags[l[0]];}).map(function(l){return '<div class="sum-row"><span>'+l[1]+'</span><span>'+bagsTxt(S.bags[l[0]])+'</span></div>';}).join('')+'</div>'
+   +'<div class="sum-h">Payment method</div>'
+   +['card,International card','paypal,PayPal'].map(function(x){var a=x.split(',');return '<label class="d2d-pay-opt'+(S.pay===a[0]?' on':'')+'"><input type="radio" name="pay" data-pay="'+a[0]+'"'+(S.pay===a[0]?' checked':'')+'>'+a[1]+'</label>';}).join('')
+   +ags.map(function(t,i){return '<label class="d2d-agree"><input type="checkbox" data-ag="'+i+'"'+(S.ag[i]?' checked':'')+'><span>'+t+' <span style="color:#FF5607">*</span></span></label>';}).join('')
+   +'<div class="pricebox"><div class="ttl">Estimated Price</div><div class="d2d-price-line"><span>Delivery fee</span><span>'+won(f.delivery)+'</span></div>'
+   +(f.storage?'<div class="d2d-price-line"><span>Storage fee '+bagsTxt(bagCount())+' &times; '+storageDays()+' days</span><span>'+won(f.storage)+'</span></div>':'')
+   +'<div class="d2d-price-line total"><span>Payment amount</span><span class="amt">'+won(f.total)+'</span></div></div>'
+   +nav('s4','done','Pay '+won(f.total),!(S.ag[0]&&S.ag[1]&&S.ag[2]))+'</div>';
+}
+function vDone(){
+  var p=S.to;
+  return header()+'<div class="bk"><div class="fin"><div class="ck"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><h1>Booking confirmed</h1><div class="no">Booking no. GL-2026-11-4827</div></div>'
+   +'<div class="meetbig"><div class="k">'+(p.desk?'Pick up your luggage at':'Meet our driver at')+'</div><div class="t">'+S.puDate+' '+S.puTime+'</div><div class="p">'+esc(p.name)+'</div><div>'+esc(p.meet)+'</div></div>'
+   +meetCard()
+   +'<div class="plain"><div class="sum-row"><span>Handoff</span><span>'+S.hdDate+' '+S.hdTime+', '+FROM.name+'</span></div><div class="sum-row"><span>Luggage</span><span>'+bagsTxt(bagCount())+'</span></div><div class="sum-row"><span>Paid</span><span>'+won(fees().total)+'</span></div></div>'
+   +'<div class="btns"><button class="btn" data-act="go" data-v="done">Track my luggage</button></div></div>';
+}
+function row(k,v){return '<div><b>'+k+'</b><span>'+v+'</span></div>';}
+function bagsTxt(n){return n+(n===1?' bag':' bags');}
+function vSlack(){
+  if(!S.to)S.to=PLACES.BUSAN;
+  if(!S.hdTime){S.hdTime='11:00';syncPickup();}
+  if(!S.puTime)S.puTime=puSlots()[0];
+  var p=S.to,lug=LUG.filter(function(l){return S.bags[l[0]];}).map(function(l){return l[1]+' '+S.bags[l[0]];}).join(', ');
+  return '<div class="slack"><div class="ch"># d2d-booking-alert</div><div class="msg"><div class="av">G</div><div><div class="who">Goodlugg Booking<em>APP</em><span>just now</span></div>'
+   +'<div class="ttl">&#128276; New D2D booking: To '+p.type+'</div><div class="att">'
+   +row('Booking no.','GL-2026-11-4827')+row('Route',FROM.name+' &rarr; '+esc(p.name)+' ('+(inCity()?'in-city':'inter-city')+')')
+   +row('Delivery','Direct')+row('Handoff',S.hdDate+' '+S.hdTime+', hotel front desk')
+   +row('Meetup',S.puDate+' '+S.puTime)+row('Meeting place',esc(p.meet))+row('Luggage',lug)+row('Paid',won(fees().total))+'</div></div></div></div>';
+}
+var VIEWS={calc:vCalc,s1:vStep1,s2:vStep2,s3:vStep3,s4:vStep4,s5:vStep5,done:vDone,slack:vSlack};
+function render(scroll){
+  var el=document.getElementById('app');
+  el.innerHTML=S.view==='slack'?vSlack():'<div class="phone">'+VIEWS[S.view]()+'</div>';
+  if(scroll)window.scrollTo(0,0);
+}
+
+/* ---------- bottom sheet ---------- */
+function openSheet(title,groups,cb){
+  document.getElementById('sheet-t').textContent=title;
+  var b=document.getElementById('sheet-b');b.innerHTML='';
+  groups.forEach(function(g){
+    if(g.label){var l=document.createElement('div');l.className='grp';l.textContent=g.label;b.appendChild(l);}
+    g.items.forEach(function(t){var d=document.createElement('div');d.className='it';d.textContent=t;d.onclick=function(){closeSheet();cb(t);};b.appendChild(d);});
+  });
+  document.getElementById('ov').classList.add('on');document.getElementById('sheet').classList.add('on');
+}
+function closeSheet(){document.getElementById('ov').classList.remove('on');document.getElementById('sheet').classList.remove('on');}
+document.getElementById('ov').onclick=closeSheet;document.getElementById('sheet-x').onclick=closeSheet;
+
+/* ---------- events ---------- */
+var ACT={
+  mode:function(v){S.toMode=v;S.ddOpen=false;},
+  dd:function(){S.ddOpen=!S.ddOpen;},
+  pick:function(v){S.to=PLACES[v];S.toOpen=false;S.ddOpen=false;S.puDate='';syncPickup();},
+  openTo:function(){S.toOpen=true;S.toMode=S.to.kind;},
+  closeTo:function(){S.toOpen=false;},
+  info:function(){S.info=!S.info;},
+  qty:function(v){var a=v.split(',');S.bags[a[0]]=Math.max(0,S.bags[a[0]]+ +a[1]);S.priced=false;},
+  price:function(){S.priced=true;},
+  book:function(){S.view='s1';return true;},
+  go:function(v){S.view=v;return true;},
+  hdSlots:function(){
+    openSheet('Please select',[{items:range(480,1080,60)}],function(t){S.hdTime=t;S.puDate='';syncPickup();render();});return 'skip';
+  },
+  puSlots:function(){
+    if(!S.hdTime){ACT.hdSlots();return 'skip';}
+    var e=earliest(),same=S.puDate===S.hdDate;
+    openSheet('Please select',[{label:S.puDate+(same?' (same day)':S.puDate===e.date?' (next day)':''),items:puSlots()}],function(t){S.puTime=t;S.priced=false;render();});return 'skip';
+  }
+};
+document.getElementById('app').addEventListener('click',function(ev){
+  var t=ev.target.closest('[data-act]');if(!t)return;
+  var r=ACT[t.dataset.act](t.dataset.v);
+  if(r==='skip')return;render(r===true);
+});
+document.getElementById('app').addEventListener('change',function(ev){
+  var t=ev.target,d=t.dataset;
+  if(d.date){S[d.date]=t.value;if(d.date==='hdDate')S.puDate='';syncPickup();render();}
+  else if(d.chk){S[d.chk]=t.checked;render();}
+  else if(d.ag){S.ag[+d.ag]=t.checked;render();}
+  else if(d.pay){S.pay=d.pay;render();}
+});
+document.getElementById('app').addEventListener('input',function(ev){
+  var d=ev.target.dataset;
+  if(d.in)S[d.in]=ev.target.value;else if(d.cu)S.cust[d.cu]=ev.target.value;
+});
+document.getElementById('pv').addEventListener('click',function(ev){
+  var b=ev.target.closest('button');if(!b)return;
+  [].forEach.call(this.querySelectorAll('button'),function(x){x.classList.toggle('on',x===b);});
+  if(b.dataset.s==='SLACK'){S.view='slack';}else reset(b.dataset.s);
+  render(true);
+});
+reset(null);render();
+</script>
+</body>
+</html>
