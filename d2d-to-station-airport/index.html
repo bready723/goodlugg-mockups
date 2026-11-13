@@ -60,9 +60,8 @@ button,input{font-family:inherit}
 .d2d-calc-schedule.is-locked .d2d-calc-schedule-row{opacity:.45;pointer-events:none}
 .d2d-calc-schedule.is-locked .datef,.d2d-calc-schedule.is-locked .cs-display{background:#f5f5f5}
 .d2d-calc-schedule .datef,.d2d-calc-schedule .cs-display{padding:8px 10px;font-size:13px;border-radius:8px}
-.datef{position:relative;display:flex;align-items:center;width:100%;border:1px solid #ddd;border-radius:10px;padding:12px 14px;font-size:14px;background:#fff;cursor:pointer;min-height:38px;color:#333}
+.datef{font-family:inherit;text-align:left;position:relative;display:flex;align-items:center;width:100%;border:1px solid #ddd;border-radius:10px;padding:12px 14px;font-size:14px;background:#fff;cursor:pointer;min-height:38px;color:#333}
 .datef.ph{color:#999}
-.datef input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0;margin:0}
 .cs-display{width:100%;border:1px solid #ddd;border-radius:10px;padding:12px 14px;font-size:14px;background:#fff;display:flex;justify-content:space-between;align-items:center;cursor:pointer;color:#333;text-align:left;min-height:38px}
 .cs-display.ph{color:#999}
 .sched-note{font-size:12px;margin:6px 0 0;color:#121212;line-height:1.4}
@@ -262,6 +261,13 @@ function won(n){return '₩'+n.toLocaleString('en-US');}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 
 var TODAY=iso(new Date());
+var DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function setDateVal(key,val){
+  S[key]=val;
+  if(key==='hdDate'){S.puDate='';S.puTime='';}
+  if(key==='hdDate'||key==='puDate')syncPickup();
+  render();
+}
 var S;
 function reset(code){
   S={view:'calc',to:code?PLACES[code]:null,toOpen:!code,toMode:code?PLACES[code].kind:'airport',ddOpen:false,
@@ -331,7 +337,7 @@ function toWrapper(){
 }
 function dateField(key,min,type,ph){
   var v=S[key];
-  return '<label class="datef'+(v?'':' ph')+'"><span>'+(v?v.replace('T',' '):ph)+'</span><input type="'+(type||'date')+'" data-date="'+key+'" value="'+v+'"'+(min?' min="'+min+'"':'')+'></label>';
+  return '<button type="button" class="datef'+(v?'':' ph')+'" data-act="pickDate" data-v="'+key+'|'+(min||'')+'|'+(type||'date')+'"><span>'+(v?v.replace('T',' '):ph)+'</span></button>';
 }
 function slotBtn(key,act,ph){return '<button class="cs-display'+(S[key]?'':' ph')+'" data-act="'+act+'">'+(S[key]||ph)+chev()+'</button>';}
 function lugRows(cls){
@@ -498,6 +504,17 @@ var ACT={
   info:function(){S.info=!S.info;},
   qty:function(v){var a=v.split(',');S.bags[a[0]]=Math.max(0,S.bags[a[0]]+ +a[1]);S.priced=false;},
   noop:function(){return 'skip';},
+  pickDate:function(v){
+    var a=v.split('|'),key=a[0],min=a[1]||TODAY,type=a[2];
+    function dates(from,n){var r=[];for(var i=0;i<n;i++){var d=addDays(from,i);r.push(d+' ('+DOW[new Date(d+'T00:00:00').getDay()]+')');}return r;}
+    if(type==='time'){openSheet('Select time',[{items:range(300,1410,30)}],function(t){setDateVal(key,t);});}
+    else if(type==='datetime-local'){
+      openSheet('Select date',[{items:dates(S.puDate||TODAY,14)}],function(d){
+        setTimeout(function(){openSheet('Select time',[{label:d,items:range(0,1410,30)}],function(t){setDateVal(key,d.slice(0,10)+'T'+t);});},0);});
+    }
+    else openSheet('Select date',[{items:dates(min,21)}],function(d){setDateVal(key,d.slice(0,10));});
+    return 'skip';
+  },
   home:function(){var c=S.to.code;reset(c);return true;},
   drawer:function(v){S.drawer=v==='1';},
   toCalc:function(){S.view='calc';S.toOpen=true;S.toMode=S.to.kind;return true;},
@@ -519,8 +536,7 @@ document.getElementById('app').addEventListener('click',function(ev){
 });
 document.getElementById('app').addEventListener('change',function(ev){
   var t=ev.target,d=t.dataset;
-  if(d.date){S[d.date]=t.value;if(d.date==='hdDate'){S.puDate='';S.puTime='';}if(d.date==='hdDate'||d.date==='puDate')syncPickup();render();}
-  else if(d.agall){S.ag=[t.checked,t.checked,t.checked];render();}
+  if(d.agall){S.ag=[t.checked,t.checked,t.checked];render();}
   else if(d.chk){S[d.chk]=t.checked;render();}
   else if(d.ag){S.ag[+d.ag]=t.checked;render();}
   else if(d.pay){S.pay=d.pay;render();}
@@ -530,9 +546,7 @@ document.getElementById('app').addEventListener('input',function(ev){
   if(d.in){S[d.in]=ev.target.value;var nb=document.querySelector('.d2d-btn-next');if(nb&&S.view==='s2')nb.disabled=!(S.flightNo&&S.flightDt);}
   else if(d.cu)S.cust[d.cu]=ev.target.value;
 });
-document.getElementById('app').addEventListener('click',function(ev){
-  var i=ev.target.closest('.datef input');if(i&&i.showPicker){try{i.showPicker();}catch(e){}}
-});
+
 document.getElementById('pv').addEventListener('click',function(ev){
   var b=ev.target.closest('button');if(!b)return;
   [].forEach.call(this.querySelectorAll('button'),function(x){x.classList.toggle('on',x===b);});
