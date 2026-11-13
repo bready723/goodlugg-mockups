@@ -293,6 +293,12 @@ function syncPickup(){
   if(puSlots().indexOf(S.puTime)<0)S.puTime='';
   S.priced=false;
 }
+function checkEtd(){
+  if(!S.puDate||!S.puTime)return;
+  var m=S.puDate+'T'+(S.puTime==='24:00'?'23:59':S.puTime);
+  if(S.flightDt&&S.flightDt<m)S.flightDt='';
+  if(S.train&&S.puTime!=='24:00'&&S.train<S.puTime)S.train='';
+}
 function ruleText(){
   if(!S.to)return '';
   return inCity()?'Same city: pickup is available from 5 hours after handoff, every 30 minutes until 24:00.'
@@ -361,7 +367,6 @@ function vCalc(){
   h+='<div class="d2d-location-field"><div class="d2d-location-label"><span class="label-icon">&#128336;</span><span>Schedule</span></div><div class="d2d-calc-schedule'+(S.to?'':' is-locked')+'">'
     +'<div class="d2d-calc-schedule-row"><label class="lab">Handoff (From)</label>'+dateField('hdDate',TODAY,'date','Select date')+slotBtn('hdTime','hdSlots','Time slot')+'</div>'
     +'<div class="d2d-calc-schedule-row"><label class="lab">Pickup (To)</label>'+dateField('puDate',e?e.date:TODAY,'date','Select date')+slotBtn('puTime','puSlots','Time slot')+'</div>'
-    +(S.to?'<p class="sched-rule">'+ruleText()+'</p>':'')
     +'<p class="sched-note" style="margin-bottom:6px">* The price shown is based on the date and time you select.</p></div></div>';
   h+='<div class="d2d-location-field"><div class="d2d-location-label"><span class="label-icon">&#128230;</span><span>Luggage</span></div><div class="d2d-luggage-grid">'+lugRows('d2d-luggage-row')+'</div>'
     +'<button class="d2d-calc-info-toggle" data-act="info"><span>Size guide &amp; restricted items</span><span class="state">'+(S.info?'Hide':'View')+'</span></button>'
@@ -419,7 +424,6 @@ function vStep3(){
    +'<div class="d2d-field"><label class="d2d-label">Drop-off time slot<span class="req">*</span></label>'+slotBtn('hdTime','hdSlots','Please select')+'</div></div>'
    +'<h3 style="margin-top:4px">Pickup (To)</h3><div class="two"><div class="d2d-field"><label class="d2d-label">Pick-up date<span class="req">*</span></label>'+dateField('puDate',e?e.date:TODAY,'date','Select date')+'</div>'
    +'<div class="d2d-field"><label class="d2d-label">Pick-up time slot<span class="req">*</span></label>'+slotBtn('puTime','puSlots','Please select')+'</div></div>'
-   +'<p class="sched-rule" style="margin-top:-6px">'+ruleText()+'</p>'
    +'<h3>Luggage</h3>'+lugRows('lug-row')+'<p class="d2d-luggage-note">'+STORAGE_NOTE+'</p>'
    +nav('s2','s4','Next',!ready())+'</div></div>'+drawer();
 }
@@ -507,10 +511,13 @@ var ACT={
   pickDate:function(v){
     var a=v.split('|'),key=a[0],min=a[1]||TODAY,type=a[2];
     function dates(from,n){var r=[];for(var i=0;i<n;i++){var d=addDays(from,i);r.push(d+' ('+DOW[new Date(d+'T00:00:00').getDay()]+')');}return r;}
-    if(type==='time'){openSheet('Select time',[{items:range(300,1410,30)}],function(t){setDateVal(key,t);});}
+    var pu=S.puTime&&S.puTime!=='24:00'?toMin(S.puTime):null;
+    if(type==='time'){openSheet('Select time',[{items:range(pu!==null?pu:300,1410,30)}],function(t){setDateVal(key,t);});}
     else if(type==='datetime-local'){
-      openSheet('Select date',[{items:dates(S.puDate||TODAY,14)}],function(d){
-        setTimeout(function(){openSheet('Select time',[{label:d,items:range(0,1410,30)}],function(t){setDateVal(key,d.slice(0,10)+'T'+t);});},0);});
+      var first=S.puDate?(S.puTime==='24:00'?addDays(S.puDate,1):S.puDate):TODAY;
+      openSheet('Select date',[{items:dates(first,14)}],function(d){
+        var from=(d.slice(0,10)===S.puDate&&pu!==null)?pu:0;
+        setTimeout(function(){openSheet('Select time',[{label:d,items:range(from,1410,30)}],function(t){setDateVal(key,d.slice(0,10)+'T'+t);});},0);});
     }
     else openSheet('Select date',[{items:dates(min,21)}],function(d){setDateVal(key,d.slice(0,10));});
     return 'skip';
@@ -526,7 +533,7 @@ var ACT={
   puSlots:function(){
     if(!S.hdTime){ACT.hdSlots();return 'skip';}
     var e=earliest(),same=S.puDate===S.hdDate;
-    openSheet('Please select',[{label:S.puDate+(same?' (same day)':S.puDate===e.date?' (next day)':''),items:puSlots()}],function(t){S.puTime=t;S.priced=false;render();});return 'skip';
+    openSheet('Please select',[{label:S.puDate+(same?' (same day)':S.puDate===e.date?' (next day)':''),items:puSlots()}],function(t){S.puTime=t;S.priced=false;checkEtd();render();});return 'skip';
   }
 };
 document.getElementById('app').addEventListener('click',function(ev){
