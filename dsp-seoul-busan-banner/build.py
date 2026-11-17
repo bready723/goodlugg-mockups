@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Run with a Python that has Pillow and numpy: ~/.venvs/office312/bin/python build.py
 """Builds the Discover Seoul Pass banner copy versions (1600x1100, 16:11) and the gallery page."""
 import atexit, html, pathlib, subprocess, tempfile
 
@@ -52,7 +53,20 @@ def banner_html(lines):
 <img class="t1" src="tiger_sit.png" alt=""><img class="t2" src="tiger_move.png" alt=""></div></body></html>
 """
 
+def black_share(png):
+    """Share of pure-black pixels. Headless Chrome sometimes leaves an unpainted black block."""
+    from PIL import Image
+    import numpy as np
+    return float((np.array(Image.open(png).convert("RGB")).sum(axis=2) == 0).mean())
+
 def shoot(src, out, profile):
+    for attempt in range(6):
+        shoot_once(src, out, profile)
+        if black_share(out) < 0.01:
+            return
+    raise SystemExit(f"{out.name}: black block still present after 6 tries")
+
+def shoot_once(src, out, profile):
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-sandbox", "--hide-scrollbars",
                     "--allow-file-access-from-files", "--force-device-scale-factor=1",
                     f"--user-data-dir={profile}", "--virtual-time-budget=8000",
