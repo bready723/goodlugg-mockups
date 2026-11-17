@@ -14,7 +14,7 @@ VERSIONS = [
     ("A", "Route + Time", [("Same-Day Luggage Delivery", "l"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Drop Off at 10 AM, Get It by 10 PM", "s")]),
     ("C", "Offer First", [("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
     ("D", "Travel Bagless", [("Travel Bagless", "h"), ("10% Off", "xl hi"), ("Same-Day Delivery", "l"), (ROUTE, "s")]),
-    ("E", "Time", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at Seoul Hotel by 10 AM", "t"), ("Receive at Busan Hotel by 10 PM", "t")]),
+    ("E", "Time", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at Seoul Hotel by 10 AM", "t gap"), ("Receive at Busan Hotel by 10 PM", "t")]),
     ("F", "App Download", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), (ROUTE, "s"), ("Download the Goodlugg App", "s")]),
     ("G", "Bagless + App", [("Travel Bagless", "h"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
     ("H", "Hands-Free", [("Hands-Free Travel", "h1"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
@@ -39,7 +39,7 @@ html,body{width:1600px;height:1100px;overflow:hidden;background:#000}
 .logo{z-index:3;position:absolute;top:40px;left:50%;height:104px;transform:translateX(-50%)}
 .copy{z-index:3;position:absolute;left:0;right:0;top:158px;height:770px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.55),0 0 3px rgba(0,0,0,.4)}
 .ln{display:block;white-space:nowrap;line-height:1.1;letter-spacing:-.015em;font-weight:800}
-.xl{font-size:230px;line-height:1}.h{font-size:176px}.h1{font-size:160px}.xl2{font-size:206px;line-height:1}.h2{font-size:140px}.h3{font-size:108px}.h4{font-size:88px}.h5{font-size:94px}.l{font-size:112px}.l2{font-size:88px}.t{font-size:66px;font-weight:600}.m{font-size:104px;font-weight:700}.s{font-size:80px;font-weight:700;margin-top:6px}
+.xl{font-size:230px;line-height:1}.h{font-size:176px}.h1{font-size:160px}.xl2{font-size:206px;line-height:1}.h2{font-size:140px}.h3{font-size:108px}.h4{font-size:88px}.h5{font-size:94px}.l{font-size:112px}.l2{font-size:88px}.t{font-size:66px;font-weight:600}.gap{margin-top:36px}.m{font-size:104px;font-weight:700}.s{font-size:80px;font-weight:700;margin-top:6px}
 .hi{color:#c7c22e}
 .app{color:#fff}
 .t1{z-index:3;position:absolute;left:36px;bottom:28px;height:120px}
