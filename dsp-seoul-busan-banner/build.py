@@ -8,6 +8,7 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DATE = "20261117"
 W, H = 1600, 1100
 ROUTE = "Seoul Hotel ↔ Busan Hotel"
+THUMBNAIL = {"C", "L"}  # three lines or fewer: still readable in the small list card
 
 # (version, label, [(text, size class)])  size classes: xl / l / m / s
 VERSIONS = [
@@ -79,14 +80,14 @@ def kill_headless():
 
 def main():
     atexit.register(kill_headless)
-    cards = []
+    cards = {"thumb": [], "detail": []}
     with tempfile.TemporaryDirectory() as profile:
         for v, label, lines in VERSIONS:
             page = HERE / f"banner_{v}.html"
             png = HERE / f"DSP_SeoulBusan_{v}_{DATE}.png"
             page.write_text(banner_html(lines), encoding="utf-8")
             shoot(page, png, profile)
-            cards.append(f'<figure><a href="{page.name}"><img src="{png.name}" width="800" height="550" alt="Version {v}"></a>'
+            cards["thumb" if v in THUMBNAIL else "detail"].append(f'<figure><a href="{page.name}"><img src="{png.name}" width="800" height="550" alt="Version {v}"></a>'
                          f'<figcaption><b>{v}</b> {html.escape(label)}<a class="dl" href="{png.name}" download>PNG</a></figcaption></figure>')
     (HERE / "index.html").write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Discover Seoul Pass banner</title>
@@ -94,13 +95,18 @@ def main():
 <style>
 body{{margin:0;padding:32px;font-family:Pretendard,-apple-system,sans-serif;color:#222;background:#fff}}
 h1{{font-size:24px;margin:0 0 20px}}
+h2{{font-size:18px;margin:32px 0 12px;color:#512a72}}h1+h2{{margin-top:0}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr));gap:24px}}
 figure{{margin:0}}figure img{{display:block;width:100%;height:auto;outline:1px solid #ddd}}
 figcaption{{display:flex;align-items:center;gap:8px;font-size:15px;margin-top:8px}}
 .dl{{margin-left:auto;color:#512a72;font-weight:700;text-decoration:none;border:1px solid #512a72;border-radius:6px;padding:4px 12px}}
 @media (max-width:700px){{body{{padding:16px}}}}
-</style></head><body><h1>Discover Seoul Pass banner</h1><div class="grid">
-{chr(10).join(cards)}
+</style></head><body><h1>Discover Seoul Pass banner</h1>
+<h2>Thumbnail</h2><div class="grid">
+{chr(10).join(cards["thumb"])}
+</div>
+<h2>Detail Images</h2><div class="grid">
+{chr(10).join(cards["detail"])}
 </div></body></html>
 """, encoding="utf-8")
 
