@@ -24,7 +24,6 @@ VERSIONS = [
     ("L", "Enjoy", [("Enjoy 10% Off", "xl2 hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
     ("M", "No More Dragging", [("No More Dragging Luggage", "h3"), ("10% Off", "xl hi"), ("Same-Day Delivery", "l"), (ROUTE, "s")]),
     ("N", "Enjoy Korea", [("Enjoy Korea Without the Luggage", "h5"), ("10% Off", "xl hi"), ("Same-Day Delivery", "l"), (ROUTE, "s")]),
-    ("O", "Don't Waste Time", [("Don't Waste Time Carrying Luggage", "h4"), ("10% Off", "xl hi"), ("Same-Day Delivery", "l"), (ROUTE, "s")]),
     ("P", "More Korea", [("More Korea, Less Luggage", "h3"), ("10% Off", "xl hi"), ("Same-Day Delivery", "l"), (ROUTE, "s")]),
     ("Q", "Go Bagless", [("Go Bagless", "h"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
     ("R", "Explore Bagless", [("Explore Korea Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
