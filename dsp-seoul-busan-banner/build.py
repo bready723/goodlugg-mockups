@@ -16,6 +16,11 @@ VERSIONS = [
     ("E", "Time", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at Seoul Hotel by 10 AM", "t"), ("Receive at Busan Hotel by 10 PM Same Day", "t")]),
     ("F", "App Download", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), (ROUTE, "s"), ("Download the Goodlugg App", "s")]),
     ("G", "Bagless + App", [("Travel Bagless", "h"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
+    ("H", "Hands-Free", [("Hands-Free Travel", "h1"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("I", "See More", [("Drop Your Bags, See More of Korea", "h4"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("J", "We Carry", [("We Carry, You Explore", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("K", "Hotel to Hotel", [("Your Bags, Hotel to Hotel", "h3"), ("10% Off", "xl hi"), ("Same-Day Delivery", "l"), (ROUTE, "s")]),
+    ("L", "Enjoy", [("Enjoy 10% Off", "xl2 hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
 ]
 
 CSS = """
@@ -25,18 +30,18 @@ CSS = """
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1600px;height:1100px;overflow:hidden;background:#000}
 .root{position:relative;width:1600px;height:1100px;overflow:hidden;font-family:Pretendard,sans-serif;-webkit-font-smoothing:antialiased}
-.ph{position:absolute;top:0;width:800px;height:1100px;background-size:cover}
-.seoul{left:0;background-image:url(seoul.jpg);background-position:50% 50%}
+.ph{position:absolute;top:0;width:800px;height:1100px;background-size:100% 100%}
+.seoul{left:0;width:830px;background-image:url(seoul.jpg);background-size:800px 1100px;background-repeat:repeat-x;z-index:1;-webkit-mask-image:linear-gradient(to right,#000 770px,transparent 830px);mask-image:linear-gradient(to right,#000 770px,transparent 830px)}
 .busan{left:800px;background-image:url(busan.jpg);background-position:50% 50%}
-.ov{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.36),rgba(0,0,0,.36) 70%,rgba(0,0,0,.18))}
-.logo{position:absolute;top:40px;left:50%;height:104px;transform:translateX(-50%)}
-.copy{position:absolute;left:0;right:0;top:158px;height:770px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.55),0 0 3px rgba(0,0,0,.4)}
+.ov{position:absolute;inset:0;z-index:2;background:linear-gradient(rgba(0,0,0,.36),rgba(0,0,0,.36) 70%,rgba(0,0,0,.18))}
+.logo{z-index:3;position:absolute;top:40px;left:50%;height:104px;transform:translateX(-50%)}
+.copy{z-index:3;position:absolute;left:0;right:0;top:158px;height:770px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.55),0 0 3px rgba(0,0,0,.4)}
 .ln{display:block;white-space:nowrap;line-height:1.1;letter-spacing:-.015em;font-weight:800}
-.xl{font-size:230px;line-height:1}.h{font-size:176px}.l{font-size:112px}.l2{font-size:88px}.t{font-size:74px;font-weight:700}.m{font-size:104px;font-weight:700}.s{font-size:80px;font-weight:700;margin-top:6px}
+.xl{font-size:230px;line-height:1}.h{font-size:176px}.h1{font-size:160px}.xl2{font-size:206px;line-height:1}.h2{font-size:140px}.h3{font-size:120px}.h4{font-size:92px}.l{font-size:112px}.l2{font-size:88px}.t{font-size:74px;font-weight:700}.m{font-size:104px;font-weight:700}.s{font-size:80px;font-weight:700;margin-top:6px}
 .hi{color:#c7c22e}
 .app{color:#fff}
-.t1{position:absolute;left:36px;bottom:28px;height:120px}
-.t2{position:absolute;right:36px;bottom:26px;height:215px}
+.t1{z-index:3;position:absolute;left:36px;bottom:28px;height:120px}
+.t2{z-index:3;position:absolute;right:36px;bottom:26px;height:215px}
 """
 
 def banner_html(lines):
