@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Goodlugg DSP banner</title><style>
+@font-face{font-family:Pretendard;font-weight:600;src:url(../fonts/Pretendard-SemiBold.otf)}
+@font-face{font-family:Pretendard;font-weight:700;src:url(../fonts/Pretendard-Bold.otf)}
+@font-face{font-family:Pretendard;font-weight:800;src:url(../fonts/Pretendard-ExtraBold.otf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1600px;height:1100px;overflow:hidden;background:#000}
+.root{position:relative;width:1600px;height:1100px;overflow:hidden;font-family:Pretendard,sans-serif;-webkit-font-smoothing:antialiased}
+.ph{position:absolute;top:0;width:800px;height:1100px;background-size:100% 100%}
+.seoul{left:0;width:830px;background-image:url(seoul.jpg);background-size:800px 1100px;background-repeat:repeat-x;z-index:1;-webkit-mask-image:linear-gradient(to right,#000 770px,transparent 830px);mask-image:linear-gradient(to right,#000 770px,transparent 830px)}
+.busan{left:800px;background-image:url(busan.jpg);background-position:50% 50%}
+.ov{position:absolute;inset:0;z-index:2;background:linear-gradient(rgba(0,0,0,.36),rgba(0,0,0,.36) 70%,rgba(0,0,0,.18))}
+.logo{z-index:3;position:absolute;top:40px;left:50%;height:104px;transform:translateX(-50%)}
+.copy{z-index:3;position:absolute;left:0;right:0;top:158px;height:770px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.55),0 0 3px rgba(0,0,0,.4)}
+.ln{display:block;white-space:nowrap;line-height:1.1;letter-spacing:-.015em;font-weight:800}
+.xl{font-size:230px;line-height:1}.h{font-size:176px}.h1{font-size:160px}.xl2{font-size:206px;line-height:1}.h2{font-size:140px}.h3{font-size:108px}.h4{font-size:88px}.h5{font-size:94px}.l{font-size:112px}.l2{font-size:88px}.t{font-size:88px;font-weight:700}.m{font-size:104px;font-weight:700}.s{font-size:80px;font-weight:700;margin-top:6px}
+.hi{color:#c7c22e}
+.app{color:#fff}
+.t1{z-index:3;position:absolute;left:36px;bottom:28px;height:120px}
+.t2{z-index:3;position:absolute;right:36px;bottom:26px;height:215px}
+</style></head>
+<body><div class="root"><div class="ph seoul"></div><div class="ph busan"></div><div class="ov"></div>
+<img class="logo" src="logo_white.png" alt="Goodlugg"><div class="copy"><span class="ln h5" contenteditable="plaintext-only" spellcheck="false">Enjoy Korea Without the Luggage</span><span class="ln xl hi" contenteditable="plaintext-only" spellcheck="false">10% Off</span><span class="ln l" contenteditable="plaintext-only" spellcheck="false">Same-Day Delivery</span><span class="ln s" contenteditable="plaintext-only" spellcheck="false">Seoul Hotel ↔ Busan Hotel</span></div>
+<img class="t1" src="tiger_sit.png" alt=""><img class="t2" src="tiger_move.png" alt=""></div></body></html>
