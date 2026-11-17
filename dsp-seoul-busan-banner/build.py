@@ -18,7 +18,6 @@ VERSIONS = [
     ("F", "App Download", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), (ROUTE, "s"), ("Download the Goodlugg App", "s")]),
     ("G", "Bagless + App", [("Travel Bagless", "h"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
     ("H", "Hands-Free", [("Hands-Free Travel", "h1"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("I", "See More", [("Drop Your Bags, See More of Korea", "h4"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
     ("J", "We Carry", [("We Carry, You Explore", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
     ("K", "Book in the App", [("Book in the App", "h2"), ("Get 10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
     ("L", "Enjoy", [("Enjoy 10% Off", "xl2 hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
