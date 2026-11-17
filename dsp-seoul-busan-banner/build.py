@@ -8,24 +8,24 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DATE = "20261117"
 W, H = 1600, 1100
 ROUTE = "Seoul Hotel ↔ Busan Hotel"
-THUMBNAIL = {"A", "B", "M", "N"}  # three lines or fewer: still readable in the small list card
+THUMBNAIL = {"A", "B", "C", "D"}  # three lines or fewer: still readable in the small list card
 
 # (version, label, [(text, size class)])  size classes: xl / l / m / s
 VERSIONS = [
     ("A", "Offer First", [("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
     ("B", "Enjoy", [("Enjoy 10% Off", "xl2 hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
-    ("C", "Route + Time", [("Same-Day Luggage Delivery", "l"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Drop Off at 10 AM, Get It by 10 PM", "s")]),
-    ("D", "Travel Bagless", [("Travel Bagless", "h"), ("10% Off", "xl hi"), ("Same-Day Delivery", "l"), (ROUTE, "s")]),
-    ("E", "Time", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at Seoul Hotel by 10 AM", "t gap"), ("Receive at Busan Hotel by 10 PM", "t")]),
-    ("F", "App Download", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), (ROUTE, "s"), ("Download the Goodlugg App", "s")]),
-    ("G", "Bagless + App", [("Travel Bagless", "h"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
-    ("H", "Hands-Free", [("Hands-Free Travel", "h1"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("I", "We Carry", [("We Carry, You Explore", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("J", "Book in the App", [("Book in the App", "h2"), ("Get 10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("K", "Explore Bagless", [("Explore Korea Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("L", "KTX Bagless", [("Ride the KTX Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("M", "Service First", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), (ROUTE, "m")]),
-    ("N", "Bagless", [("Travel Bagless", "h"), ("10% Off", "xl hi"), (ROUTE, "m")]),
+    ("C", "Service First", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), (ROUTE, "m")]),
+    ("D", "Bagless", [("Travel Bagless", "h"), ("10% Off", "xl hi"), (ROUTE, "m")]),
+    ("E", "Route + Time", [("Same-Day Luggage Delivery", "l"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Drop Off at 10 AM, Get It by 10 PM", "s")]),
+    ("F", "Travel Bagless", [("Travel Bagless", "h"), ("10% Off", "xl hi"), ("Same-Day Delivery", "l"), (ROUTE, "s")]),
+    ("G", "Time", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at Seoul Hotel by 10 AM", "t gap"), ("Receive at Busan Hotel by 10 PM", "t")]),
+    ("H", "App Download", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), (ROUTE, "s"), ("Download the Goodlugg App", "s")]),
+    ("I", "Bagless + App", [("Travel Bagless", "h"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
+    ("J", "Hands-Free", [("Hands-Free Travel", "h1"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("K", "We Carry", [("We Carry, You Explore", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("L", "Book in the App", [("Book in the App", "h2"), ("Get 10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("M", "Explore Bagless", [("Explore Korea Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("N", "KTX Bagless", [("Ride the KTX Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
 ]
 
 CSS = """
