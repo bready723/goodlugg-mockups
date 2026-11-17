@@ -8,22 +8,22 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DATE = "20261117"
 W, H = 1600, 1100
 ROUTE = "Seoul Hotel ↔ Busan Hotel"
-THUMBNAIL = {"C", "L"}  # three lines or fewer: still readable in the small list card
+THUMBNAIL = {"A", "B"}  # three lines or fewer: still readable in the small list card
 
 # (version, label, [(text, size class)])  size classes: xl / l / m / s
 VERSIONS = [
-    ("A", "Route + Time", [("Same-Day Luggage Delivery", "l"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Drop Off at 10 AM, Get It by 10 PM", "s")]),
-    ("C", "Offer First", [("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
+    ("A", "Offer First", [("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
+    ("B", "Enjoy", [("Enjoy 10% Off", "xl2 hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
+    ("C", "Route + Time", [("Same-Day Luggage Delivery", "l"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Drop Off at 10 AM, Get It by 10 PM", "s")]),
     ("D", "Travel Bagless", [("Travel Bagless", "h"), ("10% Off", "xl hi"), ("Same-Day Delivery", "l"), (ROUTE, "s")]),
     ("E", "Time", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at Seoul Hotel by 10 AM", "t gap"), ("Receive at Busan Hotel by 10 PM", "t")]),
     ("F", "App Download", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), (ROUTE, "s"), ("Download the Goodlugg App", "s")]),
     ("G", "Bagless + App", [("Travel Bagless", "h"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
     ("H", "Hands-Free", [("Hands-Free Travel", "h1"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("J", "We Carry", [("We Carry, You Explore", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("K", "Book in the App", [("Book in the App", "h2"), ("Get 10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("L", "Enjoy", [("Enjoy 10% Off", "xl2 hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
-    ("R", "Explore Bagless", [("Explore Korea Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
-    ("S", "KTX Bagless", [("Ride the KTX Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("I", "We Carry", [("We Carry, You Explore", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("J", "Book in the App", [("Book in the App", "h2"), ("Get 10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("K", "Explore Bagless", [("Explore Korea Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("L", "KTX Bagless", [("Ride the KTX Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
 ]
 
 CSS = """
