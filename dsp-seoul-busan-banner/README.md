@@ -4,6 +4,4 @@ Copy versions for the Discover Seoul Pass partner image (minimum 800 x 550, land
 
 Rebuild: `python3 build.py`
 
-Photo sources (Unsplash License, placeholders for the designer to replace):
-- seoul.jpg: https://unsplash.com/photos/a-pagoda-with-a-tall-tower-in-the-background-lMF8JnPeOFo (Venancio Dionela)
-- busan.jpg: https://unsplash.com/photos/a-yellow-and-white-train-on-a-track-next-to-a-body-of-water-YvzyuNmyUfw (Artem Korolev)
+Background: the N Seoul Tower and Busan Blueline panels are cut from the Door2Door hero image (D2D_HeroImage.png, 1420 x 1242) with the headline painted out, then enlarged. The designer should replace them with the original photos for the final set.

@@ -10,13 +10,13 @@ ROUTE = "Seoul Hotel ↔ Busan Hotel"
 
 # (version, label, [(text, size class)])  size classes: xl / l / m / s
 VERSIONS = [
-    ("A", "CEO Draft", [(ROUTE, "m"), ("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at 10 AM, Get It by 10 PM", "s")]),
+    ("A", "Route + Time", [(ROUTE, "m"), ("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at 10 AM, Get It by 10 PM", "s")]),
     ("B", "Route First", [(ROUTE, "l"), ("Same-Day Luggage Delivery", "m"), ("10% Off", "xl hi")]),
     ("C", "Offer First", [("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
-    ("D", "Travel Bagless", [("Travel Bagless", "xl"), (ROUTE, "m"), ("Same-Day Luggage Delivery 10% Off", "m hi")]),
-    ("E", "Time", [("Drop Off at 10 AM, Arrives by 10 PM", "l2"), (ROUTE, "m"), ("Same-Day Luggage Delivery 10% Off", "m hi")]),
-    ("F", "App Download", [(ROUTE, "m"), ("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s app")]),
-    ("G", "Bagless + App", [("Travel Bagless", "xl"), (ROUTE + " 10% Off", "m hi"), ("Download the Goodlugg App", "s app")]),
+    ("D", "Travel Bagless", [("Travel Bagless", "h"), (ROUTE, "m"), ("Same-Day Luggage Delivery", "m"), ("10% Off", "xl hi")]),
+    ("E", "Time", [("Drop Off at 10 AM, Arrives by 10 PM", "l2"), (ROUTE, "m"), ("Same-Day Luggage Delivery", "m"), ("10% Off", "xl hi")]),
+    ("F", "App Download", [(ROUTE, "m"), ("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
+    ("G", "Bagless + App", [("Travel Bagless", "h"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
 ]
 
 CSS = """
@@ -27,17 +27,17 @@ CSS = """
 html,body{width:1600px;height:1100px;overflow:hidden;background:#000}
 .root{position:relative;width:1600px;height:1100px;overflow:hidden;font-family:Pretendard,sans-serif;-webkit-font-smoothing:antialiased}
 .ph{position:absolute;top:0;width:800px;height:1100px;background-size:cover}
-.seoul{left:0;background-image:url(seoul.jpg);background-position:50% 18%}
-.busan{left:800px;background-image:url(busan.jpg);background-position:38% 78%}
-.ov{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.50),rgba(0,0,0,.44) 55%,rgba(0,0,0,.16) 82%,rgba(0,0,0,.10))}
-.logo{position:absolute;top:64px;left:50%;height:58px;transform:translateX(-50%)}
-.copy{position:absolute;left:0;right:0;top:150px;height:560px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.55),0 0 3px rgba(0,0,0,.4)}
+.seoul{left:0;background-image:url(seoul.jpg);background-position:50% 50%}
+.busan{left:800px;background-image:url(busan.jpg);background-position:50% 50%}
+.ov{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.36),rgba(0,0,0,.36) 70%,rgba(0,0,0,.18))}
+.logo{position:absolute;top:44px;left:50%;height:52px;transform:translateX(-50%)}
+.copy{position:absolute;left:0;right:0;top:120px;height:800px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.55),0 0 3px rgba(0,0,0,.4)}
 .ln{display:block;white-space:nowrap;line-height:1.1;letter-spacing:-.015em;font-weight:800}
-.xl{font-size:150px}.l{font-size:104px}.l2{font-size:84px}.m{font-size:76px;font-weight:700}.s{font-size:58px;font-weight:600;margin-top:10px}
+.xl{font-size:230px;line-height:1}.h{font-size:176px}.l{font-size:112px}.l2{font-size:88px}.m{font-size:104px;font-weight:700}.s{font-size:80px;font-weight:700;margin-top:6px}
 .hi{color:#c7c22e}
 .app{color:#fff}
-.t1{position:absolute;left:44px;bottom:36px;height:250px}
-.t2{position:absolute;right:40px;bottom:30px;height:330px}
+.t1{position:absolute;left:36px;bottom:28px;height:120px}
+.t2{position:absolute;right:36px;bottom:26px;height:215px}
 """
 
 def banner_html(lines):
