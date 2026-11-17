@@ -8,7 +8,7 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DATE = "20261117"
 W, H = 1600, 1100
 ROUTE = "Seoul Hotel ↔ Busan Hotel"
-THUMBNAIL = {"A", "B"}  # three lines or fewer: still readable in the small list card
+THUMBNAIL = {"A", "B", "M", "N"}  # three lines or fewer: still readable in the small list card
 
 # (version, label, [(text, size class)])  size classes: xl / l / m / s
 VERSIONS = [
@@ -24,6 +24,8 @@ VERSIONS = [
     ("J", "Book in the App", [("Book in the App", "h2"), ("Get 10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
     ("K", "Explore Bagless", [("Explore Korea Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
     ("L", "KTX Bagless", [("Ride the KTX Bagless", "h2"), ("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "s")]),
+    ("M", "Service First", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), (ROUTE, "m")]),
+    ("N", "Bagless", [("Travel Bagless", "h"), ("10% Off", "xl hi"), (ROUTE, "m")]),
 ]
 
 CSS = """
