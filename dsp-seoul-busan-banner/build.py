@@ -10,11 +10,10 @@ ROUTE = "Seoul Hotel ↔ Busan Hotel"
 
 # (version, label, [(text, size class)])  size classes: xl / l / m / s
 VERSIONS = [
-    ("A", "Route + Time", [(ROUTE, "m"), ("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at 10 AM, Get It by 10 PM", "s")]),
-    ("B", "Route First", [(ROUTE, "l"), ("Same-Day Luggage Delivery", "m"), ("10% Off", "xl hi")]),
+    ("A", "Route + Time", [("Same-Day Luggage Delivery", "l"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Drop Off at 10 AM, Get It by 10 PM", "s")]),
     ("C", "Offer First", [("10% Off", "xl hi"), ("Same-Day Luggage Delivery", "l"), (ROUTE, "m")]),
     ("D", "Travel Bagless", [("Travel Bagless", "h"), (ROUTE, "m"), ("Same-Day Luggage Delivery", "m"), ("10% Off", "xl hi")]),
-    ("E", "Time", [("Drop Off at 10 AM, Arrives by 10 PM", "l2"), (ROUTE, "m"), ("Same-Day Luggage Delivery", "m"), ("10% Off", "xl hi")]),
+    ("E", "Time", [("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Drop Off at Your Seoul Hotel by 10 AM", "t"), ("and Receive at Your Busan Hotel by 10 PM Same Day", "t")]),
     ("F", "App Download", [(ROUTE, "m"), ("Same-Day Luggage Delivery", "l"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
     ("G", "Bagless + App", [("Travel Bagless", "h"), (ROUTE, "m"), ("10% Off", "xl hi"), ("Download the Goodlugg App", "s")]),
 ]
@@ -33,7 +32,7 @@ html,body{width:1600px;height:1100px;overflow:hidden;background:#000}
 .logo{position:absolute;top:40px;left:50%;height:104px;transform:translateX(-50%)}
 .copy{position:absolute;left:0;right:0;top:158px;height:770px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.55),0 0 3px rgba(0,0,0,.4)}
 .ln{display:block;white-space:nowrap;line-height:1.1;letter-spacing:-.015em;font-weight:800}
-.xl{font-size:230px;line-height:1}.h{font-size:176px}.l{font-size:112px}.l2{font-size:88px}.m{font-size:104px;font-weight:700}.s{font-size:80px;font-weight:700;margin-top:6px}
+.xl{font-size:230px;line-height:1}.h{font-size:176px}.l{font-size:112px}.l2{font-size:88px}.t{font-size:62px;font-weight:700}.m{font-size:104px;font-weight:700}.s{font-size:80px;font-weight:700;margin-top:6px}
 .hi{color:#c7c22e}
 .app{color:#fff}
 .t1{position:absolute;left:36px;bottom:28px;height:120px}
