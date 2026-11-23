@@ -510,7 +510,119 @@
         width: auto;
       }
 
-      /* existing sections below (placeholders) */
+      /* existing sections below (real banners) */
+      .mid {
+        max-width: 810px;
+        margin: 26px auto 0;
+      }
+      .gp {
+        position: relative;
+        height: 100px;
+        background: #ddf1f1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px 10px 12px;
+        margin-bottom: 10px;
+      }
+      .gp-text {
+        height: 100%;
+        margin-left: 10px;
+      }
+      .gp-img {
+        width: 75px;
+        margin-right: 40px;
+      }
+      .gp-arrow {
+        position: absolute;
+        right: 16px;
+        font-size: 22px;
+        color: #333;
+      }
+      .hd {
+        display: block;
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+      }
+      .desk .hd {
+        height: auto;
+      }
+      .sec-title .thin {
+        font-weight: 400;
+      }
+      .sec-sub {
+        margin: -4px 16px 14px;
+        font-size: 11px;
+        font-weight: 500;
+        color: #999;
+      }
+      .evs {
+        display: flex;
+        gap: 12px;
+        padding: 0 16px 34px;
+      }
+      .ev {
+        width: 160px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+      }
+      .ev-logo {
+        height: 70px;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px 8px 0 0;
+      }
+      .ev-logo img {
+        max-width: 100%;
+      }
+      .ev-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 6px;
+        padding: 14px;
+      }
+      .ev-title {
+        font-size: 11px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        white-space: nowrap;
+      }
+      .ev-content {
+        font-size: 10px;
+        line-height: 17.380px;
+      }
+      .ev-content .hl {
+        color: #512772;
+      }
+      .ev-cta {
+        text-align: right;
+        font-size: 11px;
+      }
+      .ev-cta.purple {
+        font-weight: 700;
+        color: #512772;
+      }
+      .desk .sec-title,
+      .desk .sec-sub,
+      .desk .evs {
+        max-width: 810px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .desk .evs {
+        gap: 20px;
+      }
+
       .strip {
         margin: 16px 16px 0;
         height: 64px;
@@ -1006,10 +1118,22 @@
         );
       }
 
-      function below() {
+      function eventCard(bg, logo, logoW, title, lines, cta, purple) {
         return (
-          '<div class="strip">Goodpoint</div><div class="strip">The Hyundai Seoul</div>' +
-          '<div class="sec-title">' + t("Events and Promotions", "진행 중인 이벤트") + '</div><div class="ghost-row"><div class="ghost"></div><div class="ghost"></div></div>'
+          '<div class="ev"><div class="ev-logo" style="background:' + bg + '"><img alt="" src="img/' + logo + '" style="width:' + logoW + 'px" /></div>' +
+          '<div class="ev-text"><div><div class="ev-title">' + title + '</div><div class="ev-content">' + lines + "</div></div>" +
+          '<div class="ev-cta' + (purple ? " purple" : "") + '">' + cta + " &rsaquo;</div></div></div>"
+        );
+      }
+      function below(desk) {
+        return (
+          '<div class="mid"><div class="gp"><img class="gp-text" alt="Goodpoint" src="img/goodpoint-text.png" /><img class="gp-img" alt="" src="img/goodpoint-image.png" /><span class="gp-arrow">&rsaquo;</span></div>' +
+          '<img class="hd" alt="The Hyundai Seoul shopping bag same-day delivery" src="img/hyundai-' + (desk ? "band" : "full") + '.jpg" /></div>' +
+          '<div class="sec-title"><span class="thin">Goodlugg </span>Events</div><div class="sec-sub">Promotions running now</div>' +
+          '<div class="evs">' +
+          eventCard("#512772", "event-welcome.png", 105, "Welcome Offer: 10% OFF", 'your 1st booking,<br/><b class="hl">on any Korea services</b><br/>Up to ₩50,000 off<br/>~ Dec 31, 2026', "Get code", true) +
+          eventCard("#1c33c3", "event-visa.png", 100, "1 Bag Delivered Free", "Korea Luggage Delivery<br/>with any Visa card<br/>Applied at checkout<br/>~ Feb 28, 2027", "Book Now", false) +
+          "</div>"
         );
       }
       function hero(desk) {
@@ -1032,7 +1156,7 @@
           hero(true) +
           serviceGrid(true) +
           placesSection() +
-          below();
+          below(true);
       }
 
       function renderAll() {
