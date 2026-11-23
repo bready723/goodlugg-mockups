@@ -697,10 +697,6 @@
   <body>
     <div class="topbar">
       <h1 id="pageTitle">Book From Where You Are</h1>
-      <div class="seg" id="langSeg">
-        <button type="button" data-lang="en" class="on">EN</button>
-        <button type="button" data-lang="ko">KR</button>
-      </div>
     </div>
 
     <div class="canvas">
@@ -757,34 +753,6 @@
           promo: "",
           on: true,
           live: true,
-        },
-        {
-          code: "coex",
-          type: "hub",
-          dbType: "PARTNER_STORE",
-          en: "COEX Mall Luggage Center",
-          ko: "코엑스몰 러기지센터",
-          lineEn: "Samseong",
-          lineKo: "삼성동",
-          pillEn: "Hub",
-          pillKo: "허브",
-          promo: "",
-          on: true,
-          live: false,
-        },
-        {
-          code: "cgv-noon-square",
-          type: "hub",
-          dbType: "PARTNER_STORE",
-          en: "CGV Noon Square",
-          ko: "CGV 눈스퀘어",
-          lineEn: "Myeongdong",
-          lineKo: "명동",
-          pillEn: "Hub",
-          pillKo: "허브",
-          promo: "",
-          on: true,
-          live: false,
         },
         {
           code: "incheon-cruise",
@@ -845,6 +813,34 @@
           promo: "",
           on: true,
           live: true,
+        },
+        {
+          code: "coex",
+          type: "hub",
+          dbType: "PARTNER_STORE",
+          en: "COEX Mall Luggage Center",
+          ko: "코엑스몰 러기지센터",
+          lineEn: "Samseong",
+          lineKo: "삼성동",
+          pillEn: "Hub",
+          pillKo: "허브",
+          promo: "",
+          on: true,
+          live: false,
+        },
+        {
+          code: "cgv-noon-square",
+          type: "hub",
+          dbType: "PARTNER_STORE",
+          en: "CGV Noon Square",
+          ko: "CGV 눈스퀘어",
+          lineEn: "Myeongdong",
+          lineKo: "명동",
+          pillEn: "Hub",
+          pillKo: "허브",
+          promo: "",
+          on: true,
+          live: false,
         },
       ];
 
@@ -978,7 +974,7 @@
         var html = mobHeader() + '<div class="urlbar">goodlugg.com/locations</div><div class="va-title">' + pinSvg().replace('class="pin"', 'class="pin" style="width:18px;height:18px;vertical-align:-2px;margin-right:6px"') + t("Book From Where You Are", "지금 계신 곳에서 바로 예약") + "</div>";
         ["hub", "hotel", "cruise"].forEach(function (k) {
           var g = list.filter(function (p) {
-            return p.type === k;
+            return p.live && p.type === k;
           });
           if (!g.length) return;
           html += '<div class="va-group">' + t(TYPES[k].en, TYPES[k].ko) + "</div>";
@@ -990,6 +986,20 @@
             html += p.live ? '<a class="va-row" target="_blank" rel="noopener" href="' + href(p) + '">' + inner + "</a>" : '<div class="va-row">' + inner + "</div>";
           });
         });
+        var soon = list.filter(function (p) {
+          return !p.live;
+        });
+        if (soon.length) {
+          html += '<div class="va-group">Coming Soon</div>';
+          soon.forEach(function (p) {
+            html +=
+              '<div class="va-row"><div class="va-thumb soon"></div><div class="va-meta"><div class="va-name">' +
+              p.en +
+              '</div><div class="va-line">' +
+              p.lineEn +
+              '</div></div><span class="va-soon">Coming Soon</span></div>';
+          });
+        }
         if (!list.length) html += '<div class="empty">' + t("No places switched on", "노출 중인 장소 없음") + "</div>";
         document.getElementById("phoneAll").innerHTML = html;
       }
@@ -1059,13 +1069,6 @@
           document.getElementById("phoneAll").scrollIntoView({ behavior: "smooth", block: "center" });
         }
       });
-
-      if (/[?&]lang=ko/.test(location.search)) {
-        lang = "ko";
-        document.querySelectorAll("#langSeg button").forEach(function (b) {
-          b.classList.toggle("on", b.dataset.lang === "ko");
-        });
-      }
       render();
     </script>
   </body>
