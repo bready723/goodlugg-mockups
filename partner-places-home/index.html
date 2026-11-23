@@ -374,6 +374,24 @@
         aspect-ratio: 16 / 10;
         background: #ddd center / cover no-repeat;
       }
+      .card-photo.tint::before,
+      .va-thumb.tint::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.28);
+      }
+      .place-logo {
+        position: absolute;
+        left: 6%;
+        width: 88%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .va-thumb {
+        position: relative;
+        overflow: hidden;
+      }
       .card-photo.soon {
         background: repeating-linear-gradient(
           135deg,
@@ -780,6 +798,7 @@
         },
         {
           code: "ninetree-myeongdong-1",
+          logo: true,
           type: "hotel",
           dbType: "HOTEL",
           en: "Nine Tree by Parnas Seoul Myeongdong I",
@@ -792,6 +811,7 @@
         },
         {
           code: "ninetree-myeongdong-2",
+          logo: true,
           type: "hotel",
           dbType: "HOTEL",
           en: "Nine Tree by Parnas Seoul Myeongdong II",
@@ -862,7 +882,7 @@
       function cardHtml(p) {
         var pill = p.pillEn ? t(p.pillEn, p.pillKo) : t(TYPES[p.type].pill.en, TYPES[p.type].pill.ko);
         var photo = p.live
-          ? '<div class="card-photo" style="background-image:url(img/' + p.code + '.jpg)"><span class="type-pill">' + pill + "</span></div>"
+          ? '<div class="card-photo' + (p.logo ? " tint" : "") + '" style="background-image:url(img/' + p.code + '.jpg)">' + (p.logo ? '<img class="place-logo" alt="" src="img/' + p.code + '-logo.png" />' : "") + '<span class="type-pill">' + pill + "</span></div>"
           : '<div class="card-photo soon"><span class="type-pill">' + pill + '</span><span class="soon-pill">' + t("Coming Soon", "오픈 예정") + "</span></div>";
         var body =
           '<div class="card-body"><div class="card-name">' +
@@ -980,7 +1000,7 @@
           html += '<div class="va-group">' + t(TYPES[k].en, TYPES[k].ko) + "</div>";
           g.forEach(function (p) {
             var inner =
-              (p.live ? '<div class="va-thumb" style="background-image:url(img/' + p.code + '.jpg)"></div>' : '<div class="va-thumb soon"></div>') +
+              (p.live ? '<div class="va-thumb' + (p.logo ? " tint" : "") + '" style="background-image:url(img/' + p.code + '.jpg)">' + (p.logo ? '<img class="place-logo" alt="" src="img/' + p.code + '-logo.png" />' : "") + "</div>" : '<div class="va-thumb soon"></div>') +
               '<div class="va-meta"><div class="va-name">' + t(p.en, p.ko) + '</div><div class="va-line">' + t(p.lineEn, p.lineKo) + "</div></div>" +
               (p.live ? '<span class="va-arrow">&rsaquo;</span>' : '<span class="va-soon">' + t("Coming Soon", "오픈 예정") + "</span>");
             html += p.live ? '<a class="va-row" target="_blank" rel="noopener" href="' + href(p) + '">' + inner + "</a>" : '<div class="va-row">' + inner + "</div>";
