@@ -173,6 +173,48 @@
         color: var(--sub);
         align-items: center;
       }
+      .roll {
+        position: relative;
+        line-height: 0;
+      }
+      .roll img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .roll-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 44px;
+        font-weight: 300;
+        line-height: 1;
+        color: #fff;
+      }
+      .roll-arrow.l {
+        left: 10px;
+      }
+      .roll-arrow.r {
+        right: 10px;
+      }
+      .roll-dots {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 12px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+      .roll-dots i {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #fff;
+      }
+      .roll-dots i.on {
+        background: #c7c22e;
+      }
       .hero {
         height: 150px;
         background: linear-gradient(120deg, #512a72, #7a4aa3);
@@ -970,8 +1012,12 @@
           '<div class="sec-title">' + t("Events and Promotions", "진행 중인 이벤트") + '</div><div class="ghost-row"><div class="ghost"></div><div class="ghost"></div></div>'
         );
       }
-      function hero() {
-        return '<div class="hero">' + t("Bagless Travel<br/>in Korea", "짐 없는<br/>한국 여행") + "<small>1 / 10</small></div>";
+      function hero(desk) {
+        return (
+          '<div class="roll"><img alt="Visa and Goodlugg: 1 bag delivered free" src="img/visa-banner-' +
+          (desk ? "pc" : "m") +
+          '.jpg" /><span class="roll-arrow l">&lsaquo;</span><span class="roll-arrow r">&rsaquo;</span><span class="roll-dots"><i class="on"></i><i></i><i></i></span></div>'
+        );
       }
       function mobHeader() {
         return '<div class="hdr"><div class="lang">' + t("English", "한국어") + ' &#9662;</div><div class="logo">Good<span>lugg</span></div><div class="burger"></div></div>';
@@ -983,7 +1029,7 @@
           '<div class="hdr-desk"><div class="logo">Good<span>lugg</span></div><nav><span>' +
           [t("My Bookings", "예약확인"), t("Tracking", "트래킹"), t("Reviews", "리뷰"), t("Customer Center", "고객센터"), t("Notices", "공지사항"), t("Log In", "로그인")].join("</span><span>") +
           "</span></nav></div>" +
-          hero() +
+          hero(true) +
           serviceGrid(true) +
           placesSection() +
           below();
