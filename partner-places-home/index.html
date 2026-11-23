@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Book From Where You Are</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <style>
+      :root {
+        --purple: #512a72;
+        --purple-soft: #f4f0f8;
+        --lime: #c7c22e;
+        --ink: #222;
+        --sub: #666;
+        --meta: #999;
+        --line: #e3e3e3;
+        --bg: #f5f5f5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Pretendard, sans-serif;
+        color: var(--ink);
+        background: #ecebee;
+        word-break: keep-all;
+      }
+      button {
+        font-family: inherit;
+        cursor: pointer;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* mockup chrome */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 24px;
+        background: #fff;
+        border-bottom: 1px solid var(--line);
+      }
+      .topbar h1 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+      }
+      .seg {
+        display: inline-flex;
+        border: 1px solid var(--purple);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .seg button {
+        border: 0;
+        background: #fff;
+        color: var(--purple);
+        font-size: 13px;
+        font-weight: 600;
+        padding: 7px 14px;
+      }
+      .seg button.on {
+        background: var(--purple);
+        color: #fff;
+      }
+      .canvas {
+        padding: 28px 24px 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+        align-items: center;
+      }
+      .rowframes {
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      .frame-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .frame-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--purple);
+        letter-spacing: 0.02em;
+      }
+      .phone {
+        width: 390px;
+        min-height: 800px;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 26px;
+        border: 8px solid #1d1d1f;
+        position: relative;
+      }
+      .desk {
+        width: 1160px;
+        max-width: calc(100vw - 48px);
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #cfcfd4;
+        overflow: hidden;
+      }
+      .desk-scroll {
+        overflow-x: auto;
+      }
+      .desk-inner {
+        min-width: 1100px;
+      }
+
+      /* site header */
+      .hdr {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 12px 16px;
+      }
+      .hdr .lang {
+        font-size: 13px;
+        color: var(--sub);
+      }
+      .logo {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--purple);
+      }
+      .logo span {
+        color: var(--lime);
+      }
+      .burger {
+        justify-self: end;
+        width: 22px;
+        height: 16px;
+        border-top: 2px solid var(--ink);
+        border-bottom: 2px solid var(--ink);
+        position: relative;
+      }
+      .burger::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 5px;
+        border-top: 2px solid var(--ink);
+      }
+      .hdr-desk {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 40px;
+        border-bottom: 1px solid var(--line);
+      }
+      .hdr-desk nav {
+        display: flex;
+        gap: 22px;
+        font-size: 14px;
+        color: var(--sub);
+        align-items: center;
+      }
+      .hero {
+        height: 150px;
+        background: linear-gradient(120deg, #512a72, #7a4aa3);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 22px;
+        font-weight: 800;
+        font-size: 22px;
+        line-height: 1.25;
+        position: relative;
+      }
+      .hero small {
+        position: absolute;
+        right: 12px;
+        bottom: 10px;
+        font-size: 11px;
+        font-weight: 500;
+        background: rgba(0, 0, 0, 0.35);
+        padding: 2px 8px;
+        border-radius: 10px;
+      }
+      .desk .hero {
+        height: 220px;
+        padding: 0 60px;
+        font-size: 34px;
+      }
+
+      /* service menu (existing, unchanged) */
+      .svc {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 22px 8px;
+        padding: 30px 14px 18px;
+      }
+      .svc-item {
+        position: relative;
+        grid-column: span 2;
+        min-height: 84px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px;
+        background: #fff;
+      }
+      .svc-item.w3 {
+        grid-column: span 3;
+        min-height: 104px;
+        padding: 16px;
+      }
+      .svc-item img {
+        position: absolute;
+        right: 6px;
+        bottom: 5px;
+        height: 40px;
+      }
+      .svc-item.w3 img {
+        height: 54px;
+      }
+      .svc-name {
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.3;
+        max-width: 72%;
+      }
+      .svc-item.w3 .svc-name {
+        font-size: 14.5px;
+      }
+      .svc-sub {
+        font-size: 11px;
+        color: var(--meta);
+        margin-top: 3px;
+        max-width: 70%;
+      }
+      .bubble {
+        position: absolute;
+        top: -13px;
+        left: 10px;
+        font-size: 10.5px;
+        font-weight: 700;
+        color: #fff;
+        padding: 3px 8px;
+        border-radius: 10px;
+      }
+      .bubble.green {
+        background: #3aa55d;
+      }
+      .bubble.pink {
+        background: #e0559a;
+      }
+      .bubble.blue {
+        background: #3b7ddd;
+      }
+      .bubble.orange {
+        background: #f08a24;
+      }
+      .svc-div {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11.5px;
+        color: var(--meta);
+      }
+      .svc-div::before,
+      .svc-div::after {
+        content: "";
+        flex: 1;
+        border-top: 1px solid var(--line);
+      }
+      .svc-item.off {
+        opacity: 0.55;
+      }
+      .desk .svc-item {
+        grid-column: span 2;
+      }
+      .desk .svc-item.w3 {
+        grid-column: span 3;
+      }
+      .desk .svc {
+        grid-template-columns: repeat(12, 1fr);
+        padding: 40px 40px 24px;
+        gap: 26px 12px;
+      }
+
+      /* NEW: book from where you are */
+      .places {
+        background: var(--purple-soft);
+        padding: 20px 0 22px;
+        outline: 2px dashed transparent;
+      }
+      .places-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 0 16px;
+      }
+      .places-title {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 17px;
+        font-weight: 800;
+        color: var(--purple);
+      }
+      .pin {
+        width: 16px;
+        height: 16px;
+        flex: none;
+      }
+      .viewall {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--purple);
+        background: none;
+        border: 0;
+        padding: 0;
+      }
+      .chips {
+        display: flex;
+        gap: 6px;
+        padding: 12px 16px 12px;
+        overflow-x: auto;
+      }
+      .chip {
+        flex: none;
+        font-size: 12.5px;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 16px;
+        border: 1px solid #cdbfdc;
+        background: #fff;
+        color: var(--purple);
+      }
+      .chip.on {
+        background: var(--purple);
+        border-color: var(--purple);
+        color: #fff;
+      }
+      .cards {
+        display: flex;
+        gap: 10px;
+        padding: 0 16px 4px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+      }
+      .card {
+        flex: none;
+        width: 190px;
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        scroll-snap-align: start;
+        box-shadow: 0 1px 4px rgba(40, 20, 60, 0.12);
+        display: block;
+      }
+      .card-photo {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        background: #ddd center / cover no-repeat;
+      }
+      .card-photo.soon {
+        background: repeating-linear-gradient(
+          135deg,
+          #ece6f2,
+          #ece6f2 10px,
+          #e4dcec 10px,
+          #e4dcec 20px
+        );
+      }
+      .type-pill {
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        font-size: 10.5px;
+        font-weight: 700;
+        background: #fff;
+        color: var(--purple);
+        padding: 3px 8px;
+        border-radius: 10px;
+      }
+      .soon-pill {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        font-size: 10.5px;
+        font-weight: 700;
+        background: var(--lime);
+        color: #2b2b00;
+        padding: 3px 8px;
+        border-radius: 10px;
+      }
+      .card-body {
+        padding: 10px 12px 12px;
+      }
+      .card-name {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.3;
+        min-height: 36px;
+      }
+      .card-line {
+        font-size: 12px;
+        color: var(--sub);
+        margin-top: 4px;
+      }
+      .card-cta {
+        margin-top: 8px;
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--purple);
+      }
+      .card-cta.muted {
+        color: var(--meta);
+      }
+      .desk .places {
+        padding: 30px 40px 34px;
+      }
+      .desk .places-head,
+      .desk .chips {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .desk .places-title {
+        font-size: 22px;
+      }
+      .desk .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        padding: 0;
+        overflow: visible;
+      }
+      .desk .card {
+        width: auto;
+      }
+
+      /* existing sections below (placeholders) */
+      .strip {
+        margin: 16px 16px 0;
+        height: 64px;
+        border-radius: 10px;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--sub);
+      }
+      .desk .strip {
+        margin: 20px 40px 0;
+      }
+      .sec-title {
+        font-size: 16px;
+        font-weight: 800;
+        padding: 24px 16px 10px;
+      }
+      .desk .sec-title {
+        padding: 30px 40px 12px;
+      }
+      .ghost-row {
+        display: flex;
+        gap: 10px;
+        padding: 0 16px 28px;
+      }
+      .desk .ghost-row {
+        padding: 0 40px 40px;
+      }
+      .ghost {
+        flex: 1;
+        height: 90px;
+        border-radius: 10px;
+        background: var(--bg);
+      }
+
+      /* view all page */
+      .va-title {
+        font-size: 20px;
+        font-weight: 800;
+        padding: 18px 16px 4px;
+      }
+      .va-group {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--purple);
+        padding: 18px 16px 6px;
+      }
+      .va-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 16px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .va-thumb {
+        flex: none;
+        width: 76px;
+        height: 52px;
+        border-radius: 8px;
+        background: #ddd center / cover no-repeat;
+      }
+      .va-thumb.soon {
+        background: repeating-linear-gradient(
+          135deg,
+          #ece6f2,
+          #ece6f2 8px,
+          #e4dcec 8px,
+          #e4dcec 16px
+        );
+      }
+      .va-meta {
+        flex: 1;
+        min-width: 0;
+      }
+      .va-name {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+      .va-line {
+        font-size: 12px;
+        color: var(--sub);
+        margin-top: 2px;
+      }
+      .va-arrow {
+        font-size: 18px;
+        color: var(--purple);
+      }
+      .va-soon {
+        font-size: 11px;
+        font-weight: 700;
+        background: var(--lime);
+        color: #2b2b00;
+        padding: 3px 8px;
+        border-radius: 10px;
+        white-space: nowrap;
+      }
+      .urlbar {
+        margin: 10px 16px 0;
+        font-size: 11.5px;
+        color: var(--meta);
+        background: var(--bg);
+        border-radius: 14px;
+        padding: 5px 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* menu drawer */
+      .drawer-dim {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+      }
+      .drawer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 78%;
+        background: #fff;
+        padding: 22px 22px;
+      }
+      .drawer-close {
+        text-align: right;
+        font-size: 22px;
+        color: var(--sub);
+      }
+      .drawer a,
+      .drawer div.item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 15px 0;
+        font-size: 16px;
+        font-weight: 600;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .drawer .item.new {
+        color: var(--purple);
+        font-weight: 800;
+      }
+      .new-pill {
+        font-size: 10.5px;
+        font-weight: 800;
+        background: var(--lime);
+        color: #2b2b00;
+        padding: 2px 7px;
+        border-radius: 9px;
+      }
+
+      /* admin */
+      .admin {
+        padding: 22px 26px 26px;
+      }
+      .admin h2 {
+        margin: 0 0 14px;
+        font-size: 17px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+      th,
+      td {
+        border: 1px solid var(--line);
+        padding: 9px 10px;
+        text-align: left;
+        vertical-align: middle;
+      }
+      th {
+        background: #efefef;
+        font-weight: 700;
+      }
+      th.newcol,
+      td.newcol {
+        background: var(--purple-soft);
+      }
+      th.newcol {
+        color: var(--purple);
+      }
+      .sw {
+        width: 44px;
+        height: 24px;
+        border-radius: 12px;
+        border: 0;
+        background: #c9c9c9;
+        position: relative;
+        padding: 0;
+        vertical-align: middle;
+      }
+      .sw::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #fff;
+        transition: left 0.15s;
+      }
+      .sw.on {
+        background: var(--purple);
+      }
+      .sw.on::after {
+        left: 23px;
+      }
+      .sw:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      .warn {
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #b3261e;
+      }
+      .ord {
+        width: 46px;
+        padding: 4px 6px;
+        border: 1px solid #c9c9c9;
+        border-radius: 6px;
+        font: inherit;
+        text-align: center;
+      }
+      code {
+        font-size: 12.5px;
+        color: var(--sub);
+      }
+      .empty {
+        padding: 18px 16px;
+        font-size: 13px;
+        color: var(--meta);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <h1 id="pageTitle">Book From Where You Are</h1>
+      <div class="seg" id="langSeg">
+        <button type="button" data-lang="en" class="on">EN</button>
+        <button type="button" data-lang="ko">KR</button>
+      </div>
+    </div>
+
+    <div class="canvas">
+      <div class="rowframes">
+        <div class="frame-wrap">
+          <div class="frame-name" id="fn1"></div>
+          <div class="phone" id="phoneHome"></div>
+        </div>
+        <div class="frame-wrap">
+          <div class="frame-name" id="fn2"></div>
+          <div class="phone" id="phoneAll"></div>
+        </div>
+        <div class="frame-wrap">
+          <div class="frame-name" id="fn3"></div>
+          <div class="phone" id="phoneMenu"></div>
+        </div>
+      </div>
+
+      <div class="frame-wrap">
+        <div class="frame-name" id="fn4"></div>
+        <div class="desk">
+          <div class="desk-scroll"><div class="desk-inner" id="deskHome"></div></div>
+        </div>
+      </div>
+
+      <div class="frame-wrap">
+        <div class="frame-name" id="fn5"></div>
+        <div class="desk">
+          <div class="desk-scroll"><div class="desk-inner admin" id="admin"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var BASE = "https://www.goodlugg.com/luggage-delivery/korea-door-to-door/qr/";
+      var lang = "en";
+      var filter = "all";
+
+      var TYPES = {
+        hub: { en: "Malls and Hubs", ko: "쇼핑몰/허브", pill: { en: "Mall", ko: "쇼핑몰" } },
+        hotel: { en: "Hotels", ko: "호텔", pill: { en: "Hotel", ko: "호텔" } },
+        cruise: { en: "Cruise", ko: "크루즈", pill: { en: "Cruise", ko: "크루즈" } },
+      };
+
+      var PLACES = [
+        {
+          code: "hyundai-seoul",
+          type: "hub",
+          dbType: "PARTNER_STORE",
+          en: "The Hyundai Seoul",
+          ko: "더현대 서울",
+          lineEn: "Yeouido, 10:30 to 18:00",
+          lineKo: "여의도, 10:30~18:00",
+          promo: "",
+          on: true,
+          live: true,
+        },
+        {
+          code: "coex",
+          type: "hub",
+          dbType: "PARTNER_STORE",
+          en: "COEX Mall Luggage Center",
+          ko: "코엑스몰 러기지센터",
+          lineEn: "Samseong",
+          lineKo: "삼성동",
+          pillEn: "Hub",
+          pillKo: "허브",
+          promo: "",
+          on: true,
+          live: false,
+        },
+        {
+          code: "cgv-noon-square",
+          type: "hub",
+          dbType: "PARTNER_STORE",
+          en: "CGV Noon Square",
+          ko: "CGV 눈스퀘어",
+          lineEn: "Myeongdong",
+          lineKo: "명동",
+          pillEn: "Hub",
+          pillKo: "허브",
+          promo: "",
+          on: true,
+          live: false,
+        },
+        {
+          code: "incheon-cruise",
+          type: "cruise",
+          dbType: "CRUISE_TERMINAL",
+          en: "Incheon Port Cruise Terminal",
+          ko: "인천항 크루즈터미널",
+          lineEn: "Songdo, Incheon",
+          lineKo: "인천 송도",
+          promo: "IncheonCruise10",
+          on: true,
+          live: true,
+        },
+        {
+          code: "ninetree-myeongdong-1",
+          type: "hotel",
+          dbType: "HOTEL",
+          en: "Nine Tree by Parnas Seoul Myeongdong I",
+          ko: "나인트리 바이 파르나스 서울 명동 I",
+          lineEn: "Myeongdong",
+          lineKo: "명동",
+          promo: "",
+          on: true,
+          live: true,
+        },
+        {
+          code: "ninetree-myeongdong-2",
+          type: "hotel",
+          dbType: "HOTEL",
+          en: "Nine Tree by Parnas Seoul Myeongdong II",
+          ko: "나인트리 바이 파르나스 서울 명동 II",
+          lineEn: "Myeongdong",
+          lineKo: "명동",
+          promo: "",
+          on: true,
+          live: true,
+        },
+        {
+          code: "ninetree-insadong",
+          type: "hotel",
+          dbType: "HOTEL",
+          en: "Nine Tree by Parnas Seoul Insadong",
+          ko: "나인트리 바이 파르나스 서울 인사동",
+          lineEn: "Insadong",
+          lineKo: "인사동",
+          promo: "",
+          on: true,
+          live: true,
+        },
+        {
+          code: "westin-seoul-parnas",
+          type: "hotel",
+          dbType: "HOTEL",
+          en: "The Westin Seoul Parnas",
+          ko: "웨스틴 서울 파르나스",
+          lineEn: "Samseong",
+          lineKo: "삼성동",
+          promo: "",
+          on: true,
+          live: true,
+        },
+      ];
+
+      function t(en, ko) {
+        return lang === "ko" ? ko : en;
+      }
+      function shown() {
+        return PLACES.filter(function (p) {
+          return p.on;
+        });
+      }
+      function href(p) {
+        return BASE + p.code + "?via=site";
+      }
+      function pinSvg() {
+        return '<svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path fill="#512a72" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.800 7-13a7 7 0 0 0-7-7zm0 9.500a2.500 2.500 0 1 1 0-5 2.500 2.500 0 0 1 0 5z"/></svg>';
+      }
+
+      function cardHtml(p) {
+        var pill = p.pillEn ? t(p.pillEn, p.pillKo) : t(TYPES[p.type].pill.en, TYPES[p.type].pill.ko);
+        var photo = p.live
+          ? '<div class="card-photo" style="background-image:url(img/' + p.code + '.jpg)"><span class="type-pill">' + pill + "</span></div>"
+          : '<div class="card-photo soon"><span class="type-pill">' + pill + '</span><span class="soon-pill">' + t("Coming Soon", "오픈 예정") + "</span></div>";
+        var body =
+          '<div class="card-body"><div class="card-name">' +
+          t(p.en, p.ko) +
+          '</div><div class="card-line">' +
+          t(p.lineEn, p.lineKo) +
+          '</div><div class="card-cta' +
+          (p.live ? "" : " muted") +
+          '">' +
+          (p.live ? t("Book Here", "여기서 예약") + " &rsaquo;" : t("Coming Soon", "오픈 예정")) +
+          "</div></div>";
+        return p.live
+          ? '<a class="card" target="_blank" rel="noopener" href="' + href(p) + '">' + photo + body + "</a>"
+          : '<div class="card">' + photo + body + "</div>";
+      }
+
+      function placesSection() {
+        var list = shown();
+        if (!list.length) return "";
+        var types = ["hub", "hotel", "cruise"].filter(function (k) {
+          return list.some(function (p) {
+            return p.type === k;
+          });
+        });
+        if (filter !== "all" && types.indexOf(filter) < 0) filter = "all";
+        var chips =
+          '<button type="button" class="chip' + (filter === "all" ? " on" : "") + '" data-f="all">' + t("All", "전체") + "</button>" +
+          types
+            .map(function (k) {
+              return '<button type="button" class="chip' + (filter === k ? " on" : "") + '" data-f="' + k + '">' + t(TYPES[k].en, TYPES[k].ko) + "</button>";
+            })
+            .join("");
+        var cards = list
+          .filter(function (p) {
+            return filter === "all" || p.type === filter;
+          })
+          .map(cardHtml)
+          .join("");
+        return (
+          '<section class="places"><div class="places-head"><div class="places-title">' +
+          pinSvg() +
+          t("Book From Where You Are", "지금 계신 곳에서 바로 예약") +
+          '</div><button type="button" class="viewall">' +
+          t("View All", "전체 보기") +
+          ' &rsaquo;</button></div><div class="chips">' +
+          chips +
+          '</div><div class="cards">' +
+          cards +
+          "</div></section>"
+        );
+      }
+
+      function svcItem(cls, bubble, name, sub, img, off) {
+        return (
+          '<div class="svc-item ' + cls + (off ? " off" : "") + '">' +
+          (bubble ? '<span class="bubble ' + bubble[0] + '">' + bubble[1] + "</span>" : "") +
+          '<div class="svc-name">' + name + "</div>" +
+          (sub ? '<div class="svc-sub">' + sub + "</div>" : "") +
+          '<img alt="" src="img/' + img + '" /></div>'
+        );
+      }
+      function serviceGrid(desk) {
+        var w = "w3";
+        var s = "";
+        return (
+          '<div class="svc">' +
+          svcItem(w, ["green", "PREMIUM"], t("Door2Door Delivery<br/>across Korea", "전국 도어투도어 짐배송"), t("Any Routes", "Door2Door Delivery"), "service_d2d.png") +
+          svcItem(w, ["pink", "Ask Goodlugg AI"], t("Korea Luggage Delivery", "국내 짐배송"), t("Selected Routes", "Korea Luggage Delivery"), "standing_tiger.png") +
+          svcItem(w, ["blue", t("Global 20 Cities", "글로벌 20개 도시")], t("Hotel-Airport Delivery", "호텔-공항간 짐배송"), t("", "Hotel-Airport Delivery"), "service_sdd_small.png") +
+          svcItem(w, ["orange", t("Global 700+ Cities", "전세계 700개 이상 도시")], t("Realtime Storage", "실시간 짐보관"), t("", "Realtime Storage"), "service_rs.svg") +
+          svcItem(s, ["orange", t("Incheon Airport", "인천공항")], t("Baggage Free<br/>(for Disability)", "Baggage Free<br/>(장애인)"), "", "service_bf_disability.svg") +
+          svcItem(s, null, t("Baggage Free<br/>(for PRMs)", "Baggage Free<br/>(교통약자)"), "", "service_bf_prms.svg") +
+          svcItem(s, null, t("Dubai<br/>Delivery", "두바이 짐배송"), "", "service_icd.svg") +
+          (desk ? "" : '<div class="svc-div">' + t("Temporarily Suspended", "일시 중단") + "</div>") +
+          svcItem(s, null, "Shop Korea<br/>Deliver Global", "", "service_iss.svg", true) +
+          svcItem(s, null, t("Golf Club<br/>Delivery", "골프백 굿샷배송"), "", "service_gcd.svg", true) +
+          svcItem(s, null, t("US VIP<br/>Delivery", "미국 도시간 짐배송"), "", "service_usd.svg", true) +
+          "</div>"
+        );
+      }
+
+      function below() {
+        return (
+          '<div class="strip">Goodpoint</div><div class="strip">The Hyundai Seoul</div>' +
+          '<div class="sec-title">' + t("Events and Promotions", "진행 중인 이벤트") + '</div><div class="ghost-row"><div class="ghost"></div><div class="ghost"></div></div>'
+        );
+      }
+      function hero() {
+        return '<div class="hero">' + t("Bagless Travel<br/>in Korea", "짐 없는<br/>한국 여행") + "<small>1 / 10</small></div>";
+      }
+      function mobHeader() {
+        return '<div class="hdr"><div class="lang">' + t("English", "한국어") + ' &#9662;</div><div class="logo">Good<span>lugg</span></div><div class="burger"></div></div>';
+      }
+
+      function renderHome() {
+        document.getElementById("phoneHome").innerHTML = mobHeader() + hero() + serviceGrid(false) + placesSection() + below();
+        document.getElementById("deskHome").innerHTML =
+          '<div class="hdr-desk"><div class="logo">Good<span>lugg</span></div><nav><span>' +
+          [t("My Bookings", "예약확인"), t("Tracking", "트래킹"), t("Reviews", "리뷰"), t("Customer Center", "고객센터"), t("Notices", "공지사항"), t("Log In", "로그인")].join("</span><span>") +
+          "</span></nav></div>" +
+          hero() +
+          serviceGrid(true) +
+          placesSection() +
+          below();
+      }
+
+      function renderAll() {
+        var list = shown();
+        var html = mobHeader() + '<div class="urlbar">goodlugg.com/locations</div><div class="va-title">' + pinSvg().replace('class="pin"', 'class="pin" style="width:18px;height:18px;vertical-align:-2px;margin-right:6px"') + t("Book From Where You Are", "지금 계신 곳에서 바로 예약") + "</div>";
+        ["hub", "hotel", "cruise"].forEach(function (k) {
+          var g = list.filter(function (p) {
+            return p.type === k;
+          });
+          if (!g.length) return;
+          html += '<div class="va-group">' + t(TYPES[k].en, TYPES[k].ko) + "</div>";
+          g.forEach(function (p) {
+            var inner =
+              (p.live ? '<div class="va-thumb" style="background-image:url(img/' + p.code + '.jpg)"></div>' : '<div class="va-thumb soon"></div>') +
+              '<div class="va-meta"><div class="va-name">' + t(p.en, p.ko) + '</div><div class="va-line">' + t(p.lineEn, p.lineKo) + "</div></div>" +
+              (p.live ? '<span class="va-arrow">&rsaquo;</span>' : '<span class="va-soon">' + t("Coming Soon", "오픈 예정") + "</span>");
+            html += p.live ? '<a class="va-row" target="_blank" rel="noopener" href="' + href(p) + '">' + inner + "</a>" : '<div class="va-row">' + inner + "</div>";
+          });
+        });
+        if (!list.length) html += '<div class="empty">' + t("No places switched on", "노출 중인 장소 없음") + "</div>";
+        document.getElementById("phoneAll").innerHTML = html;
+      }
+
+      function renderMenu() {
+        var items = [t("My Bookings", "예약확인"), t("Tracking", "트래킹"), t("Reviews", "리뷰"), t("Customer Center", "고객센터"), t("Notices", "공지사항"), t("Log In", "로그인")];
+        document.getElementById("phoneMenu").innerHTML =
+          mobHeader() +
+          hero() +
+          '<div class="drawer-dim"></div><div class="drawer"><div class="drawer-close">&times;</div>' +
+          '<div class="item new">' + pinSvg() + t("Book by Location", "장소별 예약") + '<span class="new-pill">NEW</span></div>' +
+          items
+            .map(function (i) {
+              return '<div class="item">' + i + "</div>";
+            })
+            .join("") +
+          "</div>";
+      }
+
+      function renderAdmin() {
+        var rows = PLACES.map(function (p, i) {
+          return (
+            "<tr><td><code>" + p.code + "</code></td><td>" + t(p.en, p.ko) + "</td><td>" + p.dbType + "</td><td>" +
+            (p.live ? "ACTIVE" : t("Not created yet", "미생성")) +
+            "</td><td>" + (p.promo || "") + '</td><td class="newcol"><button type="button" class="sw' + (p.on ? " on" : "") + '" data-i="' + i + '" aria-label="' + t("Show on main page", "메인 노출") + '"></button>' +
+            (p.on && p.promo ? '<span class="warn">' + t("Promo code becomes public", "프로모션 코드가 공개됨") + "</span>" : "") +
+            '</td><td class="newcol"><input class="ord" value="' + (i + 1) + '" aria-label="' + t("Order", "순서") + '" /></td></tr>'
+          );
+        }).join("");
+        document.getElementById("admin").innerHTML =
+          "<h2>[D2D] " + t("QR Partner Places", "QR 제휴 매장") + "</h2><table><thead><tr><th>" +
+          [t("Code", "코드"), t("Name", "이름"), t("Type", "유형"), t("Status", "상태"), t("Promo Code", "프로모션 코드")].join("</th><th>") +
+          '</th><th class="newcol">' + t("Show on Main Page", "메인 노출") + '</th><th class="newcol">' + t("Order", "순서") + "</th></tr></thead><tbody>" + rows + "</tbody></table>";
+      }
+
+      function render() {
+        document.documentElement.lang = lang;
+        document.getElementById("pageTitle").textContent = t("Book From Where You Are", "지금 계신 곳에서 바로 예약");
+        document.getElementById("fn1").textContent = t("Main Page, Mobile", "메인, 모바일");
+        document.getElementById("fn2").textContent = t("View All Page", "전체 보기 페이지");
+        document.getElementById("fn3").textContent = t("Menu", "메뉴");
+        document.getElementById("fn4").textContent = t("Main Page, Desktop", "메인, 데스크톱");
+        document.getElementById("fn5").textContent = t("Admin", "어드민");
+        renderHome();
+        renderAll();
+        renderMenu();
+        renderAdmin();
+      }
+
+      document.addEventListener("click", function (e) {
+        var el = e.target.closest("button");
+        if (!el) return;
+        if (el.dataset.lang) {
+          lang = el.dataset.lang;
+          document.querySelectorAll("#langSeg button").forEach(function (b) {
+            b.classList.toggle("on", b === el);
+          });
+          render();
+        } else if (el.dataset.f) {
+          filter = el.dataset.f;
+          renderHome();
+        } else if (el.classList.contains("sw")) {
+          var p = PLACES[+el.dataset.i];
+          p.on = !p.on;
+          render();
+        } else if (el.classList.contains("viewall")) {
+          document.getElementById("phoneAll").scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+
+      if (/[?&]lang=ko/.test(location.search)) {
+        lang = "ko";
+        document.querySelectorAll("#langSeg button").forEach(function (b) {
+          b.classList.toggle("on", b.dataset.lang === "ko");
+        });
+      }
+      render();
+    </script>
+  </body>
+</html>
