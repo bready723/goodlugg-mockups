@@ -881,10 +881,6 @@
           <div class="frame-name" id="fn2"></div>
           <div class="phone" id="phoneAll"></div>
         </div>
-        <div class="frame-wrap">
-          <div class="frame-name" id="fn3"></div>
-          <div class="phone" id="phoneMenu"></div>
-        </div>
       </div>
 
       <div class="frame-wrap">
@@ -1194,20 +1190,6 @@
         document.getElementById("phoneAll").innerHTML = html;
       }
 
-      function renderMenu() {
-        var items = [t("My Bookings", "예약확인"), t("Tracking", "트래킹"), t("Reviews", "리뷰"), t("Customer Center", "고객센터"), t("Notices", "공지사항"), t("Log In", "로그인")];
-        document.getElementById("phoneMenu").innerHTML =
-          mobHeader() +
-          hero() +
-          '<div class="drawer-dim"></div><div class="drawer"><div class="drawer-close">&times;</div>' +
-          '<div class="item new">' + pinSvg() + t("Book by Location", "장소별 예약") + '<span class="new-pill">NEW</span></div>' +
-          items
-            .map(function (i) {
-              return '<div class="item">' + i + "</div>";
-            })
-            .join("") +
-          "</div>";
-      }
 
       function renderAdmin() {
         var rows = PLACES.map(function (p, i) {
@@ -1230,12 +1212,10 @@
         document.getElementById("pageTitle").textContent = t("Book From Where You Are", "지금 계신 곳에서 바로 예약");
         document.getElementById("fn1").textContent = t("Main Page, Mobile", "메인, 모바일");
         document.getElementById("fn2").textContent = t("View All Page", "전체 보기 페이지");
-        document.getElementById("fn3").textContent = t("Menu", "메뉴");
         document.getElementById("fn4").textContent = t("Main Page, Desktop", "메인, 데스크톱");
         document.getElementById("fn5").textContent = t("Admin", "어드민");
         renderHome();
         renderAll();
-        renderMenu();
         renderAdmin();
       }
 
