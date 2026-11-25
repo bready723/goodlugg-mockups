@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KD Location Not Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 32px 16px 64px;
+        background: #fafafa;
+        color: #222;
+        font-family: Poppins, system-ui, sans-serif;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0 auto 28px;
+        max-width: 1240px;
+        color: #512a72;
+      }
+      .group {
+        max-width: 1240px;
+        margin: 0 auto 44px;
+      }
+      .group h2 {
+        font-size: 16px;
+        margin: 0 0 14px;
+      }
+      .strip {
+        display: flex;
+        gap: 28px;
+        overflow-x: auto;
+        padding-bottom: 12px;
+      }
+      .col {
+        flex: 0 0 auto;
+      }
+      .cap {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #666;
+      }
+      .cap.new {
+        color: #512a72;
+      }
+
+      .phone {
+        position: relative;
+        width: 380px;
+        height: 780px;
+        background: #ececec;
+        border: 1px solid #d5d5d5;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+      .top {
+        height: 56px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        font-weight: 700;
+        font-size: 24px;
+        letter-spacing: -0.5px;
+      }
+      .top .g {
+        color: #512a72;
+      }
+      .top .l {
+        color: #c7c22e;
+      }
+      .top .menu {
+        position: absolute;
+        right: 16px;
+        font-size: 20px;
+        color: #333;
+        font-weight: 400;
+      }
+      .hero {
+        background: linear-gradient(135deg, #5a6b7a, #8a8f98 55%, #6b5a4a);
+        color: #fff;
+        padding: 14px 16px 16px;
+        text-align: center;
+      }
+      .hero b {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .steps {
+        display: flex;
+        margin-top: 14px;
+        font-size: 10.5px;
+        font-weight: 600;
+        line-height: 1.05;
+        align-items: center;
+      }
+      .steps span {
+        flex: 1;
+        padding: 7px 4px;
+      }
+      .steps .on {
+        background: #fff;
+        color: #222;
+        border-radius: 20px;
+      }
+      .body {
+        padding: 22px 20px;
+      }
+      .ind {
+        font-size: 13px;
+        font-weight: 700;
+        color: #6c757d;
+        margin-bottom: 12px;
+      }
+      .chat {
+        font-size: 13px;
+        line-height: 1.5;
+        color: #333;
+      }
+      .pick {
+        background: #f8f9fa;
+        border: 2px dashed #dee2e6;
+        border-radius: 12px;
+        padding: 18px;
+        margin: 16px 0 0;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .sel {
+        background: #f8f9fa;
+        border: 2px solid #667eea;
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin: 14px 0 26px;
+        font-size: 11.5px;
+        color: #333;
+      }
+      .sel .k {
+        color: #667eea;
+        font-weight: 600;
+        font-size: 10.5px;
+        letter-spacing: 0.4px;
+      }
+      .sel .n {
+        font-weight: 700;
+        font-size: 13.5px;
+        margin: 4px 0 2px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .sel .chg {
+        background: #667eea;
+        color: #fff;
+        border-radius: 8px;
+        padding: 2px 10px;
+        font-size: 10.5px;
+        font-weight: 600;
+      }
+      .sel .ad {
+        color: #666;
+        margin-bottom: 8px;
+        max-width: 220px;
+      }
+      .badge {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 2px 10px;
+        border-radius: 12px;
+        background: #fff8e1;
+        border: 1px solid #f3d27a;
+        color: #7a5a00;
+        font-weight: 600;
+        font-size: 10.5px;
+      }
+
+      /* New: D2D fallback under the Select a location button */
+      .d2d-a {
+        margin-top: 12px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.6;
+        color: #6c757d;
+      }
+      .d2d-a a,
+      .d2d-b a {
+        color: #667eea;
+        font-weight: 600;
+        text-decoration: none;
+        display: block;
+      }
+      .d2d-b {
+        margin-top: 12px;
+        padding: 12px 14px;
+        background: #fff;
+        border: 1px solid #e3e6f5;
+        border-radius: 12px;
+        font-size: 12px;
+        line-height: 1.6;
+        color: #333;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .d2d-b .ico {
+        font-size: 20px;
+      }
+
+      .nw {
+        white-space: nowrap;
+      }
+
+      /* Bottom sheet */
+      .dim {
+        position: absolute;
+        inset: 56px 0 0;
+        background: rgba(0, 0, 0, 0.45);
+      }
+      .blur {
+        filter: blur(2px);
+      }
+      .sheet {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        border-radius: 22px 22px 0 0;
+        padding: 20px 20px 26px;
+      }
+      .sheet .t {
+        text-align: center;
+        font-weight: 600;
+        font-size: 16px;
+        position: relative;
+      }
+      .sheet .t i {
+        position: absolute;
+        top: -2px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #f1f1f1;
+        font-style: normal;
+        font-size: 12px;
+        line-height: 28px;
+        color: #555;
+      }
+      .sheet .t .bk {
+        left: 0;
+      }
+      .sheet .t .cl {
+        right: 0;
+      }
+      .sheet .s {
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+        margin: 8px 0 16px;
+      }
+      .inp {
+        border: 2px solid #e0a030;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
+      .ac {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        font-size: 12px;
+        color: #666;
+      }
+      .ac .nm {
+        font-weight: 600;
+        color: #667eea;
+        font-size: 12.5px;
+        text-decoration: none;
+        display: block;
+      }
+      .ac .cp {
+        font-size: 11px;
+        color: #999;
+        margin-bottom: 2px;
+      }
+      .ac.d2d {
+        border-color: #c9d0f7;
+        background: #f8f9ff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>KD Location Not Found</h1>
+
+    <div class="group">
+      <h2>From</h2>
+      <div class="strip" id="g1"></div>
+    </div>
+    <div class="group">
+      <h2>To</h2>
+      <div class="strip" id="g2"></div>
+    </div>
+    <div class="group">
+      <h2>No Search Results</h2>
+      <div class="strip" id="g3"></div>
+    </div>
+
+    <script>
+      const D2D = "https://www.goodlugg.com/luggage-delivery/korea-door-to-door";
+      const topBar = `<div class="top"><span class="g">Good</span><span class="l">lugg</span><span class="menu">&#9776;</span></div>`;
+      const hero = `<div class="hero"><b>Book Korea Luggage Delivery</b>
+        <div class="steps"><span class="on">Booking<br>information</span><span>Customer<br>information</span><span>Payment</span></div></div>`;
+      const fromChat = `<div class="ind">From</div><div class="chat">👋 Hello!<br>We'll help you with your luggage delivery booking. First where would you like to drop off your luggage?</div>`;
+      const pick = `<div class="pick">📍 Select a location</div>`;
+      const lineA = `<div class="d2d-a">Can’t find your place here?<a href="${D2D}" target="_blank" rel="noopener">Book any other address in Korea <span class="nw">with Door-to-Door →</span></a></div>`;
+      const lineB = `<div class="d2d-b"><span class="ico">🚚</span><div>Can’t find your place here?<a href="${D2D}" target="_blank" rel="noopener">Book any other address in Korea <span class="nw">with Door-to-Door →</span></a></div></div>`;
+      const sel = `<div class="sel"><div class="k">SELECTED LOCATION</div>
+        <div class="n"><span>🏨 SIGNIEL BUSAN</span><span class="chg">Change</span></div>
+        <div class="ad">30 Dalmaji-gil, Haeundae, Busan, South Korea</div>
+        Drop off your bags at the hotel front desk.<br><span class="badge">Hotel guests only</span></div>`;
+      const toChat = `<div class="ind">To</div><div class="chat">📍 Great! So where would you like it delivered?</div>`;
+
+      const fromScreen = (extra) => `${topBar}${hero}<div class="body">${fromChat}${pick}${extra}</div>`;
+      const toInner = (extra) => `<div class="body">${fromChat}${sel}${toChat}${pick}${extra}</div>`;
+      const toScreen = (extra) => `${topBar}${toInner(extra)}`;
+      const sheet = (extra) => `${topBar}<div class="blur">${toInner("")}</div><div class="dim"></div>
+        <div class="sheet"><div class="t"><i class="bk">←</i>Search<i class="cl">✕</i></div>
+        <div class="s">Please search by hotel name</div>
+        <div class="inp">stay</div>
+        <div class="ac">No search results found</div>
+        <div class="ac"><span>🔍</span><span class="nm">Search for “stay”</span></div>${extra}</div>`;
+      const d2dRow = `<div class="ac d2d"><span>🚚</span><div><div class="cp">Not a place we deliver to with this service?</div><a class="nm" href="${D2D}" target="_blank" rel="noopener">Book any address in Korea <span class="nw">with Door-to-Door →</span></a></div></div>`;
+
+      const col = (cap, html, isNew) =>
+        `<div class="col"><div class="cap${isNew ? " new" : ""}">${cap}</div><div class="phone">${html}</div></div>`;
+
+      document.getElementById("g1").innerHTML =
+        col("Current", fromScreen("")) + col("Option A", fromScreen(lineA), 1) + col("Option B", fromScreen(lineB), 1);
+      document.getElementById("g2").innerHTML =
+        col("Current", toScreen("")) + col("Option A", toScreen(lineA), 1) + col("Option B", toScreen(lineB), 1);
+      document.getElementById("g3").innerHTML = col("Current", sheet("")) + col("Proposed", sheet(d2dRow), 1);
+    </script>
+  </body>
+</html>
